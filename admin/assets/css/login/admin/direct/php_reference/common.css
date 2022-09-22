@@ -1,0 +1,140 @@
+/***********
+
+
+*********/
+.direct_html {
+
+}
+.direct_html .direct_html_inner {
+
+}
+
+.direct_html .direct_html_inner h1 {
+	margin: 30px 0 0 30px;
+	font-size: 24px;
+}
+
+/**********
+
+************/
+.direct_html .direct_html_inner .content_block {
+	border-top: solid 1px #d7d7d7;
+	padding: 30px 30px 0px 30px;
+	margin: 30px 0 0px 0;
+}
+.direct_html .direct_html_inner .content_block .content_block_flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.direct_html .direct_html_inner .content_block h2 {
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+}
+.direct_html .direct_html_inner .content_block .content_block_flex .left {
+	margin: 0 10px 0 10px;
+	flex-basis: 50%;
+	min-width:0;
+}
+.direct_html .direct_html_inner .content_block .content_block_flex .left ul {
+	padding: 0px 0px 0px 20px;
+	margin: 0;
+	list-style: none;
+}
+
+.direct_html .direct_html_inner .content_block .content_block_flex .left .option {
+
+}
+.direct_html .direct_html_inner .content_block .content_block_flex .left ul li {
+	margin: 15px 0 15px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+.direct_html .direct_html_inner .content_block .content_block_flex .right {
+	margin: 0 10px 0 10px;
+	flex-basis: 50%;
+	min-width:0;
+}
+.direct_html .direct_html_inner .content_block .content_block_flex textarea {
+
+}
+
+/**************
+コードブロック
+**************/
+.code_block {
+	background-color: #505669;
+	border-radius: 7px;
+	color: #C2C9D1;
+}
+.code_block .code_block_top {
+	background-color: #3D4255;
+	border-radius: 6px 6px 0 0;
+	padding: 5px 10px 5px 10px;
+}
+.code_block .code_block_top .code_block_top_title {
+	font-size: 14px;
+	color: #A4ACB7;
+}
+.code_block pre {
+	font-size: 14px;
+	padding: 5px 10px 5px 10px;
+}
+.code_block pre code {
+	font-family: "游ゴシック体","Yu Gothic",YuGothic,"ヒラギノ角ゴシック Pro","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+white-space: pre-wrap;
+word-wrap: break-word;
+tab-size:2;
+}
+
+/*****************
+
+*********************/
+.code_comment_color {
+	color: rgb(98, 230, 80);
+}
+.code_1_color {
+	color: rgb(255, 147, 55);
+}
+.code_2_color {
+	color: rgb(87, 200, 223);
+}
+.code_3_color {
+	color: rgb(109, 158, 228);
+}
+.code_4_color {
+	color: rgb(214, 123, 148);
+}
+.code_5_color {
+	color: rgb(98, 230, 80);
+}
+.code_6_color {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
