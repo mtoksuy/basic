@@ -1,0 +1,151 @@
+
+
+
+.header .header_inner a {
+	color: #292f33;
+}
+.header .header_inner a:visited {
+	color: #292f33;
+}
+
+
+
+/*******
+login
+*******/
+.login {
+	width: 620px;
+	margin: 100px auto;
+}
+
+.login .login_inner {
+
+}
+.login .login_inner h2 {
+	margin: 0 0 15px 0;
+	text-align: center;
+	font-weight: 500;
+}
+
+.login .login_inner .login_form {
+
+}
+.login .login_inner .login_form .box {
+	margin: 0 0 15px 0;
+	position: relative;
+}
+.login .login_inner .login_form {
+
+}
+.login .login_inner .login_form input {
+	background-color: #fff;
+	border: 1px solid #e1e8ed;
+	border-radius: 5px;
+	color: #474747;
+	box-sizing: border-box;
+	font-size: 82%;
+	margin: 0;
+	outline: 0 none;
+	padding: 15px;
+	transition: background 0.2s linear 0s;
+	width: 100%;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.login .login_inner .login_form  input[type="email"] {
+
+}
+.login .login_inner .login_form  input[type="password"] {
+
+}
+.login .login_inner .login_form .login_form_button {
+	background-color: #48BF84;
+	border: medium none #ff3f3f;
+	border-radius: 5px;
+	color: #fcfcfc;
+	margin: 30px 0 15px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 50px;
+	position: relative;
+	width: 100%;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+
+
+.real_time_check {
+	display: block;
+	left: 101%;
+	position: absolute;
+	top: 9px;
+	width: 200px;
+}
+
+
+
+
+
+.registration_button a {
+	background-color: #3C93FF;
+	border: 1px solid #3C93FF;
+	border-radius: 2px;
+	color: #fcfcfc;
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	padding: 20px;
+	position: relative;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************
+1028px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 1028px) {
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+	.login {
+		width: 100%;
+		margin: 0 auto;
+	}
+	
+	.login .login_inner {
+		margin: 0 5px 0 5px;	
+	}
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}

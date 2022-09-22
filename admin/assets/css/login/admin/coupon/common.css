@@ -1,0 +1,44 @@
+/********
+クーポン
+********/
+.coupon {
+
+}
+.coupon .coupon_inner {
+	margin: 30px;
+}
+.coupon .coupon_inner .coupon_inner_box {
+
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit {
+	text-align: left;
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit .coupon_submit_inner {
+	width: 430px;
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit .coupon_submit_inner h2 {
+	text-align: left;
+	display: inline-block;
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit .coupon_submit_inner input {
+	padding: 5px;
+	font-size: 24px;
+	width: 240px;
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit .coupon_submit_inner .coupon_submit_box {
+	text-align: right;
+	position: relative;
+}
+.coupon .coupon_inner .coupon_inner_box .coupon_submit .coupon_submit_inner .coupon_submit_box .coupon_submit_box_use {
+	position: relative;
+	border: solid 0px #e63870;
+	display: inline-block;
+	background-color: #1EBC4D;
+	color: #ffffff;
+	border-radius: 3px;
+	right: 10px;
+	font-size: 16px;
+	padding: 5px 10px 5px 10px;
+	cursor: pointer;
+	text-align: right;
+}

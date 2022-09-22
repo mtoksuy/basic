@@ -1,0 +1,102 @@
+
+
+/****************
+プロフィール設定
+****************/
+.profile_edit {
+	position: relative;
+}
+.profile_edit .profile_edit_inner {
+	position: relative;
+}
+
+/************************
+プロフィール設定 フォーム
+************************/
+.profile_edit .profile_edit_inner .account_form {
+	margin: 30px auto;
+	width: 95%;
+	position: relative;
+}
+.profile_edit .profile_edit_inner .account_form .control_group {
+	margin: 30px 0;
+	position: relative;
+}
+.profile_edit .profile_edit_inner .account_form .control_group .controls {
+	position: relative;
+}
+.profile_edit .profile_edit_inner .account_form .control_group .controls input[type="text"] {
+	color: #3a3e40;
+	padding: 10px;
+	width: 240px;
+	font-size: 18px;
+	box-sizing: border-box;
+	border-radius: 2px;
+	border: 1px solid #a5a5a5;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.profile_edit .profile_edit_inner .account_form .control_group .controls textarea {
+	color: #3a3e40;
+	padding: 10px;
+	width: 80%;
+	font-size: 18px;
+	height: 200px;
+	box-sizing: border-box;
+	border-radius: 2px;
+	border: 1px solid #a5a5a5;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.submit {
+	cursor: pointer;
+	color: #fcfcfc;
+	background-color: #48BF84;
+	margin: 10px 0 30px 0;
+	padding: 18px;
+	width: 80%;
+	font-size: 18px;
+	box-sizing: border-box;
+	border-radius: 2px;
+	border: 0px solid #a5a5a5;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+
+
+
+
+/**************
+1024px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.profile_edit .profile_edit_inner .account_form .control_group .controls input[type="text"] {
+		width: 100%;
+		box-sizing: border-box;
+	}
+}
+
+
+/**************
+375px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 375px) {
+	.admin_right {
+		width: 183px;
+	}
+	.profile_edit .profile_edit_inner .account_form .control_group .controls textarea {
+		width: 100%;
+	}
+}
+
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+	.admin_right {
+		width: 128px;
+	}
+}
+
