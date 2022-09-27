@@ -83,21 +83,24 @@ function obj_var_dump($name, $val) {
 // ローカル環境
 if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	// デフォルト変数生成
-	define('HTTP', 'http://localhost/amatem/');
-	define('PATH', dirname(__FILE__).'/');
+	define('HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.'basic/');
+	define('ROOT_DIR', 'basic');
+
+//	define('HTTP', 'http://localhost/basic/'); 例
+	define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+	$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+	define('PATH', $PATH);
 	define('INTERNAL_PATH', dirname(__FILE__).'/');
-	define('TITLE', 'あまてむ - モノを通じて人と人が繋がる。');
-	define('META_KEYWORDS', '');
-	define('META_DESCRIPTION', 'Amazonでお買い物する際のお助け支援サイトあまてむ。パソコンやカメラ、キャンプ用品などのあらゆるAmazonカテゴリー全てを網羅して徹底的な比較・検討ができるモノのSaaSを目指してます。');
-	define('TWITTER_ID', '');
+	define('TITLE', 'basic サイト構築するならベーシック。世界一簡単なCMS');
+	define('META_DESCRIPTION', '概要');
 }
 	// 本番環境
 	else {
-		// cron対策
 		if($_SERVER["HTTP_HOST"]) {
 			define('HTTP', 'https://'.$_SERVER["HTTP_HOST"].'/');
 			define('PATH', $_SERVER["DOCUMENT_ROOT"].'/');
 		}
+			// cron対策
 			else {
 				define('HTTP', 'https://amatem.jp/');
 				define('PATH', '/var/www/html/');
@@ -105,11 +108,7 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 		// デフォルト変数生成
 		define('INTERNAL_PATH', $_SERVER["DOCUMENT_ROOT"]);
 		define('TITLE', 'あまてむ - モノを通じて人と人が繋がる。');
-		define('META_KEYWORDS', '');
 		define('META_DESCRIPTION', 'Amazonでお買い物する際のお助け支援サイトあまてむ。パソコンやカメラ、キャンプ用品などのあらゆるAmazonカテゴリー全てを網羅して徹底的な比較・検討ができるモノのSaaSを目指してます。');
-		define('TWITTER_ID', '');
-		define('amatem_cache_server_ip_address', '118.27.102.63');
-		define('amatem_cache_server_http', 'http://118.27.102.63/');
 	}
 
 /********************
