@@ -1,9 +1,5 @@
 <?php
 echo 'お問い合わせ';
-/*
-// core読み込み
-require_once('../core.php');
-
 if($_POST['submit'] == '確認') {
 	// テンプレート読み込み
 	require_once(PATH.'view/contact/confirm_template.php');
@@ -22,7 +18,8 @@ if($_POST['submit'] == '確認') {
 		}
 			else {
 				// テンプレート読み込み
-				require_once(PATH.'view/contact/template.php');
+				require_once(PATH.'app/view/'.$controller_query.'/template.php');
 			}
-*/
+echo 'お問い合わせ';
+echo 'お問い合わせ';
 ?>
