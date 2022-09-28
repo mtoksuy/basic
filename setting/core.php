@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL & ~E_NOTICE);
 
 // 本番
-ini_set('display_errors', 0);
+//ini_set('display_errors', 0);
 
 /*********
 ini_set設定
@@ -77,16 +77,27 @@ function obj_var_dump($name, $val) {
     echo '<pre>'.$ret.'</pre>';
 }
 
+
+/***************************************************************
+ * ローカルと本番環境でどのディレクトリでも正常に動くように調整
+ ***************************************************************/
+// index.php削除
+$SCRIPT_NAME = preg_replace('/\/index.php/', '', $_SERVER['SCRIPT_NAME']);
+// 先頭のスラッシュ削除
+$SCRIPT_NAME = preg_replace('/^\//', '', $SCRIPT_NAME);
+// ROOT_DIR生成
+$ROOT_DIR = $SCRIPT_NAME;
+// $SCRIPT_NAME 中身があれば文末にスラッシュ追加
+if($SCRIPT_NAME) {$SCRIPT_NAME = $SCRIPT_NAME.'/';}
+
 /********************************
  * ローカルと本番環境のpathを吸収
  *******************************/
 // ローカル環境
 if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	// デフォルト変数生成
-	define('HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.'basic/');
-	define('ROOT_DIR', 'basic');
-
-//	define('HTTP', 'http://localhost/basic/'); 例
+	define('HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.$SCRIPT_NAME);
+	define('ROOT_DIR', $ROOT_DIR);
 	define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 	$PATH = preg_replace('/setting/', '', dirname(__FILE__));
 	define('PATH', $PATH);
@@ -97,7 +108,7 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	// 本番環境
 	else {
 		if($_SERVER["HTTP_HOST"]) {
-			define('HTTP', 'https://'.$_SERVER["HTTP_HOST"].'/');
+			define('HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.$SCRIPT_NAME);
 			define('PATH', $_SERVER["DOCUMENT_ROOT"].'/');
 		}
 			// cron対策
@@ -106,6 +117,8 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 				define('PATH', '/var/www/html/');
 			}
 		// デフォルト変数生成
+		define('ROOT_DIR', $ROOT_DIR);
+		define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 		define('INTERNAL_PATH', $_SERVER["DOCUMENT_ROOT"]);
 		define('TITLE', 'あまてむ - モノを通じて人と人が繋がる。');
 		define('META_DESCRIPTION', 'Amazonでお買い物する際のお助け支援サイトあまてむ。パソコンやカメラ、キャンプ用品などのあらゆるAmazonカテゴリー全てを網羅して徹底的な比較・検討ができるモノのSaaSを目指してます。');
