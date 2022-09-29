@@ -1,13 +1,15 @@
 <?php
 // core読み込み
-require_once('setting/core.php');
-//require_once('setting/autoLoader.php'); // 後で実装
-// 必要な変数
+require_once('setting/config_core.php');
+require_once('setting/model_autoLoader.php'); // 後で実装
+// 必要な変数定義
 $controller_query = '';
-
+$theme_name      = '';
+/*
 pre_var_dump(HTTP);
 pre_var_dump(ROOT_DIR);
 pre_var_dump(FULL_HTTP);
+*/
 
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
@@ -29,26 +31,41 @@ foreach($array_parse_uri as $kye => $value) {
 		}
 }
 
-/*******
-// setup
-*******/
+/***********
+// setup遷移
+***********/
+// config.phpがある場合
 if(file_exists(PATH.'setting/config.php')) {
 	require_once('setting/config.php');
 }
+	// config.phpがない場合
 	else {
-		if(preg_match('/setup/', FULL_HTTP)) {
-			
+		// urlにsetupがある場合何もしない
+		if(preg_match('/\/setup\//', FULL_HTTP)) {
+
 		}
+			// urlにsetupがない場合setupに遷移する
 			else {
 				header('Location: '.HTTP.'setup/');
 				exit;
 			}
 	}
-
-// app/controller/配下に同名のPHPファイルがないか探す。
-if(file_exists(PATH.'app/controller/'.$controller_query.'/index.php')) {
+/****
+setup
+*****/
+if($controller_query == 'setup') {
 	// コントローラー読み込み
-	require_once(PATH.'app/controller/'.$controller_query.'/index.php');
+	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+	exit;
+}
+
+/*******
+通常遷移
+********/
+// app/controller/配下に同名のPHPファイルがないか探す。
+if(file_exists(PATH.'app/theme/'.$theme_name.'/controller/'.$controller_query.'/index.php')) {
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/'.$theme_name.'/controller/'.$controller_query.'/index.php');
 }
 	else {
 		pre_var_dump('エラー');
