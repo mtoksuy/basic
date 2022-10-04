@@ -1,5 +1,9 @@
 <?php
 class basic {
+	// テスト
+	 public static function test() {
+	 var_dump('テスト');
+	}
 	//-------
 	// DB接続
 	//-------
@@ -20,7 +24,7 @@ class basic {
 	 public static function query($query) {
 		global $db_config_array;
 		// DB接続
-		$db = model_db::db_conect($db_config_array);
+		$db = basic::db_conect($db_config_array);
 
 		if(preg_match('/INSERT INTO/', $query)) {
 			$query_pattern = 'INSERT';
@@ -174,5 +178,143 @@ class basic {
 	        return ;
 	    }
 	}
-
+	//---------------------
+	// configファイル生成
+	//----------------------
+	 public static function config_file_create($post) {
+	 	$config_content = "<?php 
+// ローカル開発
+if(\$_SERVER['HTTP_HOST'] == 'localhost') {
+		\$database_name = '".$post['database_name']."';
+		\$host_name         = '".$post['database_host']."';
+		\$user_name         = '".$post['database_user']."';
+		\$password           = '".$post['database_password']."';
+}
+	// 本番
+	else {
+		\$database_name = '".$post['database_name']."';
+		\$host_name         = '".$post['database_host']."';
+		\$user_name         = '".$post['database_user']."';
+		\$password           = '".$post['database_password']."';
+	}
+\$db_config_array = array(
+	'default' => array(
+		'type'             => 'mysql',                     //
+		'profiling'       => 'true',                       // 
+		'table_prefix' => '',                              // 
+		'charset'        => 'utf8',                       // 
+		'connection'   => array(                      // 
+			'database'  => \$database_name, // 
+			'hostname' => \$host_name,         // 
+			'username' => \$user_name,         // 
+			'password'  => \$password,           //
+		),
+	'charset' => 'utf8mb4',    // charaset をutf8mb4に指定して追加
+	),
+);";
+	 	// ファイルに書き込む
+	 	file_put_contents(PATH.'setting/config.php', $config_content);
+	}
+	//-----------------
+	// DB接続チェック
+	//-----------------
+	 public static function db_conect_check($db_config_array) {
+		$db = new mysqli($db_config_array['default']['connection']['hostname'],$db_config_array['default']['connection']['username'],$db_config_array['default']['connection']['password'], $db_config_array['default']['connection']['database']);
+		if ($db->connect_error) {
+			$connect_check = false;
+		}
+			else {
+				$connect_check = true;
+			}
+		return $connect_check;
+	}
+	//-------------------
+	// basic_idチェック
+	//-------------------
+	public static function basic_id_check($post) {
+		// チェック変数
+		$user_basic_id_check = true;
+		// 半角英数字(-_含む)だけか調べる
+		$pattern = '/^[a-zA-Z0-9_-]+$/';
+		if(preg_match($pattern, $post["basic_id"], $basic_id_array)) {
+			$signup_basic_id_res = basic::query("
+				SELECT *
+				FROM user
+				WHERE basic_id = '".$post["basic_id"]."'");
+			foreach($signup_basic_id_res as $key => $value) {
+				$user_basic_id_check = false;
+			}
+		}
+			else {
+				$user_basic_id_check = false;
+			}
+		return $user_basic_id_check;
+	}
+	//---------------------------------
+	//メールアドレスをチェックする
+	//---------------------------------
+	public static function email_check($post) {
+		// チェック変数
+		$user_email_check = true;
+		// 正しいメールアドレスかどうか調べる関数
+		$user_email_check = library_validateemail_basis::validate_email($post["email"]);
+		if($user_email_check) {
+			$signup_email_res = model_db::query("
+				SELECT *
+				FROM user
+				WHERE email = '".$post["email"]."'");
+			foreach($signup_email_res as $key => $value) {
+				$user_email_check = false;
+			}
+		}
+			else {
+				$user_email_check = false;
+			}
+		return $user_email_check;
+	}
+	//---------------------------
+	//パスワードをチェックする
+	//---------------------------
+	public static function password_check($post) {
+		// チェック変数
+		$user_password_check = true;
+		// 半角英数字だけか調べる
+		$pattern = '/^[a-zA-Z0-9_-]+$/';
+		if(preg_match($pattern, $post["password"], $password_array)) {
+			$password_number = strlen($post["password"]);
+			// 4文字未満ならアウト
+			if($password_number < 4) {
+					$user_password_check = false;
+			}
+		}
+			// 半角英数字以外が入っている場合
+			else {
+				$user_password_check = false;
+			}
+		return $user_password_check;
+	}
+	//--------------------------------
+	//セットアップからユーザー登録
+	//--------------------------------
+	public static function setup_to_user_signup($post) {
+		// hash生成
+		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
+			// ユーザー登録
+			basic::query("
+				INSERT INTO user (
+					basic_id,
+					password
+				)
+				VALUES (
+					'".$post['basic_id']."', 
+					'".$password_hash."'
+				)
+			");
+			// サイト名変更
+			basic::query("
+				UPDATE setting 
+				SET
+					title = '".$post['site_name']."'
+				WHERE setting_id = 1;");
+	}
 }

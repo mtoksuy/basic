@@ -1,15 +1,10 @@
 <?php
 // core読み込み
 require_once('setting/config_core.php');
-require_once('setting/model_autoLoader.php'); // 後で実装
+require_once('setting/model_autoLoader.php'); 
 // 必要な変数定義
 $controller_query = '';
 $theme_name      = '';
-/*
-pre_var_dump(HTTP);
-pre_var_dump(ROOT_DIR);
-pre_var_dump(FULL_HTTP);
-*/
 
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
@@ -58,6 +53,15 @@ if($controller_query == 'setup') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
+/****
+login
+*****/
+if($controller_query == 'login') {
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+	exit;
+}
+
 
 /*******
 通常遷移
