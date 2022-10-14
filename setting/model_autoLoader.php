@@ -1,6 +1,9 @@
 <?php 
-			require_once(PATH.'setting/basic_core.php');
-			$basiccdshjhjhjhjh = new basic();
+	require_once(PATH.'setting/basic.php');
+	$basic = new basic();
+	require_once(PATH.'setting/db.php');
+	$model_db = new model_db();
+
 
 	$load_class_list = array();
 

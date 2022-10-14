@@ -1,6 +1,6 @@
 <?php
 // core読み込み
-require_once('setting/config_core.php');
+require_once('setting/config.php');
 require_once('setting/model_autoLoader.php'); 
 // 必要な変数定義
 $controller_query = '';
@@ -29,11 +29,11 @@ foreach($array_parse_uri as $kye => $value) {
 /***********
 // setup遷移
 ***********/
-// config.phpがある場合
-if(file_exists(PATH.'setting/config.php')) {
-	require_once('setting/config.php');
+// db_config.phpがある場合
+if(file_exists(PATH.'setting/db_config.php')) {
+	require_once('setting/db_config.php');
 }
-	// config.phpがない場合
+	// db_config.phpがない場合
 	else {
 		// urlにsetupがある場合何もしない
 		if(preg_match('/\/setup\//', FULL_HTTP)) {

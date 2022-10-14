@@ -1,62 +1,5 @@
-<?php
+<?php 
 class basic {
-	// テスト
-	 public static function test() {
-	 var_dump('テスト');
-	}
-	//-------
-	// DB接続
-	//-------
-	 public static function db_conect($db_config_array) {
-		$db = new mysqli($db_config_array['default']['connection']['hostname'],$db_config_array['default']['connection']['username'],$db_config_array['default']['connection']['password'], $db_config_array['default']['connection']['database']);
-		if ($db->connect_error) {
-		    echo $db->connect_error;
-		    exit();
-		}
-			else {
-				$db->set_charset($db_config_array['default']['charset']);
-			}
-		return $db;
-	}
-	//-------
-	// クエリ
-	//-------
-	 public static function query($query) {
-		global $db_config_array;
-		// DB接続
-		$db = basic::db_conect($db_config_array);
-
-		if(preg_match('/INSERT INTO/', $query)) {
-			$query_pattern = 'INSERT';
-		}
-			else if(preg_match('/SELECT/', $query)) {
-				$query_pattern = 'SELECT';
-			}
-				else if(preg_match('/UPDATE/', $query)) {
-					$query_pattern = 'UPDATE';
-				}
-		$select_array = array();
-		if($result = $db->query($query)) {
-			switch($query_pattern) {
-				case 'SELECT':
-					while($row = $result->fetch_assoc()) {
-						$select_array[] = $row;
-					}
-					$result->close();
-				break;
-				case 'INSERT':
-					$select_array = $result;
-				break;
-				case 'UPDATE':
-					$select_array = $result;
-				break;
-			}
-		}
-			else {
-		
-			}
-		return $select_array;
-	}
 	//--------------------------------
 	//ポストの中身をエンティティ化する
 	//--------------------------------
@@ -213,7 +156,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	),
 );";
 	 	// ファイルに書き込む
-	 	file_put_contents(PATH.'setting/config.php', $config_content);
+	 	file_put_contents(PATH.'setting/db_config.php', $config_content);
 	}
 	//-----------------
 	// DB接続チェック
@@ -237,7 +180,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// 半角英数字(-_含む)だけか調べる
 		$pattern = '/^[a-zA-Z0-9_-]+$/';
 		if(preg_match($pattern, $post["basic_id"], $basic_id_array)) {
-			$signup_basic_id_res = basic::query("
+			$signup_basic_id_res = model_db::query("
 				SELECT *
 				FROM user
 				WHERE basic_id = '".$post["basic_id"]."'");
@@ -300,7 +243,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// hash生成
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
 			// ユーザー登録
-			basic::query("
+			model_db::query("
 				INSERT INTO user (
 					basic_id,
 					password
@@ -311,7 +254,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				)
 			");
 			// サイト名変更
-			basic::query("
+			model_db::query("
 				UPDATE setting 
 				SET
 					title = '".$post['site_name']."'

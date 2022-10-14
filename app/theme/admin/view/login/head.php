@@ -1,6 +1,6 @@
 
 <head>
-	<title><?php echo 'セットアップ'.'｜'.TITLE; ?></title>
+	<title><?php echo 'ログイン'.'｜'.TITLE; ?></title>
 	<!-- meta -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -13,5 +13,5 @@
 	<!-- css -->
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/assets/css/core.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/common/common.css" type="text/css">
-	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/setup/common.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/common.css" type="text/css">
 </head>
