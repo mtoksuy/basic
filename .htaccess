@@ -1,9 +1,9 @@
 #.htaccess
+# 全てのアクセスをindex.phpにアクセスさせる
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteRule ^.*$ index.php
 </IfModule>
-
 
 # <IfModule mod_rewrite.c>
 #     RewriteEngine On
@@ -52,9 +52,21 @@ RewriteRule .+ %{REQUEST_URI}.gz
 </FilesMatch>
 
 # https強制
-# RewriteEngine on
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+<If "%{HTTP_HOST} =~ /.*localhost.*/">
+	# ローカルでは何も指定しない
+</If>
+	<Else>
+		# 本番でhttps強制にする
+		RewriteEngine on
+		RewriteCond %{HTTPS} off
+		RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+	</Else>
+
+# スラッシュなかったら追加
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\.[^/\.]+$
+RewriteRule .* %{REQUEST_URI}/ [R=301,L]
 
 # index名削除
 RewriteEngine on
