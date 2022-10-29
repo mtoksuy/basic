@@ -4,7 +4,7 @@
 	<body>
 		<!-- wrapper -->
 		<div class="wrapper">
-			<?php require_once(PATH.'app/theme/admin/view/common/header.php'); /* header読み込み*/ ?>
+			<?php require_once(PATH.'app/theme/admin/view/'.$controller_query.'/header.php'); /* header読み込み*/ ?>
 			<!-- main -->
 			<div class="main clearfix">
 				<!-- main_inner -->

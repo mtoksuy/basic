@@ -11,8 +11,8 @@
 		pre_var_dump($post);
 		// ログイン
 		$lohin_message = model_login_basis::login($post);
+//		pre_var_dump($lohin_message);
 	}
-
 
 	// ログインのHTML生成
 //	$setup_data_array = model_setup_html::login_html_create();

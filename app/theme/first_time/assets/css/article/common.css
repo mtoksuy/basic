@@ -1,0 +1,186 @@
+
+
+
+/******
+logo
+******/
+.logo {
+
+}
+.logo .logo_span {
+	font-size: 14px;
+	margin: 32px 0 0 0;
+	padding: 20px 0 0 0;
+	top: 0px;
+	position: relative;
+}
+
+/******
+media
+******/
+.media {
+
+}
+.media .media_inner {
+
+}
+
+.media .media_inner .card_article {
+	margin: 0 30px;
+/*
+	font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Segoe UI,Hiragino Kaku Gothic ProN,Hiragino Sans,ヒラギノ角ゴ ProN W3,Arial,メイリオ,Meiryo,sans-serif;
+	font-weight: 300;
+*/
+}
+
+.media .media_inner .card_article .card_article_inner {
+
+}
+
+
+/******************
+category_article_list
+*******************/
+.media .media_inner .card_article .card_article_inner .category_article_list {
+/*
+	margin: 0 0 60px 0;
+*/
+}
+.media .media_inner .card_article .card_article_inner .category_article_list h2 {
+	font-size: 28px;
+	margin: 0 0 15px 0;
+}
+.media .media_inner .card_article .card_article_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	word-break: break-word;
+/*
+記事がいっぱいになってきたら戻す
+	justify-content: space-around;
+	align-items: center;
+	align-content: flex-start;
+*/
+}
+.media .media_inner .card_article .card_article_inner ul li {
+	margin: 0 0 30px 0;
+	display: flex;
+	list-style: none;
+	padding: 15px;
+	flex-basis: 33%;
+	box-sizing: border-box;
+	align-self: stretch;
+}
+.media .media_inner .card_article .card_article_inner ul li article {
+
+}
+.media .media_inner .card_article .card_article_inner ul li article a {
+	padding: 15px;
+	display: block;
+	color: #292f33;
+}
+.media .media_inner .card_article .card_article_inner ul li article a:hover {
+	background-color:#f0f0f0;
+}
+.media .media_inner .card_article .card_article_inner ul li article a::link {
+	color: #292f33;
+}
+.media .media_inner .card_article .card_article_inner ul li article a::visited {
+	color: #292f33;
+}
+
+.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents {
+
+}
+.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+	width: 100%;
+	height: auto;
+	border: solid #646464 1px;
+}
+.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents h1 {
+	font-size: 22px;
+	margin: 10px 3px 5px 5px;
+}
+.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_summary {
+
+}
+.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_time {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************
+1024px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+/***********
+
+***********/
+	/******
+	media
+	******/
+	.media .media_inner {
+		margin: 0px 0 0 0;
+	}
+	.media .media_inner .card_article {
+		margin: 0 0 0px 0;
+	}
+	.media .media_inner .card_article .card_article_inner ul li article a {
+	padding: 0 15px 0 15px;
+	}
+	.media .media_inner .card_article .card_article_inner ul li {
+		flex-basis: 50%;
+		margin: 0 0 15px 0;
+	}
+	.media .media_inner .card_article .card_article_inner .category_article_list h2 {
+
+		margin: 0 0 15px 10px;
+	}
+	.media .media_inner .card_article .card_article_inner ul li article a .card_article_contents h1 {
+
+	}
+	.media .media_inner .card_article .card_article_inner .category_article_list {
+		margin: 0 0 30px 0;
+	}
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+.media .media_inner .card_article .card_article_inner ul li {
+	flex-basis: 100%;
+}
+
+}
+/**************
+480px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 480px) {
+.logo .logo_span {
+	font-size: 10px;
+	margin: 32px 0 0 7px;
+}
+
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+
+}

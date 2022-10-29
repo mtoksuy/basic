@@ -62,7 +62,7 @@ class model_setup_html {
 						<input type="text" placeholder="運営していくサイト名、ブログ名" value="" name="site_name" id="site_name">
 					<p>今記入しなくても大丈夫です。いつでも更新できます。</p>
 
-					<h2 class="setup_title_deading_1">ログイン情報</h2>
+					<h2 class="setup_title_deading_1">管理者登録</h2>
 						<label for="basic_id">ユーザー名</label>
 						<input type="text" placeholder="ログインするユーザー名" value="" required="required" name="basic_id" id="basic_id">
 						<p>ユーザー名には、半角英数字、下線、ハイフンのみが使用できます。</p>
