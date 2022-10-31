@@ -260,4 +260,33 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					title = '".$post['site_name']."'
 				WHERE setting_id = 1;");
 	}
+	//----------------
+	//サイト情報取得
+	//-----------------
+	public static function site_data_get() {
+		$site_data_array = array();
+		$query = model_db::query("
+			SELECT *
+			FROM setting
+		");
+		$site_data_array = $query[0];
+		return $site_data_array;
+	}
+	//----------------
+	//ページ情報取得
+	//-----------------
+	public static function page_data_get($controller_query) {
+		$page_data_array = array();
+		$query = model_db::query("
+			SELECT *
+			FROM page
+			WHERE dir_name = '".$controller_query."'
+		");
+		$page_data_array = $query[0];
+		return $page_data_array;
+	}
+
+
+
+
 }

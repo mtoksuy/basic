@@ -4,9 +4,19 @@
 		<div class="header_inner clearfix">
 			<!-- logo -->
 			<div class="logo">
+			<!--
+				logo画像タグ テンプレート
 				<h1>
-						<img width="180" height="37" title="ベーシック" alt="ベーシック" src="<?php echo HTTP; ?>app/theme/admin/assets/img/logo/basic_logo_1.svg">
+					<a href="<?php echo HTTP; ?>">
+						<img width="91" height="20" title="ベーシック" alt="ベーシック" src="<?php echo HTTP; ?>app/theme/admin/assets/img/logo/basic_logo_1.svg">
+					</a>
 				</h1>
+			-->
+				<a href="<?php echo HTTP; ?>">
+					<h1><?php echo $site_data_array['title']; ?>のサイト</h1>
+				</a>
 			</div> <!-- logo -->
+			<h3 class="sub_headline">これから育てていくサイト</h3>
+			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/drawer.php'); /* drawer読み込み*/ ?>
 		</div>
 	</header>

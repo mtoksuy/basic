@@ -1,23 +1,11 @@
-/*****
-drawer
-*****/
-.drawer .drawer_inner ul li a {
 
-
-}
-
-
-
-
-
-/******
+/***
 root
-******/
+***/
 .root {
 
 }
 .root .root_inner {
-	width: 95%;
 	margin: 0 auto;
 }
 

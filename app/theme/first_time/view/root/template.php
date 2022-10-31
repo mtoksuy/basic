@@ -5,6 +5,8 @@
 		<!-- wrapper -->
 		<div class="wrapper">
 			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/header.php'); /* header読み込み*/ ?>
+			<!-- navi_slide_menu -->
+			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/navi_slide_menu.php'); /* navi_slide_menu読み込み*/ ?>
 			<!-- main -->
 			<div class="main clearfix">
 				<!-- main_inner -->
