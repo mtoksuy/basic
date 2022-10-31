@@ -81,14 +81,21 @@ if($controller_query == 'logout') {
 
 
 
-
-// サイト情報取得
-$site_data_array = model_login_admin_basis::site_data_get();
-
 // トップであればrootにする
 if($controller_query == '') {
 	$controller_query = 'root';
 }
+
+
+// サイト情報取得
+$site_data_array = basic::site_data_get();
+//pre_var_dump($site_data_array);
+// ページ情報取得
+$page_data_array = basic::page_data_get($controller_query);
+//pre_var_dump($controller_query);
+//pre_var_dump($page_data_array);
+
+
 /*******
 通常遷移
 ********/
