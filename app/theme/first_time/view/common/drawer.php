@@ -7,11 +7,6 @@
 			<div id="nav-content">
 				<ul>
 					<li><a  class="o_8" href="<?php echo HTTP;?>aboutus/">私たちについて</a></li>
-					<li><a  class="o_8" href="<?php echo HTTP;?>rule/">利用規約</a></li>
-					<li><a  class="o_8" href="<?php echo HTTP;?>privacy_policy/">プライバシーポリシー</a></li>
-					<li><a  class="o_8" href="<?php echo HTTP;?>sct/">特定商取引法に基づく表記</a></li>
-					<li><a  class="o_8" href="https://spacenavi.jp/" target="_blank">運営会社</a></li>
-					<li><a  class="o_8" href="<?php echo HTTP;?>sitemap/">サイトマップ</a></li>
 					<li><a class="o_8" href="<?php echo HTTP;?>contact/">お問い合わせ</a></li>
 				</ul>
 			</div>
@@ -21,7 +16,6 @@
 			<div class="search_window_inner">
 				<form class="search_window_form" method="get" action="<?php echo HTTP; ?>search/" autocomplete="off">
 					<input placeholder="なにをお探しですか？" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
-					<input type="hidden" name="context" id="context" value="<?php if($_GET['context']) {echo $_GET['context']; } else {echo 'products';}?>">
 					<div class="search_logo">
 						<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
 						<input type="submit" value="検索">
@@ -30,7 +24,7 @@
 			</div>
 		</div>
 		<div class="search_switch">
-			<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>assets/svg/common/search_logo_1.svg">
+			<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
 		</div>
 
 		<nav class="drawer">

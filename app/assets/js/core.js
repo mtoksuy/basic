@@ -11,11 +11,11 @@ var count    = console.count;
 http切り替え
 ***********/
 if (location.host == 'localhost') {
-	var http = 'http://localhost/amatem/';
+	var http = 'http://localhost/xxx/';
 }
-	else if (location.host == 'amatem.jp') {
-		var http = 'https://amatem.jp/';
+	else if (location.host == 'xxx.com') {
+		var http = 'https://xxx.com/';
 	}
-		else if (location.host == 'www.amatem.jp') {
-			var http = 'https://amatem.jp/';
+		else if (location.host == 'www.xxx.com') {
+			var http = 'https://xxx.com/';
 		}

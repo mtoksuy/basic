@@ -1,5 +1,7 @@
 <?php 
-	$method = preg_replace('/article\//', '', $controller_query);
+
+	$method = preg_replace('/newarticle\//', '', $controller_query);
+
 	//  記事データ取得
 	$article_res = model_article_basis::article_get($method);
 	// 記事のHTML生成

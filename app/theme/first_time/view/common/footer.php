@@ -10,10 +10,7 @@
 					<!-- footer_box_bottom -->
 					<div class="footer_box_bottom">
 						<ul>
-							<li class="item"><a href="<?php echo HTTP; ?>aboutus/">私たちについて</a></li>
-							<li class="item"><a href="<?php echo HTTP; ?>rule/">利用規約</a></li>
-							<li class="item"><a href="<?php echo HTTP; ?>privacy_policy/">プライバシーポリシー</a></li>
-							<li class="item"><a href="<?php echo HTTP; ?>sct/">特定商取引法に基づく表記</a></li>
+							<li class="item"><a href="<?php echo HTTP; ?>about/">私たちについて</a></li>
 							<li class="item"><a href="<?php echo HTTP; ?>contact/">お問い合わせ</a></li>
 						</ul>
 					</div> <!-- footer_box_bottom -->
