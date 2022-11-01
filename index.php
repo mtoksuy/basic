@@ -100,14 +100,23 @@ $page_data_array = basic::page_data_get($controller_query);
 通常遷移
 ********/
 // app/controller/配下に同名のPHPファイルがないか探す。
-if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
-	// コントローラー読み込み
-	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
+if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz')) {
+	// gz読み込み
+	header('Content-Encoding: gzip');
+	readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
 }
-	// エラー表示
-	else {
-		header("HTTP/1.1 404 Not Found");
-		$controller_query = 'error';
-		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
-		exit;
-}
+	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html');
+	}
+		else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
+			// コントローラー読み込み
+			require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
+		}
+			// エラー表示
+			else {
+				header("HTTP/1.1 404 Not Found");
+				$controller_query = 'error';
+				require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+				exit;
+		}
