@@ -1231,7 +1231,9 @@ footer
 	color: #fcfcfc;
 	text-align: right;
 }
-
+.footer_bottom .footer_bottom_inner .copy a {
+	color: #fcfcfc;
+}
 /******
 検索窓
 ******/

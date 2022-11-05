@@ -20,7 +20,7 @@
 					<div class="footer_bottom_inner">
 						<!-- コピーライト -->
 						<section class="copy">
-							<p class="m_0">&copy; <?php echo date('Y'); ?> <?php echo $site_data_array['title']; ?> Proudly powered by Basic</p>
+							<p class="m_0">&copy; <?php echo date('Y'); ?> <?php echo $site_data_array['title']; ?> Proudly powered by <a href="https://basic.dance/">Basic</a></p>
 						</section>
 					</div>
 				</div>
