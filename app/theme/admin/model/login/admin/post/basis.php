@@ -1,296 +1,11 @@
 <?php 
-class basic {
-	//--------------------------------
-	//ポストの中身をエンティティ化する
-	//--------------------------------
-	public static function post_security() {
-		$post = array();
-		foreach($_POST as $key => $value) {
-			$post[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-		}
-		return $post;
-	}
-	//--------------------------------
-	//ゲットの中身をエンティティ化する
-	//--------------------------------
-	public static function get_security() {
-		$get = array();
-		foreach($_GET as $key => $value) {
-			$get[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-		}
-		return $get;
-	}
-	//------------------------
-	//変数をエンティティ化する
-	//------------------------
-	static function variable_security_entity($variable) {
-		if(is_array($variable)) {
-			foreach($variable as $key => $value) {
-				$variable[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-			}
-		}
-			else {
-				$variable = htmlspecialchars($$variable, ENT_QUOTES, 'UTF-8');
-			}
-		return $variable;
-	}
-	//-------------------
-	// ディレクトリ作成
-	//-------------------
-	 public static function dir_create($directory_path) {
-		if( file_exists($directory_path) ) {
-		
-		}
-			else {
-				if(mkdir($directory_path, 0755)) {
-					chmod($directory_path, 0755);
-				}
-			}
-	}
-	//----------------------------------
-	//ディレクトリー内のファイルを全削除
-	//----------------------------------
-	public static function dir_file_all_del($dir) {
-		// ディテクトリ内のオブジェクト取得
-		if($cache_opendir_object = opendir($dir)) {
-			// オブジェクト走査
-			while (false !== ($file_name = readdir($cache_opendir_object))) {
-				// .と..を外す
-				if($file_name != '.'  && $file_name != '..') {
-					// ファイル削除
-					unlink($dir.$file_name);
-				}
-			}
-			// ディレクトリーを閉じる
-			closedir($cache_opendir_object);
-		}
-	}
-	//-------------------
-	// ディレクトリ削除
-	//-------------------
-	public static function rmdirAll($dir) {
-	//	pre_var_dump($dir);
-		// 指定されたディレクトリ内の一覧を取得
-		$res = glob($dir.'/*');
-		// 一覧をループ
-		foreach ($res as $f) {
-			// is_file() を使ってファイルかどうかを判定
-			if (is_file($f)) {
-				// ファイルならそのまま削除
-				unlink($f);
-			} else {
-				// ディレクトリの場合（ファイルでない場合）は再度rmdirAll()を実行
-				Library_Dir_Basis::rmdirAll($f);
-			}
-		} // foreach ($res as $f) {
-		// 中身を削除した後、本体削除
-		rmdir($dir);
-	}
-	//----
-	//削除
-	//----
-	/**
-	* 再帰的にディレクトリを削除する。
-	* @param string $dir ディレクトリ名（フルパス）
-	*/
-	 public static function removeDir($dir) {
-	    $cnt = 0;
-	    $handle = opendir($dir);
-	
-	    if (!$handle) {
-	        return ;
-	    }
-	    while (false !== ($item = readdir($handle))) {
-	        if ($item === "." || $item === "..") {
-	            continue;
-	        }
-	        $path = $dir . DIRECTORY_SEPARATOR . $item;
-	        if (is_dir($path)) {
-	            // 再帰的に削除
-	            $cnt = $cnt + Library_Dir_Basis::removeDir($path);
-	        }
-	        else {
-	            // ファイルを削除
-	            unlink($path);
-	        }
-	    }
-	    closedir($handle);
-	
-	    // ディレクトリを削除
-	    if (!rmdir($dir)) {
-	        return ;
-	    }
-	}
-	//---------------------
-	// configファイル生成
-	//----------------------
-	 public static function config_file_create($post) {
-	 	$config_content = "<?php 
-// ローカル開発
-if(\$_SERVER['HTTP_HOST'] == 'localhost') {
-		\$database_name = '".$post['database_name']."';
-		\$host_name         = '".$post['database_host']."';
-		\$user_name         = '".$post['database_user']."';
-		\$password           = '".$post['database_password']."';
-}
-	// 本番
-	else {
-		\$database_name = '".$post['database_name']."';
-		\$host_name         = '".$post['database_host']."';
-		\$user_name         = '".$post['database_user']."';
-		\$password           = '".$post['database_password']."';
-	}
-\$db_config_array = array(
-	'default' => array(
-		'type'             => 'mysql',                     //
-		'profiling'       => 'true',                       // 
-		'table_prefix' => '',                              // 
-		'charset'        => 'utf8',                       // 
-		'connection'   => array(                      // 
-			'database'  => \$database_name, // 
-			'hostname' => \$host_name,         // 
-			'username' => \$user_name,         // 
-			'password'  => \$password,           //
-		),
-	'charset' => 'utf8mb4',    // charaset をutf8mb4に指定して追加
-	),
-);";
-	 	// ファイルに書き込む
-	 	file_put_contents(PATH.'setting/db_config.php', $config_content);
-	}
-	//-----------------
-	// DB接続チェック
-	//-----------------
-	 public static function db_conect_check($db_config_array) {
-		$db = new mysqli($db_config_array['default']['connection']['hostname'],$db_config_array['default']['connection']['username'],$db_config_array['default']['connection']['password'], $db_config_array['default']['connection']['database']);
-		if ($db->connect_error) {
-			$connect_check = false;
-		}
-			else {
-				$connect_check = true;
-			}
-		return $connect_check;
-	}
-	//-------------------
-	// basic_idチェック
-	//-------------------
-	public static function basic_id_check($post) {
-		// チェック変数
-		$user_basic_id_check = true;
-		// 半角英数字(-_含む)だけか調べる
-		$pattern = '/^[a-zA-Z0-9_-]+$/';
-		if(preg_match($pattern, $post["basic_id"], $basic_id_array)) {
-			$signup_basic_id_res = model_db::query("
-				SELECT *
-				FROM user
-				WHERE basic_id = '".$post["basic_id"]."'");
-			foreach($signup_basic_id_res as $key => $value) {
-				$user_basic_id_check = false;
-			}
-		}
-			else {
-				$user_basic_id_check = false;
-			}
-		return $user_basic_id_check;
-	}
-	//---------------------------------
-	//メールアドレスをチェックする
-	//---------------------------------
-	public static function email_check($post) {
-		// チェック変数
-		$user_email_check = true;
-		// 正しいメールアドレスかどうか調べる関数
-		$user_email_check = library_validateemail_basis::validate_email($post["email"]);
-		if($user_email_check) {
-			$signup_email_res = model_db::query("
-				SELECT *
-				FROM user
-				WHERE email = '".$post["email"]."'");
-			foreach($signup_email_res as $key => $value) {
-				$user_email_check = false;
-			}
-		}
-			else {
-				$user_email_check = false;
-			}
-		return $user_email_check;
-	}
-	//---------------------------
-	//パスワードをチェックする
-	//---------------------------
-	public static function password_check($post) {
-		// チェック変数
-		$user_password_check = true;
-		// 半角英数字だけか調べる
-		$pattern = '/^[a-zA-Z0-9_-]+$/';
-		if(preg_match($pattern, $post["password"], $password_array)) {
-			$password_number = strlen($post["password"]);
-			// 4文字未満ならアウト
-			if($password_number < 4) {
-					$user_password_check = false;
-			}
-		}
-			// 半角英数字以外が入っている場合
-			else {
-				$user_password_check = false;
-			}
-		return $user_password_check;
-	}
-	//--------------------------------
-	//セットアップからユーザー登録
-	//--------------------------------
-	public static function setup_to_user_signup($post) {
-		// hash生成
-		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
-			// ユーザー登録
-			model_db::query("
-				INSERT INTO user (
-					basic_id,
-					password
-				)
-				VALUES (
-					'".$post['basic_id']."', 
-					'".$password_hash."'
-				)
-			");
-			// サイト名変更
-			model_db::query("
-				UPDATE setting 
-				SET
-					title = '".$post['site_name']."'
-				WHERE setting_id = 1;");
-	}
-	//----------------
-	//サイト情報取得
-	//-----------------
-	public static function site_data_get() {
-		$site_data_array = array();
-		$query = model_db::query("
-			SELECT *
-			FROM setting
-		");
-		$site_data_array = $query[0];
-		return $site_data_array;
-	}
-	//----------------
-	//ページ情報取得
-	//-----------------
-	public static function page_data_get($controller_query) {
-		$page_data_array = array();
-		$query = model_db::query("
-			SELECT *
-			FROM page
-			WHERE dir_name = '".$controller_query."'
-		");
-		$page_data_array = $query[0];
-		return $page_data_array;
-	}
+class model_login_admin_post_basis {
 	//------------------------------
 	//マークダウンをHTMLに変換
 	//------------------------------
-	public static function markdown_html_conversion($markdown, $user_id_data_array = null) {
+	public static function html_conversion($markdown, $basic_id_data_array = null) {
 //		pre_var_dump($markdown);
-//		pre_var_dump($user_id_data_array);
+//		pre_var_dump($basic_id_data_array);
 
 		// 改行変換
 		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
@@ -434,23 +149,25 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$markdown = preg_replace('/\[box:(.*?)text:"(.*?)"(.*?)]/s', '<div class="box"><div class="box_inner"><p>\\2</p></div></div>', $markdown);
 
 		// カード形式リンク変換
-		$markdown =basic::card_link_conversion($markdown);
+		$markdown = model_login_post_basis::card_link_conversion($markdown);
 
 		// 吹き出し変換
-		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
+		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$basic_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$basic_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
 
 /*
-		pre_var_dump($user_id_data_array['icon']);
+		pre_var_dump($basic_id_data_array['icon']);
 		pre_var_dump($_SESSION);
 
 		pre_var_dump($markdown);
 */
 // icon
 
-//pre_var_dump($markdown);
-file_put_contents(PATH.'setting/markdown_article_tmt.txt', $markdown);
+// pre_var_dump($markdown);
+file_put_contents(PATH.'login/admin/post/post_tmt.txt', $markdown);
+
 /* ファイルポインタをオープン */
-$file = fopen(PATH.'setting/markdown_article_tmt.txt', 'r');
+$file = fopen(PATH.'login/admin/post/post_tmt.txt', 'r');
+
 /* ファイルを1行ずつ出力 */
 if($file){
 	while ($line = fgets($file)) {
@@ -475,15 +192,46 @@ if($file){
 /* ファイルポインタをクローズ */
 fclose($file);
 
+/*
+#見出し1
+# 見出し1
+##見出し2
+## 見出し2
+###見出し3
+### 見出し3
+####見出し4
+#### 見出し4
+*太文字*
+[てきすと](https://www.nishishi.com/css/line-border-hr.html)
+* リスト1
+* リスト2
+テキスト
+
+*/
+
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
-//file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmt.txt', $txt);
+//file_put_contents(PATH.'login/admin/post/post_tmt.txt', $txt);
+
+//pre_var_dump(htmlspecialchars($txt));
+/*
+		echo('
+
+<div class="media">
+
+<div class="media_inner">
+
+<article>'.$txt.'</article>
+
+</div>
+</div>');
+*/
 		return $txt;
 	}
 	//------------
 	//下書き保存
 	//------------
-	public static function markdown_post_draft_save($post) {
+	public static function post_draft_save($post) {
 		if($post['draft_id']) {
 //				pre_var_dump($post);
 				model_db::query("
@@ -502,14 +250,14 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				model_db::query("
 					INSERT INTO article_draft 
 					(
-						amatem_id, 
+						basic_id, 
 						title, 
 						category, 
 						hashtag, 
 						content
 					) 
 					VALUES (
-						'".$_SESSION['amatem_id']."',
+						'".$_SESSION['basic_id']."',
 						'".$post['title']."',
 						'".$post['category']."',
 						'".$post['hashtag']."',
@@ -518,7 +266,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				$query = model_db::query("
 					SELECT * 
 						FROM article_draft
-						WHERE amatem_id = '".$_SESSION['amatem_id']."' 
+						WHERE basic_id = '".$_SESSION['basic_id']."' 
 						AND del = 0
 						ORDER BY primary_id DESC
 						LIMIT 0,1");
@@ -530,7 +278,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//---------
 	//編集保存
 	//---------
-	public static function markdown_post_edit_save($post) {
+	public static function post_edit_save($post) {
 		$now_date = date('Y-m-d H:i:s', time());
 		model_db::query("
 			UPDATE article
@@ -565,28 +313,24 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//----------
 	//新規投稿
 	//---------
-	public static function markdown_post_add($post) {
+	public static function post_add($post) {
 		$query = model_db::query("
 			INSERT INTO article 
 			(
-				amatem_id, 
+				basic_id, 
 				title, 
-				category, 
-				content,
-				content_type
+				content
 			) 
 			VALUES (
-				'".$_SESSION['amatem_id']."',
+				'".$_SESSION['basic_id']."',
 				'".$post['title']."',
-				'".$post['category']."',
-				'".$post['content']."',
-				'markdown'
+				'".$post['content']."'
 			)");
 	}
 	//--------------
 	//記事OGP生成 (古い  model_media_post_basis::media_article_ogp_createが正しい
 	//--------------
-	public static function media_article_ogp_create($res) {
+	public static function ___________media_article_ogp_create($res) {
 //		pre_var_dump($res);
 		pre_var_dump($res[0]['primary_id']);
 		pre_var_dump($res[0]['title']);
@@ -641,14 +385,117 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		// GD 削除
 		imagedestroy($im);
 	}
+	//--------------
+	//記事OGP生成
+	//--------------
+	public static function media_article_ogp_create($res, $site_data_array) {
+//		pre_var_dump($res);
+//		pre_var_dump($site_data_array);
+/*
+		pre_var_dump($res[0]['primary_id']);
+		pre_var_dump($res[0]['title']);
+*/
+		// 基準となるOGP画像
+		$im = imagecreatefrompng(PATH.'app/theme/admin/assets/img/ogp/basic_article_common_ogp_2.png');
+		// Create some colors 後で使うかも
+		$white = imagecolorallocate($im, 255, 255, 255);
+		$grey = imagecolorallocate($im, 128, 128, 128);
+		$black = imagecolorallocate($im, 0, 0, 0);
+		// OGP画像に転写するタイトルテキスト
+		$text = $res[0]['title'];
+		// 正しくpreg_replaceできるように変換
+		$text = preg_replace('/\[/', '黽', $text);
+		$text = preg_replace('/\]/', '籃', $text);
+		$text = preg_replace('/\+/', '喙', $text);
+		$text = preg_replace('/\*/', '膩', $text);
+		$text = preg_replace('/\./', '蜚', $text);
+		$text = preg_replace('/\^/', '艨', $text);
+		$text = preg_replace('/\$/', '盈', $text);
+		$text = preg_replace('/\|/', '槭', $text);
+		$text = preg_replace('/\-/', '靂', $text);
+		$text = preg_replace('/\(/', '樝', $text);
+		$text = preg_replace('/\)/', '艟', $text);
+		$text = preg_replace('/\{/', '冀', $text);
+		$text = preg_replace('/\}/', '笆', $text);
+		$text = preg_replace('/\?/', '罘', $text);
+/*
+参考サイト
+【難読】漢字一文字で読み方が５文字のかっこいい漢字 180種類｜珍しい日本の漢字
+https://kotonohaweb.net/difficult-1kanji-5moji/
+*/
+		// 16文字で改行
+		$text_16 = mb_substr($text, 0, 16);
+		$text_last = preg_replace('/'.$text_16.'/', '', $text);
+		$text_16 = $text_16.'
+';
+		$text = $text_16.$text_last;
+		
+		$text_32 = mb_substr($text, 0, 32);
+		$text_last = preg_replace('/'.$text_32.'/', '', $text);
+		$text_32 = $text_32.'
+';
+		$text = $text_32.$text_last;
+		
+		$text_51 = mb_substr($text, 0, 51);
+		$text_last = preg_replace('/'.$text_51.'/', '', $text);
+		$text_51 = $text_51.'
+';
+		$text = $text_51.$text_last;
+		// 戻す
+		$text = preg_replace('/\黽/', '[', $text);
+		$text = preg_replace('/\籃/', ']', $text);
+		$text = preg_replace('/\喙/', '+', $text);
+		$text = preg_replace('/膩/', '*', $text);
+		$text = preg_replace('/蜚/', '.', $text);
+		$text = preg_replace('/艨/', '^', $text);
+		$text = preg_replace('/盈/', '$', $text);
+		$text = preg_replace('/槭/', '|', $text);
+		$text = preg_replace('/靂/', '-', $text);
+		$text = preg_replace('/樝/', '(', $text);
+		$text = preg_replace('/艟/', ')', $text);
+		$text = preg_replace('/冀/', '{', $text);
+		$text = preg_replace('/笆/', '}', $text);
+		$text = preg_replace('/罘/', '?', $text);
+
+		// UTF-8に変換
+		$text = mb_convert_encoding($text, 'UTF-8');
+
+		// アップロードするディレクトリ
+		$uploads_dir = PATH.'app/assets/img/article_ogp/';
+		// 使用するフォント
+//		$font = PATH.'assets/font/Noto_Serif_KR/NotoSerifKR-ExtraLight.otf';
+//		$font = PATH.'assets/font/Noto_Serif_KR/NotoSerifKR-SemiBold.otf';
+//		$font = PATH.'assets/font/MODI_komorebi-gothic_2018_0501/komorebi-gothic-P.ttf';
+//		$font = PATH.'assets/font/source-han-code-jp-2.011R/OTF/SourceHanCodeJP-Medium.otf';
+//		$font = PATH.'assets/font/hiragino/hiragino_3w.ttc';
+//		$font = PATH.'assets/font/ChalkJP_3/Chalk-JP.otf';
+		$font = PATH.'app/assets/font/NasuFont20200227/Nasu-Regular-20200227.ttf';
+
+		//image file name
+		$name = $uploads_dir.$res[0]['primary_id'].'.png'; //this saves the image inside uploaded_files folder
+/*
+		// テキスト転写
+		imagettftext($im, 36, 0, 270, 290, $black, $font, $text); // 画像、フォントサイズ、なんか、横、縦
+		// png作成
+		imagepng($im,$name,1);
+		// GD 削除
+		imagedestroy($im);
+*/
+/*
+// テスト
+echo (
+'<img src="http://localhost/amatem/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">'
+);
+*/
+	}
 	//-----------------------
 	//カード形式リンク変換
 	//-----------------------
 	public static function card_link_conversion($markdown) {
 //		pre_var_dump($markdown);
-		preg_match_all('/\[card_link:(.*?)url:"(.*?)"(.*?)\]/s', $markdown, $markdown_array);
-//		pre_var_dump($markdown_array);
-		foreach($markdown_array[2] as $kye => $value) {
+		preg_match_all('/\[card_link:(.*?)url:"(.*?)"(.*?)\]/s', $markdown, $array);
+//		pre_var_dump($array);
+		foreach($array[2] as $kye => $value) {
 			$html = file_get_contents($value);
 			// ヘッダー取得
 			$header = get_headers($value);
@@ -681,7 +528,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				// 相対的に表記されたアイコンを絶対的に戻す
 				if(!preg_match('/http/', $icon, $icon_array)) {
 					// 相対パスを絶対パスに変換
-					$icon = model_login_markdown_post_basis::pathToUrl($icon, $value);
+					$icon = model_login_post_basis::pathToUrl($icon, $value);
 					// パスから画像データを取得
 					$data = file_get_contents($icon);
 					// base64に変換
@@ -741,7 +588,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		 	$icon = '';
 		 	$domain = '';
 		 	$image = '';
-		} // foreach($markdown_array[2] as $kye => $value) {
+		} // foreach($array[2] as $kye => $value) {
 	return $markdown;
 	}
 	//----------------------------
@@ -794,20 +641,6 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		
 		return (substr($path, -1) === '/') ? $urlHome . '/' . implode('/', $pathBaseAry) . '/'
 		: $urlHome . '/' . implode('/', $pathBaseAry);
-	}
-	//--------------------------
-	//macかどうかをチェック
-	//--------------------------
-	public static function is_mac() {
-		// UAを取得
-		$ua = $_SERVER['HTTP_USER_AGENT'];
-		// UAに Macintosh が含まれるか
-		if (preg_match('/Macintosh/', $ua)) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

@@ -1,5 +1,5 @@
 <?php 
-class model_login_basis  {
+class model_login_basis {
 	//--------
 	//ログイン
 	//--------

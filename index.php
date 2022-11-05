@@ -53,7 +53,6 @@ if($controller_query == 'setup') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
-
 /****
 login
 *****/
@@ -65,7 +64,7 @@ if($controller_query == 'login') {
 /**********
 login/admin
 ***********/
-if($controller_query == 'login/admin') {
+if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
@@ -78,9 +77,6 @@ if($controller_query == 'logout') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
-
-
-
 // トップであればrootにする
 if($controller_query == '') {
 	$controller_query = 'root';
