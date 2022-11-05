@@ -18,3 +18,4 @@ gzip/generate/category_log.txt
 cron/amazon_api/products_fall_percentage_fix_log.txt
 login/admin/category_add/preliminary_data.txt
 writer/*
+app/theme/first_time/controller/article/*
