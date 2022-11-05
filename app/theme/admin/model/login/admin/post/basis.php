@@ -469,23 +469,20 @@ https://kotonohaweb.net/difficult-1kanji-5moji/
 //		$font = PATH.'assets/font/source-han-code-jp-2.011R/OTF/SourceHanCodeJP-Medium.otf';
 //		$font = PATH.'assets/font/hiragino/hiragino_3w.ttc';
 //		$font = PATH.'assets/font/ChalkJP_3/Chalk-JP.otf';
-		$font = PATH.'app/assets/font/NasuFont20200227/Nasu-Regular-20200227.ttf';
+		$font = PATH.'app/theme/admin/assets/font/NasuFont20200227/Nasu-Regular-20200227.ttf';
 
 		//image file name
-		$name = $uploads_dir.$res[0]['primary_id'].'.png'; //this saves the image inside uploaded_files folder
-/*
+		$article_ogp_full_dir_name = $uploads_dir.$res[0]['primary_id'].'.png';
+//		pre_var_dump($article_ogp_full_dir_name);
 		// テキスト転写
 		imagettftext($im, 36, 0, 270, 290, $black, $font, $text); // 画像、フォントサイズ、なんか、横、縦
 		// png作成
-		imagepng($im,$name,1);
+		imagepng($im,$article_ogp_full_dir_name,1);
 		// GD 削除
 		imagedestroy($im);
-*/
 /*
 // テスト
-echo (
-'<img src="http://localhost/amatem/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">'
-);
+echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">');
 */
 	}
 	//-----------------------

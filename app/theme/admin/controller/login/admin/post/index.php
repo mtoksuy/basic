@@ -33,17 +33,14 @@
 			// 記事OGP画像生成
 //			model_media_post_basis::media_article_ogp_create($res);
 			model_login_admin_post_basis::media_article_ogp_create($res, $site_data_array);
-/*
 			///////////////////////////////////////////////////////////
 			$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
 			// 全記事リスト取得
-			$article_res = model_sitemap_basis::article_list_get();
-			// カテゴリーリスト取得
-			$category_res = model_sitemap_basis::category_list_get();
-			// プロダクトASINリスト取得
-			$products_res = model_sitemap_basis::products_ASIN_list_get();
+			$article_all_list_res = model_article_basis::article_all_list_get();
 			// sitemap.xml生成
 			$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_res, $category_res, $products_res);
+
+/*
 //			pre_var_dump($sitemap_xml);
 			// sitemap.xmlの場所
 			$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
