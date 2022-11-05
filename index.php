@@ -77,11 +77,21 @@ if($controller_query == 'logout') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
+/***********
+sitemap/xml
+***********/
+if($controller_query == 'sitemap/sitemap.xml') {
+	// サイト情報取得
+	$site_data_array = basic::site_data_get();
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'');
+	exit;
+}
+
 // トップであればrootにする
 if($controller_query == '') {
 	$controller_query = 'root';
 }
-
 
 // サイト情報取得
 $site_data_array = basic::site_data_get();
