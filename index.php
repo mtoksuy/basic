@@ -45,6 +45,7 @@ if(file_exists(PATH.'setting/db_config.php')) {
 				exit;
 			}
 	}
+
 /****
 setup
 *****/
@@ -53,6 +54,19 @@ if($controller_query == 'setup') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
+
+
+
+
+
+
+// サイト情報取得
+$site_data_array = basic::site_data_get();
+//pre_var_dump($site_data_array);
+// ページ情報取得
+$page_data_array = basic::page_data_get($controller_query);
+//pre_var_dump($controller_query);
+//pre_var_dump($page_data_array);
 /****
 login
 *****/
@@ -61,6 +75,7 @@ if($controller_query == 'login') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
+
 /**********
 login/admin
 ***********/
@@ -93,13 +108,6 @@ if($controller_query == '') {
 	$controller_query = 'root';
 }
 
-// サイト情報取得
-$site_data_array = basic::site_data_get();
-//pre_var_dump($site_data_array);
-// ページ情報取得
-$page_data_array = basic::page_data_get($controller_query);
-//pre_var_dump($controller_query);
-//pre_var_dump($page_data_array);
 
 
 /*******
