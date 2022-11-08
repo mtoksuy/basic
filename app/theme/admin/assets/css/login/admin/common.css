@@ -177,7 +177,9 @@ height: 100%;
 サマリーボックス
 ****************/
 .summary .summary_inner .summary_box {
+/*
 	margin: 20px 20px 0 10px;
+*/
 }
 .summary .summary_inner .summary_box h1 {
 	margin: 30px 0 30px 30px;

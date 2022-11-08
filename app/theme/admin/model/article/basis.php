@@ -1,16 +1,5 @@
 <?php
 class model_article_basis {
-	//-------------------
-	//全記事リスト取得
-	//-------------------
-	public static function article_all_list_get() {
-		$article_all_list_res = model_db::query("
-			SELECT *
-			FROM article
-			WHERE del = 0
-			ORDER BY primary_id DESC");
-		return $article_all_list_res;
-	}
 	//----------------
 	//記事リスト取得
 	//----------------

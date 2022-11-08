@@ -3,9 +3,9 @@ class model_login_admin_post_basis {
 	//------------------------------
 	//マークダウンをHTMLに変換
 	//------------------------------
-	public static function html_conversion($markdown, $basic_id_data_array = null) {
+	public static function markdown_html_conversion($markdown, $user_id_data_array = null) {
 //		pre_var_dump($markdown);
-//		pre_var_dump($basic_id_data_array);
+//		pre_var_dump($user_id_data_array);
 
 		// 改行変換
 		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
@@ -149,25 +149,23 @@ class model_login_admin_post_basis {
 		$markdown = preg_replace('/\[box:(.*?)text:"(.*?)"(.*?)]/s', '<div class="box"><div class="box_inner"><p>\\2</p></div></div>', $markdown);
 
 		// カード形式リンク変換
-		$markdown = model_login_post_basis::card_link_conversion($markdown);
+		$markdown =model_login_admin_post_basis::card_link_conversion($markdown);
 
 		// 吹き出し変換
-		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$basic_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$basic_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
+		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
 
 /*
-		pre_var_dump($basic_id_data_array['icon']);
+		pre_var_dump($user_id_data_array['icon']);
 		pre_var_dump($_SESSION);
 
 		pre_var_dump($markdown);
 */
 // icon
 
-// pre_var_dump($markdown);
-file_put_contents(PATH.'login/admin/post/post_tmt.txt', $markdown);
-
+//pre_var_dump($markdown);
+file_put_contents(PATH.'setting/markdown_article_tmt.txt', $markdown);
 /* ファイルポインタをオープン */
-$file = fopen(PATH.'login/admin/post/post_tmt.txt', 'r');
-
+$file = fopen(PATH.'setting/markdown_article_tmt.txt', 'r');
 /* ファイルを1行ずつ出力 */
 if($file){
 	while ($line = fgets($file)) {
@@ -192,53 +190,21 @@ if($file){
 /* ファイルポインタをクローズ */
 fclose($file);
 
-/*
-#見出し1
-# 見出し1
-##見出し2
-## 見出し2
-###見出し3
-### 見出し3
-####見出し4
-#### 見出し4
-*太文字*
-[てきすと](https://www.nishishi.com/css/line-border-hr.html)
-* リスト1
-* リスト2
-テキスト
-
-*/
-
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
-//file_put_contents(PATH.'login/admin/post/post_tmt.txt', $txt);
-
-//pre_var_dump(htmlspecialchars($txt));
-/*
-		echo('
-
-<div class="media">
-
-<div class="media_inner">
-
-<article>'.$txt.'</article>
-
-</div>
-</div>');
-*/
+//file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmt.txt', $txt);
 		return $txt;
 	}
 	//------------
 	//下書き保存
 	//------------
-	public static function post_draft_save($post) {
+	public static function markdown_post_draft_save($post) {
 		if($post['draft_id']) {
 //				pre_var_dump($post);
 				model_db::query("
 					UPDATE article_draft 
 					SET 
 						title = '".$post['title']."', 
-						category = '".$post['category']."', 
 						hashtag = '".$post['hashtag']."', 
 						content = '".$post['content']."'
 					WHERE primary_id = ".(int)$post['draft_id']."
@@ -252,17 +218,16 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 					(
 						basic_id, 
 						title, 
-						category, 
 						hashtag, 
 						content
 					) 
 					VALUES (
 						'".$_SESSION['basic_id']."',
 						'".$post['title']."',
-						'".$post['category']."',
 						'".$post['hashtag']."',
 						'".$post['content']."'
 					)");
+				// 下書き取得
 				$query = model_db::query("
 					SELECT * 
 						FROM article_draft
@@ -274,17 +239,15 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				return $query;
 			}
 	}
-
 	//---------
 	//編集保存
 	//---------
-	public static function post_edit_save($post) {
+	public static function markdown_post_edit_save($post) {
 		$now_date = date('Y-m-d H:i:s', time());
 		model_db::query("
 			UPDATE article
 			SET 
 				title = '".$post['title']."', 
-				category = '".$post['category']."', 
 				content = '".$post['content']."',
 				update_time = '".$now_date."'
 			WHERE primary_id = ".(int)$post['article_id']."
@@ -307,13 +270,13 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			ORDER BY primary_id DESC
 			LIMIT 0, 1");
 		// 記事OGP画像生成(更新)
-		model_media_post_basis::media_article_ogp_create($res);
+		model_login_admin_post_basis::media_article_ogp_create($res);
 		return $post;
 	}
 	//----------
 	//新規投稿
 	//---------
-	public static function post_add($post) {
+	public static function markdown_post_add($post) {
 		$query = model_db::query("
 			INSERT INTO article 
 			(
@@ -330,7 +293,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//--------------
 	//記事OGP生成 (古い  model_media_post_basis::media_article_ogp_createが正しい
 	//--------------
-	public static function ___________media_article_ogp_create($res) {
+	public static function ________________media_article_ogp_create($res) {
 //		pre_var_dump($res);
 		pre_var_dump($res[0]['primary_id']);
 		pre_var_dump($res[0]['title']);
@@ -385,10 +348,113 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		// GD 削除
 		imagedestroy($im);
 	}
+	//-----------------------
+	//カード形式リンク変換
+	//-----------------------
+	public static function card_link_conversion($markdown) {
+//		pre_var_dump($markdown);
+		preg_match_all('/\[card_link:(.*?)url:"(.*?)"(.*?)\]/s', $markdown, $markdown_array);
+//		pre_var_dump($markdown_array);
+		foreach($markdown_array[2] as $kye => $value) {
+			$html = file_get_contents($value);
+			// ヘッダー取得
+			$header = get_headers($value);
+			foreach($header as $header_key => $header_value) {
+				// gzチェック
+				if(preg_match('/gzip/', $header_value)) {
+					$gz_check = true;
+				}
+			}
+			// gzならデコードする
+			if($gz_check) {
+				$html = gzdecode($html);
+			}
+			$gz_check = false;
+			// タイトル取得
+			preg_match('/<title>(.*?)<\/title>/', $html, $html_array);
+			$title = $html_array[1];
+			// サムネイル取得
+			preg_match('/<meta property="og:image" content="(.*?)"/', $html, $html_array);
+			$image = $html_array[1];
+			// アイコン取得
+			preg_match('/<link rel="shortcut icon"(.*?)href="(.*?)"(.*?)>/', $html, $html_array);
+			$icon = $html_array[2];
+			if(!$icon) {
+				preg_match('/<link rel="icon"(.*?)href="(.*?)"(.*?)>/', $html, $html_array);
+				$icon = $html_array[2];
+			}
+//			pre_var_dump($icon);
+			if($icon) {
+				// 相対的に表記されたアイコンを絶対的に戻す
+				if(!preg_match('/http/', $icon, $icon_array)) {
+					// 相対パスを絶対パスに変換
+					$icon = model_login_markdown_post_basis::pathToUrl($icon, $value);
+					// パスから画像データを取得
+					$data = file_get_contents($icon);
+					// base64に変換
+					$imageData = base64_encode($data);
+					// mime情報取得
+					$getimagesize =  getimagesize($icon);
+					$mime = $getimagesize['mime'];
+					$mime = preg_replace('/vnd.microsoft.icon/', 'x-icon', $mime);
+//					pre_var_dump($mime);
+					// src作成
+					$src = 'data:'.$mime.';base64,'.$imageData;
+/*
+<img src="data:image/vnd.microsoft.icon; base64,AAABAAE
+<img src="data:image/vnd.microsoft.icon;AAAAAAA=" decoding="async" loading="lazy">
+
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD==">
+*/
+					// icon_html生成
+					$icon_html = '<img src="'.$src.'" decoding="async" loading="lazy">';
+				}
+					// 絶対パスの場合
+					else {
+						// パスから画像データを取得
+						$data = file_get_contents($icon);
+						// base64に変換
+						$imageData = base64_encode($data);
+						// mime情報取得
+						$getimagesize =  getimagesize($icon);
+						$mime = $getimagesize['mime'];
+						$mime = preg_replace('/vnd.microsoft.icon/', 'x-icon', $mime);
+						// src作成
+						$src = 'data:'.$mime.';base64,'.$imageData;
+						// icon_html生成
+						$icon_html = '<img src="'.$src.'" decoding="async" loading="lazy">';
+					}
+			}
+				// ほんとうにない場合
+				else {
+					$icon_html = '';
+				}
+			// ドメイン取得
+			$parse_url = parse_url($value);
+			$domain = $parse_url['host'];
+
+			$url = $value;
+		 	$value = preg_replace('/\//', '\/', $value);
+		 	$value = preg_replace('/\?/', '\?', $value);
+/*
+		 	pre_var_dump($title);
+		 	pre_var_dump($icon);
+		 	pre_var_dump($domain);
+*/
+		 	// カード形式リンク変換
+		 	$markdown = preg_replace('/\[card_link:(.*?)url:"'.$value.'"(.*?)\]/s', '<div class="card_link"><a href="'.$url.'" target="_blank"><div class="card_link_left"><div class="card_link_title">'.$title.'</div><div class="card_link_domain_data">'.$icon_html.$domain.'</div></div><div class="card_link_right"><div class="card_link_img"><!-- <img src="'.HTTP.'assets/img/common/icon-chain02.png" decoding="async" loading="lazy"> --></div></div></a></div>', $markdown);
+		 	$url = '';
+		 	$title = '';
+		 	$icon = '';
+		 	$domain = '';
+		 	$image = '';
+		} // foreach($markdown_array[2] as $kye => $value) {
+	return $markdown;
+	}
 	//--------------
 	//記事OGP生成
 	//--------------
-	public static function media_article_ogp_create($res, $site_data_array) {
+	public static function media_article_ogp_create($res) {
 //		pre_var_dump($res);
 //		pre_var_dump($site_data_array);
 /*
@@ -485,159 +551,29 @@ https://kotonohaweb.net/difficult-1kanji-5moji/
 echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">');
 */
 	}
-	//-----------------------
-	//カード形式リンク変換
-	//-----------------------
-	public static function card_link_conversion($markdown) {
-//		pre_var_dump($markdown);
-		preg_match_all('/\[card_link:(.*?)url:"(.*?)"(.*?)\]/s', $markdown, $array);
-//		pre_var_dump($array);
-		foreach($array[2] as $kye => $value) {
-			$html = file_get_contents($value);
-			// ヘッダー取得
-			$header = get_headers($value);
-			foreach($header as $header_key => $header_value) {
-				// gzチェック
-				if(preg_match('/gzip/', $header_value)) {
-					$gz_check = true;
-				}
-			}
-			// gzならデコードする
-			if($gz_check) {
-				$html = gzdecode($html);
-			}
-			$gz_check = false;
-			// タイトル取得
-			preg_match('/<title>(.*?)<\/title>/', $html, $html_array);
-			$title = $html_array[1];
-			// サムネイル取得
-			preg_match('/<meta property="og:image" content="(.*?)"/', $html, $html_array);
-			$image = $html_array[1];
-			// アイコン取得
-			preg_match('/<link rel="shortcut icon"(.*?)href="(.*?)"(.*?)>/', $html, $html_array);
-			$icon = $html_array[2];
-			if(!$icon) {
-				preg_match('/<link rel="icon"(.*?)href="(.*?)"(.*?)>/', $html, $html_array);
-				$icon = $html_array[2];
-			}
-//			pre_var_dump($icon);
-			if($icon) {
-				// 相対的に表記されたアイコンを絶対的に戻す
-				if(!preg_match('/http/', $icon, $icon_array)) {
-					// 相対パスを絶対パスに変換
-					$icon = model_login_post_basis::pathToUrl($icon, $value);
-					// パスから画像データを取得
-					$data = file_get_contents($icon);
-					// base64に変換
-					$imageData = base64_encode($data);
-					// mime情報取得
-					$getimagesize =  getimagesize($icon);
-					$mime = $getimagesize['mime'];
-					$mime = preg_replace('/vnd.microsoft.icon/', 'x-icon', $mime);
-//					pre_var_dump($mime);
-					// src作成
-					$src = 'data:'.$mime.';base64,'.$imageData;
-/*
-<img src="data:image/vnd.microsoft.icon; base64,AAABAAE
-<img src="data:image/vnd.microsoft.icon;AAAAAAA=" decoding="async" loading="lazy">
-
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD==">
-*/
-					// icon_html生成
-					$icon_html = '<img src="'.$src.'" decoding="async" loading="lazy">';
-				}
-					// 絶対パスの場合
-					else {
-						// パスから画像データを取得
-						$data = file_get_contents($icon);
-						// base64に変換
-						$imageData = base64_encode($data);
-						// mime情報取得
-						$getimagesize =  getimagesize($icon);
-						$mime = $getimagesize['mime'];
-						$mime = preg_replace('/vnd.microsoft.icon/', 'x-icon', $mime);
-						// src作成
-						$src = 'data:'.$mime.';base64,'.$imageData;
-						// icon_html生成
-						$icon_html = '<img src="'.$src.'" decoding="async" loading="lazy">';
-					}
-			}
-				// ほんとうにない場合
-				else {
-					$icon_html = '';
-				}
-			// ドメイン取得
-			$parse_url = parse_url($value);
-			$domain = $parse_url['host'];
-
-			$url = $value;
-		 	$value = preg_replace('/\//', '\/', $value);
-		 	$value = preg_replace('/\?/', '\?', $value);
-/*
-		 	pre_var_dump($title);
-		 	pre_var_dump($icon);
-		 	pre_var_dump($domain);
-*/
-		 	// カード形式リンク変換
-		 	$markdown = preg_replace('/\[card_link:(.*?)url:"'.$value.'"(.*?)\]/s', '<div class="card_link"><a href="'.$url.'" target="_blank"><div class="card_link_left"><div class="card_link_title">'.$title.'</div><div class="card_link_domain_data">'.$icon_html.$domain.'</div></div><div class="card_link_right"><div class="card_link_img"><!-- <img src="'.HTTP.'assets/img/common/icon-chain02.png" decoding="async" loading="lazy"> --></div></div></a></div>', $markdown);
-		 	$url = '';
-		 	$title = '';
-		 	$icon = '';
-		 	$domain = '';
-		 	$image = '';
-		} // foreach($array[2] as $kye => $value) {
-	return $markdown;
+	//----------
+	//記事削除
+	//----------
+	public static function markdown_post_delete($article_primary_id) {
+		model_db::query("
+			UPDATE article 
+			SET 
+				del = 1
+			WHERE primary_id = ".(int)$article_primary_id."
+		");
+		return $query;
 	}
-	//----------------------------
-	//相対パスを絶対パスに変換
-	// https://qiita.com/fallout/items/347c4b0c377e025198e6
-	//----------------------------
-	public static function pathToUrl($pPath, $pUrl) {
-		$path = trim($pPath);    // 変換対象パス
-		$url = trim($pUrl);      // 基準URL
-		
-		//-- 変換不要
-		if ($path === '') { return $url; }
-		
-		if (stripos($path, 'http://') === 0 ||
-		stripos($path, 'https://') === 0 ||
-		stripos($path, 'mailto:') === 0 ||
-		stripos($path, 'tel:') === 0) { return $path; }
-		
-		//-- #anchor
-		if (strpos($path, '#') === 0) { return $url . $path; }
-		
-		//-- 基準URLを分解
-		$urlAry = explode('/', $url);
-		if (!isset($urlAry[2])) { return false; }
-		
-		//-- //path
-		if (strpos($path, '//') === 0) { return $urlAry[0] . $path; }
-		
-		//-- 基準URLのHOME(scheme://host)
-		$urlHome = $urlAry[0] . '//' . $urlAry[2];
-		
-		//-- 基準URLのパス
-		if (!$pathBase = parse_url($url, PHP_URL_PATH)) { $pathBase = '/'; }
-		
-		//-- ?query
-		if (strpos($path, '?') === 0) { return $urlHome . $pathBase . $path; }
-		
-		//-- /path
-		if (strpos($path, '/') === 0) { return $urlHome . $path; }
-		
-		//-- ./path or ../path
-		$pathBaseAry = array_filter(explode('/', $pathBase), 'strlen');
-		if (strpos(end($pathBaseAry), '.') !== false) { array_pop($pathBaseAry); }
-		
-		foreach (explode('/', $path) as $pathElem) {
-		if ($pathElem === '.') { continue; }
-		if ($pathElem === '..') { array_pop($pathBaseAry); continue; }
-		if ($pathElem !== '') { $pathBaseAry[] = $pathElem; }
-		}
-		
-		return (substr($path, -1) === '/') ? $urlHome . '/' . implode('/', $pathBaseAry) . '/'
-		: $urlHome . '/' . implode('/', $pathBaseAry);
-	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

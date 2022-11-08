@@ -79,23 +79,22 @@
 			title = $('#title').val();
 			content = $('#content').val();
 			draft_id = $('#draft_id').val();
-			amatem_id = $('#amatem_id').val();
+			basic_id = $('#basic_id').val();
 			// Ajaxで送信
 			$.ajax({
-				url: http+'ajax/login/admin/markdown_post/draft.php',
+				url: '../../../ajax/login/admin/post/draft/',
 				type : "POST",
 				data : {
 					title: title,
 					content: content,
-					category: 'blog',
 					hathtag: '',
 					draft_id: draft_id,
-					amatem_id: amatem_id,
+					basic_id: basic_id,
 				},
 			     success: function(data) {
 				 	// 変更
 				 	$('#draft_id').attr('value', data['primary_id']);
-				 	$('#amatem_id').attr('value', data['amatem_id']);
+				 	$('#basic_id').attr('value', data['basic_id']);
 				 	alert('下書きを保存しました');
 			     },
 			    complete: function (data) {
@@ -113,27 +112,26 @@
 			title = $('#title').val();
 			content = $('#content').val();
 			draft_id = $('#draft_id').val();
-			amatem_id = $('#amatem_id').val();
+			basic_id = $('#basic_id').val();
 		// draft_idがある場合
 		if(draft_id) {
 			// Ajaxで送信
 			$.ajax({
-				url: http+'ajax/login/admin/markdown_post/draft.php',
+				url: '../../../ajax/login/admin/post/draft/',
 				type : "POST",
 				data : {
 					title: title,
 					content: content,
-					category: 'blog',
 					hashtag: '',
 					draft_id: draft_id,
-					amatem_id: amatem_id,
+					basic_id: basic_id,
 				},
 			     success: function(data) {
 				 	// 変更
 				 	$('#draft_id').attr('value', data['primary_id']);
-				 	$('#amatem_id').attr('value', data['amatem_id']);
+				 	$('#basic_id').attr('value', data['basic_id']);
 					if(confirm('プレビューを表示しますか？')) {
-				 		window.open(http+'login/admin/markdown_post/?draft_id='+data['primary_id']);
+				 		window.open('../../../login/admin/post/?draft_id='+data['primary_id']);
 					}
 						else {
 							return false;
@@ -148,22 +146,21 @@
 			else {
 				// Ajaxで送信
 				$.ajax({
-					url: http+'ajax/login/admin/markdown_post/draft.php',
+					url: '../../../ajax/login/admin/post/draft/',
 					type : "POST",
 					data : {
 						title: title,
 						content: content,
-						category: 'blog',
 						hashtag: '',
 						draft_id: draft_id,
-						amatem_id: amatem_id,
+						basic_id: basic_id,
 					},
 				     success: function(data) {
 					 	// 変更
 					 	$('#draft_id').attr('value', data['primary_id']);
-					 	$('#amatem_id').attr('value', data['amatem_id']);
+					 	$('#basic_id').attr('value', data['basic_id']);
 						if(confirm('プレビューを表示しますか？')) {
-					 		window.open(http+'login/admin/markdown_post/?draft_id='+data['primary_id']);
+					 		window.open('../../../login/admin/post/?draft_id='+data['primary_id']);
 						}
 							else {
 
@@ -184,8 +181,6 @@
 			return false;
 		}
 	}, '.preview');
-
-
 	/********
 	編集保存
 	********/
@@ -194,46 +189,32 @@
 			title = $('#title').val();
 			content = $('#content').val();
 			article_id = $('#article_id').val();
-			amatem_id = $('#amatem_id').val();
+			basic_id = $('#basic_id').val();
+			alert('1');
 			// Ajaxで送信
 			$.ajax({
-				url: http+'ajax/login/admin/markdown_post/edit.php',
+				url: '../../../ajax/login/admin/post/edit/',
 				type : "POST",
 				data : {
 					title: title,
 					content: content,
-					category: 'blog',
 					hashtag: '',
 					article_id: article_id,
-					amatem_id: amatem_id,
+					basic_id: basic_id,
 				},
 			     success: function(data) {
 				 	// 変更
 //				 	$('#draft_id').attr('value', data['primary_id']);
-//				 	$('#amatem_id').attr('value', data['amatem_id']);
+//				 	$('#basic_id').attr('value', data['basic_id']);
 				 	alert('編集しました');
 			     },
 			    complete: function (data) {
-	
+
 			     }
 			});
 			return false;
 		}
 	}, '.edit');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/************************
 	タイトル欄でエンター禁止
 	************************/
@@ -275,7 +256,7 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 			content = $('#content').val();
 			draft_id = $('#draft_id').val();
 			article_id = $('#article_id').val();
-			amatem_id = $('#amatem_id').val();
+			basic_id = $('#basic_id').val();
 			// 記事編集の場合
 			if(article_id) {
 				// Ajaxで送信
@@ -288,12 +269,12 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 						category: 'blog',
 						hashtag: '',
 						article_id: article_id,
-						amatem_id: amatem_id,
+						basic_id: basic_id,
 					},
 				     success: function(data) {
 					 	// 変更
 					 	$('#draft_id').attr('value', data['primary_id']);
-					 	$('#amatem_id').attr('value', data['amatem_id']);
+					 	$('#basic_id').attr('value', data['basic_id']);
 						$('.shortcut_notice').html('編集しました。');
 						$('.shortcut_notice').css( {
 							'display': 'block',
@@ -322,12 +303,12 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 							category: 'blog',
 							hashtag: '',
 							draft_id: draft_id,
-							amatem_id: amatem_id,
+							basic_id: basic_id,
 						},
 					     success: function(data) {
 						 	// 変更
 						 	$('#draft_id').attr('value', data['primary_id']);
-						 	$('#amatem_id').attr('value', data['amatem_id']);
+						 	$('#basic_id').attr('value', data['basic_id']);
 							$('.shortcut_notice').html('下書きを保存しました。');
 							$('.shortcut_notice').css( {
 								'display': 'block',
@@ -358,8 +339,6 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 		}
 }
 	};
-
-
 
 	/********************
 	現在の記事文字数取得
@@ -441,12 +420,4 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 		contents = $('.post_form #content').val();
 		text_count_check_num_get(contents);
 	});
-
-
-
-
-
-
-
-
 

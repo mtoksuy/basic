@@ -140,15 +140,19 @@ letter-spacing: 0.3px;
 }
 .markdown_editor .markdown_editor_inner form .check {
 	position: absolute;
-	top: -28px;
-	right: 80px;
+	display: block;
+	width: auto;
+	display: block;
+	width: 33px;
+	top: 1px;
+	right: 60px;
 }
 /************
 クリップ機能
 ************/
 .clip {
 	position: absolute;
-	top: 30px;
+	top: 50px;
 	right: 30px;
 }
 .clip ul {
@@ -179,7 +183,7 @@ letter-spacing: 0.3px;
 ***************/
 .text_count_check {
 	position: absolute;
-	top: -25px;
+	top: -5px;
 	right: 38px;
 	color: #eeeeee;
 }

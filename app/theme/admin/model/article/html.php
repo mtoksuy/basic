@@ -61,7 +61,7 @@ class model_article_html {
 			// amatemのユーザーデータ取得
 //			$amatem_id_data_array = basic::amatem_user_data_get($amatem_id);
 			// マークダウンをhtmlに変換
-			$article_contents = basic::markdown_html_conversion($article_contents, $amatem_id_data_array);
+			$article_contents = model_login_admin_post_basis::markdown_html_conversion($article_contents, $amatem_id_data_array);
 
 			// 記事HTML
 			$article_html = ('

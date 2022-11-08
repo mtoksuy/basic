@@ -22,7 +22,7 @@ CREATE TABLE `article_draft` (
   `content` longtext,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` varchar(256) NOT NULL
+  `update_time` varchar(256) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `contact` (
@@ -59,14 +59,16 @@ CREATE TABLE `page` (
   `dir_name` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
   `content` longtext,
+  `draft` tinyint(4) NOT NULL DEFAULT '0',
+  `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `page` (`primary_id`, `name`, `dir_name`, `title`, `content`, `create_time`, `update_time`) VALUES
-(1, 'トップページ', 'root', NULL, NULL, '2022-10-28 22:45:00', NULL),
-(2, '私たちについて', 'about', '私たちについて', NULL, '2022-11-01 07:56:46', NULL),
-(3, 'お問い合わせ', 'contact', 'お問い合わせ', NULL, '2022-11-01 08:00:09', NULL);
+INSERT INTO `page` (`primary_id`, `name`, `dir_name`, `title`) VALUES
+(1, 'トップページ', 'root', NULL),
+(2, '私たちについて', 'about', '私たちについて'),
+(3, 'お問い合わせ', 'contact', 'お問い合わせ');
 
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
