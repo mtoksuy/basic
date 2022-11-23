@@ -20,3 +20,6 @@ login/admin/category_add/preliminary_data.txt
 writer/*
 app/theme/first_time/controller/article/*
 app/assets/img/article_ogp/*
+app/assets/fileupload/*
+
+
