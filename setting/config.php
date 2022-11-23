@@ -34,7 +34,7 @@ date_default_timezone_set('Asia/Tokyo');
 *******/
 // プレヴァーダンプ
 function pre_var_dump($data = '') {
-	echo '<pre>';
+	echo '<pre class="debug">';
 	var_dump($data);
 	echo '</pre>';
 }

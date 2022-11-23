@@ -25,12 +25,12 @@
 
 				<ul class="border">
 					<span>ファイル機能</span>
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/fileupload/" target="_blank">ファイルアップロード</a>
+					<li<?php if($now == 'fileupload') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/fileupload/">ファイルアップロード</a>
 					</li>
 
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/filelist/" target="_blank">ファイル一覧</a>
+					<li<?php if($now == 'filelist') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/filelist/">ファイル一覧</a>
 					</li>
 				</ul>
 
