@@ -1,5 +1,5 @@
 <?php 
-class model_login_basis  {
+class model_login_basis {
 	//--------
 	//ログイン
 	//--------
@@ -26,7 +26,7 @@ class model_login_basis  {
 				// 死んでる
 				model_login_basis::login_history_record($_SESSION["basic_id"]);
 				// 移動
-				header('Location: '.HTTP.'/login/admin/');
+				header('Location: '.HTTP.'login/admin/');
 				exit;
 			}
 				else {

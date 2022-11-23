@@ -1,0 +1,11 @@
+
+<div class="root">
+	<div class="root_inner">
+		<h1>新着記事</h1>
+		<div class="card_article">
+			<div class="card_article_inner">
+					<?php echo $article_list_html; ?>
+			</div> <!-- card_article -->
+		</div> <!-- card_article_inner -->
+	</div> <!-- content_inner -->
+</div> <!-- content -->

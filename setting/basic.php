@@ -1,5 +1,51 @@
 <?php 
 class basic {
+	//------------------------
+	// ヴァーダンプの進化版
+	//------------------------
+	public static function pre_var_dump($data = '') {
+		echo '<pre class="debug">';
+		var_dump($data);
+		echo '</pre>';
+	}
+	//-----------------------------
+	// オブジェクトヴァーダンプ
+	//-----------------------------
+	function obj_var_dump($name, $val) {
+	// if (!isset($val)) {return ('');}
+	if (is_array($val)) {
+		ksort($val);
+		foreach ($val as $key => $contents) {
+			$key = $name . "['" . $key . "']";
+			$ret .= obj_var_dump($key, $contents);
+		}
+	}
+		else if (is_object($val)) {
+			$className = get_class($val);
+			$vars = get_class_vars($className);
+			$props = get_object_vars($val);
+			$methods = get_class_methods($className);
+			if (is_array($props) && count($props) > 0) {
+				$key = 'OBJECT:' . $className . '->(property)';
+				$ret .= obj_var_dump($key, $props);
+			}
+			if (is_array($methods) && count($methods) > 0) {
+				$key = 'OBJECT:' . $className . '->(method)';
+				$ret .= obj_var_dump($key, $methods);
+			}
+		}
+			else {
+				if (is_numeric($val)) {
+					$ret = '$' . $name . ' = ' . $val . ";\n";
+				}
+					else {
+						$val = htmlspecialchars($val);
+						$val = preg_replace('/[\r\n]/', '\\n ', $val);
+						$ret = '$' . $name . ' = \'' . $val . "';\n";
+					}
+			}
+	echo '<pre>'.$ret.'</pre>';
+	}
 	//--------------------------------
 	//ポストの中身をエンティティ化する
 	//--------------------------------
@@ -23,7 +69,7 @@ class basic {
 	//------------------------
 	//変数をエンティティ化する
 	//------------------------
-	static function variable_security_entity($variable) {
+	public static function variable_security($variable) {
 		if(is_array($variable)) {
 			foreach($variable as $key => $value) {
 				$variable[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -260,4 +306,130 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					title = '".$post['site_name']."'
 				WHERE setting_id = 1;");
 	}
+	//----------------
+	//サイト情報取得
+	//-----------------
+	public static function site_data_get() {
+		$site_data_array = array();
+		$query = model_db::query("
+			SELECT *
+			FROM setting
+		");
+		$site_data_array = $query[0];
+		return $site_data_array;
+	}
+	//----------------
+	//ページ情報取得
+	//-----------------
+	public static function page_data_get($controller_query) {
+		$page_data_array = array();
+		$query = model_db::query("
+			SELECT *
+			FROM page
+			WHERE dir_name = '".$controller_query."'
+		");
+		$page_data_array = $query[0];
+		return $page_data_array;
+	}
+	//----------------------------
+	//相対パスを絶対パスに変換
+	// https://qiita.com/fallout/items/347c4b0c377e025198e6
+	//----------------------------
+	public static function pathToUrl($pPath, $pUrl) {
+		$path = trim($pPath);    // 変換対象パス
+		$url = trim($pUrl);      // 基準URL
+		
+		//-- 変換不要
+		if ($path === '') { return $url; }
+		
+		if (stripos($path, 'http://') === 0 ||
+		stripos($path, 'https://') === 0 ||
+		stripos($path, 'mailto:') === 0 ||
+		stripos($path, 'tel:') === 0) { return $path; }
+		
+		//-- #anchor
+		if (strpos($path, '#') === 0) { return $url . $path; }
+		
+		//-- 基準URLを分解
+		$urlAry = explode('/', $url);
+		if (!isset($urlAry[2])) { return false; }
+		
+		//-- //path
+		if (strpos($path, '//') === 0) { return $urlAry[0] . $path; }
+		
+		//-- 基準URLのHOME(scheme://host)
+		$urlHome = $urlAry[0] . '//' . $urlAry[2];
+		
+		//-- 基準URLのパス
+		if (!$pathBase = parse_url($url, PHP_URL_PATH)) { $pathBase = '/'; }
+		
+		//-- ?query
+		if (strpos($path, '?') === 0) { return $urlHome . $pathBase . $path; }
+		
+		//-- /path
+		if (strpos($path, '/') === 0) { return $urlHome . $path; }
+		
+		//-- ./path or ../path
+		$pathBaseAry = array_filter(explode('/', $pathBase), 'strlen');
+		if (strpos(end($pathBaseAry), '.') !== false) { array_pop($pathBaseAry); }
+		
+		foreach (explode('/', $path) as $pathElem) {
+		if ($pathElem === '.') { continue; }
+		if ($pathElem === '..') { array_pop($pathBaseAry); continue; }
+		if ($pathElem !== '') { $pathBaseAry[] = $pathElem; }
+		}
+		
+		return (substr($path, -1) === '/') ? $urlHome . '/' . implode('/', $pathBaseAry) . '/'
+		: $urlHome . '/' . implode('/', $pathBaseAry);
+	}
+	//--------------------------
+	//macかどうかをチェック
+	//--------------------------
+	public static function is_mac() {
+		// UAを取得
+		$ua = $_SERVER['HTTP_USER_AGENT'];
+		// UAに Macintosh が含まれるか
+		if (preg_match('/Macintosh/', $ua)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	//------------------------------
+	// バイト数のフォーマット変換
+	//------------------------------
+	public static function byte_format($size, $dec=-1, $separate=false){
+	$units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+	$digits = ($size == 0) ? 0 : floor( log($size, 1024) );
+	
+	$over = false;
+	$max_digit = count($units) -1 ;
+
+	if($digits == 0){
+		$num = $size;
+	} else if(!isset($units[$digits])) {
+		$num = $size / (pow(1024, $max_digit));
+		$over = true;
+	} else {
+		$num = $size / (pow(1024, $digits));
+	}
+	
+	if($dec > -1 && $digits > 0) $num = sprintf("%.{$dec}f", $num);
+	if($separate && $digits > 0) $num = number_format($num, $dec);
+	
+	return ($over) ? $num . $units[$max_digit] : $num . $units[$digits];
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }

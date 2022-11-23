@@ -34,7 +34,7 @@ date_default_timezone_set('Asia/Tokyo');
 *******/
 // プレヴァーダンプ
 function pre_var_dump($data = '') {
-	echo '<pre>';
+	echo '<pre class="debug">';
 	var_dump($data);
 	echo '</pre>';
 }
@@ -76,8 +76,6 @@ function obj_var_dump($name, $val) {
     }
     echo '<pre>'.$ret.'</pre>';
 }
-
-
 /***************************************************************
  * ローカルと本番環境でどのディレクトリでも正常に動くように調整
  ***************************************************************/

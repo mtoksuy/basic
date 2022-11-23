@@ -1,20 +1,18 @@
+<?php
+	// 記事リスト取得
+	$article_list_res = model_sample_basis::article_list_get(10,1);
+//	pre_var_dump($article_list_res);
+	// 記事リストHTML生成
+	$article_list_html = model_sample_html::article_list_html_create($article_list_res);
+?>
 
-<div class="admin">
-	<div class="admin_inner">
-		<div class="admin_left">
-			<?php require_once(PATH.'app/theme/admin/view/login/admin/admin_left_drawer.php'); /* admin_left_drawer読み込み*/ ?>
-		</div>
-		<div class="admin_right">
-			<div class="summary">
-				<div class="summary_inner">
-					<!-- summary_box -->
-					<div class="summary_box">
-						<h1><?php echo $site_data_array['title']; ?>へようこそ！ <?php echo $_SESSION['basic_id']; ?>さん</h1>
-						<p>Basic version .0.0</p>
-						<p style="border-bottom:1px solid #2D2E32;"> </p>
-					</div> <!-- summary_box -->
-				</div> <!-- summary_inner -->
-			</div> <!-- summary -->
-		</div> <!-- admin_right -->
-	</div> <!-- admin_inner -->
-</div> <!-- admin -->
+<div class="root">
+	<div class="root_inner">
+		<h1>テーマ first_time のトップページです。</h1>
+		<div class="card_article">
+			<div class="card_article_inner">
+					<?php echo $article_list_html; ?>
+			</div> <!-- card_article -->
+		</div> <!-- card_article_inner -->
+	</div> <!-- content_inner -->
+</div> <!-- content -->

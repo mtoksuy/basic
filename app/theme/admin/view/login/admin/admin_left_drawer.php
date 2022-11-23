@@ -13,7 +13,7 @@
 				<ul class="border">
 					<span>ブログ機能</span>
 					<li<?php if($now == 'php_reference') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/markdown_post/" target="_blank">ブログを書く</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/post/" target="_blank">ブログを書く</a>
 					</li>
 					<li<?php if($now == 'list') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/list/">投稿一覧</a>
@@ -25,12 +25,12 @@
 
 				<ul class="border">
 					<span>ファイル機能</span>
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/images_add/" target="_blank">ファイルアップロード</a>
+					<li<?php if($now == 'fileupload') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/fileupload/">ファイルアップロード</a>
 					</li>
 
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/images_add/" target="_blank">ファイル一覧</a>
+					<li<?php if($now == 'filelist') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/filelist/">ファイル一覧</a>
 					</li>
 				</ul>
 
@@ -38,7 +38,7 @@
 				<ul class="border">
 					<span>テーマ機能</span>
 					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/images_add/" target="_blank">テーマ切り替え</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/themeswitching/" target="_blank">テーマ切り替え</a>
 					</li>
 				</ul>
 
@@ -48,24 +48,21 @@
 				<ul class="border">
 					<span>サイト設定</span>
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/draft/">テンプレート設定</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/">テンプレート設定</a>
 					</li>
 
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/draft/">ページ作成</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/">ページ作成</a>
 					</li>
 
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/draft/">ページ一覧</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagelist/">ページ一覧</a>
 					</li>
 
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/draft/">タグ一覧</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/hashtag/">#タグ一覧</a>
 					</li>
-
 				</ul>
-
-
 
 				<ul class="border">
 					<span>アカウント設定</span>

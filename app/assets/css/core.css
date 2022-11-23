@@ -1,4 +1,9 @@
 @charset "UTF-8";
+
+pre {
+	color: #ccc;
+}
+
 /**
 ResizeCDNカラーベース
 **/

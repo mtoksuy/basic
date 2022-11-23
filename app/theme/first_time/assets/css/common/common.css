@@ -55,15 +55,17 @@ wrapper
 .header .header_inner .logo h1 {
 	margin: 10px 0 0 0px;
 	text-align: left;
+	color: #292f33;
 }
 .header .header_inner .logo a {
 
-
+}
+.header .header_inner .logo a:visited {
+	color: #292f33;
 }
 .header .header_inner .logo a img {
 
 }
-
 /****************
 サブヘッドライン
 ****************/
@@ -71,7 +73,7 @@ wrapper
 	position: absolute;
 	font-size: 16px;
 	font-weight: 500;
-	top: 34px;
+	top: 50px;
 	left: 140px;
 }
 /*************
@@ -338,9 +340,7 @@ main
 .main {
 	padding: 0px 0 0;
 	margin:0 auto;
-/*
 	width:70%;
-*/
 }
 .main main_inner {
 
@@ -1231,7 +1231,9 @@ footer
 	color: #fcfcfc;
 	text-align: right;
 }
-
+.footer_bottom .footer_bottom_inner .copy a {
+	color: #fcfcfc;
+}
 /******
 検索窓
 ******/
