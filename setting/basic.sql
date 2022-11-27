@@ -22,7 +22,7 @@ CREATE TABLE `article_draft` (
   `content` longtext,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` varchar(256) NULL
+  `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `contact` (
@@ -35,12 +35,15 @@ CREATE TABLE `contact` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `file_contents` (
+CREATE TABLE `fileupload` (
   `primary_id` int(10) UNSIGNED NOT NULL,
+  `full_name` varchar(256) DEFAULT NULL,
   `name` varchar(256) DEFAULT NULL,
+  `extension` varchar(256) DEFAULT NULL,
+  `type` varchar(256) DEFAULT NULL,
   `year` varchar(256) DEFAULT NULL,
   `month` varchar(256) DEFAULT NULL,
-  `content_type` varchar(256) DEFAULT NULL,
+  `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,21 +68,21 @@ CREATE TABLE `page` (
   `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `page` (`primary_id`, `name`, `dir_name`, `title`) VALUES
-(1, 'トップページ', 'root', NULL),
-(2, '私たちについて', 'about', '私たちについて'),
-(3, 'お問い合わせ', 'contact', 'お問い合わせ');
+INSERT INTO `page` (`primary_id`, `name`, `dir_name`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
+(1, 'トップページ', 'root', NULL, NULL, '0', '0', CURRENT_TIMESTAMP, NULL),
+(2, '私たちについて', 'about', '私たちについて', NULL, 0, 0, CURRENT_TIMESTAMP, NULL),
+(3, 'お問い合わせ', 'contact', 'お問い合わせ', NULL, 0, 0, CURRENT_TIMESTAMP, NULL);
 
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
-  `url` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `title` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `description` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `site_icon` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `date_format` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `time_format` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `theme` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `language` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
+  `url` varchar(256) DEFAULT NULL,
+  `title` varchar(256) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `site_icon` varchar(256) DEFAULT NULL,
+  `date_format` varchar(256) DEFAULT NULL,
+  `time_format` varchar(256) DEFAULT NULL,
+  `theme` varchar(256) DEFAULT NULL,
+  `language` varchar(256) DEFAULT NULL,
   `icon` varchar(256) DEFAULT NULL,
   `apple_touch_icon` varchar(256) DEFAULT NULL,
   `apple_touch_icon_precomposed` varchar(256) DEFAULT NULL,
@@ -88,7 +91,7 @@ CREATE TABLE `setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `setting` (`setting_id`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`) VALUES
-(1, NULL, 'CMS', NULL, NULL, 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'apple_touch_icon_1.png', 'apple_touch_icon_1.png', 1, 'gz');
+(1, NULL, 'あまてむ', 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト', 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -113,10 +116,10 @@ ALTER TABLE `article_draft`
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`primary_id`);
 
-ALTER TABLE `file_contents`
+ALTER TABLE `fileupload`
   ADD PRIMARY KEY (`primary_id`),
   ADD KEY `year` (`year`),
-  ADD KEY `content_type` (`content_type`);
+  ADD KEY `content_type` (`type`);
 
 ALTER TABLE `hashtag`
   ADD PRIMARY KEY (`primary_id`);
@@ -139,11 +142,11 @@ ALTER TABLE `article_draft`
 ALTER TABLE `contact`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE `file_contents`
+ALTER TABLE `fileupload`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `hashtag`
-  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,;
+  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `page`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
@@ -153,5 +156,4 @@ ALTER TABLE `setting`
 
 ALTER TABLE `user`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 COMMIT;

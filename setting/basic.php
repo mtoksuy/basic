@@ -420,6 +420,17 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	
 	return ($over) ? $num . $units[$max_digit] : $num . $units[$digits];
 }
+	//-------------------
+	// データベース調整
+	//-------------------
+	public static function setup_to_database_coordinate($post) {
+		// articleのbasic_id変更
+		model_db::query("
+			UPDATE article 
+			SET
+				basic_id = '".$post['basic_id']."'
+		");
+	}
 
 
 
