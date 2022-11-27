@@ -1,18 +1,1 @@
-<h2>これはちょっとした記事である</h2>
-<br>
-ずっと記事書いてなかったからたまには書きたくなるよね。発散したいんよ。
-<br>
-kjkj
-<br>
-
-<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>
-<br>
-
-<a href="https://amatem.jp/search/?q=キャンプ&context=products" target="_blank">https://amatem.jp/search/?q=キャンプ&context=products</a>
-<br>
-
-<div class="box"><div class="box_inner"><p>ぐほほ</p></div></div>
-<br>
-
-<br>
-だぜい
+jkj

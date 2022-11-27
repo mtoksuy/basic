@@ -37,20 +37,26 @@
 
 				<ul class="border">
 					<span>テーマ機能</span>
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/themeswitching/" target="_blank">テーマ切り替え</a>
+					<li<?php if($now == 'themeswitching') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/themeswitching/">テーマ切り替え</a>
 					</li>
 				</ul>
 
 
-
-
 				<ul class="border">
 					<span>サイト設定</span>
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/">テンプレート設定</a>
+					<li<?php if($now == 'general') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/general/">一般設定</a>
 					</li>
 
+
+					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/hashtag/">#タグ一覧</a>
+					</li>
+				</ul>
+
+				<ul class="border">
+					<span>ページ設定</span>
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/">ページ作成</a>
 					</li>
@@ -58,11 +64,9 @@
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagelist/">ページ一覧</a>
 					</li>
-
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/hashtag/">#タグ一覧</a>
-					</li>
 				</ul>
+
+
 
 				<ul class="border">
 					<span>アカウント設定</span>
