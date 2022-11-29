@@ -70,6 +70,8 @@ if($_GET['step'] == 3 && $_GET['complete'] == '') {
 			if(!$user_res) {
 				// セットアップからユーザー登録
 				basic::setup_to_user_signup($post);
+				// データベース調整
+				basic::setup_to_database_coordinate($post);
 				header('Location: '.FULL_HTTP.'&complete=1');
 				exit;
 			}

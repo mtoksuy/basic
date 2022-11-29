@@ -420,15 +420,24 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	
 	return ($over) ? $num . $units[$max_digit] : $num . $units[$digits];
 }
-
-
-
-
-
-
-
-
-
+	//-------------------
+	// データベース調整
+	//-------------------
+	public static function setup_to_database_coordinate($post) {
+		// articleのbasic_id変更
+		model_db::query("
+			UPDATE article 
+			SET
+				basic_id = '".$post['basic_id']."'
+		");
+	}
+	//-----------------
+	// ランダム数取得
+	//-----------------
+	public static function random_bytes_get($length) {
+		$random_bytes = substr(bin2hex(random_bytes($length)), 0, $length);
+		return $random_bytes;
+	}
 
 
 

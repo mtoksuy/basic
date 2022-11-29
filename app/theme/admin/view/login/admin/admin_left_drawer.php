@@ -7,7 +7,7 @@
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/">ホーム</a>
 					</li>
 					<li<?php if($now == 'writer') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>"  target="_blank">サイトを表示</a>
+						<a class="o_8" href="<?php echo HTTP;?>" target="_blank">サイトを表示</a>
 					</li>
 				</ul>
 				<ul class="border">
@@ -37,32 +37,47 @@
 
 				<ul class="border">
 					<span>テーマ機能</span>
-					<li<?php if($now == 'images_add') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/themeswitching/" target="_blank">テーマ切り替え</a>
+					<li<?php if($now == 'themeswitching') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/themeswitching/">テーマ切り替え</a>
 					</li>
 				</ul>
-
 
 
 
 				<ul class="border">
-					<span>サイト設定</span>
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/">テンプレート設定</a>
+					<span>テンプレート設定</span>
+					<li<?php if($now == 'profile_edit') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile_edit/">テンプレート設定</a>
 					</li>
+				</ul>
 
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/">ページ作成</a>
+
+				<ul class="border">
+					<span>ページ設定</span>
+					<li<?php if($now == 'page') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/" target="_blank">ページ作成</a>
 					</li>
-
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
+					<li<?php if($now == 'pagelist') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagelist/">ページ一覧</a>
 					</li>
+					<li<?php if($now == 'pagedraft') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagedraft/">下書き一覧</a>
+					</li>
+				</ul>
 
+
+				<ul class="border">
+					<span>サイト設定</span>
+					<li<?php if($now == 'general') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/general/">一般設定</a>
+					</li>
+<!--
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/hashtag/">#タグ一覧</a>
 					</li>
+-->
 				</ul>
+
 
 				<ul class="border">
 					<span>アカウント設定</span>
