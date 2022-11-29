@@ -379,6 +379,23 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				'".$post['content']."'
 			)");
 	}
+	//------------------
+	//下書きページ公開
+	//-------------------
+	public static function markdown_page_public($post) {
+//			pre_var_dump($post);
+			$now_date = date('Y-m-d H:i:s', time());
+			model_db::query("
+				UPDATE page
+				SET 
+					title = '".$post['title']."', 
+					content = '".$post['content']."',
+					permalink =  '".$post['permalink']."',
+					draft = 0,
+					update_time = '".$now_date."'
+				WHERE primary_id = ".(int)$post['draft_id']."
+			");
+	}
 	//--------------
 	//記事OGP生成 (古い  model_media_page_basis::media_article_ogp_createが正しい
 	//--------------
@@ -640,17 +657,17 @@ https://kotonohaweb.net/difficult-1kanji-5moji/
 echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">');
 */
 	}
-	//----------
-	//記事削除
-	//----------
-	public static function markdown_page_delete($article_primary_id) {
+	//------------
+	//ページ削除
+	//------------
+	public static function markdown_page_delete($page_primary_id) {
 		model_db::query("
-			UPDATE article 
+			UPDATE page 
 			SET 
 				del = 1
-			WHERE primary_id = ".(int)$article_primary_id."
+			WHERE primary_id = ".(int)$page_primary_id."
 		");
-		return $query;
+//		return $query;
 	}
 	//-----------------------
 	//パーマリンクチェック
@@ -663,16 +680,6 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 //		pre_var_dump($permalink_check_res);
 		return $permalink_check_res;
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 

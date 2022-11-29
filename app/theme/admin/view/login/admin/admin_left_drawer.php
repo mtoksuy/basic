@@ -43,29 +43,40 @@
 				</ul>
 
 
+
+				<ul class="border">
+					<span>テンプレート設定</span>
+					<li<?php if($now == 'profile_edit') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile_edit/">テンプレート設定</a>
+					</li>
+				</ul>
+
+
+				<ul class="border">
+					<span>ページ設定</span>
+					<li<?php if($now == 'page') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/" target="_blank">ページ作成</a>
+					</li>
+					<li<?php if($now == 'pagelist') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagelist/">ページ一覧</a>
+					</li>
+					<li<?php if($now == 'pagedraft') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagedraft/">下書き一覧</a>
+					</li>
+				</ul>
+
+
 				<ul class="border">
 					<span>サイト設定</span>
 					<li<?php if($now == 'general') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/general/">一般設定</a>
 					</li>
-
-
+<!--
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/hashtag/">#タグ一覧</a>
 					</li>
+-->
 				</ul>
-
-				<ul class="border">
-					<span>ページ設定</span>
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/" target="_blank">ページ作成</a>
-					</li>
-
-					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagelist/">ページ一覧</a>
-					</li>
-				</ul>
-
 
 
 				<ul class="border">

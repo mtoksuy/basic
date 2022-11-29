@@ -9,7 +9,7 @@
 			<input type="text" placeholder="タイトルを記入" value="<?php echo $preview_array['title']; ?>" name="title" id="title">
 			<textarea placeholder="投稿内容を記入" name="content" id="content"><?php echo $preview_array['content']; ?></textarea>
 			<!--  記事・basic_id情報 -->
-			<input  type="hidden" value="<?php echo $preview_array['page_draft_id']; ?>" name="draft_id" id="draft_id">
+			<input  type="hidden" value="<?php echo $preview_array['draft_id']; ?>" name="draft_id" id="draft_id">
 			<input  type="hidden" value="<?php echo $preview_array['page_id']; ?>" name="page_id" id="page_id">
 			<input  type="hidden" value="<?php echo $preview_array['basic_id']; ?>" name="basic_id" id="basic_id">
 			<!-- 保存機能 -->
