@@ -7,7 +7,7 @@
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/">ホーム</a>
 					</li>
 					<li<?php if($now == 'writer') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>"  target="_blank">サイトを表示</a>
+						<a class="o_8" href="<?php echo HTTP;?>" target="_blank">サイトを表示</a>
 					</li>
 				</ul>
 				<ul class="border">
@@ -58,7 +58,7 @@
 				<ul class="border">
 					<span>ページ設定</span>
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/">ページ作成</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/" target="_blank">ページ作成</a>
 					</li>
 
 					<li<?php if($now == 'draft') {echo ' class="now"';}?>>

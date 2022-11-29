@@ -8,374 +8,56 @@
 	</url>
 	
 					<url>
-						<loc>http://localhost/basic/about/</loc>
+						<loc>http://localhost/basic/110jkj/</loc>
 						<changefreq>weekly</changefreq>
 						<priority>0.7</priority>
 					</url>
 					<url>
-						<loc>http://localhost/basic/contact/</loc>
+						<loc>http://localhost/basic/6/</loc>
 						<changefreq>weekly</changefreq>
 						<priority>0.7</priority>
 					</url>
 	
 				<url>
-					<loc>http://localhost/basic/article/74/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-15T22:27:19+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/70/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-07T12:41:01+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/69/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T23:11:55+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/60/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T13:11:01+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/58/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:08:06+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/57/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:08:03+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/55/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:07:16+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/54/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:05:48+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/52/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:04:42+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/51/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T12:04:40+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/50/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:59:23+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/49/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:58:18+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/48/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:57:57+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/47/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:56:54+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/46/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:56:51+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/45/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:56:45+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/44/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:56:42+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/43/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:43:12+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/42/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:42:48+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/41/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:42:30+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/40/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:41:12+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/39/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:39:36+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/38/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:34:06+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/37/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:34:02+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/36/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:34:01+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/35/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:34:00+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/34/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:58+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/33/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:56+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/32/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:52+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/31/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:39+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/30/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:35+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/29/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:26+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/28/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:33:02+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/27/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:32:59+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/26/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:32:45+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/25/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:30:25+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/24/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:22:37+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/23/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:22:35+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/22/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:15:24+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/21/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:15:13+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/20/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:14:14+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/19/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:13:44+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/18/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:13:22+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/17/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:13:02+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/16/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:12:34+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/15/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:12:10+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/14/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:11:32+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/13/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:11:15+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/12/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:10:26+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/11/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:10:09+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/10/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:06:13+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/9/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:06:05+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
 					<loc>http://localhost/basic/article/8/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:05:38+09:00</lastmod>
+					<lastmod>2022-11-28T14:37:57+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/7/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:05:36+09:00</lastmod>
+					<lastmod>2022-11-27T14:54:13+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/6/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:05:18+09:00</lastmod>
+					<lastmod>2022-11-27T14:48:22+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/5/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:03:10+09:00</lastmod>
-					<priority>0.7</priority>
-				</url>
-				<url>
-					<loc>http://localhost/basic/article/4/</loc>
-					<changefreq>weekly</changefreq>
-					<lastmod>2022-11-05T11:02:23+09:00</lastmod>
+					<lastmod>2022-11-27T14:35:38+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/3/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-10-31T07:17:35+09:00</lastmod>
+					<lastmod>2022-10-30T22:17:35+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/2/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-10-14T14:35:53+09:00</lastmod>
+					<lastmod>2022-11-27T13:38:11+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 				<url>
 					<loc>http://localhost/basic/article/1/</loc>
 					<changefreq>weekly</changefreq>
-					<lastmod>2022-10-14T14:33:50+09:00</lastmod>
+					<lastmod>2022-10-14T05:33:50+09:00</lastmod>
 					<priority>0.7</priority>
 				</url>
 </urlset>

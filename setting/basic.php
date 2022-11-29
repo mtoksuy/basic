@@ -431,15 +431,13 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				basic_id = '".$post['basic_id']."'
 		");
 	}
-
-
-
-
-
-
-
-
-
+	//-----------------
+	// ランダム数取得
+	//-----------------
+	public static function random_bytes_get($length) {
+		$random_bytes = substr(bin2hex(random_bytes($length)), 0, $length);
+		return $random_bytes;
+	}
 
 
 

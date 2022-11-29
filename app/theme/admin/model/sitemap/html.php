@@ -26,10 +26,10 @@ class model_sitemap_html {
 		} // foreach($article_res as $key => $value) {
 		// ページ
 		foreach($page_all_list_res as $key => $value) {
-			if(!($value['dir_name'] == 'root')) {
+			if(!($value['permalink'] == 'root')) {
 				$page_list = $page_list.'
 					<url>
-						<loc>'.HTTP.$value['dir_name'].'/</loc>
+						<loc>'.HTTP.$value['permalink'].'/</loc>
 						<changefreq>weekly</changefreq>
 						<priority>0.7</priority>
 					</url>';

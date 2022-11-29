@@ -58,8 +58,8 @@ INSERT INTO `hashtag` (`primary_id`, `hashtag_name`, `del`) VALUES
 
 CREATE TABLE `page` (
   `primary_id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(256) DEFAULT NULL,
-  `dir_name` varchar(256) DEFAULT NULL,
+  `basic_id` varchar(256) DEFAULT NULL,
+  `permalink` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
   `content` longtext,
   `draft` tinyint(4) NOT NULL DEFAULT '0',
@@ -68,10 +68,9 @@ CREATE TABLE `page` (
   `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `page` (`primary_id`, `name`, `dir_name`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
-(1, 'トップページ', 'root', NULL, NULL, '0', '0', CURRENT_TIMESTAMP, NULL),
-(2, '私たちについて', 'about', '私たちについて', NULL, 0, 0, CURRENT_TIMESTAMP, NULL),
-(3, 'お問い合わせ', 'contact', 'お問い合わせ', NULL, 0, 0, CURRENT_TIMESTAMP, NULL);
+INSERT INTO `page` (`primary_id`, `basic_id`, `name`, `dir_name`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
+(1, NULL, 'root', 'トップページ', NULL, 0, 0, '2022-11-27 05:17:31', NULL),
+(2, NULL, 'about', '私たちについて', NULL, 0, 0, '2022-11-27 05:17:34', NULL),
 
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
