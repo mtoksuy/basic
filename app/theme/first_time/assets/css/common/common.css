@@ -133,7 +133,7 @@ top_code_view
     border-radius: 3px;
     background: #555;
     display: block;
-    content: &#039;&#039;;
+    content: '';
     cursor: pointer;
 }
 #nav-open span:before {
@@ -367,12 +367,12 @@ main
 	position: relative;
 	top:-1px;
 	left:1px;
-	content:&quot;&gt;&quot;;
+	content:">";
 	font-size: 12px;
 	margin: 0 5px 0 5px;
 }
 .breadcrumb ol li:last-child::after {
-	content:&quot;&quot;;
+	content:"";
 }
 .breadcrumb ol li a {
 	color: #212121;
@@ -931,7 +931,7 @@ problem_solving_v4
 	display: inline-block;
 	text-align: left;
 }
-.quotation .quotation_inner .quotation_inner_box .quotation_inner_box_item .right input[type=&quot;text&quot;] {
+.quotation .quotation_inner .quotation_inner_box .quotation_inner_box_item .right input[type="text"] {
 	padding :5px;
 	margin: 0 7px 0 0;
 }
@@ -1248,7 +1248,7 @@ footer
 .search_window .search_window_inner .search_window_form {
 	position: relative;
 }
-.search_window .search_window_inner .search_window_form input[type=&quot;search&quot;] {
+.search_window .search_window_inner .search_window_form input[type="search"] {
 	color: #3a3e40;
 	margin: 0 0 30px 0;
 	padding: 5px 31px 5px 5px;
@@ -1280,7 +1280,7 @@ footer
 	top: 8px;
 	right: 9px;
 }
-.search_window .search_window_inner .search_window_form .search_logo input[type=&quot;submit&quot;] {
+.search_window .search_window_inner .search_window_form .search_logo input[type="submit"] {
 	display: none;
 }
 /***************

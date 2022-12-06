@@ -27,7 +27,7 @@ class model_login_admin_template_basis {
 	public static function file_content_save($post, $file_path) {
 		if(file_exists($file_path)) {
 //			pre_var_dump($post);
-			file_put_contents($file_path, $post['content']);
+			file_put_contents($file_path, $_POST['content']);
 		}
 	}
 

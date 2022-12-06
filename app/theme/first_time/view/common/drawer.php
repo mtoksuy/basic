@@ -1,35 +1,36 @@
-		&lt;!-- ハンバーガーメニュー --&gt;
-		&lt;div id=&quot;nav-drawer&quot;&gt;
-			&lt;input id=&quot;nav-input&quot; type=&quot;checkbox&quot; class=&quot;nav-unshown&quot;&gt;
-			&lt;label id=&quot;nav-open&quot; for=&quot;nav-input&quot;&gt;&lt;span&gt; &lt;/span&gt;&lt;/label&gt;
-			&lt;label class=&quot;nav-unshown&quot; id=&quot;nav-close&quot; for=&quot;nav-input&quot;&gt;&lt;/label&gt;
-			&lt;div id=&quot;nav-content&quot;&gt;
-				&lt;ul&gt;
-					&lt;li&gt;&lt;a  class=&quot;o_8&quot; href=&quot;&lt;?php echo HTTP;?&gt;aboutus/&quot;&gt;私たちについて&lt;/a&gt;&lt;/li&gt;
-					&lt;li&gt;&lt;a class=&quot;o_8&quot; href=&quot;&lt;?php echo HTTP;?&gt;contact/&quot;&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
-				&lt;/ul&gt;
-			&lt;/div&gt;
-		&lt;/div&gt; &lt;!-- ハンバーガーメニュー --&gt;
-		&lt;!-- 検索窓 --&gt;
-		&lt;div class=&quot;search_window&quot;&gt;
-			&lt;div class=&quot;search_window_inner&quot;&gt;
-				&lt;form class=&quot;search_window_form&quot; method=&quot;get&quot; action=&quot;&lt;?php echo HTTP; ?&gt;search/&quot; autocomplete=&quot;off&quot;&gt;
-					&lt;input placeholder=&quot;なにをお探しですか？&quot; type=&quot;search&quot; name=&quot;q&quot; id=&quot;q&quot; value=&quot;&lt;?php if($_GET[&#039;q&#039;]) {echo $_GET[&#039;q&#039;]; }?&gt;&quot; autocomplete=&quot;off&quot;&gt;
-					&lt;div class=&quot;search_logo&quot;&gt;
-						&lt;img width=&quot;16&quot; height=&quot;17&quot; title=&quot;検索&quot; alt=&quot;検索&quot; src=&quot;&lt;?php echo HTTP; ?&gt;app/assets/svg/common/search_logo_1.svg&quot;&gt;
-						&lt;input type=&quot;submit&quot; value=&quot;検索&quot;&gt;
-					&lt;/div&gt;
-				&lt;/form&gt;
-			&lt;/div&gt;
-		&lt;/div&gt;
-		&lt;div class=&quot;search_switch&quot;&gt;
-			&lt;img width=&quot;16&quot; height=&quot;17&quot; title=&quot;検索&quot; alt=&quot;検索&quot; src=&quot;&lt;?php echo HTTP; ?&gt;app/assets/svg/common/search_logo_1.svg&quot;&gt;
-		&lt;/div&gt;
 
-		&lt;nav class=&quot;drawer&quot;&gt;
-			&lt;div class=&quot;drawer_inner&quot;&gt;
-				&lt;ul style=&quot;top: -2px; position: relative;&quot;&gt;
+		<!-- ハンバーガーメニュー -->
+		<div id="nav-drawer">
+			<input id="nav-input" type="checkbox" class="nav-unshown">
+			<label id="nav-open" for="nav-input"><span> </span></label>
+			<label class="nav-unshown" id="nav-close" for="nav-input"></label>
+			<div id="nav-content">
+				<ul>
+					<li><a  class="o_8" href="<?php echo HTTP;?>aboutu/">私たちについて</a></li>
+					<li><a class="o_8" href="<?php echo HTTP;?>contact/">お問い合わせ</a></li>
+				</ul>
+			</div>
+		</div> <!-- ハンバーガーメニュー -->
+		<!-- 検索窓 -->
+		<div class="search_window">
+			<div class="search_window_inner">
+				<form class="search_window_form" method="get" action="<?php echo HTTP; ?>search/" autocomplete="off">
+					<input placeholder="なにをお探しですか？" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
+					<div class="search_logo">
+						<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
+						<input type="submit" value="検索">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="search_switch">
+			<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
+		</div>
 
-				&lt;/ul&gt;
-			&lt;/div&gt;
-		&lt;/nav&gt;
+		<nav class="drawer">
+			<div class="drawer_inner">
+				<ul style="top: -2px; position: relative;">
+
+				</ul>
+			</div>
+		</nav>
