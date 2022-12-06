@@ -438,6 +438,20 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$random_bytes = substr(bin2hex(random_bytes($length)), 0, $length);
 		return $random_bytes;
 	}
+	//--------------------
+	// ユーザー情報取得
+	//--------------------
+	public static function user_data_get($user_id) {
+		$site_data_array = array();
+		$query = model_db::query("
+			SELECT *
+			FROM user
+			WHERE primary_id = ".(int)$user_id."
+		");
+		$user_data_array = $query[0];
+		return $user_data_array;
+	}
+
 
 
 
