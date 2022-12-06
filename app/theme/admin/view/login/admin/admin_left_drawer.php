@@ -46,8 +46,8 @@
 
 				<ul class="border">
 					<span>テンプレート設定</span>
-					<li<?php if($now == 'profile_edit') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile_edit/">テンプレート設定</a>
+					<li<?php if($now == 'template') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/" target="_blank">テンプレート設定</a>
 					</li>
 				</ul>
 
@@ -82,7 +82,7 @@
 				<ul class="border">
 					<span>アカウント設定</span>
 					<li<?php if($now == 'profile_edit') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile_edit/">プロフィール設定</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile/">プロフィール設定</a>
 					</li>
 				</ul>
 			</div>
