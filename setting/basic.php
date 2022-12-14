@@ -315,7 +315,17 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			SELECT *
 			FROM setting
 		");
+		$query_a = model_db::query("
+			SELECT COUNT(primary_id)
+			FROM contact
+			WHERE del = 0
+			AND read_check = 0
+		");
+//		pre_var_dump($query);
+//		pre_var_dump($query_a);
 		$site_data_array = $query[0];
+		$site_data_array['contact_unread_count'] = $query_a[0]['COUNT(primary_id)'];
+//		pre_var_dump($site_data_array);
 		return $site_data_array;
 	}
 	//----------------
