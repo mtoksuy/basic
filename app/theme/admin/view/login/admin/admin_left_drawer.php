@@ -12,7 +12,7 @@
 				</ul>
 				<ul class="border">
 					<span>ブログ機能</span>
-					<li<?php if($now == 'php_reference') {echo ' class="now"';}?>>
+					<li<?php if($now == 'post') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/post/" target="_blank">ブログを書く</a>
 					</li>
 					<li<?php if($now == 'list') {echo ' class="now"';}?>>
@@ -22,6 +22,17 @@
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/draft/">下書き一覧</a>
 					</li>
 				</ul>
+
+
+
+
+
+
+
+
+
+
+
 
 				<ul class="border">
 					<span>ファイル機能</span>
@@ -34,6 +45,14 @@
 					</li>
 				</ul>
 
+				<?php if($site_data_array['contact_unread_count'] > 0) { $contact_unread_count_html = '<span class="contact_unread_count"> </span>'; } ?>
+				<ul class="border">
+					<span>お問い合わせ機能</span>
+					<li<?php if($now == 'contactlist') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/contactlist/">お問い合わせ一覧</a><?php echo $contact_unread_count_html; ?>
+					</li>
+				</ul>
+
 
 				<ul class="border">
 					<span>テーマ機能</span>
@@ -43,17 +62,8 @@
 				</ul>
 
 
-
 				<ul class="border">
-					<span>テンプレート設定</span>
-					<li<?php if($now == 'template') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/" target="_blank">テンプレート設定</a>
-					</li>
-				</ul>
-
-
-				<ul class="border">
-					<span>ページ設定</span>
+					<span>ページ機能</span>
 					<li<?php if($now == 'page') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/page/" target="_blank">ページ作成</a>
 					</li>
@@ -62,6 +72,14 @@
 					</li>
 					<li<?php if($now == 'pagedraft') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/pagedraft/">下書き一覧</a>
+					</li>
+				</ul>
+
+
+				<ul class="border">
+					<span>テンプレート設定</span>
+					<li<?php if($now == 'template') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/" target="_blank">テンプレート設定</a>
 					</li>
 				</ul>
 
@@ -81,7 +99,7 @@
 
 				<ul class="border">
 					<span>アカウント設定</span>
-					<li<?php if($now == 'profile_edit') {echo ' class="now"';}?>>
+					<li<?php if($now == 'profile') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile/">プロフィール設定</a>
 					</li>
 				</ul>
