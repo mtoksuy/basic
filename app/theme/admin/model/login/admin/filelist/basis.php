@@ -63,10 +63,19 @@ class model_login_admin_filelist_basis {
 				$image_path = (PATH.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name']);
 				$image_path_imagesize = getimagesize($image_path);
 				$image_path_filesize = filesize($image_path);
+				// 横長
+				if($image_path_imagesize[0] > $image_path_imagesize[1]) {
+					$image_class = 'landscape';
+				}
+				// 縦長
+				else {
+					$image_class = 'portrait';
+				}
 				// バイト数のフォーマット変換
 				$image_path_byte_format = basic::byte_format($image_path_filesize, 0);
 				$file_modal_data_array = array(
 					'img_src'       => ''.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'',
+					'img_class'    => $image_class,
 					'full_name'    => $value['full_name'],
 					'byte'             => $image_path_byte_format,
 					'size'              => $image_path_imagesize[0].'x'.$image_path_imagesize[1].' ピクセル',
