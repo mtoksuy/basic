@@ -8,7 +8,17 @@
 	</url>
 	
 					<url>
-						<loc>http://localhost/basic/953d3ba4/</loc>
+						<loc>http://localhost/basic/91c8459d/</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+					<url>
+						<loc>http://localhost/basic/6ee5f0c8/</loc>
+						<changefreq>weekly</changefreq>
+						<priority>0.7</priority>
+					</url>
+					<url>
+						<loc>http://localhost/basic/122074bf/</loc>
 						<changefreq>weekly</changefreq>
 						<priority>0.7</priority>
 					</url>
