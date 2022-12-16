@@ -7,8 +7,8 @@ class model_login_admin_filelist_html {
 //		pre_var_dump($filelist_res);
 		foreach($filelist_res as $key => $value) {
 			preg_match('/imag/', $value['type'], $type_array);
-			// 画像の場合
-			if($type_array) {
+			// gifの場合
+			if($value['type'] == 'image/gif') {
 				 $filelist_li .=
 					 '<li class="img" file_id="'.$value['primary_id'].'">
 						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
@@ -16,17 +16,25 @@ class model_login_admin_filelist_html {
 						</a>
 					</li>';
 			}
-				// 画像以外の場合
-				else {
+			// 画像の場合
+			else if($type_array) {
 				 $filelist_li .=
-					 '<li class="img">
+					 '<li class="img" file_id="'.$value['primary_id'].'">
 						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
-							<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">
-							<div class="file_name">'.$value['full_name'].'</div>
+							<img src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/square_'.$value['full_name'].'">
 						</a>
 					</li>';
-
-				}
+			}
+			// 画像以外の場合
+			else {
+			 $filelist_li .=
+				 '<li class="img">
+					<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
+						<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">
+						<div class="file_name">'.$value['full_name'].'</div>
+					</a>
+				</li>';
+			}
 		}
 		// 合体
 		$filelist_html = 

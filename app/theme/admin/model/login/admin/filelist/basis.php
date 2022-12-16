@@ -9,6 +9,7 @@ class model_login_admin_filelist_basis {
 		$filelist_res = model_db::query("
 			SELECT *
 			FROM fileupload
+			WHERE del = 0
 			ORDER BY primary_id DESC
 			LIMIT ".$start_list_num.", ".$get_num."");
 		return $filelist_res;
@@ -22,6 +23,7 @@ class model_login_admin_filelist_basis {
 			SELECT *
 			FROM fileupload
 			WHERE primary_id = ".$get['file_id']."
+			AND del = 0
 		");
 		return $file_res;
 	}

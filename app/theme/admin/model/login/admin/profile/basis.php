@@ -35,13 +35,13 @@ class model_login_admin_profile_basis {
 	//--------------------------
 	// アイコンを正方形にする
 	//--------------------------
-	public static function image_square_edit($image_path, $random_hash) {
+	public static function image_square_edit($image_path, $random_hash, $savePath, $square_size = 256) {
 		$orgFile = $image_path;
 		// 保存先パス
-		$savePath = PATH.'app/assets/img/user/';
+//		$savePath = PATH.'app/assets/img/user/';
 		 // 出力ピクセルサイズで新規画像作成
-		 $square_width  = 512;
-		 $square_height = 512;
+		 $square_width  = $square_size;
+		 $square_height = $square_size;
 
 		// 画像のピクセルサイズ情報を取得
 		$imginfo = getimagesize($orgFile);
@@ -62,6 +62,11 @@ class model_login_admin_profile_basis {
 			case IMAGETYPE_GIF:
 				// イメージリソース取得
 				$ImageResource = imagecreatefromjpeg($orgFile);
+			break;
+			//webpの場合
+			case 18:
+				// イメージリソース取得
+				$ImageResource = imagecreatefromwebp($orgFile);
 			break;
 		}
 		// イメージリソースから、横、縦ピクセルサイズ取得
@@ -107,7 +112,14 @@ class model_login_admin_profile_basis {
 			 imagecopyresampled($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
 			 imagepng($square_new, $savePath . $filename);
 		break;
-		 
+		 // webp
+		 case 18:
+			// 出力ファイル名
+			$filename = $random_hash.'.webp';
+			$square_new = imagecreatetruecolor($square_width, $square_height);
+			imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
+			imagewebp($square_new, $savePath . $filename, 100);
+		 break;
 		 // デフォルト
 		 Default:
 
