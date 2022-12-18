@@ -154,13 +154,17 @@ class model_article_html {
 	//-----------------------------------
 	//さらに前の記事を見るHTML生成
 	//-----------------------------------
-	public static function next_article_html_create($next_article_check, $paging_num) {
-//		var_dump($paging_num);
+	public static function next_article_html_create($next_article_check, $paging_num, $newarticle = '') {
+/*
+		pre_var_dump($paging_num);
+		pre_var_dump($newarticle);
+*/
 		// トップから1進んだurlの場合
 		if($paging_num == 2) {
+			if($newarticle == 'newarticle') {$root_dir = 'newarticle';}
 			$back_html = '
 				<div class="back">
-					<a href="'.HTTP.'">
+					<a href="'.HTTP.$root_dir.'/">
 						新しい記事に戻る
 					</a>
 				</div>';
@@ -179,7 +183,6 @@ class model_article_html {
 							</a>
 						</div>';
 				}
-
 		// チェック
 		if($next_article_check) {
 			$next_article_html = '
