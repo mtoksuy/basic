@@ -563,6 +563,45 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 		");
 		return $query;
 	}
+	//------------------------------
+	// newarticleディレクトリ生成
+	//------------------------------
+	public static function newarticle_dir_create($site_data_array) {
+		// 記事COUNT取得
+		$article_count_res = model_db::query("
+			SELECT COUNT(*)
+			FROM article
+			WHERE del = 0");
+		$article_count = $article_count_res[0]['COUNT(*)'];
+		$newarticle_number_need_dir = (int)($article_count/$site_data_array['article_view_num']);
+		// 必要なdir生成
+		for($count = 0; $count <= $newarticle_number_need_dir; $count++) {
+			if($count > 0) {
+				// ディレクトリ作成パス取得
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/'.(int)$count.'';
+				if(!file_exists($directory_path)){
+					// ディレクトリ作成
+					basic::dir_create($directory_path);
+					// ファイル複製
+					copy(PATH.'setting/master/newarticle.php', $directory_path.'/index.php');
+				}
+			}
+		} // for($count = 0; $count <= $newarticle_number_need_dir; $count++) {
+	}
+	//------------------------------
+	// newarticleディレクトリ削除
+	//------------------------------
+	public static function newarticle_dir_delete($site_data_array) {
+		// ディレクトリ作成パス取得
+		$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/';
+		$result = glob(''.$directory_path.'*', GLOB_ONLYDIR); // ディレクトリのみ取得
+		foreach($result as $key => $value) {
+			if(file_exists($value)){
+				// ディレクトリ削除
+				basic::rmdirAll($value);
+			}
+		}
+	}
 
 
 
