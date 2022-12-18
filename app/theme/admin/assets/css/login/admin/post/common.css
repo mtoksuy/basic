@@ -169,14 +169,14 @@ letter-spacing: 0.3px;
 *************************************/
 .shortcut_notice {
 	display: none;
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: #2F3136;
 	position: fixed;
 	right: 30px;
 	bottom: 30px;
 	padding: 15px;
 	border-radius: 3px;
 	transition: all 500ms 0s ease;
-	color: rgb(74, 74, 74);
+	color: #eeeeee;
 }
 /**************
 文字数チェック

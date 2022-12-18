@@ -10,7 +10,7 @@
 			// 下記事があった場合
 			if($post['draft_id'] && $post['basic_id'] == $_SESSION['basic_id']) {
 				// 下書き記事削除
-//				model_login_article_draft_basis::article_draft_delete($post['draft_id']);
+				model_login_admin_draft_basis::article_draft_delete($post['draft_id']);
 			}
 			///////////////////////////////////////////////////////////
 			// 新規投稿
@@ -31,9 +31,8 @@
 			// ファイル複製
 			copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
 			// 記事OGP画像生成
-//			model_media_post_basis::media_article_ogp_create($res);
 			model_login_admin_post_basis::media_article_ogp_create($res, $site_data_array);
-			///////////////////////////////////////////////////////////
+			//////////////////////////sitemap_xml/////////////////////////////////
 			$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
 			// 全記事リスト取得
 			$article_all_list_res = model_sitemap_basis::article_all_list_get();

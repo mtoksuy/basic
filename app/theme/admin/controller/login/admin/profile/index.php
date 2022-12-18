@@ -25,6 +25,11 @@
 				//拡張子の設定
 				$img_extension = "gif";
 				break;
+				//webpの場合
+				case 18:
+				//拡張子の設定
+				$img_extension = "webp";
+				break;
 				}
 				$length = 32;
 				$random_hash = substr(base_convert(hash('sha256', uniqid()), 16, 36), 0, $length);
@@ -36,8 +41,9 @@
 						UPDATE user SET icon = '".$random_hash.'.'.$img_extension."'
 						WHERE primary_id = ".$_SESSION['primary_id']."
 					");
+				$savePath = PATH.'app/assets/img/user/';
 				// アイコンを正方形にする
-				model_login_admin_profile_basis::image_square_edit($image_path, $random_hash);
+				model_login_admin_profile_basis::image_square_edit($image_path, $random_hash, $savePath, 512);
 			}
 			// 一般設定保存
 			model_login_admin_profile_basis::profile_save($post);

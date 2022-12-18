@@ -54,8 +54,10 @@ $('body').on('click', '.file_modal_overlay', function() {
 				$('.file_data .size .data').html(data['file_modal_data_array']['size']);
 				$('.file_data .type .data').html(data['file_modal_data_array']['type']);
 				$('.file_data .create_time .data').html(data['file_modal_data_array']['create_time']);
+				$('.file_data .hidden_url').html(data['file_modal_data_array']['img_src']);
 				$('.next').attr('file_id', data['file_modal_data_array']['next_file_id']);
 				$('.prev').attr('file_id', data['file_modal_data_array']['prev_file_id']);
+				$('.image_box img').attr('class', data['file_modal_data_array']['img_class']);
 				$('.image_box img').attr('src', data['file_modal_data_array']['img_src']);
 			},
 			complete: function (data) {
@@ -82,8 +84,10 @@ $('body').on('click', '.file_modal_overlay', function() {
 				$('.file_data .size .data').html(data['file_modal_data_array']['size']);
 				$('.file_data .type .data').html(data['file_modal_data_array']['type']);
 				$('.file_data .create_time .data').html(data['file_modal_data_array']['create_time']);
+				$('.file_data .hidden_url').html(data['file_modal_data_array']['img_src']);
 				$('.next').attr('file_id', data['file_modal_data_array']['next_file_id']);
 				$('.prev').attr('file_id', data['file_modal_data_array']['prev_file_id']);
+				$('.image_box img').attr('class', data['file_modal_data_array']['img_class']);
 				$('.image_box img').attr('src', data['file_modal_data_array']['img_src']);
 			},
 			complete: function (data) {
@@ -91,7 +95,27 @@ $('body').on('click', '.file_modal_overlay', function() {
 			}
 		});
 	});
-
+	/****************************
+	URLをクリップボードにコピー
+	****************************/
+	$('body').on('click', '.url_copy_btn' , function() {
+	/*
+		p($(this).prev('.hidden_url'));
+		p($(this).prevAll('.hidden_url'));
+		p($(this).prevAll('.hidden_url').html());
+	*/
+		$(this).after('<textarea class="hidden_url_textarea">'+$(this).prevAll('.hidden_url').html()+'</textarea>');
+		$('.hidden_url_textarea').select();
+	//	p($('.hidden_url_textarea'));
+		document.execCommand("Copy");
+		$('.hidden_url_textarea').remove();
+		window.getSelection().removeAllRanges();
+		$(this).nextAll('.torst').html('HTMLをコピーしました。');
+		//一秒後に実行
+		setTimeout(function() {
+			$('.torst').html('　');
+		},1000);
+	});
 
 
 

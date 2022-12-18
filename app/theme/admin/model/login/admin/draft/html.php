@@ -12,7 +12,7 @@ class model_login_admin_draft_html {
 					<ul class="clearfix">
 						<li><a target="_blank" href="'.HTTP.'login/admin/post?draft_id='.$value['primary_id'].'&edit=true" target="_blank">編集する</a></li>
 						<li><a href="'.HTTP.'login/admin/post/?draft_id='.$value['primary_id'].'" target="_blank">確認する</a></li>
-						<li><a class="delete" href="'.HTTP.'login/admin/post/?draft_id='.$value['primary_id'].'&delete=true" target="_blank">削除する</a></li>
+						<li><a class="delete" href="'.HTTP.'login/admin/post/?draft_id='.$value['primary_id'].'&delete=true">削除する</a></li>
 					</ul>
 				</div>
 			</div>';
