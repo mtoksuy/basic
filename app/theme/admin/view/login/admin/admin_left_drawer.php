@@ -77,9 +77,9 @@
 
 
 				<ul class="border">
-					<span>テンプレート設定</span>
+					<span>テンプレート編集</span>
 					<li<?php if($now == 'template') {echo ' class="now"';}?>>
-						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/" target="_blank">テンプレート設定</a>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/template/" target="_blank">テンプレート編集</a>
 					</li>
 				</ul>
 
