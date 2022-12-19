@@ -1,0 +1,56 @@
+
+
+.markdown_editor .markdown_editor_inner form {
+	width: 76%;
+}
+.markdown_editor .markdown_editor_inner form .title {
+font-size: 18px;
+color: rgb(97, 182, 245);
+margin: 0 0 15px 0;
+}
+.clip {
+
+}
+
+.clip ul {
+
+}
+.clip ul li {
+	margin: 0 0 15px 0;
+	padding: 0 0 0 10px;
+}
+
+
+.clip ul li.now {
+/*
+	border-left: solid #43464D 5px;
+*/
+	box-shadow: -5px 0px 0px #43464D;
+}
+
+
+
+
+
+
+
+
+
+
+.clip ul li a {
+	display: block;
+	color: #eee;
+}
+
+.clip ul li .description {
+	display: block;
+	line-height: 65%;
+	color: rgb(97, 182, 245);
+}
+
+
+
+
+
+
+

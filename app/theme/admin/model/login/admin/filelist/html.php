@@ -7,8 +7,8 @@ class model_login_admin_filelist_html {
 //		pre_var_dump($filelist_res);
 		foreach($filelist_res as $key => $value) {
 			preg_match('/imag/', $value['type'], $type_array);
-			// 画像の場合
-			if($type_array) {
+			// gifの場合
+			if($value['type'] == 'image/gif') {
 				 $filelist_li .=
 					 '<li class="img" file_id="'.$value['primary_id'].'">
 						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
@@ -16,17 +16,25 @@ class model_login_admin_filelist_html {
 						</a>
 					</li>';
 			}
-				// 画像以外の場合
-				else {
+			// 画像の場合
+			else if($type_array) {
 				 $filelist_li .=
-					 '<li class="img">
+					 '<li class="img" file_id="'.$value['primary_id'].'">
 						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
-							<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">
-							<div class="file_name">'.$value['full_name'].'</div>
+							<img src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/square_'.$value['full_name'].'">
 						</a>
 					</li>';
-
-				}
+			}
+			// 画像以外の場合
+			else {
+			 $filelist_li .=
+				 '<li class="img">
+					<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
+						<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">
+						<div class="file_name">'.$value['full_name'].'</div>
+					</a>
+				</li>';
+			}
 		}
 		// 合体
 		$filelist_html = 
@@ -47,6 +55,15 @@ class model_login_admin_filelist_html {
 				$image_path = (PATH.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name']);
 				$image_path_imagesize = getimagesize($image_path);
 				$image_path_filesize = filesize($image_path);
+//				pre_var_dump($image_path_imagesize);
+				// 横長
+				if($image_path_imagesize[0] > $image_path_imagesize[1]) {
+					$image_class = 'landscape';
+				}
+				// 縦長
+				else {
+					$image_class = 'portrait';
+				}
 				// バイト数のフォーマット変換
 				$image_path_byte_format = basic::byte_format($image_path_filesize, 0);
 				 $file_html = '
@@ -61,7 +78,7 @@ class model_login_admin_filelist_html {
 
 							<div class="left">
 								<div class="image_box">
-									<img src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'">
+									<img class="'.$image_class.'" src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'">
 								</div>
 							</div>
 							<div class="right">
@@ -81,6 +98,9 @@ class model_login_admin_filelist_html {
 									<div class="create_time">
 										アップロード時間：　<span class="data">'.$value['create_time'].'<span>
 									</div>
+									<span class="hidden_url">'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'</span>
+									<div class="url_copy_btn">URL をクリップボードにコピー</div>
+									<div class="torst">　</div>
 								</div>
 							</div> <!-- right -->
 						</div> <!-- file_modal_inner -->

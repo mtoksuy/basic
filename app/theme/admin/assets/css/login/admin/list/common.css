@@ -2,6 +2,7 @@
 .draft_list_content {
 	padding: 15px;
 	border-bottom: 1px solid #d7d7d7;
+	position: relative;
 }
 .draft_list_content .draft_list_content_edit {
 

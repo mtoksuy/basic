@@ -135,7 +135,7 @@ admin_left
 	font-size: 14px;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li {
-
+	position: relative;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li.now  {
 	border-right: solid #43464D 5px;
@@ -153,6 +153,38 @@ admin_left
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li a:hover {
 	background-color: #8e84ff;
+}
+.admin_left .admin_left_drawer .admin_left_drawer_inner ul li .contact_unread_count {
+	color: #eeeeee;
+	display: block;
+	position: absolute;
+	top: 25px;
+	right: 14px;
+	height:8px;
+	width:8px;
+	border-radius:50%;
+	line-height:50px;
+	text-align:center;
+	background-color: #007cff;
+
+
+/*
+	color: #eeeeee;
+	background-color: red;
+	position: absolute;
+	top: 18px;
+	left: calc(100% - 26px);
+	color: #FFF;
+	font-weight: bold;
+	line-height: 20px;
+	text-align: center;
+	background: #E68031;
+	border-radius: 19px;
+	min-width: 20px;
+	padding: 2px 7px;
+	box-sizing: border-box;
+
+*/
 }
 
 

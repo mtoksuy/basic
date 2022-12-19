@@ -28,6 +28,8 @@ CREATE TABLE `article_draft` (
 CREATE TABLE `contact` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `title` varchar(256) DEFAULT NULL,
+  `company` varchar(256) DEFAULT NULL,
+  `name` varchar(256) DEFAULT NULL,
   `email` varchar(256) DEFAULT NULL,
   `contents` longtext,
   `del` tinyint(4) NOT NULL DEFAULT '0',
@@ -68,10 +70,6 @@ CREATE TABLE `page` (
   `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `page` (`primary_id`, `basic_id`, `name`, `dir_name`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
-(1, NULL, 'root', 'トップページ', NULL, 0, 0, '2022-11-27 05:17:31', NULL),
-(2, NULL, 'about', '私たちについて', NULL, 0, 0, '2022-11-27 05:17:34', NULL),
-
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
   `url` varchar(256) DEFAULT NULL,
@@ -90,7 +88,7 @@ CREATE TABLE `setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `setting` (`setting_id`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`) VALUES
-(1, NULL, 'あまてむ', 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト', 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz');
+(1, NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
