@@ -67,6 +67,7 @@ $site_data_array = basic::site_data_get();
 $page_data_array = basic::page_data_get($controller_query);
 //pre_var_dump($controller_query);
 //pre_var_dump($page_data_array);
+
 /****
 login
 *****/

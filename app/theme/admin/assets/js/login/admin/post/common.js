@@ -261,7 +261,7 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 			if(article_id) {
 				// Ajaxで送信
 				$.ajax({
-					url: http+'ajax/login/admin/markdown_post/edit.php',
+				url: '../../../ajax/login/admin/post/edit/',
 					type : "POST",
 					data : {
 						title: title,
@@ -295,7 +295,7 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 				else {
 					// Ajaxで送信
 					$.ajax({
-						url: http+'ajax/login/admin/markdown_post/draft.php',
+						url: '../../../ajax/login/admin/post/draft/',
 						type : "POST",
 						data : {
 							title: title,

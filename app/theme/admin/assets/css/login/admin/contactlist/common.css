@@ -1,0 +1,24 @@
+
+
+
+.draft_list_content {
+	padding: 15px 15px 15px 32px;
+}
+
+.draft_list_content .time {
+	color: #989898;
+	margin: 0 0 0 15px;
+}
+.draft_list_content .contact_unread_count {
+	color: #eeeeee;
+	display: block;
+	position: absolute;
+	top: 25px;
+	left: 14px;
+	height:8px;
+	width:8px;
+	border-radius:50%;
+	line-height:50px;
+	text-align:center;
+	background-color: #007cff;
+}

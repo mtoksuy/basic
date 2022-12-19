@@ -1,5 +1,4 @@
 <?php 
-
 	if($_SESSION) {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
