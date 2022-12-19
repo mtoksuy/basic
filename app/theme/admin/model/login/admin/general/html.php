@@ -40,7 +40,7 @@ class model_login_admin_general_html {
 							</select>
 						</div>
 						<div class="block">
-							<label for="compression">1ページに表示する最大投稿数</label>
+							<label for="article_view_num">1ページに表示する最大投稿数</label>
 							<input name="article_view_num" id="article_view_num" type="number" step="1" min="1" value="'.$general_data_array['article_view_num'].'">
 						</div>
 				<!-- 
