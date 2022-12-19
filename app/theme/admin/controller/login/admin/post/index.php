@@ -32,6 +32,9 @@
 			copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
 			// 記事OGP画像生成
 			model_login_admin_post_basis::media_article_ogp_create($res, $site_data_array);
+			//////////////////////////newarticleディレクトリ生成/////////////////////////////////
+			model_login_admin_post_basis::newarticle_dir_create($site_data_array);
+			///////////////////////////////////////////////////////////
 			//////////////////////////sitemap_xml/////////////////////////////////
 			$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
 			// 全記事リスト取得

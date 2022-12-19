@@ -1,5 +1,54 @@
 <?php 
-class model_login_admin_post_basis {
+class model_login_admin_rootedit_basis {
+
+	//------------------------------------------------------------------
+	// 選択しているテーマのcommon配下のファイルリストarray取得
+	//------------------------------------------------------------------
+	public static function view_common_list_array_get($site_data_array) {
+//		pre_var_dump(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/');
+		$list_dir = (PATH.'app/theme/'.$site_data_array['theme'].'/view/common/');
+		$list_dir_replace_word = (preg_replace('/\//', '\/', $list_dir));
+		$glob = glob($list_dir.'*.php');
+		foreach($glob as $key => $value) {
+			$view_common_list_array[] = preg_replace('/'.$list_dir_replace_word.'/', '', $value);
+		}
+		return $view_common_list_array;
+	}
+	//------------------------
+	// ファイルの内容を取得
+	//------------------------
+	public static function file_content_get($file_path) {
+		$file_content = file_get_contents($file_path);
+		return $file_content;
+	}
+	//------------------------
+	// ファイルの内容を保存
+	//------------------------
+	public static function file_content_save($post, $file_path) {
+		if(file_exists($file_path)) {
+//			pre_var_dump($post);
+			file_put_contents($file_path, $_POST['content']);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//------------------------------
 	//マークダウンをHTMLに変換
 	//------------------------------
@@ -149,7 +198,7 @@ class model_login_admin_post_basis {
 		$markdown = preg_replace('/\[box:(.*?)text:"(.*?)"(.*?)]/s', '<div class="box"><div class="box_inner"><p>\\2</p></div></div>', $markdown);
 
 		// カード形式リンク変換
-		$markdown =model_login_admin_post_basis::card_link_conversion($markdown);
+		$markdown =model_login_admin_page_basis::card_link_conversion($markdown);
 
 		// 吹き出し変換
 		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
@@ -192,106 +241,212 @@ fclose($file);
 
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
-//file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmt.txt', $txt);
+//file_put_contents(PATH.'login/admin/markdown_page/markdown_page_tmt.txt', $txt);
 		return $txt;
 	}
 	//------------
 	//下書き保存
 	//------------
-	public static function markdown_post_draft_save($post) {
+	public static function markdown_page_draft_save($post) {
+		// 既存の下書きの場合
 		if($post['draft_id']) {
-//				pre_var_dump($post);
+			$primary_page_res = model_db::query("
+				SELECT * 
+					FROM page
+					WHERE primary_id = '".$post['draft_id']."'
+			");
+			// 更新フラグ
+			$update_flag = 0;
+			// パーマリンクチェック
+			$permalink_check = model_login_admin_page_basis::permalink_check($post);
+			// 既存のパーマリンクと同じ場合
+			if($post['permalink'] === $primary_page_res[0]['permalink']) {
+				$update_flag = 1;
+			}
+				// パーマリンク再設定
+				else if(!$permalink_check) {
+					$update_flag = 1;
+				}
+					else {
+						$post = false;
+					}
+			// 更新
+			if($update_flag) {
 				model_db::query("
-					UPDATE article_draft 
+					UPDATE page 
 					SET 
 						title = '".$post['title']."', 
-						hashtag = '".$post['hashtag']."', 
-						content = '".$post['content']."'
+						content = '".$post['content']."',
+						permalink = '".$post['permalink']."'
 					WHERE primary_id = ".(int)$post['draft_id']."
 				");
 				$post['primary_id'] = $post['draft_id'];
+			}
 				return $post;
 		}
+			// 初 下書き保存の場合
 			else {
-				model_db::query("
-					INSERT INTO article_draft 
-					(
-						basic_id, 
-						title, 
-						hashtag, 
-						content
-					) 
-					VALUES (
-						'".$_SESSION['basic_id']."',
-						'".$post['title']."',
-						'".$post['hashtag']."',
-						'".$post['content']."'
-					)");
-				// 下書き取得
-				$query = model_db::query("
-					SELECT * 
-						FROM article_draft
-						WHERE basic_id = '".$_SESSION['basic_id']."' 
-						AND del = 0
-						ORDER BY primary_id DESC
-						LIMIT 0,1");
-					$query = $query[0];
+				// パーマリンクチェック
+				$permalink_check = model_login_admin_page_basis::permalink_check($post);
+				// 重複してない場合
+				if(!$permalink_check) {
+					$query = model_db::query("
+						INSERT INTO page 
+						(
+							permalink, 
+							basic_id, 
+							title, 
+							content,
+							draft
+						) 
+						VALUES (
+							'".$post['permalink']."',
+							'".$_SESSION['basic_id']."',
+							'".$post['title']."',
+							'".$post['content']."',
+							1
+						)");
+					// 下書き取得
+					$query = model_db::query("
+						SELECT * 
+							FROM page
+							WHERE basic_id = '".$_SESSION['basic_id']."' 
+							AND del = 0
+							ORDER BY primary_id DESC
+							LIMIT 0,1");
+						$query = $query[0];
+				} // if(!$permalink_check) {
+					else {
+						$query = false;
+					}
 				return $query;
 			}
 	}
 	//---------
 	//編集保存
 	//---------
-	public static function markdown_post_edit_save($post) {
-		$now_date = date('Y-m-d H:i:s', time());
-		model_db::query("
-			UPDATE article
-			SET 
-				title = '".$post['title']."', 
-				content = '".$post['content']."',
-				update_time = '".$now_date."'
-			WHERE primary_id = ".(int)$post['article_id']."
+	public static function markdown_page_edit_save($post) {
+		$primary_page_res = model_db::query("
+			SELECT * 
+				FROM page
+				WHERE primary_id = '".$post['page_id']."'
 		");
-		$post['primary_id'] = $post['article_id'];
-		if(file_exists(PATH.'article/'.$post['article_id'].'/index.html')) {
-			// 圧縮ファイル削除
-			unlink(PATH.'article/'.$post['article_id'].'/index.html');
+		// 更新フラグ
+		$update_flag = 0;
+		// パーマリンクチェック
+		$permalink_check = model_login_admin_page_basis::permalink_check($post);
+		// 既存のパーマリンクと同じ場合
+		if($post['permalink'] === $primary_page_res[0]['permalink']) {
+			$update_flag = 1;
 		}
-		if(file_exists(PATH.'article/'.$post['article_id'].'/index.html.gz')) {
-			// 圧縮ファイル削除
-			unlink(PATH.'article/'.$post['article_id'].'/index.html.gz');
+			// パーマリンク再設定
+			else if(!$permalink_check) {
+				// サイト情報取得
+				$site_data_array = basic::site_data_get();
+				$delete_permalink = $primary_page_res[0]['permalink'];
+				// ディレクトリ削除パス取得
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$delete_permalink.'';				
+				// ディレクトリ削除
+				basic::rmdirAll($directory_path);
+				$new_permalink = $post['permalink'];
+				// ディレクトリ作成パス取得
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$new_permalink.'';
+				// ディレクトリ作成
+				basic::dir_create($directory_path);
+				// ファイル複製
+				copy(PATH.'setting/master/page.php', $directory_path.'/index.php');
+				///////////////////////////////////////////////////////////
+				$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
+				// 全記事リスト取得
+				$article_all_list_res = model_sitemap_basis::article_all_list_get();
+				// pageリスト取得
+				$page_all_list_res = model_sitemap_basis::page_all_list_get();
+				// sitemap.xml生成
+				$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
+	//			pre_var_dump($sitemap_xml);
+				// sitemap.xmlの場所
+				$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
+				// sitemap.xml書き込み
+				file_put_contents($sitemap_xml_path, $sitemap_xml);
+				$update_flag = 1;
+			}
+				// 重複している場合
+				else {
+					$post = false;
+				}
+		if($update_flag) {
+			$now_date = date('Y-m-d H:i:s', time());
+			model_db::query("
+				UPDATE page
+				SET 
+					title = '".$post['title']."', 
+					content = '".$post['content']."',
+					permalink =  '".$post['permalink']."',
+					update_time = '".$now_date."'
+				WHERE primary_id = ".(int)$post['page_id']."
+			");
+			$post['primary_id'] = $post['article_id'];
+			$post['page_url'] = HTTP.$post['permalink'].'/';
+/*
+			if(file_exists(PATH.'article/'.$post['article_id'].'/index.html')) {
+				// 圧縮ファイル削除
+				unlink(PATH.'article/'.$post['article_id'].'/index.html');
+			}
+			if(file_exists(PATH.'article/'.$post['article_id'].'/index.html.gz')) {
+				// 圧縮ファイル削除
+				unlink(PATH.'article/'.$post['article_id'].'/index.html.gz');
+			}
+*/
+			// 更新記事情報取得
+			$res = model_db::query("
+				SELECT *
+				FROM page
+				WHERE del = 0
+				AND primary_id = ".(int)$post['article_id']."
+				ORDER BY primary_id DESC
+				LIMIT 0, 1");
 		}
-		// 更新記事情報取得
-		$res = model_db::query("
-			SELECT *
-			FROM article
-			WHERE del = 0
-			AND primary_id = ".(int)$post['article_id']."
-			ORDER BY primary_id DESC
-			LIMIT 0, 1");
-		// 記事OGP画像生成(更新)
-		model_login_admin_post_basis::media_article_ogp_create($res);
 		return $post;
 	}
 	//----------
-	//新規投稿
+	//新規作成
 	//---------
-	public static function markdown_post_add($post) {
+	public static function markdown_page_add($post) {
+//			pre_var_dump($post);
 		$query = model_db::query("
-			INSERT INTO article 
+			INSERT INTO page 
 			(
+				permalink, 
 				basic_id, 
 				title, 
 				content
 			) 
 			VALUES (
+				'".$post['permalink']."',
 				'".$_SESSION['basic_id']."',
 				'".$post['title']."',
 				'".$post['content']."'
 			)");
 	}
+	//------------------
+	//下書きページ公開
+	//-------------------
+	public static function markdown_page_public($post) {
+//			pre_var_dump($post);
+			$now_date = date('Y-m-d H:i:s', time());
+			model_db::query("
+				UPDATE page
+				SET 
+					title = '".$post['title']."', 
+					content = '".$post['content']."',
+					permalink =  '".$post['permalink']."',
+					draft = 0,
+					update_time = '".$now_date."'
+				WHERE primary_id = ".(int)$post['draft_id']."
+			");
+	}
 	//--------------
-	//記事OGP生成 (古い  model_media_post_basis::media_article_ogp_createが正しい
+	//記事OGP生成 (古い  model_media_page_basis::media_article_ogp_createが正しい
 	//--------------
 	public static function ________________media_article_ogp_create($res) {
 //		pre_var_dump($res);
@@ -388,7 +543,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				// 相対的に表記されたアイコンを絶対的に戻す
 				if(!preg_match('/http/', $icon, $icon_array)) {
 					// 相対パスを絶対パスに変換
-					$icon = model_login_markdown_post_basis::pathToUrl($icon, $value);
+					$icon = model_login_markdown_page_basis::pathToUrl($icon, $value);
 					// パスから画像データを取得
 					$data = file_get_contents($icon);
 					// base64に変換
@@ -551,67 +706,29 @@ https://kotonohaweb.net/difficult-1kanji-5moji/
 echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['primary_id'].'.png">');
 */
 	}
-	//----------
-	//記事削除
-	//----------
-	public static function markdown_post_delete($article_primary_id) {
+	//------------
+	//ページ削除
+	//------------
+	public static function markdown_page_delete($page_primary_id) {
 		model_db::query("
-			UPDATE article 
+			UPDATE page 
 			SET 
 				del = 1
-			WHERE primary_id = ".(int)$article_primary_id."
+			WHERE primary_id = ".(int)$page_primary_id."
 		");
-		return $query;
+//		return $query;
 	}
-	//------------------------------
-	// newarticleディレクトリ生成
-	//------------------------------
-	public static function newarticle_dir_create($site_data_array) {
-		// 記事COUNT取得
-		$article_count_res = model_db::query("
-			SELECT COUNT(*)
-			FROM article
-			WHERE del = 0");
-		$article_count = $article_count_res[0]['COUNT(*)'];
-		$newarticle_number_need_dir = (int)($article_count/$site_data_array['article_view_num']);
-		// 必要なdir生成
-		for($count = 0; $count <= $newarticle_number_need_dir; $count++) {
-			if($count > 0) {
-				// ディレクトリ作成パス取得
-				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/'.(int)$count.'';
-				if(!file_exists($directory_path)){
-					// ディレクトリ作成
-					basic::dir_create($directory_path);
-					// ファイル複製
-					copy(PATH.'setting/master/newarticle.php', $directory_path.'/index.php');
-				}
-			}
-		} // for($count = 0; $count <= $newarticle_number_need_dir; $count++) {
+	//-----------------------
+	//パーマリンクチェック
+	//-----------------------
+	public static function permalink_check($post) {
+//		pre_var_dump($post);
+		$permalink_check_res = model_db::query("
+			SELECT * FROM page 
+			WHERE permalink = '".$post['permalink']."'");
+//		pre_var_dump($permalink_check_res);
+		return $permalink_check_res;
 	}
-	//------------------------------
-	// newarticleディレクトリ削除
-	//------------------------------
-	public static function newarticle_dir_delete($site_data_array) {
-		// ディレクトリ作成パス取得
-		$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/';
-		$result = glob(''.$directory_path.'*', GLOB_ONLYDIR); // ディレクトリのみ取得
-		foreach($result as $key => $value) {
-			if(file_exists($value)){
-				// ディレクトリ削除
-				basic::rmdirAll($value);
-			}
-		}
-	}
-
-
-
-
-
-
-
-
-
-
 
 
 

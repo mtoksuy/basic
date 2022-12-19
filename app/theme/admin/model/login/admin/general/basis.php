@@ -20,7 +20,8 @@ class model_login_admin_general_basis {
 			SET 
 				title = '".$post['site_name']."',
 				description = '".$post['site_summary']."',
-				compression = '".$post['compression']."'
+				compression = '".$post['compression']."',
+				article_view_num = '".$post['article_view_num']."'
 			WHERE setting_id = 1");
 	}
 	//----------

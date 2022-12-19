@@ -75,6 +75,12 @@
 					</li>
 				</ul>
 
+				<ul class="border">
+					<span>トップページ編集</span>
+					<li<?php if($now == 'template') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/rootedit/" target="_blank">トップページ編集</a>
+					</li>
+				</ul>
 
 				<ul class="border">
 					<span>テンプレート編集</span>
