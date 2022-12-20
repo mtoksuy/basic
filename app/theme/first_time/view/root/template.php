@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/'.$controller_query.'/head.php'); /* head読み込み*/ ?>

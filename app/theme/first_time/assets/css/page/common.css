@@ -32,7 +32,6 @@ article br {
 article
 *******/
 article {
-	width: 680px;
 	margin: 0 auto;
 /*
 	font-family: 'ヒラギノ角ゴ Pro W3',Hiragino Kaku Gothic Pro,"メイリオ",Meiryo,Osaka,'ＭＳ Ｐゴシック',MS PGothic,sans-serif;
@@ -125,9 +124,7 @@ article .index li:hover {
 
 
 article h1 {
-	font-size: 28px;
-	margin: 0 0 30px 0;
-	font-weight: 500;
+	font-size: 32px;
 }
 article h2 {
 	font-size: 22px;
@@ -222,7 +219,6 @@ article .update_date_time{
 
 }
 article p {
-	font-size: 16px;
 	margin: 0;
 }
 article ul.number {
