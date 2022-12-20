@@ -20,7 +20,7 @@ pre_var_dump($_SERVER);
 				<li<?php if(preg_match('/about/', $_SERVER['REQUEST_URI'], $array)) {echo ' class="now"';} ?>>
 					<a href="<?php echo HTTP; ?>about/">私たちについて</a>
 				</li>
-				<li<?php if(preg_match('/newarticle|article/', $_SERVER['REQUEST_URI'], $array)) {echo ' class="now"';} ?>>
+				<li<?php if(preg_match('/newarticle|article|search/', $_SERVER['REQUEST_URI'], $array)) {echo ' class="now"';} ?>>
 					<a href="<?php echo HTTP; ?>newarticle/">記事</a>
 				</li>
 			</ul>
