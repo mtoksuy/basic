@@ -127,6 +127,7 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 		else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
 			// コントローラー読み込み
 			require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
+
 		}
 			// エラー表示
 			else {
