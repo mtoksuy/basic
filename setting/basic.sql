@@ -10,9 +10,9 @@ CREATE TABLE `article` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `article` (`primary_id`, `basic_id`, `title`, `hashtag`, `content`, `del`, `create_time`, `update_time`) VALUES
-(1, NULL, 'Hello world!', '[\"1\"]', 'ようこそ！Basicの世界へ\r\nこの記事はサンプル記事です。\r\nBasicは誰でも簡単にマークダウン方式で記事が書けて簡単にサイトが運営できますので楽しみながらあれこれいじってみて下さい。', 0, '2022-10-14 05:33:50', NULL),
-(2, NULL, 'Basicではどんなサイトが構築できるか', 'サンプルのハッシュタグ', 'Basicではお気軽に目的に沿ったサイト運営が可能です。\r\n\r\n・ブログ\r\n・会社HP\r\n・ぺらいち\r\n・etc.\r\n\r\nなどがすぐにでも構築可能です。わからない事がございましたら公式のお問い合わせ or 公式のSNSにて気軽にご連絡してください。\r\n\r\n・ECサイト\r\nにつきましてもBasicで構築できるようアップデート中でございます。', 0, '2022-10-14 05:35:53', NULL),
-(3, NULL, 'Basicは世界一簡単なCMSを目指しています', NULL, '最初からPC・スマホ対応なのはもちろんのこと、画面からでもファイル編集からでも誰でも簡単にサイト構築できるのがBasicです。\r\n\r\n何かお困りな事がありましたらお気軽にご連絡ください。', 0, '2022-10-30 22:17:35', NULL);
+(1, NULL, 'Hello world!', '[\"1\"]', 'ようこそ！Basicの世界へ\r\nこの記事はサンプル記事です。\r\nBasicは誰でも簡単にマークダウン方式で記事が書けて簡単にサイトが運営できますので楽しみながらあれこれいじってみて下さい。', 0, '2022-10-13 20:33:50', NULL),
+(2, NULL, 'Basicではどんなサイトが構築できるか', 'サンプルのハッシュタグ', 'Basicではお気軽に目的に沿ったサイト運営が可能です。\r\n\r\n・ブログ\r\n・会社HP\r\n・ぺらいち\r\n・etc.\r\n\r\nなどがすぐにでも構築可能です。わからない事がございましたら公式のお問い合わせ or 公式のSNSにて気軽にご連絡してください。\r\n\r\n・ECサイト\r\nにつきましてもBasicで構築できるようアップデート中でございます。', 0, '2022-10-13 20:35:53', NULL),
+(3, NULL, 'Basicは世界一簡単なCMSを目指しています', NULL, '最初からPC・スマホ対応なのはもちろんのこと、画面からでもファイル編集からでも誰でも簡単にサイト構築できるのがBasicです。\r\n\r\n何かお困りな事がありましたらお気軽にご連絡ください。', 0, '2022-10-30 13:17:35', NULL);
 
 CREATE TABLE `article_draft` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -70,6 +70,9 @@ CREATE TABLE `page` (
   `update_time` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `page` (`primary_id`, `basic_id`, `permalink`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
+(1, NULL, 'about', '私たちについて', 'aboutのサンプルページです。', 0, 0, '2022-10-13 20:33:50', NULL);
+
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
   `url` varchar(256) DEFAULT NULL,
@@ -84,11 +87,12 @@ CREATE TABLE `setting` (
   `apple_touch_icon` varchar(256) DEFAULT NULL,
   `apple_touch_icon_precomposed` varchar(256) DEFAULT NULL,
   `compression` tinyint(4) DEFAULT NULL,
-  `compression_type` varchar(256) DEFAULT NULL
+  `compression_type` varchar(256) DEFAULT NULL,
+  `article_view_num` varchar(256) DEFAULT '12'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `setting` (`setting_id`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`) VALUES
-(1, NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz');
+INSERT INTO `setting` (`setting_id`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`) VALUES
+(1, NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -153,4 +157,5 @@ ALTER TABLE `setting`
 
 ALTER TABLE `user`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 COMMIT;
