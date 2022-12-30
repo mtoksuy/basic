@@ -440,6 +440,11 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			SET
 				basic_id = '".$post['basic_id']."'
 		");
+		model_db::query("
+			UPDATE page
+			SET
+				basic_id = '".$post['basic_id']."'
+		");
 	}
 	//-----------------
 	// ランダム数取得
