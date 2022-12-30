@@ -676,7 +676,22 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 //		pre_var_dump($post);
 		$permalink_check_res = model_db::query("
 			SELECT * FROM page 
-			WHERE permalink = '".$post['permalink']."'");
+			WHERE permalink = '".$post['permalink']."
+			AND del = 0'");
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		$result = glob(PATH.'app/theme/'.$site_data_array['theme'].'/controller/*', GLOB_ONLYDIR);
+		foreach($result as $key => $value) {
+			// 特定の文字列から後ろを取得
+			$dir_name = mb_substr($value, mb_strrpos($value, '/') + 1, mb_strlen($value)); // MS-06S
+			if($post['permalink'] === $dir_name) {
+//				pre_var_dump($dir_name);
+				$permalink_check_res = $dir_name;
+			}
+			else {
+
+			}
+		}
 //		pre_var_dump($permalink_check_res);
 		return $permalink_check_res;
 	}

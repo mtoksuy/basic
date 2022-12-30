@@ -6,7 +6,8 @@
 			<label class="nav-unshown" id="nav-close" for="nav-input"></label>
 			<div id="nav-content">
 				<ul>
-					<li><a  class="o_8" href="<?php echo HTTP;?>aboutu/">私たちについて</a></li>
+					<li><a  class="o_8" href="<?php echo HTTP;?>about/">私たちについて</a></li>
+					<li><a  class="o_8" href="<?php echo HTTP;?>sitemap/">サイトマップ</a></li>
 					<li><a class="o_8" href="<?php echo HTTP;?>contact/">お問い合わせ</a></li>
 				</ul>
 			</div>
