@@ -58,49 +58,30 @@ class model_sitemap_html {
 		}
 		return $li_html_list;
 	}
-	//---------------------------------------
-	//オールカテゴリ記事リストHTML取得
-	//----------------------------------------
-	public static function all_category_article_list_html_create($all_category_article_list_data_array) {
-		foreach($all_category_article_list_data_array as $key_1 => $value_1) {
-			$category_name = $value_1['category_name'];
-			// カテゴリー情報取得
-			$category_res = model_article_basis::category_data_get($category_name);
-			$category_name = $category_res[0]['category_name'];
-			$name = $category_res[0]['name'];
-			$description = $category_res[0]['description'];
-			$article_list_li = '';
-			foreach($value_1['res'] as $key => $value) {
-			// 記事データ取得
-			$unix_time            = strtotime($value["create_time"]);
-			$local_time           = date('Y-m-d', $unix_time);
-			$local_japanese_time  = date('Y年m月d日', $unix_time);
-			$article_year_time    = date('Y', $unix_time);
-//pre_var_dump($value);
-			// 記事HTMLテキスト取得
-			$article_contents     = htmlspecialchars_decode($value["content"]);
-			// 改行を消す&タブ削除
-			$article_contests = str_replace(array("\r\n", "\r", "\n", "\t"), '', $article_contents);
-			// 本文を5680文字に丸める
-			$article_contests = mb_strimwidth($article_contests, 0, 5680, '...', 'utf8'); // 応急処置 2018.01.31 なぜこれで直るかはわからん 下記のpreg_replaceが重すぎた
-
-			// HTMLタグを取り除く
-//			$article_contests = preg_replace('/<("[^"]*"|\'[^\']*\'|[^\'">])*>/', '', $article_contests);
-			$article_contests = strip_tags($article_contests);
-
-			// 本文を168文字に丸める
-			$summary_contents = mb_strimwidth($article_contests, 0, 168, "...", 'utf8');
-
-			// エンティティを戻す
-			$title        = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
-			// タイトルを82文字に丸める
-			$title = mb_strimwidth($title, 0, 82, "...", 'utf8');
-
-			 $article_list_li .=
-				 '<li>
-					<a href="'.HTTP.'article/'.$value['primary_id'].'/">'.$title.'</a>
-				</li>';
-			} // foreach
+	//-------------------------------------
+	//サイトマップ記事リストHTML取得
+	//--------------------------------------
+	public static function sitemap_article_list_html_create($article_res) {
+		$article_list_li = '';
+		foreach($article_res as $key => $value) {
+			// ページ
+			if($value['permalink']) {
+				// エンティティを戻す
+				$title = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
+				 $article_list_li .=
+					 '<li>
+						<a href="'.HTTP.$value['permalink'].'/">'.$title.'</a>
+					</li>';
+			}
+			// 記事
+			else {
+		// エンティティを戻す
+		$title = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
+		 $article_list_li .=
+			 '<li>
+				<a href="'.HTTP.'article/'.$value['primary_id'].'/">'.$title.'</a>
+			</li>';
+			}
 		} // foreach
 		return $article_list_li;
 	}

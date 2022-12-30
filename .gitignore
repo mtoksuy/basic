@@ -10,6 +10,7 @@ products/*
 assets/img/*
 assets/img/article_ogp/*
 sitemap/sitemap.xml
+*.xml
 category/*
 markdown_post_tmt.txt
 gzip/generate/article_log.txt
@@ -22,3 +23,4 @@ app/theme/first_time/controller/article/*
 app/assets/img/article_ogp/*
 app/assets/fileupload/*
 app/assets/img/user/*
+setting/markdown_article_tmt.tmt

@@ -7,7 +7,7 @@
 			$method = 1;
 		}
 	// 記事タイトル挿入
-	$page_data_array['title'] = '新着記事一覧：'.$method.'ページ目';
+	$page_data_array['title'] = '新着記事一覧：'.($method+1).'ページ目';
 	// ページング1回でn回表示設定
 	 $article_view_num = $site_data_array['article_view_num'];
 	// さらに前の記事を見るデータ取得

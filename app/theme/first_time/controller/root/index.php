@@ -10,6 +10,7 @@
 	$next_article_check = model_article_basis::next_article_check($method, $article_view_num);
 	// さらに前の記事を見るHTML生成
 	$next_article_html = model_article_html::next_article_html_create($next_article_check, $paging_num);
+
 /*
 	// 記事リスト取得
 	$article_list_res = model_sample_basis::article_list_get(10,1);

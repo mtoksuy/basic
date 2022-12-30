@@ -13,42 +13,46 @@
 			if(!$permalink_check) {
 				// 新規ページ作成
 				model_login_admin_page_basis::markdown_page_add($post);
+				// 最新記事情報取得
+				$res = model_db::query("
+					SELECT *
+					FROM page
+					WHERE del = 0
+					ORDER BY primary_id DESC
+					LIMIT 0, 1");
+				// サイト情報取得
+				$site_data_array = basic::site_data_get();
+				// ディレクトリ作成パス取得
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$res[0]['permalink'].'';
+				// ディレクトリ作成
+				basic::dir_create($directory_path);
+				// ファイル複製
+				copy(PATH.'setting/master/page.php', $directory_path.'/index.php');
+				///////////////////////////////////////////////////////////
+				$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
+				// 全記事リスト取得
+				$article_all_list_res = model_sitemap_basis::article_all_list_get();
+				// pageリスト取得
+				$page_all_list_res = model_sitemap_basis::page_all_list_get();
+				// sitemap.xml生成
+				$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
+	//			pre_var_dump($sitemap_xml);
+				// sitemap.xmlの場所
+				$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
+				// sitemap.xml書き込み
+				file_put_contents($sitemap_xml_path, $sitemap_xml);
+	
+				///////////////////////////////////////////////////////////
+				// Todo 一旦置いとく  のちほど実装
+				// gzipファイル更新&作成 本番でのみ動く
+	//			exec("/usr/bin/php ".PATH."gzip/generate/index.php > /dev/null &");
+				///////////////////////////////////////////////////////////
+				header('Location: '.HTTP.'login/admin/');
 			}
-			// 最新記事情報取得
-			$res = model_db::query("
-				SELECT *
-				FROM page
-				WHERE del = 0
-				ORDER BY primary_id DESC
-				LIMIT 0, 1");
-			// サイト情報取得
-			$site_data_array = basic::site_data_get();
-			// ディレクトリ作成パス取得
-			$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$res[0]['permalink'].'';
-			// ディレクトリ作成
-			basic::dir_create($directory_path);
-			// ファイル複製
-			copy(PATH.'setting/master/page.php', $directory_path.'/index.php');
-			///////////////////////////////////////////////////////////
-			$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
-			// 全記事リスト取得
-			$article_all_list_res = model_sitemap_basis::article_all_list_get();
-			// pageリスト取得
-			$page_all_list_res = model_sitemap_basis::page_all_list_get();
-			// sitemap.xml生成
-			$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
-//			pre_var_dump($sitemap_xml);
-			// sitemap.xmlの場所
-			$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
-			// sitemap.xml書き込み
-			file_put_contents($sitemap_xml_path, $sitemap_xml);
+			// 重複している場合
+			else {
 
-			///////////////////////////////////////////////////////////
-			// Todo 一旦置いとく  のちほど実装
-			// gzipファイル更新&作成 本番でのみ動く
-//			exec("/usr/bin/php ".PATH."gzip/generate/index.php > /dev/null &");
-			///////////////////////////////////////////////////////////
-			header('Location: '.HTTP.'login/admin/');
+			}
 		} // if($_POST['title'] && $_POST['content']) {
 		//////////////////
 		// 下書きから作成
