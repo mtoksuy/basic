@@ -107,7 +107,9 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	else {
 		if($_SERVER["HTTP_HOST"]) {
 			define('HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/'.$SCRIPT_NAME);
-			define('PATH', $_SERVER["DOCUMENT_ROOT"].'/');
+//			define('PATH', $_SERVER["DOCUMENT_ROOT"].'/'); 削除は一旦保留
+			$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+			define('PATH', $PATH);
 		}
 			// cron対策
 			else {
