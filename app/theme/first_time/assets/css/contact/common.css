@@ -19,7 +19,7 @@ contact
 
 .contact .contact_inner .contact_title_top {
 	font-size: 24px;
-	color: #48BF84;
+	color: var(--theme-color1);
 	font-weight:bold;
 	margin: 0 0 30px 0;
 }
@@ -34,23 +34,6 @@ contact
 	text-align: center;
 	margin:0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .contact .contact_inner form {
 		position:relative;
@@ -120,7 +103,7 @@ contact
 .contact .contact_inner form input[type="submit"] {
 	cursor: pointer;
 	color: #fcfcfc;
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	margin:0 0 30px 0;
 	padding: 18px;
 	width: 100%;

@@ -1,3 +1,15 @@
+/********************
+first_timeカスタム変数
+********************/
+:root {
+  --back-ground-color: #fff;
+  --theme-color1: #006ded;
+/*
+  --theme-color2: ;
+  --theme-color3: ;
+*/
+}
+
 /*******
 common
 *******/
@@ -81,6 +93,10 @@ body {
 	font-feature-settings: 'pwid';
 	letter-spacing: 0.3px;
   background-color: #ffffff;
+  background-color: var(--back-ground-color);
+
+
+
 }
 
 /******
@@ -312,7 +328,7 @@ padding: 5px 0;
 white-space: nowrap;
 }
 .navi_slide_menu ul li.now {
-	border-bottom: solid #48BF84 2px;
+	border-bottom: solid var(--theme-color1) 2px;
 }
 .navi_slide_menu ul li a {
 color: #292f33;
@@ -1270,7 +1286,7 @@ footer
 }
 
 .footer_bottom {
-	background-color: #00C49A;
+	background-color: var(--theme-color1);
 	position: relative;
 	bottom:0;
 }
