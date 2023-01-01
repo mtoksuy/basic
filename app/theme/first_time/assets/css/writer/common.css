@@ -1,9 +1,9 @@
 /*****
 writer
 *****/
-.writer {
 
-}
+.writer {}
+
 .writer .writer_inner {
 	list-style: none;
 	padding: 0;
@@ -11,6 +11,7 @@ writer
 	display: flex;
 	flex-wrap: wrap;
 }
+
 .writer .writer_inner .writer_inner_left {
 	margin: 0 0 30px 0;
 	list-style: none;
@@ -19,27 +20,25 @@ writer
 	box-sizing: border-box;
 	align-self: stretch;
 }
-.writer .writer_inner .writer_inner_left img {
 
-}
-.writer .writer_inner .writer_inner_left .profile_card_content_name {
+.writer .writer_inner .writer_inner_left img {}
 
-}
+.writer .writer_inner .writer_inner_left .profile_card_content_name {}
+
 .writer .writer_inner .writer_inner_left .profile_card_content_name h1 {
 	font-size: 24px;
 }
-.writer .writer_inner .writer_inner_left {
 
-}
-.writer .writer_inner .writer_inner_left .profile_card_content_summary {
+.writer .writer_inner .writer_inner_left {}
 
-}
+.writer .writer_inner .writer_inner_left .profile_card_content_summary {}
+
 .writer .writer_inner .writer_inner_left .profile_card_content_sns {
 	margin: 0 0 15px 0;
 }
-.writer .writer_inner .writer_inner_left .profile_card_content_site {
 
-}
+.writer .writer_inner .writer_inner_left .profile_card_content_site {}
+
 .writer .writer_inner .writer_inner_right {
 	margin: 0 0 30px 0;
 	display: flex;
@@ -49,22 +48,21 @@ writer
 	box-sizing: border-box;
 	align-self: stretch;
 }
+
 .writer .writer_inner .writer_inner_right img {
 	width: 100%;
 	height: auto;
 }
 
 
-
-
-
 /**************
 1024px以下の設定
 **************/
+
 @media screen and (min-width: 0px) and (max-width: 1024px) {
 	.main {
-	    padding: 120px 0 0;
-	    margin: 0 auto;
+		padding: 120px 0 0;
+		margin: 0 auto;
 	}
 	.writer .writer_inner .writer_inner_left {
 		flex-basis: 100%;
@@ -75,16 +73,15 @@ writer
 		flex-basis: 100%;
 	}
 }
+
+
 /**************
 748px以下の設定
 **************/
+
 @media screen and (min-width: 0px) and (max-width: 748px) {
 	.main {
-	    padding: 80px 0 0;
-	    margin: 0 auto;
+		padding: 80px 0 0;
+		margin: 0 auto;
 	}
 }
-
-
-
-
