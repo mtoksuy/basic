@@ -13,22 +13,7 @@
 						<priority>0.7</priority>
 					</url>
 					<url>
-						<loc>http://localhost/basic/aaticle/</loc>
-						<changefreq>weekly</changefreq>
-						<priority>0.7</priority>
-					</url>
-					<url>
-						<loc>http://localhost/basic/articlee/</loc>
-						<changefreq>weekly</changefreq>
-						<priority>0.7</priority>
-					</url>
-					<url>
-						<loc>http://localhost/basic/aarticle/</loc>
-						<changefreq>weekly</changefreq>
-						<priority>0.7</priority>
-					</url>
-					<url>
-						<loc>http://localhost/basic/aaa/</loc>
+						<loc>http://localhost/basic/5c862a36/</loc>
 						<changefreq>weekly</changefreq>
 						<priority>0.7</priority>
 					</url>

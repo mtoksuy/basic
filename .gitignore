@@ -9,7 +9,7 @@ products/*
 *.js.gz
 assets/img/*
 assets/img/article_ogp/*
-sitemap/sitemap.xml
+app/theme/first_time/controller/sitemap/sitemap.xml
 *.xml
 category/*
 markdown_post_tmt.txt
