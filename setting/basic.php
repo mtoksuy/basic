@@ -466,6 +466,13 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$user_data_array = $query[0];
 		return $user_data_array;
 	}
+	//--------------------------
+	// 現在のブランチ名を取得
+	//--------------------------
+	public static function git_branch_name_get() {
+		$gitPath = PATH.".git/HEAD";
+		return trim(implode('/', array_slice(explode('/', file_get_contents($gitPath)),2)), "\n");
+	}
 
 
 
