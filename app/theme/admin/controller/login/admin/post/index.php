@@ -83,7 +83,15 @@
 			if($_SESSION['basic_id'] == $article_res[0]['basic_id']) {
 //				pre_var_dump($article_res[0]['primary_id']);
 				// 記事削除
-				$article_res = model_login_admin_post_basis::markdown_post_delete($article_res[0]['primary_id']);
+				 model_login_admin_post_basis::markdown_post_delete($article_res[0]['primary_id']);
+				// サイト情報取得
+				$site_data_array = basic::site_data_get();
+				// 削除ディレクトリパス取得
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.(int)$article_res[0]['primary_id'].'';
+				// ディレクトリ削除
+				basic::rmdirAll($directory_path);
+				//////////////////////////newarticleディレクトリ生成/////////////////////////////////
+				model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 				header('Location: '.HTTP.'login/admin/list/');
 				return false;
 			}
