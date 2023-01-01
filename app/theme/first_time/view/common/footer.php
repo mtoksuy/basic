@@ -13,6 +13,7 @@
 							<li class="item"><a href="<?php echo HTTP; ?>about/">私たちについて</a></li>
 							<li class="item"><a href="<?php echo HTTP; ?>sitemap/">サイトマップ</a></li>
 							<li class="item"><a href="<?php echo HTTP; ?>contact/">お問い合わせ</a></li>
+							<li class="item"><a href="<?php echo HTTP; ?>login/">ログイン</a></li>
 						</ul>
 					</div> <!-- footer_box_bottom -->
 
