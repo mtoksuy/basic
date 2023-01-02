@@ -19,3 +19,4 @@ app/assets/fileupload/*
 app/assets/img/user/*
 !app/assets/img/user/default_1.png
 setting/markdown_article_tmp.txt
+setting/db_config.php
