@@ -49,6 +49,114 @@ class model_article_basis {
 			LIMIT 0, 1");
 		return $article_res;
 	}
+	//----------------------------
+	//前の記事、次の記事データ取得
+	//----------------------------
+	public static function article_previous_next_get($article_primary_id) {
+		$query_p = model_db::query("SELECT * 
+									FROM article
+									WHERE primary_id < $article_primary_id
+									AND del = 0
+									ORDER BY primary_id DESC
+									LIMIT 0 , 1");
+		$query_n = model_db::query("SELECT * 
+									FROM article
+									WHERE primary_id > $article_primary_id
+									AND del = 0
+									ORDER BY primary_id ASC
+									LIMIT 0 , 1");
+		$article_previous_next_res_array = array(
+		 'previous' => $query_p,
+		 'next'     => $query_n,
+		 );
+		return $article_previous_next_res_array;
+	}
+
+	//------------------------------
+	//カテゴリー別記事データ取得
+	//------------------------------
+	public static function category_article_list_get($category_name) {
+		// 取得する場所取得
+		$category_article_res = model_db::query("
+			SELECT *
+			FROM article
+			WHERE del = 0
+			AND category = '".$category_name."'
+			ORDER BY primary_id DESC");
+		return $category_article_res;
+	}
+	//----------------------
+	//カテゴリー情報取得
+	//----------------------
+	public static function category_data_get($category_name) {
+		// 取得する場所取得
+		$category_res = model_db::query("
+			SELECT *
+			FROM media_category
+			WHERE category_name = '".$category_name."'
+		");
+		return $category_res;
+	}
+	//--------------------------
+	//ライター記事データ取得
+	//--------------------------
+	public static function writer_article_get($method) {
+		$article_res = model_db::query("
+			SELECT * 
+			FROM article 
+			WHERE amatem_id = '".$method."'
+			AND del = 0
+			ORDER BY primary_id DESC");
+		return $article_res;
+	}
+	//-----------------
+	//関連記事res取得
+	//-----------------
+	public static function related_articles_res_get($primary_id, $hashtag) {
+		$hashtag_list_explode = explode(', ', $hashtag);
+		foreach($hashtag_list_explode as $key => $value) {
+			if($value) {
+				$hashtag_list[] = $value;
+			}
+		}
+		foreach((array)$hashtag_list as $key => $value) {
+			if($key == 0) {
+				$query .= "WHERE hashtag LIKE '%".$value.", %'
+				AND primary_id != ".$primary_id."
+				AND del = 0
+				";
+			}
+				else {
+				$query .= "OR hashtag LIKE '%".$value.", %'
+				AND primary_id != ".$primary_id."
+				AND del = 0
+				";
+				}
+		}
+		if($hashtag_list) {
+			$related_articles_res = model_db::query("
+					SELECT * 
+					FROM article 
+					".$query."
+					ORDER BY primary_id DESC
+					LIMIT 0, 8
+			");
+		}
+		return $related_articles_res;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	//-----------------------------------
 	//さらに前の記事を見るデータ取得
 	//-----------------------------------

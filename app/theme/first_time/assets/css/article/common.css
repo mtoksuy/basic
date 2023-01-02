@@ -489,13 +489,13 @@ PR
 
 .author_profile span {
 	flex-basis: 100%;
-	border-bottom: 1px solid #48BF84;
+	border-bottom: 1px solid var(--theme-color1);
 	padding: 0 0 8px;
 	position: relative;
 }
 
 .author_profile span::before {
-	border-bottom: 2px solid #48BF84;
+	border-bottom: 2px solid var(--theme-color1);
 	content: '　';
 	padding: 0 0 7px;
 	position: absolute;
