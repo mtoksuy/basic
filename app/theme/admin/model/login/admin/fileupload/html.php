@@ -14,7 +14,11 @@ class model_login_admin_fileupload_html {
 			        <div id="inputFileWrap">
 						<form id="upload_form" name="upload_form" method="post" action="" enctype="multipart/form-data">
 							<!-- 全て許可 --> <!-- image/* なら画像のみ -->
+<!-- 一旦保留
+ひらめき：クリック時は multiple のみでアップロード。ドロップ時は下のinputに差し替えてからアップロードができないかを試す。
 							<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple="multiple" webkitdirectory="" directory="">
+-->
+							<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple>
 							<input type="submit" value="確認" name="submit" style="top: -42px;position: relative;">
 						</form>
 			            <div id="btnInputFile">
