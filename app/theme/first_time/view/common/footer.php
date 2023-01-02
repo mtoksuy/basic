@@ -13,6 +13,7 @@
 							<li class="item"><a href="<?php echo HTTP; ?>about/">私たちについて</a></li>
 							<li class="item"><a href="<?php echo HTTP; ?>sitemap/">サイトマップ</a></li>
 							<li class="item"><a href="<?php echo HTTP; ?>contact/">お問い合わせ</a></li>
+							<li class="item"><a href="<?php echo HTTP; ?>login/">ログイン</a></li>
 						</ul>
 					</div> <!-- footer_box_bottom -->
 
@@ -21,7 +22,7 @@
 					<div class="footer_bottom_inner">
 						<!-- コピーライト -->
 						<section class="copy">
-							<p class="m_0">&copy; <?php echo date('Y'); ?> <?php echo $site_data_array['title']; ?> Proudly powered by <a href="https://basic.dance/">Basic</a></p>
+							<p class="m_0">&copy; <?php echo date('Y'); ?> <?php echo $site_data_array['title']; ?> Proudly powered by <a href="https://basic.dance/" target="_blank">Basic</a></p>
 						</section>
 					</div>
 				</div>

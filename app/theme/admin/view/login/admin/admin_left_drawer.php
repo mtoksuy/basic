@@ -6,7 +6,7 @@
 					<li<?php if($now == '') {echo ' class="now"';}?>>
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/">ホーム</a>
 					</li>
-					<li<?php if($now == 'writer') {echo ' class="now"';}?>>
+					<li>
 						<a class="o_8" href="<?php echo HTTP;?>" target="_blank">サイトを表示</a>
 					</li>
 				</ul>

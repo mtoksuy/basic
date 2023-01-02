@@ -13,10 +13,9 @@
 				</h1>
 			-->
 				<a href="<?php echo HTTP; ?>">
-					<h1><?php echo $site_data_array['title']; ?>のサイト</h1>
+					<h1><?php echo $site_data_array['title']; ?></h1>
 				</a>
 			</div> <!-- logo -->
-			<h3 class="sub_headline">これから育てていくサイト</h3>
 			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/drawer.php'); /* drawer読み込み*/ ?>
 		</div>
 	</header>

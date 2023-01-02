@@ -16,7 +16,7 @@
 		<div class="search_window">
 			<div class="search_window_inner">
 				<form class="search_window_form" method="get" action="<?php echo HTTP; ?>search/" autocomplete="off">
-					<input placeholder="なにをお探しですか？" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
+					<input placeholder="キーワード検索" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
 					<div class="search_logo">
 						<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
 						<input type="submit" value="検索">

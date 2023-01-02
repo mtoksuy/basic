@@ -1,80 +1,61 @@
-
-
 /******
 contact
 ******/
-.contact {
 
-}
+.contact {}
+
 .contact .contact_inner {
 	width: 65%;
 	margin: 0 auto;
 }
 
-
-
-
-
-
-
 .contact .contact_inner .contact_title_top {
 	font-size: 24px;
-	color: #48BF84;
-	font-weight:bold;
+	color: var(--theme-color1);
+	font-weight: bold;
 	margin: 0 0 30px 0;
 }
+
 .contact .contact_inner .contact_title {
 	font-size: 28px;
 	color: #2f2f2f;
 	text-align: center;
 	margin: 0 0 30px 0;
 }
+
 .contact .contact_inner .contact_title_bottom {
 	font-size: 16px;
 	text-align: center;
-	margin:0;
+	margin: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .contact .contact_inner form {
-		position:relative;
+	position: relative;
 }
+
 .contact .contact_inner form label {
 	display: block;
 	color: #a5a5a5;
 }
+
 .contact .contact_inner form select {
 	width: 100%;
 	cursor: pointer;
 	border: 1px solid #a5a5a5;
 	padding: 18px;
 	border-radius: 2px;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	font-size: 18px;
 	color: #3a3e40;
 	-webkit-appearance: none;
 	appearance: none;
 }
+
 .contact .contact_inner form .select {
-		position:relative;
-	margin:0 0 30px 0;
+	position: relative;
+	margin: 0 0 30px 0;
 }
+
 .contact .contact_inner form .select:before {
 	content: '';
 	position: absolute;
@@ -88,44 +69,44 @@ contact
 	transform: rotate(130deg);
 }
 
-.contact .contact_inner form select option {
+.contact .contact_inner form select option {}
 
-}
-.contact .contact_inner form input[type="text"],
-.contact .contact_inner form input[type="email"] {
+.contact .contact_inner form input[type="text"], .contact .contact_inner form input[type="email"] {
 	color: #3a3e40;
-	margin:0 0 30px 0;
+	margin: 0 0 30px 0;
 	padding: 18px;
 	width: 100%;
 	font-size: 18px;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	border-radius: 2px;
 	border: 1px solid #a5a5a5;
 	-webkit-appearance: none;
 	appearance: none;
 }
+
 .contact .contact_inner form textarea {
 	color: #3a3e40;
-	margin:0 0 30px 0;
+	margin: 0 0 30px 0;
 	padding: 18px;
 	width: 100%;
 	font-size: 18px;
 	height: 175px;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	border-radius: 2px;
 	border: 1px solid #a5a5a5;
 	-webkit-appearance: none;
 	appearance: none;
 }
+
 .contact .contact_inner form input[type="submit"] {
 	cursor: pointer;
 	color: #fcfcfc;
-	background-color: #48BF84;
-	margin:0 0 30px 0;
+	background-color: var(--theme-color1);
+	margin: 0 0 30px 0;
 	padding: 18px;
 	width: 100%;
 	font-size: 18px;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	border-radius: 2px;
 	border: 0px solid #a5a5a5;
 	-webkit-appearance: none;
@@ -133,104 +114,80 @@ contact
 }
 
 
-
-
-
 /*******
 
 *******/
+
 .confirm {
 	margin: 0 0 30px 0;
 }
-.confirm .confirm_block {
 
-}
+.confirm .confirm_block {}
+
 .confirm .confirm_block .confirm_title {
 	color: #a5a5a5;
 	margin: 0;
 }
-.confirm .confirm_block .confirm_content {
 
-}
+.confirm .confirm_block .confirm_content {}
+
 
 /*******
 
 *******/
-.contact .contact_inner .confirm_form {
 
-}
-.contact .contact_inner .confirm_form input[type="submit"] {
+.contact .contact_inner .confirm_form {}
 
-}
+.contact .contact_inner .confirm_form input[type="submit"] {}
+
 .contact .contact_inner .confirm_form {
 	display: flex;
 }
+
 .contact .contact_inner .confirm_form .left_button {
-	width:50%;
+	width: 50%;
 	margin: 5px;
 	color: #686868;
 	background-color: #ebebeb;
 }
+
 .contact .contact_inner .confirm_form .right_button {
-	width:50%;
+	width: 50%;
 	margin: 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**************
 1024px以下の設定
 **************/
+
 @media screen and (min-width: 0px) and (max-width: 1024px) {
 	.main {
-	    padding: 95px 0 0;
-	    margin: 0 auto;
+		padding: 0px 0 0;
+		margin: 0 auto;
 	}
 	.contact {
 		margin: 30px 0 0 0;
 	}
 }
+
+
 /**************
 748px以下の設定
 **************/
+
 @media screen and (min-width: 0px) and (max-width: 748px) {
 	.main {
-	    padding: 80px 0 0;
-	    margin: 0 auto;
+		padding: 0px 0 0;
+		margin: 0 auto;
 	}
 }
+
+
 /**************
 640px以下の設定
 **************/
+
 @media screen and (min-width: 0px) and (max-width: 640px) {
 	.main .main_inner {
 		margin: 0 15px;
@@ -246,12 +203,8 @@ contact
 		right: 17px;
 		top: 21px;
 	}
-	
-	.contact .contact_inner form select option {
-	
-	}
-	.contact .contact_inner form input[type="text"],
-	.contact .contact_inner form input[type="email"] {
+	.contact .contact_inner form select option {}
+	.contact .contact_inner form input[type="text"], .contact .contact_inner form input[type="email"] {
 		padding: 14px;
 		font-size: 16px;
 	}
@@ -264,24 +217,17 @@ contact
 		font-size: 16px;
 	}
 }
+
+
 /**************
 480px以下の設定
 **************/
-@media screen and (min-width: 0px) and (max-width: 480px) {
+
+@media screen and (min-width: 0px) and (max-width: 480px) {}
 
 
-}
 /**************
 320px以下の設定
 **************/
-@media screen and (min-width: 0px) and (max-width: 320px) {
 
-}
-
-
-
-
-
-
-
-
+@media screen and (min-width: 0px) and (max-width: 320px) {}
