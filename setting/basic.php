@@ -292,11 +292,13 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			model_db::query("
 				INSERT INTO user (
 					basic_id,
-					password
+					password,
+					icon
 				)
 				VALUES (
 					'".$post['basic_id']."', 
-					'".$password_hash."'
+					'".$password_hash."',
+					'default_1.png'
 				)
 			");
 			// サイト名変更
