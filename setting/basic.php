@@ -457,12 +457,19 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// ユーザー情報取得
 	//--------------------
 	public static function user_data_get($user_id) {
-		$site_data_array = array();
+		$user_data_array = array();
 		$query = model_db::query("
 			SELECT *
 			FROM user
 			WHERE primary_id = ".(int)$user_id."
 		");
+		if(!$query) {
+			$query = model_db::query("
+				SELECT *
+				FROM user
+				WHERE basic_id = '".$user_id."'
+			");
+		}
 		$user_data_array = $query[0];
 		return $user_data_array;
 	}

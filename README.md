@@ -1,6 +1,39 @@
 ![ViewComponent logo](/app/theme/admin/assets/img/logo/basic_logo_1.svg#gh-light-mode-only)
 ![ViewComponent logo](/app/theme/admin/assets/img/logo/basic_logo_1.svg#gh-dark-mode-only)
 
+
+# Basicセットアップ
+## 1.サーバーからダウンロード
+rootでsshログインしている前提でセットアップ方法を記述しています。
+```
+cd var/www/html
+wget https://basic.dance/app/assets/download/basic-0.4_inner_file.zip
+unzip basic-0.4_inner_file.zip
+rm -r -f basic-0.4_inner_file.zip
+chown -R apache:apache /var/www/html
+```
+## 2.ローカルからアップロード
+### 2-1.Download ZIP
+https://github.com/mtoksuy/basic/archive/refs/heads/main.zip
+
+でローカルにダウンロードして開発している前提でセットアップ方法を記述してます。
+#### 2-1-1.FTPでアップロード
+アップロードする際の注意点ですが、ユーザー：apache でアップロードして下さい。
+
+難しい場合はサーバーにsshにてrootでログイン後
+```
+chown -R apache:apache /var/www/html
+```
+でroot配下の所有者・グループを apache に変更をします。
+
+## 3.うまく表示できない場合、確認するポイント
+- 所有者・グループは apache なっているか確認
+- ローカルからアップ後DB接続できない場合は setting/db_config.php の設定を確認
+- 設定しているDBがあるか確認
+- サーバーにDB(mysql, MariaDBなど)がインストールされてるか確認
+- サーバーにPHPがインストールされてるか確認
+- パケットフィルタリングなどで80or443のポートが通ってるか確認
+
 # 世界で最もSEOに効くCMS
 世界で公開されているウェブの67% がCMSで構築されています。それらのCMSですが、私たちの目線からは大雑把だったり足りない機能が多いのが現状です。複雑なCMS、カスタマイズ、表示スピード、UX、最新画像フォーマットなどを解決するためにBasicを立ち上げました。
 
