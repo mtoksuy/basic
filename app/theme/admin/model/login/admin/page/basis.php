@@ -163,9 +163,9 @@ class model_login_admin_page_basis {
 // icon
 
 //pre_var_dump($markdown);
-file_put_contents(PATH.'setting/markdown_article_tmt.txt', $markdown);
+file_put_contents(PATH.'setting/markdown_article_tmp.txt', $markdown);
 /* ファイルポインタをオープン */
-$file = fopen(PATH.'setting/markdown_article_tmt.txt', 'r');
+$file = fopen(PATH.'setting/markdown_article_tmp.txt', 'r');
 /* ファイルを1行ずつ出力 */
 if($file){
 	while ($line = fgets($file)) {
@@ -192,7 +192,7 @@ fclose($file);
 
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
-//file_put_contents(PATH.'login/admin/markdown_page/markdown_page_tmt.txt', $txt);
+//file_put_contents(PATH.'login/admin/markdown_page/markdown_page_tmp.txt', $txt);
 		return $txt;
 	}
 	//------------

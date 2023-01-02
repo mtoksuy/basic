@@ -55,12 +55,6 @@ RewriteRule .+ %{REQUEST_URI}.gz
 <If "%{HTTP_HOST} =~ /.*localhost.*/">
 	# ローカルでは何も指定しない
 </If>
-	<Else>
-		# 本番でhttps強制にする
-		RewriteEngine on
-		RewriteCond %{HTTPS} off
-		RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-	</Else>
 
 # スラッシュなかったら追加
 RewriteEngine on
