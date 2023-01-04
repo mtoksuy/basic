@@ -57,8 +57,8 @@ $('body').on('click', '.file_modal_overlay', function() {
 				$('.file_data .hidden_url').html(data['file_modal_data_array']['img_src']);
 				$('.next').attr('file_id', data['file_modal_data_array']['next_file_id']);
 				$('.prev').attr('file_id', data['file_modal_data_array']['prev_file_id']);
+				$('.image_box').html( data['file_modal_data_array']['image_box_html']);
 				$('.image_box img').attr('class', data['file_modal_data_array']['img_class']);
-				$('.image_box img').attr('src', data['file_modal_data_array']['img_src']);
 			},
 			complete: function (data) {
 			
@@ -87,8 +87,8 @@ $('body').on('click', '.file_modal_overlay', function() {
 				$('.file_data .hidden_url').html(data['file_modal_data_array']['img_src']);
 				$('.next').attr('file_id', data['file_modal_data_array']['next_file_id']);
 				$('.prev').attr('file_id', data['file_modal_data_array']['prev_file_id']);
+				$('.image_box').html( data['file_modal_data_array']['image_box_html']);
 				$('.image_box img').attr('class', data['file_modal_data_array']['img_class']);
-				$('.image_box img').attr('src', data['file_modal_data_array']['img_src']);
 			},
 			complete: function (data) {
 			
@@ -115,6 +115,56 @@ $('body').on('click', '.file_modal_overlay', function() {
 		setTimeout(function() {
 			$('.torst').html('　');
 		},1000);
+	});
+
+
+
+	/***********************************
+	←→押された時 ファイルモーダル更新
+	***********************************/
+	$('html').on('keydown', 'body' , function(e) {
+		var keyCode = false; 
+		if (e) event = e;
+			if (event) {
+				if (event.keyCode) {
+					keyCode = event.keyCode;
+			} else if (event.which) {
+				keyCode = event.which;
+			}
+		}
+
+		if(keyCode === 37) {
+			file_id = $('.next').attr('file_id');
+		}
+		else if( keyCode === 39) {
+			file_id = $('.prev').attr('file_id');
+		}
+		if(keyCode === 37 || keyCode === 39) {
+		// Ajaxで送信
+		$.ajax({
+			url: '../../../ajax/login/admin/filelist/',
+			type : "POST",
+			data : {
+			file_id: file_id,
+			is_type: 'next',
+			},
+			success: function(data) {
+				$('.file_data .full_name .data').html(data['file_modal_data_array']['full_name']);
+				$('.file_data .byte .data').html(data['file_modal_data_array']['byte']);
+				$('.file_data .size .data').html(data['file_modal_data_array']['size']);
+				$('.file_data .type .data').html(data['file_modal_data_array']['type']);
+				$('.file_data .create_time .data').html(data['file_modal_data_array']['create_time']);
+				$('.file_data .hidden_url').html(data['file_modal_data_array']['img_src']);
+				$('.next').attr('file_id', data['file_modal_data_array']['next_file_id']);
+				$('.prev').attr('file_id', data['file_modal_data_array']['prev_file_id']);
+				$('.image_box').html( data['file_modal_data_array']['image_box_html']);
+				$('.image_box img').attr('class', data['file_modal_data_array']['img_class']);
+			},
+			complete: function (data) {
+			
+			}
+		});
+		}
 	});
 
 

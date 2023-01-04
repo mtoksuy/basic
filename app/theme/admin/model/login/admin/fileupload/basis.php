@@ -82,22 +82,25 @@ class model_login_admin_fileupload_basis {
 				// 重複ファイル複製 再帰処理
 				$value = model_login_admin_fileupload_basis::file_duplication_copy_recursive($file_tmp, $file_upload_path, $file_name, $value);
 			}
-				else {
-					// ファイル移動
-					$result = move_uploaded_file($file_tmp, $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name);
-				}
-			// アイコン正方形で使用する変数
-			$image_path = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name;
-			$square_file_name = 'square_'.$value['name'];
-			$savePath = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/';
-			// アイコンを正方形にする
-			model_login_admin_profile_basis::image_square_edit($image_path, $square_file_name, $savePath, 256);
-			// webpで使用する変数
-			$image_path = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name;
-			$webp_file_name = 'webp_'.$value['name'];
-			$savePath = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/';
-			// webp生成
-			model_login_admin_fileupload_basis::image_to_webp_create($image_path, $webp_file_name, $savePath, 80, 85);
+			else {
+				// ファイル移動
+				$result = move_uploaded_file($file_tmp, $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name);
+			}
+			// 画像のみの処理
+			if(preg_match('/image\//', $value['type'])) {
+				// アイコン正方形で使用する変数
+				$image_path = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name;
+				$square_file_name = 'square_'.$value['name'];
+				$savePath = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/';
+				// アイコンを正方形にする
+				model_login_admin_profile_basis::image_square_edit($image_path, $square_file_name, $savePath, 256);
+				// webpで使用する変数
+				$image_path = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$file_name;
+				$webp_file_name = 'webp_'.$value['name'];
+				$savePath = $file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/';
+				// webp生成
+				model_login_admin_fileupload_basis::image_to_webp_create($image_path, $webp_file_name, $savePath, 80, 85);
+			}
 
 			// DB登録
 			$query = model_db::query("

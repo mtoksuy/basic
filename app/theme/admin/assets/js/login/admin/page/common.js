@@ -52,6 +52,9 @@
 				else if(clip_name == 'separator') {
 					clip_content = '---';
 				}
+				else if(clip_name == 'index') {
+					clip_content = '##index##';
+				}
 
 
 
@@ -281,21 +284,23 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 			title = $('#title').val();
 			content = $('#content').val();
 			draft_id = $('#draft_id').val();
-			article_id = $('#article_id').val();
+			page_id = $('#page_id').val();
 			basic_id = $('#basic_id').val();
-			// 記事編集の場合
-			if(article_id) {
+			permalink = $('#permalink').val();
+
+			// ページ編集の場合
+			if(page_id) {
 				// Ajaxで送信
 				$.ajax({
-					url: http+'ajax/login/admin/markdown_page/edit.php',
+					url: '../../../ajax/login/admin/page/edit/',
 					type : "POST",
 					data : {
 						title: title,
 						content: content,
-						category: 'blog',
 						hashtag: '',
-						article_id: article_id,
+						page_id: page_id,
 						basic_id: basic_id,
+						permalink: permalink,
 					},
 				     success: function(data) {
 					 	// 変更
@@ -321,15 +326,16 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 				else {
 					// Ajaxで送信
 					$.ajax({
-						url: http+'ajax/login/admin/markdown_page/draft.php',
+						url: '../../../ajax/login/admin/page/draft/',
 						type : "POST",
 						data : {
 							title: title,
 							content: content,
-							category: 'blog',
 							hashtag: '',
+							page_id: page_id,
 							draft_id: draft_id,
 							basic_id: basic_id,
+							permalink: permalink,
 						},
 					     success: function(data) {
 						 	// 変更

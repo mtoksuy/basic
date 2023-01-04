@@ -1,17 +1,28 @@
 <?php 
-// エラー回避
-error_reporting(0);
 
-// エラー表示
-error_reporting(E_ALL);
 
-// 開発
-ini_set('display_errors', 1);
-error_reporting(E_ALL & ~E_NOTICE);
-
-// 本番
-//ini_set('display_errors', 0);
-
+/**********
+エラー設定
+**********/
+// ローカル環境
+if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
+	// エラー回避
+	error_reporting(0);
+	// エラー表示
+	error_reporting(E_ALL);
+	// 開発
+	ini_set('display_errors', 1);
+	error_reporting(E_ALL & ~E_NOTICE);
+}
+// 本番環境
+else {
+	// エラー回避
+	error_reporting(0);
+	// エラー表示
+	error_reporting(E_ALL);
+	// 本番
+	ini_set('display_errors', 0);
+}
 /*********
 ini_set設定
 **********/
