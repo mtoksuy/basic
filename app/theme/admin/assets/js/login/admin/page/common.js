@@ -52,6 +52,9 @@
 				else if(clip_name == 'separator') {
 					clip_content = '---';
 				}
+				else if(clip_name == 'index') {
+					clip_content = '##index##';
+				}
 
 
 

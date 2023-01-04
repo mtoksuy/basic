@@ -42,7 +42,24 @@ article .index {
 	/*数字をリセット*/
 	list-style-type: none!important;
 	/*数字を一旦消す*/
+	border: 1px solid #ddd;
+	padding: 15px 20px;
+	padding: 15px 20px  5px 20px;
+	width: 100%;
+	border-radius: 4px;
+	background-color: #fcfcfc;
 }
+
+article .index .title {
+text-align: left;
+border-bottom: 1px solid #ccc;
+padding-bottom: 14px;
+margin-bottom: 18px;
+font-weight: bold;
+}
+
+
+
 
 article .index li {
 	cursor: pointer;
@@ -111,7 +128,9 @@ article .index_3 li:before {
 article .index li:hover {
 	text-decoration: underline;
 }
-
+/******
+見出し
+******/
 article h1 {
 	font-size: 32px;
 }
@@ -485,13 +504,13 @@ PR
 
 .author_profile span {
 	flex-basis: 100%;
-	border-bottom: 1px solid #48BF84;
+	border-bottom: 1px solid var(--theme-color1);
 	padding: 0 0 8px;
 	position: relative;
 }
 
 .author_profile span::before {
-	border-bottom: 2px solid #48BF84;
+	border-bottom: 2px solid var(--theme-color1);
 	content: '　';
 	padding: 0 0 7px;
 	position: absolute;
