@@ -9,7 +9,7 @@ class model_login_admin_fileupload_html {
 			<div id="upFileWrap">
 			    <div id="inputFile">
 			        <!-- ドラッグ&ドロップエリア -->
-			        <p id="dropArea">ここにフォルダ・ファイルをドロップしてください<br>または</p>
+			        <p id="dropArea">ここにファイルをドロップしてください<br>または</p>
 			        <!-- 通常のinput[type=file] -->
 			        <div id="inputFileWrap">
 						<form id="upload_form" name="upload_form" method="post" action="" enctype="multipart/form-data">
@@ -22,7 +22,7 @@ class model_login_admin_fileupload_html {
 							<input type="submit" value="確認" name="submit" style="top: -42px;position: relative;">
 						</form>
 			            <div id="btnInputFile">
-							<span>フォルダ・ファイルを選択する</span>
+							<span>ファイルを選択する</span>
 						</div>
 			        </div>
 			    </div>
