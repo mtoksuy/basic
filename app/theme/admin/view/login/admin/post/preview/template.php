@@ -16,6 +16,6 @@
 			</div> <!-- main -->
 			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/footer.php'); /* footer読み込み*/ ?>
 		</div> <!-- wrapper -->
-		<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/head_footer.php'); /* head_footer読み込み*/ ?>
+		<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/article/head_footer.php'); /* head_footer読み込み*/ ?>
 	</body>
 </html>

@@ -31,7 +31,6 @@ class model_login_admin_post_basis {
 ', $markdown);
 //pre_var_dump($markdown);
 
-
 		// h6変換
 		$markdown = preg_replace('/##### (.*?)
 /', '<h6>\\1</h6>
@@ -52,10 +51,14 @@ class model_login_admin_post_basis {
 /', '<h3>\\1</h3>
 ', $markdown);
 
+		// 目次変換
+		$markdown = model_login_admin_post_basis::index_conversion($markdown);
+
 		// h2変換
 		$markdown = preg_replace('/# (.*?)
 /', '<h2>\\1</h2>
 ', $markdown);
+
 
 		// 1行セパレーター変換
 		$markdown = preg_replace('/---/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
@@ -160,7 +163,7 @@ class model_login_admin_post_basis {
 		$markdown =model_login_admin_post_basis::card_link_conversion($markdown);
 
 		// 吹き出し変換
-		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'assets/img/user_icon/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
+		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'app/assets/img/user/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
 
 /*
 		pre_var_dump($user_id_data_array['icon']);
@@ -609,6 +612,33 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 				basic::rmdirAll($value);
 			}
 		}
+	}
+	//----------
+	//目次変換
+	//----------
+	public static function index_conversion($markdown) {
+		if(preg_match('/##index##/', $markdown)) {
+			// h2リスト取得
+			preg_match_all('/# (.*?)
+/', $markdown, $markdown_array);
+			// 目次html生成
+			foreach($markdown_array[1] as $key => $value) {
+				// li html生成
+				$index_li_html .= 
+					'<li>'.$value.'</li>';
+			}
+			// 目次html合体
+			$index_html = 
+				'<ul class="index">
+				<p class="title">目次</p>
+					'.$index_li_html.'
+				</ul>';
+			// 目次変換
+			$markdown = preg_replace('/##index##
+/', $index_html
+, $markdown);
+		} // if(preg_match('/##index##/', $markdown)) {
+	return $markdown;
 	}
 
 
