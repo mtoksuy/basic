@@ -43,7 +43,24 @@ article .index {
 	/*数字をリセット*/
 	list-style-type: none!important;
 	/*数字を一旦消す*/
+	border: 1px solid #ddd;
+	padding: 15px 20px;
+	padding: 15px 20px  5px 20px;
+	width: 100%;
+	border-radius: 4px;
+	background-color: #fcfcfc;
 }
+
+article .index .title {
+text-align: left;
+border-bottom: 1px solid #ccc;
+padding-bottom: 14px;
+margin-bottom: 18px;
+font-weight: bold;
+}
+
+
+
 
 article .index li {
 	cursor: pointer;
@@ -112,7 +129,9 @@ article .index_3 li:before {
 article .index li:hover {
 	text-decoration: underline;
 }
-
+/******
+見出し
+******/
 article h1 {
 	font-size: 28px;
 	margin: 0 0 30px 0;
