@@ -88,6 +88,8 @@ class model_article_html {
 			$share_button_html = model_article_html::share_button_html_create($article_primary_id, $article_title);
 			// 著者プロフィールhtml取得
 			$author_profile_html = model_article_html::author_profile_html_create($user_data_array);
+			// 記事HTMLテキスト取得
+			$author_profile_html = htmlspecialchars_decode($author_profile_html);
 
 			// /関連記事res取得
 			$related_articles_res = model_article_basis::related_articles_res_get($value['primary_id'], $value['hashtag']);

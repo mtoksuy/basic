@@ -482,7 +482,19 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$gitPath = PATH.".git/HEAD";
 		return trim(implode('/', array_slice(explode('/', file_get_contents($gitPath)),2)), "\n");
 	}
-
+	//--------------------------------------
+	// ユーザーディレクトリセットアップ
+	//--------------------------------------
+	public static function user_dir_setup($post) {
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		// ディレクトリ作成パス取得
+		$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$post['basic_id'].'';
+		// ディレクトリ作成
+		basic::dir_create($directory_path);
+		// ファイル複製
+		copy(PATH.'setting/master/writer.php', $directory_path.'/index.php');
+	}
 
 
 
