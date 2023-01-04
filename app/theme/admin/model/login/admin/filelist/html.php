@@ -7,8 +7,9 @@ class model_login_admin_filelist_html {
 //		pre_var_dump($filelist_res);
 		foreach($filelist_res as $key => $value) {
 			preg_match('/imag/', $value['type'], $type_array);
+//			pre_var_dump($value['type']);
 			// gifの場合
-			if($value['type'] == 'image/gif') {
+			if($value['type'] == 'image/gif' ||  $value['type'] == 'image/svg+xml') {
 				 $filelist_li .=
 					 '<li class="img" file_id="'.$value['primary_id'].'">
 						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
@@ -25,10 +26,22 @@ class model_login_admin_filelist_html {
 						</a>
 					</li>';
 			}
+/*
+メモ：Safariだと表示されたが、Chromeだと表示されない。
+			// PDFの場合  
+			else if($value['type'] == 'application/pdf' || $value['type'] == 'video/mp4') {
+				 $filelist_li .=
+					 '<li class="img" file_id="'.$value['primary_id'].'">
+						<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
+							<img src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'">
+						</a>
+					</li>';
+			}
+*/
 			// 画像以外の場合
 			else {
 			 $filelist_li .=
-				 '<li class="img">
+				 '<li class="img" file_id="'.$value['primary_id'].'">
 					<a href="'.HTTP.'login/admin/filelist/?file_id='.$value['primary_id'].'" class="o_8">
 						<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">
 						<div class="file_name">'.$value['full_name'].'</div>
@@ -48,14 +61,22 @@ class model_login_admin_filelist_html {
 	// ファイルモーダルHTML生成
 	//-----------------------------
 	public static function file_modal_html_create($file_res, $file_next_prev_res) {
+
 		foreach($file_res as $key => $value) {
-			preg_match('/imag/', $value['type'], $type_array);
+			///////////////
+			// common設定
+			///////////////
+			// ファイルパス
+			$file_path = (PATH.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name']);
+			// ファイルサイズ
+			$file_path_filesize = filesize($file_path);
+			// バイト数のフォーマット変換
+			$file_path_byte_format = basic::byte_format($file_path_filesize, 0);
+			/////////////
 			// 画像の場合
-			if($type_array) {
-				$image_path = (PATH.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name']);
-				$image_path_imagesize = getimagesize($image_path);
-				$image_path_filesize = filesize($image_path);
-//				pre_var_dump($image_path_imagesize);
+			////////////
+			if(preg_match('/imag/', $value['type'], $type_array)) {
+				$image_path_imagesize = getimagesize($file_path);
 				// 横長
 				if($image_path_imagesize[0] > $image_path_imagesize[1]) {
 					$image_class = 'landscape';
@@ -64,8 +85,79 @@ class model_login_admin_filelist_html {
 				else {
 					$image_class = 'portrait';
 				}
-				// バイト数のフォーマット変換
-				$image_path_byte_format = basic::byte_format($image_path_filesize, 0);
+				$image_box_html = '<img class="'.$image_class.'" src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'">';
+			} // if(preg_match('/imag/', $value['type'], $type_array)) {
+			/////////////
+			// PDFの場合
+			/////////////
+			else if(preg_match('/pdf/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<embed class="pdf" src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'" type="application/pdf" width="100%" height="500px">';
+			}
+			/////////////
+			// videoの場合
+			/////////////
+			else if(preg_match('/video/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<video controls width="100%" height="auto">
+						<source src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'" type="video/mp4">
+					</video>';
+			}
+			/////////////
+			// xmlの場合
+			/////////////
+			else if(preg_match('/xml/', $value['type'], $type_array)) {
+				 $image_box_html = '<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">';
+			}
+			/////////////
+			// phpの場合
+			/////////////
+			else if(preg_match('/php/', $value['type'], $type_array)) {
+				 $image_box_html = '<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">';
+			}
+			/////////////
+			// textの場合
+			/////////////
+			else if(preg_match('/text/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<object width="100%" height="100%" data="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'"  type="text/plain"></object>';
+			}
+			//////////////////
+			// javascriptの場合
+			//////////////////
+			else if(preg_match('/javascript/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<object width="100%" height="100%" data="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'"  type="text/plain"></object>';
+			}
+			/////////////
+			// jsonの場合
+			//////////////
+			else if(preg_match('/json/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<object width="100%" height="100%" data="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'"  type="text/plain"></object>';
+			}
+			// 画像以外の場合
+			else {
+				 $image_box_html = '<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">';
+			}
+				// ファイル情報挿入
+				$file_data_contents = 
+									'<div class="full_name">
+										ファイル名：　<span class="data">'.$value['full_name'].'<span>
+									</div>
+									<div class="byte">
+										ファイルサイズ：　<span class="data">'.$file_path_byte_format.'<span>
+									</div>
+									<div class="size">
+										サイズ：　<span class="data">'.$image_path_imagesize[0].'x'.$image_path_imagesize[1].' ピクセル<span>
+									</div>
+									<div class="type">
+										タイプ：　<span class="data">'.$value['type'].'<span>
+									</div>
+									<div class="create_time">
+										アップロード時間：　<span class="data">'.$value['create_time'].'<span>
+									</div>';
+				// 出力html
 				 $file_html = '
 					<div class="file_modal">
 						<div class="file_modal_inner">
@@ -78,26 +170,12 @@ class model_login_admin_filelist_html {
 
 							<div class="left">
 								<div class="image_box">
-									<img class="'.$image_class.'" src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'">
+									'.$image_box_html.'
 								</div>
 							</div>
 							<div class="right">
 								<div class="file_data">
-									<div class="full_name">
-										ファイル名：　<span class="data">'.$value['full_name'].'<span>
-									</div>
-									<div class="byte">
-										ファイルサイズ：　<span class="data">'.$image_path_byte_format.'<span>
-									</div>
-									<div class="size">
-										サイズ：　<span class="data">'.$image_path_imagesize[0].'x'.$image_path_imagesize[1].' ピクセル<span>
-									</div>
-									<div class="type">
-										タイプ：　<span class="data">'.$value['type'].'<span>
-									</div>
-									<div class="create_time">
-										アップロード時間：　<span class="data">'.$value['create_time'].'<span>
-									</div>
+									'.$file_data_contents.'
 									<span class="hidden_url">'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'</span>
 									<div class="url_copy_btn">URL をクリップボードにコピー</div>
 									<div class="torst">　</div>
@@ -111,12 +189,6 @@ class model_login_admin_filelist_html {
 						　
 						</div>
 					</div>';
-			}
-				// 画像以外の場合
-				else {
-				 $filelist_li .=
-					 '';
-				}
 		}
 		return $file_html;
 	}

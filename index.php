@@ -99,6 +99,7 @@ sitemap/xml
 if($controller_query == 'sitemap/sitemap.xml') {
 	// サイト情報取得
 	$site_data_array = basic::site_data_get();
+	header( 'Content-Type: application/xml' );
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'');
 	exit;

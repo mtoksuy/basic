@@ -5,39 +5,54 @@ var fileArea = document.getElementById('dropArea');
 var fileInput = document.getElementById('uploadFile');
 
 // ドラッグオーバー時の処理
-fileArea.addEventListener('dragover', function(e) {
-	e.preventDefault();
-	fileArea.classList.add('dragover');
+fileInput.addEventListener('dragover', function(e) {
+//	$('#upload_form').html('<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple="multiple" webkitdirectory="" directory="">');
+/*
+	$('#upload_form #uploadFile').attr(
+		{
+			'directory': '',
+		}
+	);
+*/
+
+
+
+
+
+
+
+
+
 });
 
 // ドラッグアウト時の処理
 fileArea.addEventListener('dragleave', function(e) {
-	e.preventDefault();
-	fileArea.classList.remove('dragover');
+
+
+
 });
 
 // ドロップ時の処理
-fileArea.addEventListener('drop', function(e) {
-	e.preventDefault();
-	fileArea.classList.remove('dragover');
-	// ドロップしたファイルの取得
-	var files = e.dataTransfer.files;
-	// 取得したファイルをinput[type=file]へ
-	fileInput.files = files;
-
-	//ファイルが正常に受け取れた際の処理
-	if(typeof files[0] !== 'undefined') {
-	}
-
-		//ファイルが受け取れなかった際の処理
-		else {
-		
+fileInput.addEventListener('drop', function(e) {
+//	$('#upload_form').html('<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple="multiple" webkitdirectory="" directory="">');
+/*
+	$('#upload_form #uploadFile').attr(
+		{
+			'directory': '',
 		}
+	);
+*/
+
 });
 
 // input[type=file]に変更があれば実行
 // もちろんドロップ以外でも発火します
 fileInput.addEventListener('change', function(e) {
+
+}, false);
+
+$('body').on('change', '#uploadFile' , function(e) {
+//	p('change');
 	var file = e.target.files[0];
 	// ファイルが正常に受け取れた際の処理
 	if(typeof e.target.files[0] !== 'undefined') {
@@ -70,7 +85,7 @@ fileInput.addEventListener('change', function(e) {
 		else {
 
 		}
-}, false);
+});
 
 /***************************************************************/
 

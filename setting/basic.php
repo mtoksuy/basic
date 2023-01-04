@@ -88,7 +88,7 @@ class basic {
 		
 		}
 			else {
-				if(mkdir($directory_path, 0755)) {
+				if(mkdir($directory_path, 0755, true)) {
 					chmod($directory_path, 0755);
 				}
 			}
@@ -126,7 +126,7 @@ class basic {
 				unlink($f);
 			} else {
 				// ディレクトリの場合（ファイルでない場合）は再度rmdirAll()を実行
-				Library_Dir_Basis::rmdirAll($f);
+				basic::rmdirAll($f);
 			}
 		} // foreach ($res as $f) {
 		// 中身を削除した後、本体削除
@@ -292,11 +292,13 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			model_db::query("
 				INSERT INTO user (
 					basic_id,
-					password
+					password,
+					icon
 				)
 				VALUES (
 					'".$post['basic_id']."', 
-					'".$password_hash."'
+					'".$password_hash."',
+					'default_1.png'
 				)
 			");
 			// サイト名変更
