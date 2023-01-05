@@ -495,6 +495,331 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// ファイル複製
 		copy(PATH.'setting/master/writer.php', $directory_path.'/index.php');
 	}
+	//------------------------------
+	// シングル版：静的化+圧縮化
+	//------------------------------
+	public static function single_html_gzip_create($http_path, $directory_path) {
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		// 自動圧縮許可がある場合
+		if((int)$site_data_array['compression'] === 1) {
+			// 圧縮タイプ：gz
+			if($site_data_array['compression_type'] === 'gz') {
+				// 該当index.html削除
+				if(file_exists($directory_path.'/index.html')) {
+					unlink($directory_path.'/index.html');
+				}
+				// 該当index.html.gz削除
+				if(file_exists($directory_path.'/index.html.gz')) {
+					unlink($directory_path.'/index.html.gz');
+				}
+				// 素のhtml抽出
+				$html = file_get_contents($http_path);
+				//コメントアウトを削除
+				$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
+				// CSSインライン化
+				$html = basic::css_inline($http_path, $html);
+				// JSインライン化 todo:未完成。ペンディング
+		//		$html = basic::js_inline($http_path, $html);
+				//HTML圧縮
+				$html = basic::html_comp($html);
+				// 圧縮したindexファイル生成
+				file_put_contents($directory_path.'/index.html', $html);
+				// 圧縮したindexファイルの内容を読み込む
+				$code = file_get_contents($directory_path.'/index.html');
+				// gzip圧縮処理して該当フォルダにファイルを作成
+				$gzip = gzopen($directory_path.'/index.html.gz' ,'w9');
+				gzwrite($gzip ,$code);
+				gzclose($gzip);
+			}
+		}
+	}
+	//-------------------
+	// CSSインライン化
+	//-------------------
+	public static function css_inline($http_path, $html) {
+		$search = '/<link(.*?)>/';
+		preg_match_all($search, $html, $html_array);
+		foreach($html_array[0] as $key => $value) {
+			if(preg_match('/stylesheet/', $value)) {
+				preg_match('/href=("|\')(.*?)("|\')/', $value, $value_array);
+			 	$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
+				$css = file_get_contents($convert_to_uri);
+				$css = preg_replace('/
+/', '', $css);
+				$search = $html_array[0][$key];
+				$replace = '<style>'.$css.'</style>';
+				$search = preg_replace('/\?/', '\?', $search);
+				$html = preg_replace('#'.$search.'#', $replace, $html);
+			}
+		} // foreach($html_array[0] as $key => $value) {
+		return $html;
+	}
+	//-----------------
+	// JSインライン化 todo:未完成。ペンディング
+	//-----------------
+	public static function js_inline($http_path, $html) {
+		$search = '/<script(.*?)>/';
+		preg_match_all($search, $html, $html_array);
+		foreach($html_array[1] as $key => $value) {
+			preg_match('/src="(.*?)"/', $value, $value_array);
+			 $convert_to_uri = basic::convert_to_uri($value_array[1], $http_path);
+		 	 if(preg_match('/google/', $convert_to_uri)) {
+
+			}
+				else {
+					$js = file_get_contents($convert_to_uri);
+					$replace = '<script>'.$js.'</script>';
+					$search = preg_replace('/\?/', '\?', $html_array[0][$key]);
+					// jquery-3.5.1.min.jsのインライン化がうまくいかない
+					$html = preg_replace('#'.$search.'#', $replace, $html);
+				}
+		}
+		return $html;
+	}	
+	//-----------
+	//HTML圧縮
+	//-----------
+	 public static function html_comp($html) {
+		// HTML圧縮
+		$search = array(
+			'/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+			'/[^\S ]+\</s',  // strip whitespaces before tags, except space
+			'/(\s)+/s'       // shorten multiple whitespace sequences
+		);
+		$replace = array(
+			'>',
+			'<',
+			'\\1'
+		);
+		$html = preg_replace($search, $replace, $html);
+		return $html;
+	}
+	//----------------------------
+	// 相対パスから絶対パス取得
+	//-----------------------------
+  /**
+   * http://web-tsukuru.com/187
+   * スクレイピングなどで画像URLを取得する時に使うために
+   * ベースURLを元に相対パスから絶対パスに変換する関数
+   *
+   * @param string $target_path 変換する相対パス
+   * @param string $http_path ベースとなるパス
+   * @return $uri string 絶対パスに変換済みのパス
+   */
+	public static function convert_to_uri($target_path, $http_path) {
+	    $component = parse_url($http_path);
+	
+	    $directory = preg_replace('!/[^/]*$!', '/', $component["path"]);
+	
+	    switch (true) {
+	
+	      // [0] 絶対パスのケース（簡易版)
+	      case preg_match("/^http/", $target_path):
+	        $uri =  $target_path;
+	        break;
+	
+	      // [1]「//exmaple.jp/aa.jpg」のようなケース
+	      case preg_match("/^\/\/.+/", $target_path):
+	        $uri =  $component["scheme"].":".$target_path;
+	        break;
+	
+	      // [2]「/aaa/aa.jpg」のようなケース
+	      case preg_match("/^\/[^\/].+/", $target_path):
+	        $uri =  $component["scheme"]."://".$component["host"].$target_path;
+	        break;
+	
+	      // [2']「/」のケース
+	      case preg_match("/^\/$/", $target_path):
+	        $uri =  $component["scheme"]."://".$component["host"].$target_path;
+	        break;
+	
+	      // [3]「./aa.jpg」のようなケース
+	      case preg_match("/^\.\/(.+)/", $target_path,$maches):
+	        $uri =  $component["scheme"]."://".$component["host"].$directory.$maches[1];
+	        break;
+	
+	      // [4]「aa.jpg」のようなケース（[3]と同じ）
+	      case preg_match("/^([^\.\/]+)(.*)/", $target_path,$maches):
+	        $uri =  $component["scheme"]."://".$component["host"].$directory.$maches[1].$maches[2];
+	        break;
+	
+	      // [5]「../aa.jpg」のようなケース
+	      case preg_match("/^\.\.\/.+/", $target_path):
+	        //「../」をカウント
+	        preg_match_all("!\.\./!", $target_path, $matches);
+	        $nest =  count($matches[0]);
+	
+	        //ベースURLのディレクトリを分解してカウント
+	        $dir = preg_replace('!/[^/]*$!', '/', $component["path"])."\n";
+	        $dir_array = explode("/",$dir);
+	        array_shift($dir_array);
+	        array_pop($dir_array);
+	        $dir_count = count($dir_array);
+	
+	        $count = $dir_count - $nest;
+	
+	        $pathto="";
+	        $i = 0;
+	        while ( $i < $count) {
+	          $pathto .= "/".$dir_array[$i];
+	          $i++;
+	        }
+	        $file = str_replace("../","",$target_path);
+	        $uri =  $component["scheme"]."://".$component["host"].$pathto."/".$file;
+	
+	        break;
+	
+	        default:
+	        $uri = $target_path;
+	    }
+	    return $uri;
+	  }
+	//-------------------------------------------
+	// 静的化+圧縮化する際のリストarray取得
+	//-------------------------------------------
+	/*
+	*  $method　：機能毎のpermalink名が挿入される。
+　　　トップ=root、記事=article、新着記事=newarticle、ライター=writer、ページ=page、サイトマップ=sitemap
+	*  $permalink：articleであればprimary_idが挿入される。pageであればpermalinkが挿入される
+	*/
+	public static function html_gzip_create_list_array_get($method = 'root',  $permalink = NULL) {
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		if($method == 'root') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP,
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		else if($method == 'article' || $method == 'newarticle') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP,
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
+						),
+				1 => array(
+							'http_path'         => HTTP.'article/'.$permalink.'/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$permalink.'',
+						),
+				2 => array(
+							'http_path'         => HTTP.'newarticle/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle',
+						),
+				3 => array(
+							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
+						),
+				4 => array(
+							'http_path'         => HTTP.'sitemap/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		else if($method == 'article_del') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP,
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
+						),
+				1 => array(
+							'http_path'         => HTTP.'newarticle/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle',
+						),
+				2 => array(
+							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
+						),
+				3 => array(
+							'http_path'         => HTTP.'sitemap/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		else if($method == 'page') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP.$permalink.'/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$permalink.'',
+						),
+				1 => array(
+							'http_path'         => HTTP.'sitemap/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		else if($method == 'page_del') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP.'sitemap/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		else if($method == 'writer') {
+
+		}
+		else if($method == 'sitemap') {
+
+		}
+		else if($method == 'profile') {
+			$html_gzip_create_list_array = array(
+				0 => array(
+							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
+							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
+						),
+			); // $html_gzip_create_list_array = array(
+		}
+		return $html_gzip_create_list_array;
+	}
+	//---------------------------
+	// multi版：静的化+圧縮化
+	//---------------------------
+	public static function multi_html_gzip_create($html_gzip_create_list_array) {
+//		pre_var_dump($html_gzip_create_list_array);
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		foreach($html_gzip_create_list_array as $key => $value) {
+			// 自動圧縮許可がある場合
+			if((int)$site_data_array['compression'] === 1) {
+				// 圧縮タイプ：gz
+				if($site_data_array['compression_type'] === 'gz') {
+					// 該当index.html削除
+					if(file_exists($value['directory_path'].'/index.html')) {
+						unlink($value['directory_path'].'/index.html');
+					}
+					// 該当index.html.gz削除
+					if(file_exists($value['directory_path'].'/index.html.gz')) {
+						unlink($value['directory_path'].'/index.html.gz');
+					}
+					// 素のhtml抽出
+					$html = file_get_contents($value['http_path']);
+					//コメントアウトを削除
+					$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
+					// CSSインライン化
+					$html = basic::css_inline($value['http_path'], $html);
+					// JSインライン化 todo:未完成。ペンディング
+			//		$html = basic::js_inline($value['http_path'], $html);
+					//HTML圧縮
+					$html = basic::html_comp($html);
+					// 圧縮したindexファイル生成
+					file_put_contents($value['directory_path'].'/index.html', $html);
+					// 圧縮したindexファイルの内容を読み込む
+					$code = file_get_contents($value['directory_path'].'/index.html');
+					// gzip圧縮処理して該当フォルダにファイルを作成
+					$gzip = gzopen($value['directory_path'].'/index.html.gz' ,'w9');
+					gzwrite($gzip ,$code);
+					gzclose($gzip);
+				}
+			} // if($site_data_array['compression_type'] === 'gz') {
+		} // if((int)$site_data_array['compression'] === 1) {
+		}
+
+
+
+
 
 
 
