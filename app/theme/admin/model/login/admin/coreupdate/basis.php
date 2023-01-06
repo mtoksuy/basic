@@ -28,9 +28,9 @@ class model_login_admin_coreupdate_basis {
 			}
 		}  // if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) { 
 		// setting書き換え
-		basic::copy_dir(PATH.'tmp/basic-0.6/setting', PATH.'setting');
+		basic::copy_dir(PATH.'tmp/basic-'.$json_decode_response['latest_basic_version'].'/setting', PATH.'setting');
 		// app/theme/admin書き換え
-		basic::copy_dir(PATH.'tmp/basic-0.6/app/theme/admin', PATH.'app/theme/admin');
+		basic::copy_dir(PATH.'tmp/basic-'.$json_decode_response['latest_basic_version'].'/app/theme/admin', PATH.'app/theme/admin');
 	}
 
 }
