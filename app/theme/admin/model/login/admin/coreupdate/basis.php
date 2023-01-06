@@ -31,6 +31,11 @@ class model_login_admin_coreupdate_basis {
 		basic::copy_dir(PATH.'tmp/basic-'.$json_decode_response['latest_basic_version'].'/setting', PATH.'setting');
 		// app/theme/admin書き換え
 		basic::copy_dir(PATH.'tmp/basic-'.$json_decode_response['latest_basic_version'].'/app/theme/admin', PATH.'app/theme/admin');
+		// バージョン書き換え
+		model_db::query("
+			UPDATE setting SET basic_version = '".$json_decode_response['latest_basic_version']."'
+			WHERE setting_id = 1
+		");
 	}
 
 }
