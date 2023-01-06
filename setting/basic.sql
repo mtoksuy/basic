@@ -75,6 +75,7 @@ INSERT INTO `page` (`primary_id`, `basic_id`, `permalink`, `title`, `content`, `
 
 CREATE TABLE `setting` (
   `setting_id` int(10) UNSIGNED NOT NULL,
+  `basic_version` varchar(256) DEFAULT NULL,
   `url` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
@@ -91,8 +92,8 @@ CREATE TABLE `setting` (
   `article_view_num` varchar(256) DEFAULT '12'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `setting` (`setting_id`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`) VALUES
-(1, NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12');
+INSERT INTO `setting` (`setting_id`,`basic_version`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`) VALUES
+(1, '0.6', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -101,7 +102,7 @@ CREATE TABLE `user` (
   `password` varchar(256) DEFAULT NULL,
   `name` varchar(512) DEFAULT NULL,
   `icon` varchar(256) DEFAULT NULL,
-  `profile` varchar(1024) DEFAULT NULL,
+  `profile` text DEFAULT NULL,
   `authority_type` varchar(256) DEFAULT NULL,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

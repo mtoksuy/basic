@@ -28,6 +28,10 @@
 				basic::dir_create($directory_path);
 				// ファイル複製
 				copy(PATH.'setting/master/page.php', $directory_path.'/index.php');
+				// 静的化+圧縮化する際のリストarray取得
+				$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('page', $res[0]['permalink']);
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
 				///////////////////////////////////////////////////////////
 				$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
 				// 全記事リスト取得
@@ -100,6 +104,10 @@
 				basic::dir_create($directory_path);
 				// ファイル複製
 				copy(PATH.'setting/master/page.php', $directory_path.'/index.php');
+				// 静的化+圧縮化する際のリストarray取得
+				$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('page', $res[0]['permalink']);
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
 				///////////////////////////////////////////////////////////
 				$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
 				// 全記事リスト取得
@@ -152,6 +160,10 @@
 				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$delete_permalink.'';
 				// ディレクトリ削除
 				basic::rmdirAll($directory_path);
+				// 静的化+圧縮化する際のリストarray取得
+				$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('page_del');
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
 				header('Location: '.HTTP.'login/admin/pagelist/');
 				return false;
 			}

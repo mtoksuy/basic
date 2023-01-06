@@ -2,7 +2,6 @@
 	if($_SESSION['basic_id']) {
 		$get = basic::get_security();
 		$post = basic::post_security();
-//		pre_var_dump($get);
 		if($get['file']) {
 				$file_word = $get['file'];
 				$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/view/common/'.$get['file'];
@@ -15,8 +14,11 @@
 		if($post) {
 			// ファイルの内容を保存
 			model_login_admin_template_basis::file_content_save($post, $file_path);
+			// 静的化+圧縮化する際のリストarray取得
+			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('root');
+			// multi版：静的化+圧縮化
+			basic::multi_html_gzip_create($html_gzip_create_list_array);
 		}
-
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
 		// 選択しているテーマのcommon配下のファイルリストarray取得

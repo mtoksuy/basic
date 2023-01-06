@@ -47,6 +47,10 @@
 			}
 			// 一般設定保存
 			model_login_admin_profile_basis::profile_save($post);
+			// 静的化+圧縮化する際のリストarray取得
+			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('profile');
+			// multi版：静的化+圧縮化
+			basic::multi_html_gzip_create($html_gzip_create_list_array);
 		}
 		// プロフィールデータarray取得
 		$user_data_array = basic::user_data_get($_SESSION['primary_id']);
