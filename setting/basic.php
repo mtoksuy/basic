@@ -815,9 +815,41 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				}
 			} // if($site_data_array['compression_type'] === 'gz') {
 		} // if((int)$site_data_array['compression'] === 1) {
-		}
+	}
 
-
+	//------------------------
+	// ディレクトリをコピー
+	//------------------------
+	public static function copy_dir($dir, $new_dir) {
+		$dir         = rtrim($dir, '/').'/';
+		$new_dir = rtrim($new_dir, '/').'/';
+		
+		// コピー元ディレクトリが存在すればコピーを行う
+		if (is_dir($dir)) {
+			// コピー先ディレクトリが存在しなければ作成する
+			if (!is_dir($new_dir)) {
+				mkdir($new_dir, 0755);
+				chmod($new_dir, 0755);
+			}
+			// ディレクトリを開く
+			if($handle = opendir($dir)) {
+				// ディレクトリ内のファイルを取得する
+				while (false !== ($file = readdir($handle))) {
+					if ($file === '.' || $file === '..') {
+						continue;
+					}
+					// 下の階層にディレクトリが存在する場合は再帰処理を行う
+					if(is_dir($dir.$file)) {
+						basic::copy_dir($dir.$file, $new_dir.$file);
+					} 
+					else {
+						copy($dir.$file, $new_dir.$file);
+					}
+				}
+				closedir($handle);
+			} // if($handle = opendir($dir)) {
+		} // if (is_dir($dir)) {
+	} // function copy_dir($dir, $new_dir) {
 
 
 

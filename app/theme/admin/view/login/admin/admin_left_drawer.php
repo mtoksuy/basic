@@ -10,6 +10,16 @@
 						<a class="o_8" href="<?php echo HTTP;?>" target="_blank">サイトを表示</a>
 					</li>
 				</ul>
+
+
+				<ul class="border">
+					<span>アップデート</span>
+					<li<?php if($now == 'coreupdate') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/coreupdate/">更新テスト</a>
+					</li>
+				</ul>
+
+
 				<ul class="border">
 					<span>ブログ機能</span>
 					<li<?php if($now == 'post') {echo ' class="now"';}?>>

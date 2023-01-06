@@ -21,3 +21,4 @@ app/assets/img/user/*
 setting/markdown_article_tmp.txt
 setting/db_config.php
 app/theme/first_time/controller/writer/*
+tmp/
