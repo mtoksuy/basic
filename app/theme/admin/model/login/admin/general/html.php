@@ -43,6 +43,65 @@ class model_login_admin_general_html {
 							<label for="article_view_num">1ページに表示する最大投稿数</label>
 							<input name="article_view_num" id="article_view_num" type="number" step="1" min="1" value="'.$general_data_array['article_view_num'].'">
 						</div>
+
+						<div class="block">
+							<label for="admin_theme_color">管理画面のテーマカラー</label>
+							<fieldset>
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_light" type="radio" value="light">
+									<label for="admin_color_light">ライト</label>
+									<div class="color_view">
+										<div class="color_view_inner">
+											<div class="color_block_1 light_1">
+
+											</div>
+											<div class="color_block_2 light_2">
+
+											</div>
+											<div class="color_block_3 light_3">
+
+											</div>
+											<div class="color_block_4 light_4">
+
+											</div>	
+										</div>
+									</div>
+								</div> <!-- admin_theme_color_option -->
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_light" type="radio" value="light">
+									<label for="admin_color_light">ライト</label>
+									<div class="color_view">
+										<div class="color_view_inner">
+											<div class="color_block_1 light_1">
+
+											</div>
+											<div class="color_block_2 light_2">
+
+											</div>
+											<div class="color_block_3 light_3">
+
+											</div>
+											<div class="color_block_4 light_4">
+
+											</div>	
+										</div>
+									</div>
+								</div> <!-- admin_theme_color_option -->
+
+
+
+
+
+
+
+	
+							</fieldset>
+						</div> <!-- <div class="block"> -->
+
+
+
+
+
 				<!-- 
 						<label for="site_language">サイトの言語</label>
 						<input type="text" placeholder="サイトの言語" value="" name="site_language" id="site_language">
