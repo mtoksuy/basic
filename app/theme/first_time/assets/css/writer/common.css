@@ -5,7 +5,7 @@ main
 .main {
 	padding: 0px 0 0;
 	margin: 0 auto;
-	width: auto;
+	width: 95vw;
 }
 
 /*****
@@ -66,6 +66,7 @@ writer
 }
 .writer .writer_inner .writer_inner_right ul li {
 margin: 0 0 30px 0;
+	width: 100%;
 }
 .writer .writer_inner .writer_inner_right ul li a {
 	display: block;

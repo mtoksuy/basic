@@ -6,11 +6,10 @@
 }
 
 .draft_list_content .time {
-	color: #989898;
+	color: var(--theme-border-text-color);
 	margin: 0 0 0 15px;
 }
 .draft_list_content .contact_unread_count {
-	color: #eeeeee;
 	display: block;
 	position: absolute;
 	top: 25px;
@@ -20,5 +19,11 @@
 	border-radius:50%;
 	line-height:50px;
 	text-align:center;
-	background-color: #007cff;
+	background-color: var(--theme-color4);
 }
+
+
+.draft_list_content pre {
+	color: var(--theme-text-color);
+}
+

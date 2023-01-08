@@ -14,5 +14,6 @@
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/assets/css/core.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/common/common.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/common.css" type="text/css">
+	<?php /*admin_theme_color設定*/ if(!($site_data_array['admin_theme_color'] === 'default')) { echo '<link rel="stylesheet" href="'.HTTP.'app/theme/admin/assets/css/admin_theme_color/'.$site_data_array['admin_theme_color'].'.css" type="text/css">'; } ?>
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/list/common.css" type="text/css">
 </head>

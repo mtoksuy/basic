@@ -81,6 +81,8 @@ class model_login_admin_fileupload_basis {
 			if(file_exists($file_upload_path.'/'.$file_name)) {
 				// 重複ファイル複製 再帰処理
 				$value = model_login_admin_fileupload_basis::file_duplication_copy_recursive($file_tmp, $file_upload_path, $file_name, $value);
+				// 重複処理後 ファイルネーム更新
+				$flle_array[$key] = $value;
 			}
 			else {
 				// ファイル移動

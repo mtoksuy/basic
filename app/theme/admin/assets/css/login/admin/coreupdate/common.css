@@ -1,0 +1,21 @@
+
+
+.coreupdate {
+
+}
+.coreupdate .coreupdate_inner {
+	margin: 0 0 0 30px;
+}
+.coreupdate .coreupdate_inner p {
+
+}
+.coreupdate .coreupdate_inner a {
+	color: #fff;
+	background-color: #007cff;
+	padding: 7px 10px 7px 10px;
+	border-radius: 3px;
+	display: inline-block;
+}
+.coreupdate .coreupdate_inner a:visited {
+
+}

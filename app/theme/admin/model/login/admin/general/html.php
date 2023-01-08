@@ -43,6 +43,90 @@ class model_login_admin_general_html {
 							<label for="article_view_num">1ページに表示する最大投稿数</label>
 							<input name="article_view_num" id="article_view_num" type="number" step="1" min="1" value="'.$general_data_array['article_view_num'].'">
 						</div>
+
+						<div class="block">
+							<label for="admin_theme_color">管理画面のテーマカラー</label>
+							<fieldset>
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_default" type="radio" value="default">
+									<label for="admin_color_default">デフォルト
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_default_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_basic-dark" type="radio" value="basic-dark">
+									<label for="admin_color_basic-dark">ベーシックダーク
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_basic-dark_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_felissimo" type="radio" value="felissimo">
+									<label for="admin_color_felissimo">フェリシモ
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_felissimo_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_fresh-punch" type="radio" value="fresh-punch">
+									<label for="admin_color_fresh-punch">フレッシュパンチ
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_fresh-punch_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_quiet-moon" type="radio" value="quiet-moon">
+									<label for="admin_color_quiet-moon">クワイヤムーン
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_quiet-moon_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_happy-harmony" type="radio" value="happy-harmony">
+									<label for="admin_color_happy-harmony">ハッピーハーモニー
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_happy-harmony_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_calmo" type="radio" value="calmo">
+									<label for="admin_color_calmo">カルモ
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ calmo_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_sakura" type="radio" value="sakura">
+									<label for="admin_color_sakura">サクラ
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ sakura_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+
+
+
+								<div class="admin_theme_color_option">
+									<input name="admin_theme_color" id="admin_color_arbre" type="radio" value="arbre">
+									<label for="admin_color_arbre">アーブル
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ arbre_1.svg">
+									</label>
+								</div> <!-- admin_theme_color_option -->
+							</fieldset>
+						</div> <!-- <div class="block"> -->
+
+
+
+
+
 				<!-- 
 						<label for="site_language">サイトの言語</label>
 						<input type="text" placeholder="サイトの言語" value="" name="site_language" id="site_language">

@@ -18,9 +18,8 @@ if($_SESSION) {
 //		pre_var_dump($_FILES);
 		// file_array生成
 		$flle_array = model_login_admin_fileupload_basis::flle_array_create($files);
-//		pre_var_dump($flle_array);
 		// 画像アップロード&DB登録
-		model_login_admin_fileupload_basis::file_upload($flle_array);
+		$flle_array = model_login_admin_fileupload_basis::file_upload($flle_array);
 		// Ajax後ファイルアップロードHTML取得
 		$ajax_fileupload_html = model_login_admin_fileupload_html::ajax_fileupload_html_create($flle_array);
 	}
