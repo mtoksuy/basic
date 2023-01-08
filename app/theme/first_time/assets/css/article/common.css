@@ -59,12 +59,9 @@ margin-bottom: 18px;
 font-weight: bold;
 }
 
-
-
-
 article .index li {
 	cursor: pointer;
-	color: #48BF84;
+	color: var(--theme-color1);
 	position: relative;
 	padding-left: 30px;
 	margin: 0 0 15px 0;
@@ -142,7 +139,7 @@ article h2 {
 	font-size: 22px;
 	margin: 45px 0 30px 0;
 	border: none;
-	border-bottom: 3px solid #48BF84;
+	border-bottom: 3px solid var(--theme-color1);
 	padding: 0px 15px 15px 38px;
 	position: relative;
 }
@@ -150,7 +147,7 @@ article h2 {
 article h2:before {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-color1);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -163,7 +160,7 @@ article h2:before {
 article h2:after {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-color1);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -177,14 +174,14 @@ article h3 {
 	font-size: 20px;
 	margin: 30px 0 15px 0;
 	border: none;
-	border-left: 2px solid #48BF84;
+	border-left: 2px solid var(--theme-color1);
 	padding: 5px 5px 5px 15px;
 }
 
 article h4 {
 	font-size: 18px;
 	margin: 30px 0 15px 0;
-	border-left: 1px solid #48BF84;
+	border-left: 1px solid var(--theme-color1);
 	padding: 0px 0px 0px 5px;
 }
 
@@ -205,7 +202,7 @@ article img {
 }
 
 article strong {
-	color: #f24763;
+	color: var(--theme-color1);
 }
 
 article .article_data {
@@ -391,7 +388,7 @@ PR
 
 .pr {
 	padding: 30px;
-	border: 5px solid #48BF84;
+	border: 5px solid var(--theme-color1);
 }
 
 .pr .pr_title {
@@ -416,7 +413,7 @@ PR
 }
 
 .pr a {
-	color: #48BF84;
+	color: var(--theme-color1);
 }
 
 .pr_prompt_button_list {
@@ -426,7 +423,7 @@ PR
 .pr .pr_prompt_button {
 	position: relative;
 	right: -42px;
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	cursor: pointer;
 	border: solid 0px rgb(46, 181, 29);
 	display: inline-flex;
@@ -446,7 +443,7 @@ PR
 	right: -42px;
 	color: #282828;
 	background-color: #fff;
-	border: solid 1px #48BF84;
+	border: solid 1px var(--theme-color1);
 	cursor: pointer;
 	display: inline-flex;
 	margin: 0 10px 0 0;
@@ -574,14 +571,14 @@ PR
 }
 
 .related_articles span {
-	border-bottom: 1px solid #48BF84;
+	border-bottom: 1px solid var(--theme-color1);
 	padding: 0 0 12px;
 	position: relative;
 	display: block;
 }
 
 .related_articles span::before {
-	border-bottom: 2px solid #48BF84;
+	border-bottom: 2px solid var(--theme-color1);
 	content: '　';
 	padding: 0 0 11px;
 	position: absolute;
@@ -679,7 +676,7 @@ PR
 	position: absolute;
 	top: -29px;
 	left: 15px;
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	padding: 0 10px;
 	border-radius: 3px 3px 0 0;
 	color: #fff;
@@ -708,7 +705,7 @@ PR
 .amazon_link .amazon_link_inner .amazon_link_right .amazon_link_heading {
 	margin: 0px 0 15px 0;
 	border: none;
-	border-bottom: 0px solid #48BF84;
+	border-bottom: 0px solid var(--theme-color1);
 	padding: 0px 0 0px;
 }
 
@@ -776,7 +773,7 @@ PR
 }
 
 .amazon_link .amazon_link_inner .amazon_link_right .amazon_products_link a {
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	padding: 8px 1px 10px 5px;
 	color: #fff;
 	border-radius: 3px;
@@ -844,7 +841,9 @@ PR
 	border-right: solid 9px transparent;
 }
 
-.quote .quote_inner blockquote p {}
+.quote .quote_inner blockquote p {
+	opacity: 0.8;
+}
 
 .quote .quote_inner blockquote strong {
 	color: #212121;
@@ -877,7 +876,7 @@ amazon_review
 	/*
 	background: #fbfbfb;
 */
-	border-left: 1px solid #48BF84;
+	border-left: 1px solid var(--theme-color1);
 }
 
 .amazon_review:before {
@@ -928,7 +927,7 @@ check_point
 .check_point {}
 
 .check_point .check_point_inner {
-	border: 3px solid #48BF84;
+	border: 3px solid var(--theme-color1);
 	border-radius: 12px;
 	position: relative;
 	padding: 15px 15px 15px 0px;
@@ -1007,7 +1006,7 @@ check_point
 	/*
 background-color: #fcfcfc;
 */
-	border: 2px dashed #ffa3a3;
+	border: 2px dashed #86c2ff;
 	display: block;
 	margin: 15px 0 30px;
 	padding: 15px;
@@ -1050,7 +1049,7 @@ padding: 10px;
 	width: 100%;
 	height: auto;
 	background-color: #FcFcFc;
-	border: 0px solid #48BF84;
+	border: 0px solid var(--theme-color1);
 	border-radius: 72px;
 	box-sizing: border-box;
 	padding: 5px;
@@ -1135,7 +1134,7 @@ padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
 	/*
-	border: 1px solid #48BF84;
+	border: 1px solid var(--theme-color1);
 */
 	border: 1px solid rgba(92, 147, 187, 0.2);
 	border-radius: 3px;

@@ -1,7 +1,16 @@
+
+/*****
+main
+*****/
+.main {
+	padding: 0px 0 0;
+	margin: 0 auto;
+	width: 95vw;
+}
+
 /*****
 writer
 *****/
-
 .writer {}
 
 .writer .writer_inner {
@@ -41,13 +50,37 @@ writer
 
 .writer .writer_inner .writer_inner_right {
 	margin: 0 0 30px 0;
-	display: flex;
-	list-style: none;
 	padding: 15px;
 	flex-basis: 70%;
 	box-sizing: border-box;
 	align-self: stretch;
 }
+
+.writer .writer_inner .writer_inner_right ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	word-break: break-all;
+}
+.writer .writer_inner .writer_inner_right ul li {
+margin: 0 0 30px 0;
+	width: 100%;
+}
+.writer .writer_inner .writer_inner_right ul li a {
+	display: block;
+	color: #292f33;
+}
+.writer .writer_inner .writer_inner_right ul li a:visited {
+	text-decoration: none;
+}
+
+
+
+
+
+
 
 .writer .writer_inner .writer_inner_right img {
 	width: 100%;
@@ -61,7 +94,7 @@ writer
 
 @media screen and (min-width: 0px) and (max-width: 1024px) {
 	.main {
-		padding: 120px 0 0;
+		padding: 0px 0 0;
 		margin: 0 auto;
 	}
 	.writer .writer_inner .writer_inner_left {
@@ -81,7 +114,7 @@ writer
 
 @media screen and (min-width: 0px) and (max-width: 748px) {
 	.main {
-		padding: 80px 0 0;
+		padding: 0px 0 0;
 		margin: 0 auto;
 	}
 }
