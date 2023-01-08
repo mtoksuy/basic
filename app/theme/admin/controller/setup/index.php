@@ -72,6 +72,8 @@ if($_GET['step'] == 3 && $_GET['complete'] == '') {
 				basic::setup_to_user_signup($post);
 				// データベース調整
 				basic::setup_to_database_coordinate($post);
+				// ユーザーディレクトリセットアップ
+				basic::user_dir_setup($post);
 				header('Location: '.FULL_HTTP.'&complete=1');
 				exit;
 			}

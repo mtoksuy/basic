@@ -32,6 +32,10 @@
 			copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
 			// 記事OGP画像生成
 			model_login_admin_post_basis::media_article_ogp_create($res, $site_data_array);
+			// 静的化+圧縮化する際のリストarray取得
+			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('article', (int)$res[0]['primary_id']);
+			// multi版：静的化+圧縮化
+			basic::multi_html_gzip_create($html_gzip_create_list_array);
 			//////////////////////////newarticleディレクトリ生成/////////////////////////////////
 			model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 			///////////////////////////////////////////////////////////
@@ -90,6 +94,10 @@
 				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.(int)$article_res[0]['primary_id'].'';
 				// ディレクトリ削除
 				basic::rmdirAll($directory_path);
+				// 静的化+圧縮化する際のリストarray取得
+				$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('article_del');
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
 				//////////////////////////newarticleディレクトリ生成/////////////////////////////////
 				model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 				header('Location: '.HTTP.'login/admin/list/');
@@ -146,8 +154,8 @@
 				$preview_array['content'] = $article_res[0]['content'];
 				$preview_array['article_id'] = $article_res[0]['primary_id'];
 				$preview_array['basic_id'] = $article_res[0]['basic_id'];
-			// テンプレート読み込み
-			require_once(PATH.'app/theme/admin/view/login/admin/post/template.php');
+				// テンプレート読み込み
+				require_once(PATH.'app/theme/admin/view/login/admin/post/template.php');
 				return false;
 			}
 		}

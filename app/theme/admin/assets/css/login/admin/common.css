@@ -1,17 +1,64 @@
+/********************************
+管理画面テーマカラーカスタム変数
+********************************/
+/************************
+1背景
+2レフトドロワー
+3レフトドロワーホバー時
+4通知
+************************/
+:root {
+	--theme-color1: #fcfcfc;
+	--theme-color2: #fcfcfc;
+	--theme-color3: #f1f1f1;
+	--theme-color4: #3786ff;
 
+	--theme-h1-text-color: #1b1b1b;
+	--theme-h2-text-color: #1b1b1b;
+	--theme-h3-text-color: #1b1b1b;
 
+	--theme-h-design-color: #3786ff;
+
+	--theme-border-text-color: #cccccc;
+	--theme-button-text-color: #fcfcfc;
+	--theme-text-color: #1b1b1b;
+	--theme-link-text-color: #1b1b1b;
+
+	--theme-border-color1: #d7d7d7;
+	--theme-border-color2: #d7d7d7;
+	--theme-border-color3: #FFFFFF;
+
+	--theme-now-color: #3786ff;
+
+	--theme-template-title-text-color: #3786ff;
+
+	--theme-post-placeholder-color: #cccccc;
+	--theme-form-background-color: #fcfcfc;
+
+	--theme-general-select-background-color: #fcfcfc;
+
+	--theme-filelist-filename-background-color: #fcfcfc;
+}
 /********
 
 ********/
 body {
-	background-color: #37393E;
+	background-color: var(--theme-color1);
 }
+
+a:link {
+	color: var(--theme-link-text-color);
+}
+a:visited {
+	color: var(--theme-link-text-color);
+}
+
 /****************
 アドミンヘッダー
 ****************/
 .header {
-	background-color: #2F3136;
-	border-bottom: solid 1px #2D2E32;
+	background-color: var(--theme-color2);
+	border-bottom: solid 1px var(--theme-border-color1);
 }
 .header .header_inner {
 
@@ -26,10 +73,10 @@ body {
 
 
 .header .header_inner a {
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 }
 .header .header_inner a:visited {
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 }
 
 .drawer {
@@ -107,7 +154,7 @@ admin_left
 }
 
 .admin_left .admin_left_drawer {
-	background-color: #2F3136;
+	background-color: var(--theme-color2);
 /*
 	position: fixed;
 */
@@ -116,7 +163,7 @@ admin_left
 	background-color: #f8f9fa;
 */
 	height: 100%;
-	border-right: solid 1px #2D2E32;
+	border-right: solid 1px var(--theme-border-color1);
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner {
 
@@ -127,35 +174,35 @@ admin_left
 	margin:0;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul.border {
-	border-bottom: solid 1px #545660;
+	border-bottom: solid 1px var(--theme-border-color2);
 }
 
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul span {
-	color: #929499;
+	color: var(--theme-border-text-color);
 	font-size: 14px;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li {
 	position: relative;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li.now  {
-	border-right: solid #43464D 5px;
+	border-right: solid var(--theme-now-color) 5px;
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li a {
 	padding: 15px;
 	display: block;
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li a:link {
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li a:visited {
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li a:hover {
-	background-color: #8e84ff;
+	background-color: var(--theme-color3);
 }
 .admin_left .admin_left_drawer .admin_left_drawer_inner ul li .contact_unread_count {
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 	display: block;
 	position: absolute;
 	top: 25px;
@@ -165,11 +212,11 @@ admin_left
 	border-radius:50%;
 	line-height:50px;
 	text-align:center;
-	background-color: #007cff;
+	background-color: var(--theme-color4);
 
 
 /*
-	color: #eeeeee;
+	color: var(--theme-link-text-color);
 	background-color: red;
 	position: absolute;
 	top: 18px;
@@ -215,11 +262,11 @@ height: 100%;
 }
 .summary .summary_inner .summary_box h1 {
 	margin: 30px 0 30px 30px;
-	color: #e6e6e6;
+	color: var(--theme-h1-text-color);
 }
 .summary .summary_inner .summary_box h2 {
 	font-size: 22px;
-	color: #e6e6e6;
+	color: var(--theme-h2-text-color);
 	margin: 45px 0 0px 0;
 	border: none;
 	padding: 0px 15px 15px 38px;
@@ -230,7 +277,7 @@ height: 100%;
 .summary .summary_inner .summary_box h2:before {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-h-design-color);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -242,7 +289,7 @@ height: 100%;
 .summary .summary_inner .summary_box h2:after {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-h-design-color);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -252,11 +299,11 @@ height: 100%;
 	width: 14px;
 }
 .summary .summary_inner .summary_box h3 {
-	color: #e6e6e6;
+	color: var(--theme-h3-text-color);
 font-size: 20px;
 margin: 30px 0 15px 0;
 border: none;
-border-left: 2px solid #48BF84;
+border-left: 2px solid var(--theme-h-design-color);
 padding: 5px 5px 5px 15px;
 }
 
@@ -268,7 +315,7 @@ padding: 5px 5px 5px 15px;
 
 }
 .summary .summary_inner .summary_box p {
-	color: #D0D2D3;
+	color: var(--theme-text-color);
 }
 
 
@@ -333,7 +380,7 @@ margin: 15px 0 30px 0;
 .summary_data ul li a {
 	position: relative;
 	margin: 10px;
-	border: solid #d7d7d7 1px;
+	border: solid var(--theme-border-color3) 1px;
 	min-width: 240px;
 	min-height: 110px;
 	display: block;
@@ -362,7 +409,7 @@ margin: 15px 0 30px 0;
 	min-height: 104px;
 	bottom: 0;
 	min-height: 30px;
-	border-top: solid #d7d7d7 1px;
+	border-top: solid var(--theme-border-color3) 1px;
 	color: #1EBC4D;
 }
 

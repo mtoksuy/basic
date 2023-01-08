@@ -9,7 +9,7 @@ word-break: break-all;
 }
 .filelist li {
 	width: 10%;
-border: solid 5px #37393E;
+border: solid 5px var(--theme-color1);
 box-sizing: border-box;
 }
 .filelist li a {
@@ -34,12 +34,12 @@ height: auto;
 	position: absolute;
 	bottom: 0px;
 	font-size: 12px;
-	background-color: #fcfcfc;
+	background-color: var(--theme-filelist-filename-background-color);
 	line-height: 145%;
 	left: 0px;
 	padding: 0px 5px 5px 5px;
-	border-top: solid 1px #ccc;
-	box-sizing: border-box;;
+	border-top: solid 1px var(--theme-border-color2);
+	box-sizing: border-box;
 	width: 100%;
 }
 
@@ -201,7 +201,8 @@ display: none;
 	display: inline-block;
 	padding: 0px 5px 0px 5px;
 	cursor: pointer;
-	background-color: #f0f0f0;
+	color: var(--theme-button-text-color);
+	background-color: var(--theme-color4);
 	font-size: 12px;
 }
 .fileupload_show ul li .torst {

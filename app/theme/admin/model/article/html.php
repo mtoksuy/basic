@@ -77,6 +77,8 @@ class model_article_html {
 			$user_data_array = basic::user_data_get($value['basic_id']);
 			// マークダウンをhtmlに変換
 			$article_contents = model_login_admin_post_basis::markdown_html_conversion($article_contents, $user_data_array);
+			// 画像をwebpに差し替える(既存で存在していたら)
+			$article_contents = model_article_html::image_to_webp_replace($article_contents);
 			// 投稿日・更新日HTML生成
 			$posted_date_time_html = model_article_html::posted_date_time_html_create($local_time, $local_japanese_time);
 			$update_date_time_html = model_article_html::update_date_time_html_create($local_update_time, $local_update_japanese_time);
@@ -88,6 +90,8 @@ class model_article_html {
 			$share_button_html = model_article_html::share_button_html_create($article_primary_id, $article_title);
 			// 著者プロフィールhtml取得
 			$author_profile_html = model_article_html::author_profile_html_create($user_data_array);
+			// 記事HTMLテキスト取得
+			$author_profile_html = htmlspecialchars_decode($author_profile_html);
 
 			// /関連記事res取得
 			$related_articles_res = model_article_basis::related_articles_res_get($value['primary_id'], $value['hashtag']);
@@ -563,7 +567,42 @@ class model_article_html {
 			</div>';
 		return $article_new_back_list_html;
 	}
+	//--------------------------------------------------
+	// 画像をwebpに差し替える(既存で存在していたら)
+	//--------------------------------------------------
+	public static function image_to_webp_replace($article_contents) {
+//		var_dump($article_contents);
+//		preg_match_all();
+		preg_match_all('/<img(.*?)>/', $article_contents, $img_array_1);
+		preg_match_all('/src="(.*?)"/', $article_contents, $img_array_2);
 
+		foreach($img_array_1[0] as $key => $value) {
+			$img_array_1_oni = preg_replace('/\//', '\/', $value);
+//			pre_var_dump($img_array_1_oni);
+			$img_html_array[] = $img_array_1_oni;
+		}
+//			pre_var_dump($img_html_array);
+		foreach($img_array_2[1] as $key => $value) {
+			$result = strstr($value, 'app');
+//			pre_var_dump($result);
+			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
+//			pre_var_dump($result_array[0]);
+			// ファイル名の頭にwebp_追加
+			$webp_path = preg_replace('/(\/[0-9]{4}\/[0-9]{2}\/)/', '\\1webp_', $result);
+			// 拡張子をwebpに変換
+			$webp_path = preg_replace('/\.(.*?)$/', '.webp', $webp_path);
+			$webp_exists_path = PATH.$webp_path;
+			// webp存在確認
+			if(file_exists($webp_exists_path)) {
+				// 画像サイズ取得
+				$image_path_filesize = getimagesize($webp_exists_path);
+				// webp変換
+				$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
+			}
+		}
+
+		return $article_contents;
+	}
 
 
 }

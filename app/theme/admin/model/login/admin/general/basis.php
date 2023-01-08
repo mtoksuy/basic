@@ -18,6 +18,7 @@ class model_login_admin_general_basis {
 		$general_res = model_db::query("
 			UPDATE setting 
 			SET 
+				admin_theme_color = '".$post['admin_theme_color']."', 
 				title = '".$post['site_name']."',
 				description = '".$post['site_summary']."',
 				compression = '".$post['compression']."',

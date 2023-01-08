@@ -10,6 +10,17 @@
 						<a class="o_8" href="<?php echo HTTP;?>" target="_blank">サイトを表示</a>
 					</li>
 				</ul>
+
+				<?php $response = file_get_contents('https://basic.dance/api/?basic_version_get=true'); $json_decode_response = json_decode($response , true);
+					if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) { $contact_unread_count_html = '<span class="contact_unread_count"> </span>'; } ?>
+				<ul class="border">
+					<span>アップデート機能</span>
+					<li<?php if($now == 'coreupdate') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/coreupdate/">更新</a><?php echo $contact_unread_count_html; ?>
+					</li>
+				</ul>
+
+
 				<ul class="border">
 					<span>ブログ機能</span>
 					<li<?php if($now == 'post') {echo ' class="now"';}?>>

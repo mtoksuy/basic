@@ -345,7 +345,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				$site_data_array = basic::site_data_get();
 				$delete_permalink = $primary_page_res[0]['permalink'];
 				// ディレクトリ削除パス取得
-				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$delete_permalink.'';				
+				$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$delete_permalink.'';
 				// ディレクトリ削除
 				basic::rmdirAll($directory_path);
 				$new_permalink = $post['permalink'];
