@@ -7,11 +7,24 @@
 .draft_list_content .draft_list_content_edit {
 
 }
-.draft_list_content .draft_list_content_edit ul {
+.draft_list_content .draft_list_content_edit ul,
+.draft_list_content .draft_pagelist_content_edit ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.draft_list_content .draft_list_content_edit ul li {
+.draft_list_content .draft_list_content_edit ul li,
+.draft_list_content .draft_pagelist_content_edit ul li {
 
 }
+
+.draft_list_content .draft_list_content_edit ul li a,
+.draft_list_content .draft_pagelist_content_edit ul li a {
+	color: var(--theme-text-color);
+}
+
+.draft_list_content .draft_list_content_edit ul li a:visited,
+.draft_list_content .draft_pagelist_content_edit ul li a:visited {
+	color: var(--theme-text-color);
+}
+

@@ -4,4 +4,5 @@
 <script src="<?php echo HTTP; ?>app/assets/js/common/common.js"></script>
 <script src="<?php echo HTTP; ?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/js/common/common.js"></script>
 <script src="<?php echo HTTP; ?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/js/article/common.js"></script>
+<script src="<?php echo HTTP;?>app/theme/admin/assets/js/<?php echo $controller_query; ?>/common.js"></script>
 

@@ -11,7 +11,7 @@
 					<div class="summary_box">
 						<h1><?php echo $site_data_array['title']; ?>へようこそ！ <?php echo $_SESSION['basic_id']; ?>さん</h1>
 						<p>Basic version .<?php echo $site_data_array['basic_version']; ?></p>
-						<p style="border-bottom:1px solid #2D2E32;"> </p>
+						<p style="border-bottom:1px solid var(--theme-border-color2);"> </p>
 					</div> <!-- summary_box -->
 				</div> <!-- summary_inner -->
 			</div> <!-- summary -->

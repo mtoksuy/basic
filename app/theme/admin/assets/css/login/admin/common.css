@@ -8,36 +8,51 @@
 4通知
 ************************/
 :root {
-	--theme-color1: #37393E;
-	--theme-color2: #2F3136;
-	--theme-color3: #8e84ff;
-	--theme-color4: #006ded;
+	--theme-color1: #fcfcfc;
+	--theme-color2: #fcfcfc;
+	--theme-color3: #f1f1f1;
+	--theme-color4: #3786ff;
 
-	--theme-h1-text-color: #e6e6e6;
-	--theme-h2-text-color: #e6e6e6;
-	--theme-h3-text-color: #e6e6e6;
+	--theme-h1-text-color: #1b1b1b;
+	--theme-h2-text-color: #1b1b1b;
+	--theme-h3-text-color: #1b1b1b;
 
-	--theme-h-design-color: #48BF84;
+	--theme-h-design-color: #3786ff;
 
-	--theme-border-text-color: #929499;
-	--theme-text-color: #D0D2D3;
-	--theme-link-text-color: #eeeeee;
+	--theme-border-text-color: #cccccc;
+	--theme-button-text-color: #fcfcfc;
+	--theme-text-color: #1b1b1b;
+	--theme-link-text-color: #1b1b1b;
 
-	--theme-border-color1: #2D2E32;
-	--theme-border-color2: #545660;
-	--theme-border-color3: #d7d7d7;
+	--theme-border-color1: #d7d7d7;
+	--theme-border-color2: #d7d7d7;
+	--theme-border-color3: #FFFFFF;
 
-	--theme-now-color: #43464D;
+	--theme-now-color: #3786ff;
 
-	--theme-template-title-text-color: rgb(97, 182, 245);
+	--theme-template-title-text-color: #3786ff;
+
+	--theme-post-placeholder-color: #cccccc;
+	--theme-form-background-color: #fcfcfc;
+
+	--theme-general-select-background-color: #fcfcfc;
+
+	--theme-filelist-filename-background-color: #fcfcfc;
 }
-
 /********
 
 ********/
 body {
 	background-color: var(--theme-color1);
 }
+
+a:link {
+	color: var(--theme-link-text-color);
+}
+a:visited {
+	color: var(--theme-link-text-color);
+}
+
 /****************
 アドミンヘッダー
 ****************/
@@ -197,7 +212,7 @@ admin_left
 	border-radius:50%;
 	line-height:50px;
 	text-align:center;
-	background-color: #007cff;
+	background-color: var(--theme-color4);
 
 
 /*

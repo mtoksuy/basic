@@ -39,7 +39,7 @@ margin: 0 0 15px 0;
 
 .clip ul li a {
 	display: block;
-	color: var(--theme-link-text-color);
+	color: var(--theme-text-color);
 }
 
 .clip ul li .description {
