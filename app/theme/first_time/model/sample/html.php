@@ -10,7 +10,6 @@ class model_sample_html {
 			$local_time           = date('Y-m-d', $unix_time);
 			$local_japanese_time  = date('Y年m月d日', $unix_time);
 			$article_year_time    = date('Y', $unix_time);
-//pre_var_dump($value);
 			// 記事HTMLテキスト取得
 			$article_contents     = htmlspecialchars_decode($value["content"]);
 			// 改行を消す&タブ削除
