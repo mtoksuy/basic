@@ -36,6 +36,7 @@ class model_login_admin_coreupdate_basis {
 			UPDATE setting SET basic_version = '".$json_decode_response['latest_basic_version']."'
 			WHERE setting_id = 1
 		");
+		// tmp削除
+		basic::removeDir(PATH.'tmp');
 	}
-
 }
