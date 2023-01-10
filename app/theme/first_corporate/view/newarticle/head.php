@@ -13,6 +13,6 @@
 	<!-- css -->
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/assets/css/core.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/css/common/common.css" type="text/css">
-	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/css/root/common.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/css/newarticle/common.css" type="text/css">
 	<?php  require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/google_analytics.php'); /* google_analytics読み込み*/ ?>
 </head>
