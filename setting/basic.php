@@ -132,9 +132,9 @@ class basic {
 		// 中身を削除した後、本体削除
 		rmdir($dir);
 	}
-	//----
-	//削除
-	//----
+	//----------------------
+	//ディレクトリ削除v.2
+	//----------------------
 	/**
 	* 再帰的にディレクトリを削除する。
 	* @param string $dir ディレクトリ名（フルパス）
@@ -153,7 +153,7 @@ class basic {
 	        $path = $dir . DIRECTORY_SEPARATOR . $item;
 	        if (is_dir($path)) {
 	            // 再帰的に削除
-	            $cnt = $cnt + Library_Dir_Basis::removeDir($path);
+	            $cnt = $cnt + basic::removeDir($path);
 	        }
 	        else {
 	            // ファイルを削除
@@ -850,9 +850,14 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			} // if($handle = opendir($dir)) {
 		} // if (is_dir($dir)) {
 	} // function copy_dir($dir, $new_dir) {
-
-
-
-
-
+	//------------------------------
+	// php内部ライブラリチェック
+	//------------------------------
+	 public static function extensions_check($str) {
+		$get_loaded_extensions = get_loaded_extensions();
+		foreach($get_loaded_extensions as $key => $value) {
+			if($value ==$str) { return true; }
+		}
+		return false;
+	}
 }

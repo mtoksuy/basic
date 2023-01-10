@@ -4,7 +4,6 @@
 	require_once(PATH.'setting/db.php');
 	$model_db = new model_db();
 
-
 	$load_class_list = array();
 
   $cmd_2  = 'find '.PATH.'app/theme/admin/model -type f -name "*.php"';
@@ -24,7 +23,14 @@
 		}
 	}
 
-	$theme_name = 'first_time'; // のちほど自動化
+	$theme_name = 'first_time'; // デフォルト設定
+	if(file_exists(PATH.'setting/db_config.php')) {
+		require_once('setting/db_config.php');
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		// 現在設定しているテーマのモデル読み込み
+		$theme_name = $site_data_array['theme'];
+	}
   $cmd = 'find '.PATH.'app/theme/'.$theme_name.'/model -type f -name "*.php"';
     exec($cmd, $arr_1, $res_1);
 	if($arr_1) {
