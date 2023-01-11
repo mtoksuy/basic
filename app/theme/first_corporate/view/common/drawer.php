@@ -6,9 +6,13 @@
 			<label class="nav-unshown" id="nav-close" for="nav-input"></label>
 			<div id="nav-content">
 				<ul>
-					<li><a  class="o_8" href="<?php echo HTTP;?>about/">私たちについて</a></li>
-					<li><a  class="o_8" href="<?php echo HTTP;?>sitemap/">サイトマップ</a></li>
-					<li><a class="o_8" href="<?php echo HTTP;?>contact/">お問い合わせ</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>about/">About</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>#mission">Mission</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>#service">Service</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>newarticle/">Information</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>#careers">Careers</a></li>
+					<li><a class="o_8" href="<?php echo HTTP;?>sitemap/">Sitemap</a></li>
+					<li><a class="o_8" href="<?php echo HTTP; ?>contact/">Contact</a></li>
 				</ul>
 			</div>
 		</div> <!-- ハンバーガーメニュー -->
