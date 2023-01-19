@@ -6,6 +6,13 @@ require_once('setting/model_autoLoader.php');
 $controller_query = '';
 $theme_name      = '';
 
+// 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
+if($_SESSION) {
+	if(!($_SESSION['basic_http'] == HTTP)) {
+	// ログアウト
+	model_login_basis::logout();
+	}
+}
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
