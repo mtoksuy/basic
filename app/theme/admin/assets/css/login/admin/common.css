@@ -97,7 +97,6 @@ top_bar
 	margin: 0;
 	display: flex;
 	top: 1px;
-	overflow-x: scroll;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
 	align-items: center;
