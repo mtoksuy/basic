@@ -38,6 +38,7 @@ height: auto;
 	line-height: 145%;
 	left: 0px;
 	padding: 0px 5px 5px 5px;
+	color: var(--theme-text-color);
 	border-top: solid 1px var(--theme-border-color2);
 	box-sizing: border-box;
 	width: 100%;
