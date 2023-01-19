@@ -32,6 +32,9 @@ foreach($array_parse_uri as $kye => $value) {
 			$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 		}
 }
+// 上記では対応できなかった部分をよしなに
+$controller_query = str_replace(ROOT_DIR, '', $controller_query);
+$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 
 /***********
 // setup遷移
