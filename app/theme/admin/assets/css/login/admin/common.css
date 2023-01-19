@@ -26,7 +26,7 @@
 
 	--theme-border-color1: #d7d7d7;
 	--theme-border-color2: #d7d7d7;
-	--theme-border-color3: #FFFFFF;
+	--theme-border-color3: #CCC;
 
 	--theme-now-color: #3786ff;
 
@@ -97,7 +97,6 @@ top_bar
 	margin: 0;
 	display: flex;
 	top: 1px;
-	overflow-x: scroll;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
 	align-items: center;
