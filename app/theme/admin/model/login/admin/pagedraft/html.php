@@ -4,6 +4,7 @@ class model_login_admin_pagedraft_html {
 	// 下書き一覧HTML生成
 	//------------------------
 	public static function page_draft_list_html_create($article_draft_list_res) {
+		$article_list_html = '';
 		foreach($article_draft_list_res as $key => $value) {
 			$article_list_html .= '<div class="draft_list_content">
 				<p><b>No：</b>'.$value['primary_id'].'</p>

@@ -1,4 +1,11 @@
 <?php 
+
+	$contact_unread_count_html  = '';
+	// エンティティ
+	$get = basic::get_security();
+	// 定義されていない変数を空定義
+	if(empty($get['active'])) { $get['active'] = ''; }
+
 	if($_SESSION['basic_id']) {
 		$now = 'themeswitching';
 		$content_html = '
@@ -6,8 +13,6 @@
 			<p>Basic version .0.2</p>
 			<p style="border-bottom:1px solid var(--theme-border-color2);"> </p>';
 
-		// エンティティ
-		$get = basic::get_security();
 		if($get) {
 			// テーマ切り替え
 			if($get['theme_name'] && $get['active'] == 'true') {

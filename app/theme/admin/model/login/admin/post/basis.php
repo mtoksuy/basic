@@ -177,13 +177,16 @@ class model_login_admin_post_basis {
 file_put_contents(PATH.'setting/markdown_article_tmp.txt', $markdown);
 /* ファイルポインタをオープン */
 $file = fopen(PATH.'setting/markdown_article_tmp.txt', 'r');
+$txt = '';
+$i = '';
 /* ファイルを1行ずつ出力 */
 if($file){
 	while ($line = fgets($file)) {
 		 preg_match('/^<|^\r\n/', $line, $line_array);
 //		 pre_var_dump($line_array);
 //		 pre_var_dump($line);
-		 if(!$line_array[0]) {
+
+		 if(!isset($line_array[0])) {
 		 	if(strlen($line) > 2) {
 //pre_var_dump($line);
 //pre_var_dump($line_array);
@@ -210,6 +213,9 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//下書き保存
 	//------------
 	public static function markdown_post_draft_save($post) {
+		if(empty($post['hashtag'])) {
+			$post['hashtag'] = '';
+		}
 		if($post['draft_id']) {
 //				pre_var_dump($post);
 				model_db::query("

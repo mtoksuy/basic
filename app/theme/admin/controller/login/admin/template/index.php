@@ -1,7 +1,10 @@
 <?php
-	if($_SESSION['basic_id']) {
 		$get = basic::get_security();
 		$post = basic::post_security();
+		// 定義されていない変数を空定義
+		if(empty($get['file'])) { $get['file'] = ''; }
+
+	if($_SESSION['basic_id']) {
 //		pre_var_dump($get);
 		if($get['file']) {
 				$file_word = $get['file'];

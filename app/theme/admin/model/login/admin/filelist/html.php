@@ -4,6 +4,7 @@ class model_login_admin_filelist_html {
 	// ファイル一覧HTML生成
 	//--------------------------
 	public static function filelist_html_create($filelist_res) {
+		$filelist_li = '';
 //		pre_var_dump($filelist_res);
 		foreach($filelist_res as $key => $value) {
 			preg_match('/imag/', $value['type'], $type_array);

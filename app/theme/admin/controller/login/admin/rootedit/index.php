@@ -1,7 +1,10 @@
 <?php
+
+	$get = basic::get_security();
+	$post = basic::post_security();
+	if(empty($get['file'])) { $get['file'] = ''; }
+
 	if($_SESSION['basic_id']) {
-		$get = basic::get_security();
-		$post = basic::post_security();
 		if($get['file']) {
 				$file_word = $get['file'];
 				$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/view/common/'.$get['file'];

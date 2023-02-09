@@ -6,21 +6,17 @@
 **********/
 // ローカル環境
 if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
-	// エラー回避
-	error_reporting(0);
-	// エラー表示
-	error_reporting(E_ALL);
-	// 開発
-	ini_set('display_errors', 1);
+	// エラー表示レベル
 	error_reporting(E_ALL & ~E_NOTICE);
+	error_reporting(E_ALL);
+	// エラー表示
+	ini_set('display_errors', 1);
 }
 // 本番環境
 else {
-	// エラー回避
-	error_reporting(0);
-	// エラー表示
+	// エラー表示レベル
 	error_reporting(E_ALL & ~E_NOTICE);
-	// 本番
+	// エラー表示
 	ini_set('display_errors', 1);
 }
 /*********

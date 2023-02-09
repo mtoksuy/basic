@@ -1,4 +1,6 @@
 <?php
+	$contact_unread_count_html = '';
+
 	if($_SESSION['basic_id']) {
 		$now = 'list';
 		// 記事一覧取得

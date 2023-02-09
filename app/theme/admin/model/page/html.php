@@ -57,8 +57,10 @@ class model_page_html {
 			$page_title  = $value["title"];
 			// 記事HTMLテキスト取得
 			$page_contents     = htmlspecialchars_decode($value["content"]);
+			// ユーザー情報取得
+			$user_data_array = basic::user_data_get($page_res[0]['basic_id']);
 			// マークダウンをhtmlに変換
-			$page_contents = model_login_admin_post_basis::markdown_html_conversion($page_contents, $amatem_id_data_array);
+			$page_contents = model_login_admin_post_basis::markdown_html_conversion($page_contents, $user_data_array);
 
 			// 記事HTML
 			$page_html = ('
@@ -71,7 +73,7 @@ class model_page_html {
 			$page_data_array = array(
 				'page_primary_id'      => (int)$page_primary_id,
 				'page_html'            => $page_html, 
-				'page_title'           => $title, 
+				'page_title'           => $page_title, 
 				'page_contents'        => $page_contents,
 			);
 		}

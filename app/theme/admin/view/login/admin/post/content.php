@@ -11,15 +11,15 @@
 			<!-- 保存機能 -->
 			<div class="save_button_list">
 			<?php 
-				if($_GET['article_id']) {
-						$save_html = '	<a class="check" href="'.HTTP.'article/'.$_GET['article_id'].'/" target="_blank">確認</a>
-						<input class="edit" type="submit" value="編集" name="draft">';
-				}
-					else {
-						$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
-						<input class="draft" type="submit" value="下書きとして保存" name="draft">
-						<input class="submit" type="submit" value="投稿" name="submit">';
+					if($_GET['article_id']) {
+							$save_html = '	<a class="check" href="'.HTTP.'article/'.$_GET['article_id'].'/" target="_blank">確認</a>
+							<input class="edit" type="submit" value="編集" name="draft">';
 					}
+				else {
+					$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
+					<input class="draft" type="submit" value="下書きとして保存" name="draft">
+					<input class="submit" type="submit" value="投稿" name="submit">';
+				}
 				echo $save_html;
 			?>
 			</div>

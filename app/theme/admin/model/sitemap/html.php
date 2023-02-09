@@ -65,7 +65,7 @@ class model_sitemap_html {
 		$article_list_li = '';
 		foreach($article_res as $key => $value) {
 			// ページ
-			if($value['permalink']) {
+			if(!empty($value['permalink'])) {
 				// エンティティを戻す
 				$title = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
 				 $article_list_li .=
@@ -75,12 +75,12 @@ class model_sitemap_html {
 			}
 			// 記事
 			else {
-		// エンティティを戻す
-		$title = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
-		 $article_list_li .=
-			 '<li>
-				<a href="'.HTTP.'article/'.$value['primary_id'].'/">'.$title.'</a>
-			</li>';
+				// エンティティを戻す
+				$title = htmlspecialchars_decode($value["title"], ENT_NOQUOTES);
+				 $article_list_li .=
+					 '<li>
+						<a href="'.HTTP.'article/'.$value['primary_id'].'/">'.$title.'</a>
+					</li>';
 			}
 		} // foreach
 		return $article_list_li;

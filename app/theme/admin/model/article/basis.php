@@ -113,36 +113,39 @@ class model_article_basis {
 	//関連記事res取得
 	//-----------------
 	public static function related_articles_res_get($primary_id, $hashtag) {
+		$query = '';
 		$hashtag_list_explode = explode(', ', $hashtag);
 		foreach($hashtag_list_explode as $key => $value) {
 			if($value) {
 				$hashtag_list[] = $value;
 			}
 		}
-		foreach((array)$hashtag_list as $key => $value) {
-			if($key == 0) {
-				$query .= "WHERE hashtag LIKE '%".$value.", %'
-				AND primary_id != ".$primary_id."
-				AND del = 0
-				";
-			}
-				else {
-				$query .= "OR hashtag LIKE '%".$value.", %'
-				AND primary_id != ".$primary_id."
-				AND del = 0
-				";
+		if(isset($hashtag_list)) {
+			foreach((array)$hashtag_list as $key => $value) {
+				if($key == 0) {
+					$query .= "WHERE hashtag LIKE '%".$value.", %'
+					AND primary_id != ".$primary_id."
+					AND del = 0
+					";
 				}
-		}
-		if($hashtag_list) {
-			$related_articles_res = model_db::query("
-					SELECT * 
-					FROM article 
-					".$query."
-					ORDER BY primary_id DESC
-					LIMIT 0, 8
-			");
-		}
-		return $related_articles_res;
+					else {
+					$query .= "OR hashtag LIKE '%".$value.", %'
+					AND primary_id != ".$primary_id."
+					AND del = 0
+					";
+					}
+			}
+			if($hashtag_list) {
+				$related_articles_res = model_db::query("
+						SELECT * 
+						FROM article 
+						".$query."
+						ORDER BY primary_id DESC
+						LIMIT 0, 8
+				");
+				return $related_articles_res;
+			}
+		} // if(isset($hashtag_list)) {
 	}
 
 
