@@ -20,7 +20,7 @@
 	// 検索logoクリック
 	//--------------------
 	$('.search_window').on('click', '.search_logo', function(event) {
-		window.location.href = http+'search/?q='+$('.search_window_form #q').val()+'&context=products';
+//		window.location.href = http+'search/?q='+$('.search_window_form #q').val()+'&context=products';
 	});
 	//------------------------------
 	// 検索窓フォーカスが外れた時
