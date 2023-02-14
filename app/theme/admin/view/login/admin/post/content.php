@@ -11,15 +11,15 @@
 			<!-- 保存機能 -->
 			<div class="save_button_list">
 			<?php 
-				if($_GET['article_id']) {
-						$save_html = '	<a class="check" href="'.HTTP.'article/'.$_GET['article_id'].'/" target="_blank">確認</a>
-						<input class="edit" type="submit" value="編集" name="draft">';
-				}
-					else {
-						$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
-						<input class="draft" type="submit" value="下書きとして保存" name="draft">
-						<input class="submit" type="submit" value="投稿" name="submit">';
+					if($_GET['article_id']) {
+							$save_html = '	<a class="check" href="'.HTTP.'article/'.$_GET['article_id'].'/" target="_blank">確認</a>
+							<input class="edit" type="submit" value="編集" name="draft">';
 					}
+				else {
+					$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
+					<input class="draft" type="submit" value="下書きとして保存" name="draft">
+					<input class="submit" type="submit" value="投稿" name="submit">';
+				}
 				echo $save_html;
 			?>
 			</div>
@@ -32,9 +32,10 @@
 		<div class="clip">
 			<ul>
 				<li data-clip_name="index"><span class="howto">##index##</span>目次</li>
-				<li data-clip_name="headline_1"><span class="howto">#</span>見出し1</li>
-				<li data-clip_name="headline_2"><span class="howto">##</span>見出し2</li>
-				<li data-clip_name="headline_3"><span class="howto">###</span>見出し3</li>
+				<li data-clip_name="headline_1"><span class="howto"># </span>見出し1</li>
+				<li data-clip_name="headline_2"><span class="howto">## </span>見出し2</li>
+				<li data-clip_name="headline_3"><span class="howto">### </span>見出し3</li>
+				<li data-clip_name="hashtag"><span class="howto">#</span>ハッシュタグ</li>
 				<li data-clip_name="separator"><span class="howto">---</span>1行セパレーター<span class="howto"></span></li>
 				<li data-clip_name="strong"><span class="howto">*</span>太文字<span class="howto">*</span></li>
 				<li data-clip_name="marker"><span class="howto">__</span>マーカー<span class="howto">__</span></li>

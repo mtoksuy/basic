@@ -6,6 +6,13 @@ require_once('setting/model_autoLoader.php');
 $controller_query = '';
 $theme_name      = '';
 
+// 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
+if($_SESSION) {
+	if(!($_SESSION['basic_http'] == HTTP)) {
+	// ログアウト
+	model_login_basis::logout();
+	}
+}
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
@@ -25,6 +32,9 @@ foreach($array_parse_uri as $kye => $value) {
 			$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 		}
 }
+// 上記では対応できなかった部分をよしなに
+$controller_query = str_replace(ROOT_DIR, '', $controller_query);
+$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 
 /***********
 // setup遷移
@@ -111,7 +121,16 @@ if($controller_query == '') {
 }
 
 
-
+/************
+ハッシュタグ
+************/
+if(preg_match('/hashtag\//', $controller_query, $controller_query_array)) {
+	$controller_query = urldecode($controller_query);
+	$hashtag_explode = explode('/', $controller_query);
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
+	exit;
+}
 /*******
 通常遷移
 ********/

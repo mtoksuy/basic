@@ -1,4 +1,8 @@
 <?php
+
+	$contact_unread_count_html  = '';
+
+
 	if($_SESSION['basic_id']) {
 		$now = 'contactlist';
 		// お問い合わせ一覧取得
@@ -7,10 +11,12 @@
 		$content_html = model_login_admin_contactlist_html::contact_list_html_create($contact_list_res);
 
 		// ゲットの中身をエンティティ化する
-		$get = basic::get_security($_GET);
+		$get = basic::get_security();
+		if(empty($get['delete'])) { $get['delete'] = ''; }
+		if(empty($get['contact_id'])) { $get['contact_id'] = ''; }
 		// 削除
 		if($get['delete'] && $get['contact_id']) {
-			pre_var_dump($get);
+//			pre_var_dump($get);
 			// お問い合わせ削除
 			model_login_admin_contactlist_basis::contact_delete((int)$get['contact_id']);
 			// 移動

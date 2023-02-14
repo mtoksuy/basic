@@ -1,10 +1,14 @@
 <?php
+
+$contact_unread_count_html = '';
+
 /*
 max_file_uploads
 memory_limit
 post_max_size
 upload_max_filesize
 */
+
 //phpinfo();
 	if($_SESSION['basic_id']) {
 		$now = 'fileupload';

@@ -1,4 +1,10 @@
 <?php 
+
+	$contact_unread_count_html  = '';
+
+	// エンティティ
+	$get = basic::get_security();
+
 	if($_SESSION['basic_id']) {
 		$now = 'themeswitching';
 		$content_html = '
@@ -6,9 +12,10 @@
 			<p>Basic version .0.2</p>
 			<p style="border-bottom:1px solid var(--theme-border-color2);"> </p>';
 
-		// エンティティ
-		$get = basic::get_security();
 		if($get) {
+			// 定義されていない変数を空定義
+			if(empty($get['theme_name'])) { $get['theme_name'] = ''; }
+			if(empty($get['active'])) { $get['active'] = ''; }
 			// テーマ切り替え
 			if($get['theme_name'] && $get['active'] == 'true') {
 				// テーマ切り替え
@@ -28,7 +35,7 @@
 				$theme_detail_view_html = model_login_admin_themeswitching_html::theme_detail_view_html_create($get);
 				$content_html = $theme_detail_view_html;
 			}
-		}
+		} // if($get) {
 		// デフォルト表示
 		else {
 			// テーマリストarray取得

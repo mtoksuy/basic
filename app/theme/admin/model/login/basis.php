@@ -19,10 +19,11 @@ class model_login_basis {
 				$_SESSION["icon"]              = $value["icon"];
 				$_SESSION["create_time"]  = $value["create_time"];
 				$_SESSION["update_time"] = $value["update_time"];
+				$_SESSION["basic_http"]    = HTTP;
 
 				// クッキー生成(一ヶ月有効)
 				setcookie('basic_id', $value["basic_id"], time() + 2592000, '/');
-				setcookie('amatem_login_key', $value['password'], time() + 2592000, '/');
+				setcookie('basic_login_key', $value['password'], time() + 2592000, '/');
 				// 死んでる
 				model_login_basis::login_history_record($_SESSION["basic_id"]);
 				// 移動
@@ -58,7 +59,7 @@ class model_login_basis {
 				$_SESSION["update_time"] = $value["update_time"];
 				// クッキー生成(一ヶ月有効)
 				setcookie('basic_id', $value["basic_id"], time() + 2592000, '/');
-				setcookie('amatem_login_key', $value['password'], time() + 2592000, '/');
+				setcookie('basic_login_key', $value['password'], time() + 2592000, '/');
 				// 死んでる
 				model_login_basis::login_history_record($_SESSION["basic_id"]);
 				$retrun_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
