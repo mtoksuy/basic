@@ -121,7 +121,16 @@ if($controller_query == '') {
 }
 
 
-
+/************
+ハッシュタグ
+************/
+if(preg_match('/hashtag\//', $controller_query, $controller_query_array)) {
+	$controller_query = urldecode($controller_query);
+	$hashtag_explode = explode('/', $controller_query);
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
+	exit;
+}
 /*******
 通常遷移
 ********/
