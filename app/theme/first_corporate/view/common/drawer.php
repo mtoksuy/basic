@@ -1,4 +1,7 @@
-
+<?php 
+	// 定義されていない変数を空定義
+	if(empty($_GET['q'])) { $_GET['q'] = ''; }
+?>
 		<!-- ハンバーガーメニュー -->
 		<div id="nav-drawer">
 			<input id="nav-input" type="checkbox" class="nav-unshown">

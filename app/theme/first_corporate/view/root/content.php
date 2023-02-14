@@ -1,4 +1,3 @@
-
 <div class="root">
 	<div class="root_inner">
 		<!-- first_view -->

@@ -6,6 +6,7 @@ class model_login_admin_rootedit_html {
 	public static function view_common_list_html_create($view_common_list_array, $file_word) {
 //		pre_var_dump($file_word);
 //		if($file_word == 'drawer.php') {echo ' class="now"';}
+		$view_common_list_html = '';
 		switch($file_word) {
 			case 'drawer.php':
 

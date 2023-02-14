@@ -123,6 +123,8 @@ $cdn_html = $cdn_html.
 	// Ajax後ファイルアップロードHTML取得
 	//------------------------------------------
 	public static function ajax_fileupload_html_create($flle_array) {
+		$ajax_fileupload_html = '';
+
 		// マスターディレクトリパス
 		$file_upload_directry_path = HTTP.'app/assets/fileupload';
 		$now_year    = date('Y');
@@ -131,7 +133,7 @@ $cdn_html = $cdn_html.
 //			pre_var_dump($value);
 			preg_match('/image/', $value['type'], $value_array);
 //			pre_var_dump($value_array);
-			if($value_array[0]) {
+			if(!empty($value_array[0])) {
 				$ajax_fileupload_html .= '<li>
 					<img src="'.$file_upload_directry_path.'/'.$now_year.'/'.$now_month.'/'.$value['full_name'].'">
 					<span class="name">'.$value['full_name'].'</span>

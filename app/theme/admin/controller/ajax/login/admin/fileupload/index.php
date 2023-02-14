@@ -9,7 +9,7 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // ポストの中身をエンティティ化する
 //$post = library_security_basis::post_security();
-ini_set('display_errors', 0);
+//ini_set('display_errors', 0);
 // ログインしている場合
 if($_SESSION) {
 	// ファイルが送られてきた場合

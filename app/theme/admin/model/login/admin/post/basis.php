@@ -60,6 +60,20 @@ class model_login_admin_post_basis {
 ', $markdown);
 
 
+
+
+		// ハッシュタグ変換(半角空白、全角空白版)
+		$markdown = preg_replace('/#(.*?) /', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
+		$markdown = preg_replace('/#(.*?)　/', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
+
+		// ハッシュタグ変換(改行版)
+		$markdown = preg_replace('/#(.*?)
+/', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
+
+
+
+
+
 		// 1行セパレーター変換
 		$markdown = preg_replace('/---/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
 
@@ -177,13 +191,16 @@ class model_login_admin_post_basis {
 file_put_contents(PATH.'setting/markdown_article_tmp.txt', $markdown);
 /* ファイルポインタをオープン */
 $file = fopen(PATH.'setting/markdown_article_tmp.txt', 'r');
+$txt = '';
+$i = '';
 /* ファイルを1行ずつ出力 */
 if($file){
 	while ($line = fgets($file)) {
 		 preg_match('/^<|^\r\n/', $line, $line_array);
 //		 pre_var_dump($line_array);
 //		 pre_var_dump($line);
-		 if(!$line_array[0]) {
+
+		 if(!isset($line_array[0])) {
 		 	if(strlen($line) > 2) {
 //pre_var_dump($line);
 //pre_var_dump($line_array);
@@ -210,6 +227,9 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//下書き保存
 	//------------
 	public static function markdown_post_draft_save($post) {
+		if(empty($post['hashtag'])) {
+			$post['hashtag'] = '';
+		}
 		if($post['draft_id']) {
 //				pre_var_dump($post);
 				model_db::query("
@@ -253,12 +273,13 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//---------
 	//編集保存
 	//---------
-	public static function markdown_post_edit_save($post) {
+	public static function markdown_post_edit_save($post, $hashtag_selection_json) {
 		$now_date = date('Y-m-d H:i:s', time());
 		model_db::query("
 			UPDATE article
 			SET 
 				title = '".$post['title']."', 
+				hashtag = '".$hashtag_selection_json."',
 				content = '".$post['content']."',
 				update_time = '".$now_date."'
 			WHERE primary_id = ".(int)$post['article_id']."
@@ -287,17 +308,19 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//----------
 	//新規投稿
 	//---------
-	public static function markdown_post_add($post) {
+	public static function markdown_post_add($post, $hashtag_selection_json) {
 		$query = model_db::query("
 			INSERT INTO article 
 			(
 				basic_id, 
 				title, 
+				hashtag, 
 				content
 			) 
 			VALUES (
 				'".$_SESSION['basic_id']."',
 				'".$post['title']."',
+				'".$hashtag_selection_json."', 
 				'".$post['content']."'
 			)");
 	}
@@ -617,6 +640,7 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 	//目次変換
 	//----------
 	public static function index_conversion($markdown) {
+		$index_li_html = '';
 		if(preg_match('/##index##/', $markdown)) {
 			// h2リスト取得
 			preg_match_all('/# (.*?)
@@ -639,6 +663,89 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 , $markdown);
 		} // if(preg_match('/##index##/', $markdown)) {
 	return $markdown;
+	}
+	//------------------------------------------
+	// ハッシュタグリスト json_encodeで取得
+	//------------------------------------------
+	/*
+	仕様：擬似的マークダウン変換を行いcontentからハッシュタグのみを抽出して まとめたarrayをjson型に変換して返す。
+　　　　#関連のマークダウンを擬似変換を行う。
+	*/
+	public static function hashtag_selection_list_json_encode_get($markdown) {
+		$hashtag_selection_array = array();
+		//////////////////////markdown_html_conversion参照//////////////////////////////
+		// 改行変換
+		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
+<br>
+', $markdown);
+		// 最後に改行追加
+		$markdown=$markdown.'
+';
+		// 大文字の英数字、，．を小文字に変換
+		$markdown = mb_convert_kana($markdown, 'rn');
+		$markdown = preg_replace('/，/s', ',', $markdown);
+		$markdown = preg_replace('/．/s', '.', $markdown);
+
+		// h6変換
+		$markdown = preg_replace('/##### (.*?)
+/', '<h6>\\1</h6>
+', $markdown);
+
+		// h5変換
+		$markdown = preg_replace('/#### (.*?)
+/', '<h5>\\1</h5>
+', $markdown);
+
+		// h4変換
+		$markdown = preg_replace('/### (.*?)
+/', '<h4>\\1</h4>
+', $markdown);
+
+		// h3変換
+		$markdown = preg_replace('/## (.*?)
+/', '<h3>\\1</h3>
+', $markdown);
+
+		// 目次変換
+		$markdown = model_login_admin_post_basis::index_conversion($markdown);
+
+		// h2変換
+		$markdown = preg_replace('/# (.*?)
+/', '<h2>\\1</h2>
+', $markdown);
+/////////////////////////////////////////////////////////////////////
+		// (半角空白、全角空白版)用
+		 preg_match_all('/#(.*?) /', $markdown, $post_array);
+		// 半角空白 マージ
+		  $hashtag_selection_array = array_merge($hashtag_selection_array, $post_array[1]);
+		// ハッシュタグ変換(半角空白、全角空白版) 反応しないようかき消す
+		$markdown = preg_replace('/#(.*?) /', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
+		 preg_match_all('/#(.*?)　/', $markdown, $post_array);
+		// 全角空白 マージ
+		  $hashtag_selection_array = array_merge($hashtag_selection_array, $post_array[1]);
+		// ハッシュタグ変換(半角空白、全角空白版) 反応しないようかき消す
+		$markdown = preg_replace('/#(.*?)　/', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
+		 preg_match_all('/#(.*?)
+/', $markdown, $post_array);
+/////////////////////////////////////////////////////////////////////
+		// 改行 マージ
+		$hashtag_selection_array = array_merge($hashtag_selection_array, $post_array[1]);
+		// $hashtag_selection_array 再定義(改行を消す&タブ削除を通す)
+		foreach($hashtag_selection_array as $key => $value) {
+			// 改行を消す&タブ削除
+			$value = preg_replace('/\r\n|\r|\n|\t/', '', $value);
+			// 再定義
+			$hashtag_selection_array[$key] = $value;
+		}
+/////////////////////////////////////////////////////////////////////
+		// 重複ハッシュタグを削除
+		$hashtag_selection_array = array_unique($hashtag_selection_array);
+		// 歯抜けarrayを揃える
+		$hashtag_selection_array = array_values($hashtag_selection_array);
+
+		// jsonエンコード
+		$hashtag_selection_json = json_encode($hashtag_selection_array, JSON_UNESCAPED_UNICODE);
+		return $hashtag_selection_json;
 	}
 
 

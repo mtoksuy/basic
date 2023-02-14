@@ -1,4 +1,7 @@
-
+<?php 
+	// 定義されていない変数を空定義
+	if(empty($_GET['q'])) { $_GET['q'] = ''; }
+?>
 		<!-- ハンバーガーメニュー -->
 		<div id="nav-drawer">
 			<input id="nav-input" type="checkbox" class="nav-unshown">
@@ -18,8 +21,10 @@
 				<form class="search_window_form" method="get" action="<?php echo HTTP; ?>search/" autocomplete="off">
 					<input placeholder="キーワード検索" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
 					<div class="search_logo">
+						<input type="submit" value="">
+<!--
 						<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
-						<input type="submit" value="検索">
+-->
 					</div>
 				</form>
 			</div>

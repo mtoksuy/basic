@@ -1,4 +1,6 @@
 <?php
+	$contact_unread_count_html = '';
+
 	if($_SESSION['basic_id']) {
 		$now = 'draft';
 		// 下書き一覧取得

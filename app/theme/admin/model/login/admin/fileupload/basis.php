@@ -132,7 +132,7 @@ class model_login_admin_fileupload_basis {
 	public static function file_duplication_copy_recursive($file_tmp, $file_upload_path, $file_name, $value) {
 		preg_match('/_([0-9]{0,64})$/', $value['name'], $name_array);
 //		pre_var_dump($name_array);
-		if($name_array[0]) {
+		if(!empty($name_array[0])) {
 			$num = (int)$name_array[1];
 			$num++;
 			$next_name = preg_replace('/_([0-9]{0,64})$/', '_'.$num.'', $value['name']);

@@ -36,9 +36,9 @@
 		<div class="clip">
 			<ul>
 				<li data-clip_name="index"><span class="howto">##index##</span>目次</li>
-				<li data-clip_name="headline_1"><span class="howto">#</span>見出し1</li>
-				<li data-clip_name="headline_2"><span class="howto">##</span>見出し2</li>
-				<li data-clip_name="headline_3"><span class="howto">###</span>見出し3</li>
+				<li data-clip_name="headline_1"><span class="howto"># </span>見出し1</li>
+				<li data-clip_name="headline_2"><span class="howto">## </span>見出し2</li>
+				<li data-clip_name="headline_3"><span class="howto">### </span>見出し3</li>
 				<li data-clip_name="separator"><span class="howto">---</span>1行セパレーター<span class="howto"></span></li>
 				<li data-clip_name="strong"><span class="howto">*</span>太文字<span class="howto">*</span></li>
 				<li data-clip_name="marker"><span class="howto">__</span>マーカー<span class="howto">__</span></li>

@@ -5,6 +5,16 @@ class model_login_admin_general_html {
 	//----------------------
 	public static function general_html_create($general_data_array) {
 //		pre_var_dump($general_data_array);
+		$default_checked = '';
+		$basicdark_checked = '';
+		$felissimo_checked = '';
+		$freshpunch_checked = '';
+		$quietmoon_checked = '';
+		$happyharmony_checked = '';
+		$calmo_checked = '';
+		$sakura_checked = '';
+		$arbre_checked = '';
+
 		// icoHTML
 		$ico_html = ($general_data_array['icon']) ? '<img width="48" height="48" src="'.HTTP.'app/assets/img/icon/'.$general_data_array['icon'].'">':'';
 		// icoHTML
