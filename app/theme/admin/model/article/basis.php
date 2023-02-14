@@ -115,6 +115,15 @@ class model_article_basis {
 	public static function related_articles_res_get($primary_id, $hashtag) {
 		$query = '';
 		$hashtag_list_explode = explode(', ', $hashtag);
+
+/*
+Todo：ハッシュタグのイシューが終わったら着手
+　　　やりたいことはしハッシュタグ分回して同じハッシュタグがあるかないかを検索
+　　　新着順にソート、resを渡す。
+		pre_var_dump($hashtag);
+		pre_var_dump(json_encode($hashtag, JSON_UNESCAPED_UNICODE));
+		pre_var_dump($hashtag_list_explode);
+*/
 		foreach($hashtag_list_explode as $key => $value) {
 			if($value) {
 				$hashtag_list[] = $value;

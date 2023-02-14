@@ -18,6 +18,8 @@
 			$preview_array['article_id'] = '';
 			$preview_array['basic_id'] = '';
 		}
+		if(empty($page_data_array['title'])) { $page_data_array['title'] = ''; }
+		if(empty($site_data_array['title'])) { $site_data_array['title'] = ''; }
 
 	if($_SESSION['basic_id']) {
 			///////
@@ -33,8 +35,10 @@
 					model_login_admin_draft_basis::article_draft_delete($post['draft_id']);
 				}
 				///////////////////////////////////////////////////////////
+				// ハッシュタグリスト json_encodeで取得
+				$hashtag_selection_json = model_login_admin_post_basis::hashtag_selection_list_json_encode_get($post['content']);
 				// 新規投稿
-				model_login_admin_post_basis::markdown_post_add($post);
+				model_login_admin_post_basis::markdown_post_add($post, $hashtag_selection_json);
 				// 最新記事情報取得
 				$res = model_db::query("
 					SELECT *
@@ -153,6 +157,8 @@
 				$draft_id = (int)$_GET['draft_id'];
 				// 記事データ取得
 				$article_draft_res = model_login_admin_draft_basis::article_draft_get($draft_id);
+				// タイトル取得
+				$page_data_array['title'] = $article_draft_res[0]['title'];
 				// 記事データHTML生成
 				$article_data_array = model_article_html::article_html_create($article_draft_res);
 				// テンプレート読み込み

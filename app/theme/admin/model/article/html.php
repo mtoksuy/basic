@@ -411,6 +411,7 @@ class model_article_html {
 	// 関連記事html取得
 	//--------------------
 	public static function related_articles_html_create($related_articles_res) {
+		$li = '';
 		$related_articles_html = '';
 		foreach((array)$related_articles_res as $kye => $value) {
 			// 記事データ取得
@@ -588,31 +589,37 @@ class model_article_html {
 		preg_match_all('/<img(.*?)>/', $article_contents, $img_array_1);
 		preg_match_all('/src="(.*?)"/', $article_contents, $img_array_2);
 
+		// 下準備
 		foreach($img_array_1[0] as $key => $value) {
 			$img_array_1_oni = preg_replace('/\//', '\/', $value);
 //			pre_var_dump($img_array_1_oni);
 			$img_html_array[] = $img_array_1_oni;
 		}
 //			pre_var_dump($img_html_array);
+
+		// webp変換
 		foreach($img_array_2[1] as $key => $value) {
 			$result = strstr($value, 'app');
+//			pre_var_dump($value);
 //			pre_var_dump($result);
 			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
-//			pre_var_dump($result_array[0]);
+//		pre_var_dump($result_array[0]);
 			// ファイル名の頭にwebp_追加
 			$webp_path = preg_replace('/(\/[0-9]{4}\/[0-9]{2}\/)/', '\\1webp_', $result);
 			// 拡張子をwebpに変換
 			$webp_path = preg_replace('/\.(.*?)$/', '.webp', $webp_path);
-			$webp_exists_path = PATH.$webp_path;
-			// webp存在確認
-			if(file_exists($webp_exists_path)) {
-				// 画像サイズ取得
-				$image_path_filesize = getimagesize($webp_exists_path);
-				// webp変換
-				$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
+			// パスがあった場合
+			if($webp_path) {
+				$webp_exists_path = PATH.$webp_path;
+				// webp存在確認
+				if(file_exists($webp_exists_path)) {
+					// 画像サイズ取得
+					$image_path_filesize = getimagesize($webp_exists_path);
+					// webp変換
+					$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
+				}
 			}
-		}
-
+		} // foreach($img_array_2[1] as $key => $value) {
 		return $article_contents;
 	}
 

@@ -16,6 +16,9 @@
 				else if(clip_name == 'headline_3') {
 					clip_content = '### ';
 				}
+				else if(clip_name == 'hashtag') {
+					clip_content = '#';
+				}
 				else if(clip_name == 'strong') {
 					clip_content = '**';
 				}

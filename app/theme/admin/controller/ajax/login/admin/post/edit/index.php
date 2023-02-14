@@ -15,8 +15,10 @@ if($_SESSION) {
 	if(!empty($post)) {
 		// 本人確認
 		if($post['basic_id'] == $basic_id) {
+			// ハッシュタグリスト json_encodeで取得
+			$hashtag_selection_json = model_login_admin_post_basis::hashtag_selection_list_json_encode_get($post['content']);
 			// 編集保存
-			$query = model_login_admin_post_basis::markdown_post_edit_save($post);
+			$query = model_login_admin_post_basis::markdown_post_edit_save($post, $hashtag_selection_json);
 			// 静的化+圧縮化する際のリストarray取得
 			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('article', (int)$post['article_id']);
 			// multi版：静的化+圧縮化
