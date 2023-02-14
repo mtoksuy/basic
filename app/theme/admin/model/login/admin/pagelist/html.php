@@ -4,6 +4,7 @@ class model_login_admin_pagelist_html {
 	//ページ一覧HTML生成
 	//---------------------
 	public static function pagelist_html_create($pagelist_res) {
+		$pagelist_html = '';
 		foreach($pagelist_res as $key => $value) {
 			$pagelist_html .= '<div class="draft_list_content">
 				<p><b>No：</b>'.$value['primary_id'].'</p>

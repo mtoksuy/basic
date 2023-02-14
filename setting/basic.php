@@ -340,7 +340,9 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			FROM page
 			WHERE dir_name = '".$controller_query."'
 		");
-		$page_data_array = $query[0];
+		if($query) {
+			$page_data_array = $query[0];
+		}
 		return $page_data_array;
 	}
 	//----------------------------

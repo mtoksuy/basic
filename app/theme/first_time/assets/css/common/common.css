@@ -777,9 +777,19 @@ footer
 }
 
 .search_window .search_window_inner .search_window_form .search_logo input[type="submit"] {
-	display: none;
+	position: absolute;
+	top: 8px;
+	right: 9px;
+	width: 16px;
+	height: 16px;
+	border: solid 0px #d7d7d7;
+	background: url('../../../../../assets/svg/common/search_logo_1.svg') left top no-repeat;
+	cursor: pointer;
 }
-
+/*
+L:                            http://localhost/basic/app/assets/svg/common/search_logo_1.svg
+file:///Applications/MAMP/htdocs/basic/app/assets/svg/common/search_logo_1.svg
+*/
 
 /***************
 検索窓スウィッチ

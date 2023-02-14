@@ -4,6 +4,8 @@ class model_login_admin_contactlist_html {
 	// お問い合わせ一覧HTML生成
 	//------------------------------
 	public static function contact_list_html_create($contact_list_res) {
+		$article_list_html = '';
+		$read_check_html = '';
 		foreach($contact_list_res as $key => $value) {
 			if($value['read_check'] == 0) {
 			 $read_check_html = '<span class="contact_unread_count"> </span>';

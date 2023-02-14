@@ -7,6 +7,8 @@
 */
 header("Content-Type: application/json; charset=UTF-8");
 
+$permalink_check = '';
+
 // ポストの中身をエンティティ化する
 $post = basic::post_security();
 // ログインしている場合

@@ -4,6 +4,7 @@ class model_login_admin_themeswitching_html {
 	// テーマリストhtml生成
 	//-------------------------
 	public static function theme_list_html_create($theme_list_array) {
+		$li_html = '';
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
 		foreach($theme_list_array as $key => $value) {
@@ -201,7 +202,7 @@ class model_login_admin_themeswitching_html {
 						</div>
 						<div class="theme_detail_view_inner_right">
 							<h2 class="theme_name">'.$theme_detail_data_array['theme_name'].'<span class="theme_version">バージョン: '.$theme_detail_data_array['version'].'</span></h2>
-							<p class="author">作者：<a href="'.$theme_detail_data_array['theme_url'].'">'.$theme_detail_data_array['author'].'</a></p>
+							<p class="author">作者：<a href="'.$theme_detail_data_array['theme_url'].'" target="_blank">'.$theme_detail_data_array['author'].'</a></p>
 							<p class="description">'.$theme_detail_data_array['description'].'</p>
 							<p class="tags">タグ：'.$theme_detail_data_array['tags'].'</p>
 							'.$theme_active_button_html.'

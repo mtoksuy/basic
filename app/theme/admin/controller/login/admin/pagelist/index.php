@@ -1,4 +1,7 @@
 <?php
+
+	$contact_unread_count_html = '';
+
 	if($_SESSION['basic_id']) {
 		$now = 'pagelist';
 		// ページ一覧取得

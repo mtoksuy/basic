@@ -1,4 +1,29 @@
 <?php
+
+		// 定義されていない変数を空定義
+		$save_html = '';
+		// 定義されていない変数を空定義
+		if(empty($_GET['page_id'])) { $_GET['page_id'] = ''; }
+		if(empty($_GET['draft_id'])) { $_GET['draft_id'] = ''; }
+		if(empty($_GET['delete'])) { $_GET['delete'] = ''; }
+		if(empty($_GET['article_id'])) { $_GET['article_id'] = ''; }
+		if(empty($_GET['edit'])) { $_GET['edit'] = ''; }
+		if(empty($_GET['permalink'])) { $_GET['permalink'] = ''; }
+
+		// 定義されていない変数を空定義
+		if(empty($_POST)) {
+			$_POST['title'] = '';
+		}
+		// 定義されていない変数を空定義
+		if(empty($preview_array)) {
+			$preview_array['title'] = '';
+			$preview_array['content'] = '';
+			$preview_array['draft_id'] = '';
+			$preview_array['article_id'] = '';
+			$preview_array['basic_id'] = '';
+			$preview_array['permalink'] = '';
+		}
+
 	if($_SESSION['basic_id']) {
 		///////
 		// 作成

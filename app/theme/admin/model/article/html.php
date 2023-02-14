@@ -4,6 +4,7 @@ class model_article_html {
 	//記事リストHTML生成
 	//-----------------------
 	public static function article_list_html_create($article_list_res) {
+		$article_list_li = '';
 		foreach($article_list_res as $key => $value) {
 			// 記事データ取得
 			$unix_time            = strtotime($value["create_time"]);
@@ -58,6 +59,7 @@ class model_article_html {
 			$year_time                  = date('Y', $unix_time);
 			$local_time                 = date('Y-m-d', $unix_time);
 			$local_japanese_time = date('Y年m月d日', $unix_time);
+
 			// 記事更新時間取得
 			if($value["update_time"]) {
 				$update_time                          = $value["update_time"];
@@ -79,11 +81,18 @@ class model_article_html {
 			$article_contents = model_login_admin_post_basis::markdown_html_conversion($article_contents, $user_data_array);
 			// 画像をwebpに差し替える(既存で存在していたら)
 			$article_contents = model_article_html::image_to_webp_replace($article_contents);
+
 			// 投稿日・更新日HTML生成
 			$posted_date_time_html = model_article_html::posted_date_time_html_create($local_time, $local_japanese_time);
-			$update_date_time_html = model_article_html::update_date_time_html_create($local_update_time, $local_update_japanese_time);
+			if($value["update_time"]) {
+				$update_date_time_html = model_article_html::update_date_time_html_create($local_update_time, $local_update_japanese_time);
+			}
+			else {
+				$update_date_time_html = '';
+			}
 			// ハッシュタグhtml取得
 //			$hashtag_html = model_article_html::hashtag_html_create($value['hashtag']);
+			$hashtag_html = '';
 			/*のちほど実装*/
 
 			// シェアボタンhtml取得
@@ -129,10 +138,10 @@ class model_article_html {
 
 			// article_data_array
 			$article_data_array = array(
-				'article_primary_id'      => (int)$article_primary_id,
-				'article_html'            => $article_html, 
-				'article_title'           => $title, 
-				'article_contents'        => $article_contents,
+				'article_primary_id' => (int)$article_primary_id,
+				'article_html'           => $article_html, 
+				'article_title'            => $article_title, 
+				'article_contents'    => $article_contents,
 			);
 		}
 		return $article_data_array;
@@ -392,7 +401,7 @@ class model_article_html {
 						'.$user_data_array['profile'].'
 					</p>
 					<div class="profile_card_content_sns">
-						'.$user_data_array['twitter_show_html'].'
+
 					</div>
 				</div>
 			</div>';
@@ -402,6 +411,8 @@ class model_article_html {
 	// 関連記事html取得
 	//--------------------
 	public static function related_articles_html_create($related_articles_res) {
+		$li = '';
+		$related_articles_html = '';
 		foreach((array)$related_articles_res as $kye => $value) {
 			// 記事データ取得
 			$unix_time            = strtotime($value["create_time"]);
@@ -523,6 +534,8 @@ class model_article_html {
 	//さらに前の記事を見るHTML生成
 	//-----------------------------------
 	public static function next_article_html_create($next_article_check, $paging_num, $newarticle = '') {
+		$back_html = '';
+		$next_article_html = '';
 /*
 		pre_var_dump($paging_num);
 		pre_var_dump($newarticle);
@@ -576,31 +589,37 @@ class model_article_html {
 		preg_match_all('/<img(.*?)>/', $article_contents, $img_array_1);
 		preg_match_all('/src="(.*?)"/', $article_contents, $img_array_2);
 
+		// 下準備
 		foreach($img_array_1[0] as $key => $value) {
 			$img_array_1_oni = preg_replace('/\//', '\/', $value);
 //			pre_var_dump($img_array_1_oni);
 			$img_html_array[] = $img_array_1_oni;
 		}
 //			pre_var_dump($img_html_array);
+
+		// webp変換
 		foreach($img_array_2[1] as $key => $value) {
 			$result = strstr($value, 'app');
+//			pre_var_dump($value);
 //			pre_var_dump($result);
 			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
-//			pre_var_dump($result_array[0]);
+//		pre_var_dump($result_array[0]);
 			// ファイル名の頭にwebp_追加
 			$webp_path = preg_replace('/(\/[0-9]{4}\/[0-9]{2}\/)/', '\\1webp_', $result);
 			// 拡張子をwebpに変換
 			$webp_path = preg_replace('/\.(.*?)$/', '.webp', $webp_path);
-			$webp_exists_path = PATH.$webp_path;
-			// webp存在確認
-			if(file_exists($webp_exists_path)) {
-				// 画像サイズ取得
-				$image_path_filesize = getimagesize($webp_exists_path);
-				// webp変換
-				$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
+			// パスがあった場合
+			if($webp_path) {
+				$webp_exists_path = PATH.$webp_path;
+				// webp存在確認
+				if(file_exists($webp_exists_path)) {
+					// 画像サイズ取得
+					$image_path_filesize = getimagesize($webp_exists_path);
+					// webp変換
+					$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
+				}
 			}
-		}
-
+		} // foreach($img_array_2[1] as $key => $value) {
 		return $article_contents;
 	}
 
