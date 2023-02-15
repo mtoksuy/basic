@@ -1,5 +1,16 @@
 <?php 
 	$step = 0;
+	// 定義されていない変数を空定義
+	if(empty($_GET['step'])) { $_GET['step'] = ''; }
+	if(empty($_GET['complete'])) { $_GET['complete'] = ''; }
+	if(empty($connect_check)) { $connect_check = ''; }
+	if(empty($user_basic_id_check)) { $user_basic_id_check = ''; }
+	if(empty($user_password_check)) { $user_password_check = ''; }
+
+
+////////////
+// ステップ1
+////////////
 if($_GET['step'] == 1) {
 	$step = $_GET['step'];
 	// db_config.phpがある場合
@@ -9,12 +20,14 @@ if($_GET['step'] == 1) {
 //		exit;
 	}
 }
+////////////
+// ステップ2
+////////////
 if($_GET['step'] == 2) {
 	if(file_exists(PATH.'setting/db_config.php')) {
 		require_once('setting/db_config.php');
 		//  DB接続チェック
 		$connect_check = basic::db_conect_check($db_config_array);
-		pre_var_dump($connect_check.'aa');
 	}
 	if($_POST['submit'] == '送信') {
 		$step = $_GET['step'];
@@ -26,7 +39,7 @@ if($_GET['step'] == 2) {
 		require(PATH.'setting/db_config.php');
 		//  DB接続チェック
 		$connect_check = basic::db_conect_check($db_config_array);
-		var_dump($connect_check);
+//		var_dump($connect_check);
 		if($connect_check) {
 			// 重複チェック
 			$setting_res = model_db::query("
@@ -47,19 +60,22 @@ if($_GET['step'] == 2) {
 		} // if($connect_check) {
 	} // if($_POST['submit'] == '送信') {
 } // if($_GET['step'] == 2) {
-var_dump('コンプリート：'.$_GET['complete']);
+//var_dump('コンプリート：'.$_GET['complete']);
+////////////
+// ステップ3
+////////////
 if($_GET['step'] == 3 && $_GET['complete'] == '') {
 	if($_POST['submit']) {
 		$step = $_GET['step'];
 		// ポストの中身をエンティティ化する
 		$post = basic::post_security();
-		pre_var_dump($post);	
+//		pre_var_dump($post);	
 		// basic_idチェック
 		$user_basic_id_check = basic::basic_id_check($post);
 		// パスワードをチェックする
 		$user_password_check = basic::password_check($post);
-		pre_var_dump('アカウントチェック：'.$user_basic_id_check);
-		pre_var_dump('パスワードチェック：'.$user_password_check);
+//		pre_var_dump('アカウントチェック：'.$user_basic_id_check);
+//		pre_var_dump('パスワードチェック：'.$user_password_check);
 		// アカウント・パスワード共にOKであれば
 		if($user_basic_id_check && $user_password_check) {
 			// 重複チェック
