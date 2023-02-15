@@ -13,6 +13,8 @@ $contact_unread_count_html = '';
 				if($zip_check) {
 					// Basicを最新のバージョンにする
 					model_login_admin_coreupdate_basis::basic_coreupdate();
+					// サイト情報取得(更新
+					$site_data_array = basic::site_data_get();
 				}
 				else {
 					$error_wording = '<p>PHP内部ライブラリのzipがインストールされていませんのでBasicを最新のバージョンにできませんでした。<br>サーバー管理者に確認をお願い致します。</p>';

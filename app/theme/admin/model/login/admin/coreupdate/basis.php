@@ -4,6 +4,8 @@ class model_login_admin_coreupdate_basis {
 	// Basicを最新のバージョンにする
 	//-----------------------------------
 	public static function basic_coreupdate() {
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
 		// 最新バージョン取得
 		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
 		$json_decode_response = json_decode($response , true);
