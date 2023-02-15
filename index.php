@@ -1,24 +1,16 @@
 <?php
+////////////////////////////
 // core読み込み
+////////////////////////////
 require_once('setting/config.php');
-require_once('setting/model_autoLoader.php'); 
+////////////////////////////
 // 必要な変数定義
+////////////////////////////
 $controller_query = '';
 $theme_name      = '';
-
-// 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
-if($_SESSION) {
-	if(!($_SESSION['basic_http'] == HTTP)) {
-	// ログアウト
-	model_login_basis::logout();
-	}
-}
-// アクセスURL 重複スラッシュを1スラッシュに戻す
-if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
-	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
-	header('Location: '.$FULL_HTTP);
-	exit;
-}
+////////////////////////////
+// コントローラークエリ生成
+////////////////////////////
 // URLをスラッシュで分解
 $array_parse_uri = explode('/', $_SERVER['REQUEST_URI']);
 foreach($array_parse_uri as $kye => $value) {
@@ -35,6 +27,32 @@ foreach($array_parse_uri as $kye => $value) {
 // 上記では対応できなかった部分をよしなに
 $controller_query = str_replace(ROOT_DIR, '', $controller_query);
 $controller_query = preg_replace('/^\/{1}/', '', $controller_query);
+/**********************
+// setupエラー文非表示
+**********************/
+if($controller_query == 'setup') {
+	// エラー表示
+	ini_set('display_errors', 0);
+}
+////////////////////////////
+// オートローダー読み込み
+////////////////////////////
+require_once('setting/model_autoLoader.php'); 
+////////////////////////////
+// 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
+////////////////////////////
+if($_SESSION) {
+	if(!($_SESSION['basic_http'] == HTTP)) {
+	// ログアウト
+	model_login_basis::logout();
+	}
+}
+// アクセスURL 重複スラッシュを1スラッシュに戻す
+if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
+	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
+	header('Location: '.$FULL_HTTP);
+	exit;
+}
 
 /***********
 // setup遷移
@@ -64,9 +82,6 @@ if($controller_query == 'setup') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
-
-
-
 
 
 
