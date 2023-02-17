@@ -4,6 +4,7 @@ class model_sitemap_html {
 	//sitemap.xml生成
 	//------------------
 	public static function sitemap_xml_create($article_all_list_res, $page_all_list_res) {
+		$article_list = '';
 		// 記事
 		foreach($article_all_list_res as $key => $value) {
 			// 更新されていた場合
@@ -16,7 +17,7 @@ class model_sitemap_html {
 				}
 			$lastmod_time_object = new DateTime($lastmod_time);
 			$lastmod_time = $lastmod_time_object->format(DateTime::ATOM);
-			$article_list = $article_list.'
+			$article_list .= '
 				<url>
 					<loc>'.HTTP.'article/'.$value['primary_id'].'/</loc>
 					<changefreq>weekly</changefreq>
