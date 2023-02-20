@@ -20,10 +20,18 @@
 			model_login_admin_general_basis::general_save($post);
 			// サイト情報取得(更新のため
 			$site_data_array = basic::site_data_get();
+			// サイト情報更新のため静的&圧縮ファイル削除
+			model_login_admin_general_basis::general_submit_delete($site_data_array);
+/*
+//				[ページング関連機能]記事が膨大な状況になった時のために挙動を改修 #88
+//				https://github.com/mtoksuy/basic/issues/88
+//				ディレクトリ生成からコントローラー制御で表示に変更
+//				model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 			// newarticleディレクトリ削除
 			model_login_admin_post_basis::newarticle_dir_delete($site_data_array);
 			// newarticleディレクトリ生成
 			model_login_admin_post_basis::newarticle_dir_create($site_data_array);
+*/
 		}
 		// 一般データarray取得
 		$general_data_array = model_login_admin_general_basis::general_data_array_get();
