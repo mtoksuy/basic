@@ -363,11 +363,6 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				$page_all_list_res = model_sitemap_basis::page_all_list_get();
 				// sitemap.xml生成
 				$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
-	//			pre_var_dump($sitemap_xml);
-				// sitemap.xmlの場所
-				$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
-				// sitemap.xml書き込み
-				file_put_contents($sitemap_xml_path, $sitemap_xml);
 				$update_flag = 1;
 			}
 				// 重複している場合
