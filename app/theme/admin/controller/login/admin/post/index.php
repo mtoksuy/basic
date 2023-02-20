@@ -61,7 +61,10 @@
 				// multi版：静的化+圧縮化
 				basic::multi_html_gzip_create($html_gzip_create_list_array);
 				//////////////////////////newarticleディレクトリ生成/////////////////////////////////
-				model_login_admin_post_basis::newarticle_dir_create($site_data_array);
+//				[ページング関連機能]記事が膨大な状況になった時のために挙動を改修 #88
+//				https://github.com/mtoksuy/basic/issues/88
+//				ディレクトリ生成からコントローラー制御で表示に変更
+//				model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 				///////////////////////////////////////////////////////////
 				//////////////////////////sitemap_xml/////////////////////////////////
 				$sitemap_xml_path = PATH.'sitemap/sitemap.xml';
