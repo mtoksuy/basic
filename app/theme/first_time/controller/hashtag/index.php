@@ -2,6 +2,13 @@
 	$controller_query_explode = explode('/', $controller_query);
 	// 定義されていない変数を空定義
 	if(empty($controller_query_explode[2])) { $controller_query_explode[2] = ''; }
+	// ハッシュタグ指定なしはエラー表示
+	if(empty($hashtag_explode[1])) { $hashtag_explode[1]= '';
+		header("HTTP/1.1 404 Not Found");
+		$controller_query = 'error';
+		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+		exit;
+ }
 	if($controller_query_explode[2] == '') {
 		$method = 0;
 	}
