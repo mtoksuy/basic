@@ -114,37 +114,39 @@ class model_article_basis {
 	//-----------------
 	public static function related_articles_res_get($primary_id, $hashtag) {
 		$query = '';
-		$hashtag_list_explode = explode(', ', $hashtag);
-
-/*
-Todo：ハッシュタグのイシューが終わったら着手
-　　　やりたいことはしハッシュタグ分回して同じハッシュタグがあるかないかを検索
-　　　新着順にソート、resを渡す。
-		pre_var_dump($hashtag);
-		pre_var_dump(json_encode($hashtag, JSON_UNESCAPED_UNICODE));
-		pre_var_dump($hashtag_list_explode);
-*/
-		foreach($hashtag_list_explode as $key => $value) {
-			if($value) {
-				$hashtag_list[] = $value;
-			}
-		}
-		if(isset($hashtag_list)) {
-			foreach((array)$hashtag_list as $key => $value) {
-				if($key == 0) {
-					$query .= "WHERE hashtag LIKE '%".$value.", %'
-					AND primary_id != ".$primary_id."
-					AND del = 0
-					";
+		$related_articles_data_array = array();
+		$related_articles_res = array();
+		// hashtag(json)をarrayに戻す
+		$hashtag_list_json_decode = json_decode($hashtag);
+		// ある場合正常に実行
+		if($hashtag_list_json_decode) {
+			foreach($hashtag_list_json_decode as $key => $value) {
+				$related_articles_res = model_db::query("
+						SELECT * 
+						FROM article 
+						WHERE hashtag LIKE '%".$value."%'
+						AND primary_id != ".$primary_id."
+						AND del = 0
+						ORDER BY primary_id DESC
+						LIMIT 0, 8
+				");
+				// 関連記事のprimary_id取得
+				foreach($related_articles_res as $key_1 => $value_1) {
+					$related_articles_data_array[] = $value_1['primary_id'];
 				}
-					else {
-					$query .= "OR hashtag LIKE '%".$value.", %'
-					AND primary_id != ".$primary_id."
-					AND del = 0
-					";
-					}
+			} // foreach($hashtag_list_json_decode as $key => $value) {
+			// 重複ハッシュタグを削除
+			$related_articles_data_array = array_unique($related_articles_data_array);
+			// 歯抜けarrayを揃える
+			$related_articles_data_array = array_values($related_articles_data_array);
+			// INのリスト作成
+			foreach($related_articles_data_array as $key_2 => $value_2) {
+				$query .= $value_2.', ';
 			}
-			if($hashtag_list) {
+			// 文末の, を削除
+			$query = rtrim($query, ', ');
+			$query = 'WHERE primary_id IN ('.$query.')';
+			if($related_articles_data_array) {
 				$related_articles_res = model_db::query("
 						SELECT * 
 						FROM article 
@@ -152,9 +154,9 @@ Todo：ハッシュタグのイシューが終わったら着手
 						ORDER BY primary_id DESC
 						LIMIT 0, 8
 				");
-				return $related_articles_res;
 			}
-		} // if(isset($hashtag_list)) {
+		}
+		return $related_articles_res;
 	}
 
 

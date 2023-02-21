@@ -6,8 +6,8 @@ class model_db {
 	 public static function db_conect($db_config_array) {
 		$db = new mysqli($db_config_array['default']['connection']['hostname'],$db_config_array['default']['connection']['username'],$db_config_array['default']['connection']['password'], $db_config_array['default']['connection']['database']);
 		if ($db->connect_error) {
-		    echo $db->connect_error;
-		    exit();
+		    echo '<b>Warning</b>: mysqli::__construct():'.$db->connect_error;
+//		    exit();
 		}
 			else {
 				$db->set_charset($db_config_array['default']['charset']);

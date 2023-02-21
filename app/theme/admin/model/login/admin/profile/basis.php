@@ -36,6 +36,13 @@ class model_login_admin_profile_basis {
 	// アイコンを正方形にする
 	//--------------------------
 	public static function image_square_edit($image_path, $random_hash, $savePath, $square_size = 256) {
+		// $image_pathから拡張子取得前料理
+		$extension_explode = explode('.', $image_path);
+		// ソートを逆にする
+		$extension_explode = array_reverse($extension_explode);
+		// 拡張子取得
+		$extension = '.'.$extension_explode[0];
+		// オリジナルパスを渡す
 		$orgFile = $image_path;
 		// 保存先パス
 //		$savePath = PATH.'app/assets/img/user/';
@@ -90,7 +97,7 @@ class model_login_admin_profile_basis {
 		 // jpeg
 		 case 2:
 			// 出力ファイル名
-			$filename = $random_hash.'.jpg';
+			$filename = $random_hash.$extension;
 			$square_new = imagecreatetruecolor($square_width, $square_height);
 			imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
 			imagejpeg($square_new, $savePath . $filename, 100);
@@ -103,7 +110,7 @@ class model_login_admin_profile_basis {
 		 // png
 		 case 3:
 			// 出力ファイル名
-			$filename = $random_hash.'.png';
+			$filename = $random_hash.$extension;
 			 $square_new = imagecreatetruecolor($square_width, $square_height);
 			 imagealphablending($square_new, false);        // アルファブレンディングを無効
 			 imageSaveAlpha($square_new, true);             // アルファチャンネルを有効
@@ -115,7 +122,7 @@ class model_login_admin_profile_basis {
 		 // webp
 		 case 18:
 			// 出力ファイル名
-			$filename = $random_hash.'.webp';
+			$filename = $random_hash.$extension;
 			$square_new = imagecreatetruecolor($square_width, $square_height);
 			imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
 			imagewebp($square_new, $savePath . $filename, 100);
