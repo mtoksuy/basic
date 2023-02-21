@@ -121,13 +121,22 @@ if($controller_query == 'logout') {
 /***********
 sitemap/xml
 ***********/
-if($controller_query == 'sitemap/sitemap.xml') {
-	// サイト情報取得
-	$site_data_array = basic::site_data_get();
-	header( 'Content-Type: application/xml' );
-	// コントローラー読み込み
-	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'');
-	exit;
+if(preg_match('/sitemap\/(.*?)\.xml/', $controller_query, $controller_query_array)) {
+	if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'')) {
+		// サイト情報取得
+		$site_data_array = basic::site_data_get();
+		header( 'Content-Type: application/xml' );
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'');
+		exit;
+	}
+	// エラー表示
+	else {
+		header("HTTP/1.1 404 Not Found");
+		$controller_query = 'error';
+		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+		exit;
+	}
 }
 
 // トップであればrootにする
