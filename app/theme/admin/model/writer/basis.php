@@ -21,7 +21,9 @@ class model_writer_basis {
 			FROM article 
 			WHERE basic_id = '".$method."'
 			AND del = 0
-			ORDER BY primary_id DESC");
+			ORDER BY primary_id DESC
+			LIMIT 0, 100
+		");
 		return $writer_article_res;
 	}
 
