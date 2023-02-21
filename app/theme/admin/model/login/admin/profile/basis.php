@@ -36,9 +36,12 @@ class model_login_admin_profile_basis {
 	// アイコンを正方形にする
 	//--------------------------
 	public static function image_square_edit($image_path, $random_hash, $savePath, $square_size = 256) {
-		// $image_pathから拡張子取得
-		preg_match('/\.(.*?)$/', $image_path, $image_path_array);
-		$extension = '.'.$image_path_array[1];
+		// $image_pathから拡張子取得前料理
+		$extension_explode = explode('.', $image_path);
+		// ソートを逆にする
+		$extension_explode = array_reverse($extension_explode);
+		// 拡張子取得
+		$extension = '.'.$extension_explode[0];
 		// オリジナルパスを渡す
 		$orgFile = $image_path;
 		// 保存先パス
