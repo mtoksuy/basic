@@ -4,8 +4,20 @@ class model_setup_html {
 	//セットアップのHTML生成
 	//----------------------------
 	static function setup_html_create($step = NULL, $connect_check = NULL, $user_basic_id_check = NULL, $user_password_check = NULL) {
+/*
 		pre_var_dump('ステップ：'.$step);
 		pre_var_dump('接続：'.$connect_check);
+*/
+		// 定義されていない変数を空定義
+		if(empty($_POST['database_name'])) { $_POST['database_name'] = ''; }
+		if(empty($_POST['database_user'])) { $_POST['database_user'] = ''; }
+		if(empty($_POST['site_name'])) { $_POST['site_name'] = ''; }
+		if(empty($_POST['basic_id'])) { $_POST['basic_id'] = ''; }
+		if(empty($setup_step_2_html)) { $setup_step_2_html = ''; }
+		if(empty($basic_id_submit_error_word)) { $basic_id_submit_error_word = ''; }
+		if(empty($password_submit_error_word)) { $password_submit_error_word = ''; }
+
+
 		$setup_step_0_html = '
 			<!-- contact -->
 			<div class="setup">

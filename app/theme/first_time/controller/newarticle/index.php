@@ -1,4 +1,18 @@
 <?php 
+	$controller_query_explode = explode('/', $controller_query);
+	// 定義されていない変数を空定義
+	if(empty($controller_query_explode[1])) { $controller_query_explode[1] = ''; }
+	if($controller_query_explode[1] == '') {
+		$method = 0;
+	}
+	else if((int)$controller_query_explode[1] == 1) {
+		$method = 1;
+	}
+	else {
+		$method = (int)$controller_query_explode[1];
+	}
+/*
+以前の方法
 	$method = preg_replace('/newarticle\//', '', $controller_query);
 	if($method == 'newarticle') {
 		$method = 0;
@@ -6,6 +20,7 @@
 		else if($method == 1) {
 			$method = 1;
 		}
+*/
 	// 記事タイトル挿入
 	$page_data_array['title'] = '新着記事一覧：'.($method+1).'ページ目';
 	// ページング1回でn回表示設定

@@ -8,7 +8,9 @@ class model_sitemap_basis {
 			SELECT *
 			FROM article
 			WHERE del = 0
-			ORDER BY primary_id DESC");
+			ORDER BY primary_id DESC
+			LIMIT 0, 1000
+		");
 		return $article_all_list_res;
 	}
 	//------------------
@@ -31,7 +33,9 @@ class model_sitemap_basis {
 			SELECT *
 			FROM article
 			WHERE del = 0
-			ORDER BY primary_id DESC");
+			ORDER BY primary_id DESC
+			LIMIT 0, 1000
+		");
 		return $article_res;
 	}
 	//------------------------

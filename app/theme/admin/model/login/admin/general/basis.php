@@ -50,5 +50,26 @@ class model_login_admin_general_basis {
 			WHERE setting_id = 1");
 		}
 	}
+	//-------------------------------------------------
+	//  サイト情報更新のため静的&圧縮ファイル削除
+	//-------------------------------------------------
+	public static function general_submit_delete($site_data_array) {
+		// 定義されていない変数を空定義
+		if(empty($html_gzip_delete_list_array)) { $html_gzip_delete_list_array = ''; }
+		$html_gzip_delete_list_array = array(
+			0 => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root/index.html',
+			1 => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root/index.html.gz',
+			2 => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/index.html',
+			3 => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle/index.html.gz',
+		); // $html_gzip_delete_list_array = array(
+		foreach($html_gzip_delete_list_array as $key => $value) {
+			if(file_exists($value)) {
+				unlink($value);
+			}
+		}
+	}
+
+
+
 
 }
