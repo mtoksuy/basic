@@ -73,13 +73,13 @@
 				// pageリスト取得
 				$page_all_list_res = model_sitemap_basis::page_all_list_get();
 				// sitemap.xml生成
-				$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);	
+				$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
 				///////////////////////////////////////////////////////////
 				// Todo 一旦置いとく  のちほど実装
 				// gzipファイル更新&作成 本番でのみ動く
 	//			exec("/usr/bin/php ".PATH."gzip/generate/index.php > /dev/null &");
 				///////////////////////////////////////////////////////////
-//				header('Location: '.HTTP.'login/admin/');
+				header('Location: '.HTTP.'login/admin/');
 			} // if($_POST['title'] && $_POST['content']) {
 			/////////////////
 			// 下記事削除機能
@@ -119,8 +119,14 @@
 					$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('article_del');
 					// multi版：静的化+圧縮化
 					basic::multi_html_gzip_create($html_gzip_create_list_array);
+					// 全記事リスト取得
+					$article_all_list_res = model_sitemap_basis::article_all_list_get();
+					// pageリスト取得
+					$page_all_list_res = model_sitemap_basis::page_all_list_get();
+					// sitemap.xml生成
+					$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
 					//////////////////////////newarticleディレクトリ生成/////////////////////////////////
-					model_login_admin_post_basis::newarticle_dir_create($site_data_array);
+//					model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 					header('Location: '.HTTP.'login/admin/list/');
 					return false;
 				}
