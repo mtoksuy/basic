@@ -10,6 +10,7 @@ class model_login_admin_list_basis {
 			WHERE del = 0
 			AND basic_id = '".$_SESSION['basic_id']."'
 			ORDER BY primary_id DESC
+			LIMIT 0, 1000
 		");
 		return $article_list_res;
 	}
