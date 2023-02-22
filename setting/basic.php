@@ -862,4 +862,43 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		}
 		return false;
 	}
+	//------------------------------
+	// テキスト差分(英語大前提)
+	//------------------------------
+	public static function textDiff($text1, $text2) {
+	  $text1Array = explode(' ', $text1);
+	  $text2Array = explode(' ', $text2);
+	
+	  $diffArray = array();
+	  $commonArray = array_intersect($text1Array, $text2Array);
+	  $i = 0;
+	  foreach ($text1Array as $word) {
+	    if (!in_array($word, $commonArray)) {
+	      $diffArray[$i] = '<del>' . $word . '</del>';
+	      $i++;
+	    } else {
+	      while ($text2Array[0] != $word) {
+	        $diffArray[$i] = '<ins>' . $text2Array[0] . '</ins>';
+	        $i++;
+	        array_shift($text2Array);
+	      }
+	      $diffArray[$i] = $word;
+	      $i++;
+	      array_shift($text2Array);
+	    }
+	  }
+	  while (count($text2Array) > 0) {
+	    $diffArray[$i] = '<ins>' . array_shift($text2Array) . '</ins>';
+	    $i++;
+	  }
+	  return implode(' ', $diffArray);
+	}
+
+
+
+
+
+
+
+
 }
