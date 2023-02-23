@@ -25,8 +25,14 @@
 				// テーマリストhtml生成
 				$theme_list_html = model_login_admin_themeswitching_html::theme_list_html_create($theme_list_array);
 				$content_html = $theme_list_html;
-				// 移動
-//				header('Location: '.HTTP.'login/admin/themeswitching/');
+				// サイト情報取得(再取得)
+				$site_data_array = basic::site_data_get();
+				// 記事専用のcron作成
+				model_login_admin_themeswitching_basis::cron_add_article($site_data_array);
+				// テーマ切り替え物理ファイル調整
+				model_login_admin_themeswitching_basis::regenerate_physical_files($site_data_array);
+				// 移動 議論の余地あり
+//			header('Location: '.HTTP.'login/admin/themeswitching/');
 //				exit;	
 			}
 			// テーマ詳細

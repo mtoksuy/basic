@@ -37,6 +37,16 @@ CREATE TABLE `contact` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `cron` (
+  `primary_id` int(10) UNSIGNED NOT NULL,
+  `count` int(11) DEFAULT '0',
+  `target` varchar(256) DEFAULT NULL,
+  `type` varchar(256) DEFAULT NULL,
+  `complete` tinyint(4) DEFAULT '0',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `complete_time` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `fileupload` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `full_name` varchar(256) DEFAULT NULL,
@@ -119,6 +129,9 @@ ALTER TABLE `article_draft`
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`primary_id`);
 
+ALTER TABLE `cron`
+  ADD PRIMARY KEY (`primary_id`);
+
 ALTER TABLE `fileupload`
   ADD PRIMARY KEY (`primary_id`),
   ADD KEY `year` (`year`),
@@ -143,6 +156,9 @@ ALTER TABLE `article_draft`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `contact`
+  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `cron`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `fileupload`

@@ -1,11 +1,11 @@
 <?php 
-	$method = preg_replace('/article\//', '', $controller_query);
-	//  記事データ取得
-	$article_res = model_article_basis::article_get($method);
-	// 記事のHTML生成
-	$article_data_array = model_article_html::article_html_create($article_res);
+	$method = preg_replace('/page\//', '', $controller_query);
+	//  ページデータ取得
+	$page_res = model_page_basis::page_get($method);
+	// ページのHTML生成
+	$page_data_array = model_page_html::page_html_create($page_res);
 	// 記事タイトル挿入
-	$page_data_array['title'] = $article_res[0]['title'];
+	$page_data_array['title'] = $page_res[0]['title'];
 
 	// テンプレート読み込み
-	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/article/template.php');
+	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/page/template.php');
