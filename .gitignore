@@ -12,6 +12,13 @@ app/theme/first_time/controller/sitemap/sitemap.xml
 category/*
 writer/*
 app/theme/first_time/controller/article/*
+!app/theme/first_time/controller/article/1/index.php
+!app/theme/first_time/controller/article/2/index.php
+!app/theme/first_time/controller/article/3/index.php
+app/theme/first_time/controller/article/*
+!app/theme/first_corporate/controller/article/1/index.php
+!app/theme/first_corporate/controller/article/2/index.php
+!app/theme/first_corporate/controller/article/3/index.php
 app/assets/img/article_ogp/*
 app/assets/fileupload/*
 app/assets/img/user/*

@@ -47,6 +47,7 @@ if($_SESSION) {
 	model_login_basis::logout();
 	}
 }
+
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
@@ -83,8 +84,6 @@ if($controller_query == 'setup') {
 	exit;
 }
 
-
-
 // サイト情報取得
 $site_data_array = basic::site_data_get();
 //pre_var_dump($site_data_array);
@@ -92,6 +91,13 @@ $site_data_array = basic::site_data_get();
 $page_data_array = basic::page_data_get($controller_query);
 //pre_var_dump($controller_query);
 //pre_var_dump($page_data_array);
+
+////////////////
+// Basic内部cron
+////////////////
+	// 進める数
+	$increment = 1;
+	basic::start_cron($site_data_array, $increment);
 
 /****
 login
