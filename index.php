@@ -92,13 +92,6 @@ $page_data_array = basic::page_data_get($controller_query);
 //pre_var_dump($controller_query);
 //pre_var_dump($page_data_array);
 
-////////////////
-// Basic内部cron
-////////////////
-	// 進める数
-	$increment = 1;
-	basic::start_cron($site_data_array, $increment);
-
 /****
 login
 *****/
@@ -114,6 +107,11 @@ login/admin
 if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+	////////////////
+	// Basic内部cron
+	////////////////
+	$increment = 5;
+	basic::start_cron($site_data_array, $increment);
 	exit;
 }
 /*****
@@ -188,7 +186,7 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 		else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
 			// コントローラー読み込み
 			require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
-
+			exit;
 		}
 			// エラー表示
 			else {
@@ -197,3 +195,6 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 				require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 				exit;
 		}
+
+
+
