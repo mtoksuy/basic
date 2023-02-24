@@ -977,25 +977,18 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 						// ファイル複製
 						copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
 					}
-					// 素のhtml抽出
-					$html = file_get_contents(HTTP.'article/'.$count.'/index.php');
-					var_dump($html);
-					//コメントアウトを削除
-					$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
-					// CSSインライン化
-					$html = basic::css_inline($directory_path.'index.php', $html);
-					// JSインライン化 todo:未完成。ペンディング
-			//		$html = basic::js_inline($value['http_path'], $html);
-					//HTML圧縮
-					$html = basic::html_comp($html);
-					// 圧縮したindexファイル生成
-					file_put_contents($directory_path.'/index.html', $html);
-					// 圧縮したindexファイルの内容を読み込む
-					$code = file_get_contents($directory_path.'/index.html');
-					// gzip圧縮処理して該当フォルダにファイルを作成
-					$gzip = gzopen($directory_path.'/index.html.gz' ,'w9');
-					gzwrite($gzip ,$code);
-					gzclose($gzip);
+					// htmlがなかった場合
+					if(!file_exists($directory_path.'/index.html')) {
+						// 擬似的array生成
+						$html_gzip_create_list_array = array(
+							0 => array(
+										'http_path'         => HTTP.'article/'.$count.'/',
+										'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$count.'',
+							), 
+						); // $html_gzip_create_list_array = array(
+						// multi版：静的化+圧縮化
+						basic::multi_html_gzip_create($html_gzip_create_list_array);
+					}
 				} // if($article_res) {
 				// 最新記事まで差し掛かったら completeを1にして繰り返しを抜ける
 				if($count == $latest_article_primary_id) {
