@@ -27,6 +27,13 @@
 	 $article_view_num = $site_data_array['article_view_num'];
 	// さらに前の記事を見るデータ取得
 	list($next_article_list_res, $paging_num) = model_article_basis::next_article_list_res_get($method, $article_view_num);
+	// 新着記事データがない場合
+	if(!$next_article_list_res) {
+		header("HTTP/1.1 404 Not Found");
+		$controller_query = 'error';
+		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+		exit;
+	}
 	// オールカテゴリー別記事データHTML生成
 	$article_list_html = model_article_html::article_list_html_create($next_article_list_res);
 	// 次のさらに前の記事を見る記事リストがあるかチェック
