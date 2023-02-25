@@ -159,6 +159,27 @@ if(preg_match('/hashtag\//', $controller_query, $controller_query_array)) {
 	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
 	exit;
 }
+/****
+記事
+****/
+if(preg_match('/article\//', $controller_query, $controller_query_array)) {
+	$controller_query = urldecode($controller_query);
+	$hashtag_explode = explode('/', $controller_query);
+	if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz')) {
+		// gz読み込み
+		header('Content-Encoding: gzip');
+		readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
+	}
+	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html');
+	}
+	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
+		exit;
+	}
+}
 /********
 新規記事
 ********/
