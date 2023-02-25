@@ -68,8 +68,52 @@ class model_login_admin_general_basis {
 			}
 		}
 	}
+	//----------------------
+	// cron残り実行数取得
+	//----------------------
+	public static function cron_run_num_get() {
+		$cron_run_num = 0;
+		// 最新記事情報取得
+		$new_article_res = model_db::query("
+			SELECT primary_id
+			FROM article
+			WHERE del = 0
+			ORDER BY primary_id DESC
+			LIMIT 0, 1
+		");
+		if(empty($new_article_res[0]['primary_id'])) { $new_article_res[0]['primary_id'] = ''; }
+		$latest_article_num = $new_article_res[0]['primary_id'];
+		// 進めるcron取得
+		$cron_res = model_db::query("
+			SELECT *
+			FROM cron
+			WHERE complete = 0
+			ORDER BY primary_id ASC
+		");
+		foreach($cron_res as $key => $value) {
+			// type:articleの場合
+			if($value['type'] == 'article') {
+				$count = (int)$value['count'];
+				$run_count_num = ($latest_article_num - $count);
+				// 加算
+				$cron_run_num = ($cron_run_num+$run_count_num);
+			}
+		}
+	return $cron_run_num;
+}
+
+
 
 
 
 
 }
+
+
+
+
+
+
+
+
+
