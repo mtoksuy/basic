@@ -100,7 +100,8 @@ CREATE TABLE `setting` (
   `apple_touch_icon_precomposed` varchar(256) DEFAULT NULL,
   `compression` tinyint(4) DEFAULT NULL,
   `compression_type` varchar(256) DEFAULT NULL,
-  `article_view_num` varchar(256) DEFAULT '12'
+  `article_view_num` varchar(256) DEFAULT '12',
+  `run_cron_num` varchar(256) DEFAULT '500'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
