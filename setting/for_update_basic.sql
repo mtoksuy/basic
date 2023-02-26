@@ -149,7 +149,8 @@ CREATE TABLE `setting` (
   `apple_touch_icon_precomposed` varchar(256) DEFAULT NULL,
   `compression` tinyint(4) DEFAULT NULL,
   `compression_type` varchar(256) DEFAULT NULL,
-  `article_view_num` varchar(256) DEFAULT '12'
+  `article_view_num` varchar(256) DEFAULT '12',
+  `run_cron_num` varchar(256) DEFAULT '500'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
   ALTER setting ADD `setting_id` int(10) UNSIGNED NOT NULL;
@@ -169,6 +170,7 @@ CREATE TABLE `setting` (
   ALTER setting ADD `compression` tinyint(4) DEFAULT NULL;
   ALTER setting ADD `compression_type` varchar(256) DEFAULT NULL;
   ALTER setting ADD `article_view_num` varchar(256) DEFAULT '12';
+  ALTER setting ADD `run_cron_num` varchar(256) DEFAULT '500';
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
