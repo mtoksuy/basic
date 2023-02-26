@@ -37,6 +37,16 @@ CREATE TABLE `contact` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `cron` (
+  `primary_id` int(10) UNSIGNED NOT NULL,
+  `count` int(11) DEFAULT '0',
+  `target` varchar(256) DEFAULT NULL,
+  `type` varchar(256) DEFAULT NULL,
+  `complete` tinyint(4) DEFAULT '0',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `complete_time` varchar(256) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `fileupload` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `full_name` varchar(256) DEFAULT NULL,
@@ -90,11 +100,12 @@ CREATE TABLE `setting` (
   `apple_touch_icon_precomposed` varchar(256) DEFAULT NULL,
   `compression` tinyint(4) DEFAULT NULL,
   `compression_type` varchar(256) DEFAULT NULL,
-  `article_view_num` varchar(256) DEFAULT '12'
+  `article_view_num` varchar(256) DEFAULT '12',
+  `run_cron_num` varchar(256) DEFAULT '500'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`) VALUES
-(1, '0.9.1', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12');
+INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
+(1, '0.9.2', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -111,7 +122,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `article`
-  ADD PRIMARY KEY (`primary_id`);
+  ADD PRIMARY KEY (`primary_id`),
+  ADD KEY `basic_id` (`basic_id`);
 
 ALTER TABLE `article_draft`
   ADD PRIMARY KEY (`primary_id`);
@@ -119,10 +131,15 @@ ALTER TABLE `article_draft`
 ALTER TABLE `contact`
   ADD PRIMARY KEY (`primary_id`);
 
+ALTER TABLE `cron`
+  ADD PRIMARY KEY (`primary_id`);
+
 ALTER TABLE `fileupload`
   ADD PRIMARY KEY (`primary_id`),
   ADD KEY `year` (`year`),
-  ADD KEY `content_type` (`type`);
+  ADD KEY `content_type` (`type`),
+  ADD KEY `extension` (`extension`),
+  ADD KEY `year_month` (`year`, `month`);
 
 ALTER TABLE `hashtag`
   ADD PRIMARY KEY (`primary_id`);
@@ -143,6 +160,9 @@ ALTER TABLE `article_draft`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `contact`
+  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `cron`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `fileupload`
