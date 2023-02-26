@@ -121,7 +121,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `article`
-  ADD PRIMARY KEY (`primary_id`);
+  ADD PRIMARY KEY (`primary_id`),
+  ADD KEY `basic_id` (`basic_id`);
 
 ALTER TABLE `article_draft`
   ADD PRIMARY KEY (`primary_id`);
@@ -135,7 +136,9 @@ ALTER TABLE `cron`
 ALTER TABLE `fileupload`
   ADD PRIMARY KEY (`primary_id`),
   ADD KEY `year` (`year`),
-  ADD KEY `content_type` (`type`);
+  ADD KEY `content_type` (`type`),
+  ADD KEY `extension` (`extension`),
+  ADD KEY `year_month` (`year`, `month`);
 
 ALTER TABLE `hashtag`
   ADD PRIMARY KEY (`primary_id`);
