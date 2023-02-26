@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+:root {
+	--http: '';
+}
+
+
 .clear {
   clear: both;
 }

@@ -6,6 +6,7 @@ class model_login_admin_post_basis {
 	public static function markdown_html_conversion($markdown, $user_id_data_array = null) {
 //		pre_var_dump($markdown);
 //		pre_var_dump($user_id_data_array);
+//var_dump($markdown);
 
 		// 改行変換
 		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
@@ -14,6 +15,7 @@ class model_login_admin_post_basis {
 		// 最後に改行追加
 		$markdown=$markdown.'
 ';
+//var_dump($markdown);
 /*
 		// チェックポイント変換
 		$markdown = preg_replace('/\[checkpoint\r\n# (.*?)\r\n(.*?)\]/s', '
@@ -85,6 +87,53 @@ class model_login_admin_post_basis {
  <strong>\\1</strong>', $markdown);
 		// 太文字変換
 		$markdown = preg_replace('/\*(.*?)\*/', '<strong>\\1</strong>', $markdown);
+
+
+
+
+		// コード内改行を古尾土の改行に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("\n", '古尾土の改行', $matches[0]);
+		}, $markdown);
+		// コード内改行の<br>を削除
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("<br>", '', $matches[0]);
+		}, $markdown);
+		// コード内改行の先頭 古尾土の改行 を削除
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return preg_replace("/^```古尾土の改行/", '```', $matches[0]);
+		}, $markdown);
+		// コード内改行の文末 古尾土の改行 を削除
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return preg_replace("/古尾土の改行```$/", '```', $matches[0]);
+		}, $markdown);
+		// コード変換：1行版
+		$markdown = preg_replace('/```(.*?)```/', '<div class="code"><pre><code>\\1</code></pre></div>', $markdown);
+		// コード変換：複数行版
+		$markdown = preg_replace('/```
+(.*?)
+```/s', '<div class="code"><pre><code>\\1</code></pre></div>', $markdown);
+
+/*
+<div class="code">
+	<pre>
+		<code>```でソースコードを囲む```</code>
+	</pre>
+</div>
+
+*/
+
+		// コード変換：先頭改行なし版
+		$markdown = preg_replace('/```(.*?)
+```/s', '<div class="code"><pre><code>\\1</code></pre></div>', $markdown);
+		// コード変換：文末改行なし版
+		$markdown = preg_replace('/```
+(.*?)```/', '<div class="code"><pre><code>\\1</code></pre></div>', $markdown);
+
 
 
 		// マーカー変換先頭バージョン
@@ -221,6 +270,14 @@ fclose($file);
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 //file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmp.txt', $txt);
+
+		// コード内改行の 古尾土の改行 を改行に戻す
+		$pattern = '/<code>(.*?)<\/code>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("古尾土の改行", '
+', $matches[0]);
+		}, $txt);
+
 		return $txt;
 	}
 	//------------

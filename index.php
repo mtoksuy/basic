@@ -47,6 +47,7 @@ if($_SESSION) {
 	model_login_basis::logout();
 	}
 }
+
 // アクセスURL 重複スラッシュを1スラッシュに戻す
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
@@ -83,8 +84,6 @@ if($controller_query == 'setup') {
 	exit;
 }
 
-
-
 // サイト情報取得
 $site_data_array = basic::site_data_get();
 //pre_var_dump($site_data_array);
@@ -108,6 +107,11 @@ login/admin
 if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+	////////////////
+	// Basic内部cron
+	////////////////
+	$increment = 5;
+	basic::start_cron($site_data_array, $increment);
 	exit;
 }
 /*****
@@ -155,6 +159,27 @@ if(preg_match('/hashtag\//', $controller_query, $controller_query_array)) {
 	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
 	exit;
 }
+/****
+記事
+****/
+if(preg_match('/article\//', $controller_query, $controller_query_array)) {
+	$controller_query = urldecode($controller_query);
+	$hashtag_explode = explode('/', $controller_query);
+	if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz')) {
+		// gz読み込み
+		header('Content-Encoding: gzip');
+		readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
+	}
+	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html');
+	}
+	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
+		exit;
+	}
+}
 /********
 新規記事
 ********/
@@ -182,7 +207,7 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 		else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
 			// コントローラー読み込み
 			require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
-
+			exit;
 		}
 			// エラー表示
 			else {
@@ -191,3 +216,6 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 				require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 				exit;
 		}
+
+
+

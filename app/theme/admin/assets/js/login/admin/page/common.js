@@ -6,48 +6,61 @@
 		'click': function() {
 			// フォーカスを瞬時に戻す
 			$('#content').focus();
+			// 選択中のテキスト取得
+			var selected_text = window.getSelection().toString();
+			// クリップネーム取得
 			clip_name = ($(this).attr('data-clip_name'));
 			if(clip_name == 'headline_1') {
-				clip_content = '# ';
+				clip_content = '# '+selected_text;
 			}
 				else if(clip_name == 'headline_2') {
-					clip_content = '## ';
+					clip_content = '## '+selected_text;
 				}
 				else if(clip_name == 'headline_3') {
-					clip_content = '### ';
+					clip_content = '### '+selected_text;
+				}
+				else if(clip_name == 'hashtag') {
+					clip_content = '#'+selected_text;
+				}
+				else if(clip_name == 'code') {
+					clip_content = '```'+selected_text+'```';
 				}
 				else if(clip_name == 'strong') {
-					clip_content = '**';
+					clip_content = '*'+selected_text+'*';
 				}
 				else if(clip_name == 'link') {
-					clip_content = '[]()';
+					clip_content = '['+selected_text+']('+selected_text+')';
 				}
 				else if(clip_name == 'card_link') {
 					clip_content = '[card_link:\n	url:""\n]';
 				}
 				else if(clip_name == 'list') {
-					clip_content = '* \n* \n* ';
+					// リスト形式に変換する
+					const listItems = selected_text.split('\n').map(text => `* ${text}\n`).join('');
+					clip_content = listItems;
 				}
 				else if(clip_name == 'image') {
-					clip_content = '()';
+					clip_content = '('+selected_text+')';
 				}
 				else if(clip_name == 'checkpoint') {
-					clip_content = '[checkpoint:\ntitle:""\n* \n* \n* \n]\n';
+					// リスト形式に変換する
+					const listItems = selected_text.split('\n').map(text => `	* ${text}\n`).join('');
+					clip_content = '[checkpoint:\n	title:""\n'+listItems+']\n';
 				}
 				else if(clip_name == 'amazon') {
 					clip_content = '[amazon:\n	brand:""\n	title:""\n	price:""\n	rating:""\n	review:""\n	image:""\n	link:""\n]\n';
 				}
 				else if(clip_name == 'quote') {
-					clip_content = '[quote:\n	quote:""\n	link_text:""\n	link:""\n]\n';
+					clip_content = '[quote:\n	quote:"'+selected_text+'"\n	link_text:""\n	link:""\n]\n';
 				}
 				else if(clip_name == 'box') {
-					clip_content = '[box:\n	text:""\n]\n';
+					clip_content = '[box:\n	text:"'+selected_text+'"\n]\n';
 				}
 				else if(clip_name == 'blowing') {
-					clip_content = '[blowing:\n	text:""\n]\n';
+					clip_content = '[blowing:\n	text:"'+selected_text+'"\n]\n';
 				}
 				else if(clip_name == 'marker') {
-					clip_content = '____';
+					clip_content = '__'+selected_text+'__';
 				}
 				else if(clip_name == 'separator') {
 					clip_content = '---';
@@ -55,11 +68,6 @@
 				else if(clip_name == 'index') {
 					clip_content = '##index##';
 				}
-
-
-
-
-
 			// テキスト挿入
 			document.execCommand('insertText', false, clip_content);
 			if(navigator.clipboard){

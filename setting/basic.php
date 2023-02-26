@@ -862,4 +862,160 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		}
 		return false;
 	}
+	//------------------------------
+	// テキスト差分(英語大前提)
+	//------------------------------
+	public static function text_diff($text1, $text2) {
+	  $text1Array = explode(' ', $text1);
+	  $text2Array = explode(' ', $text2);
+	
+	  $diffArray = array();
+	  $commonArray = array_intersect($text1Array, $text2Array);
+	  $i = 0;
+	  foreach ($text1Array as $word) {
+	    if (!in_array($word, $commonArray)) {
+	      $diffArray[$i] = '<del>' . $word . '</del>';
+	      $i++;
+	    } else {
+	      while ($text2Array[0] != $word) {
+	        $diffArray[$i] = '<ins>' . $text2Array[0] . '</ins>';
+	        $i++;
+	        array_shift($text2Array);
+	      }
+	      $diffArray[$i] = $word;
+	      $i++;
+	      array_shift($text2Array);
+	    }
+	  }
+	  while (count($text2Array) > 0) {
+	    $diffArray[$i] = '<ins>' . array_shift($text2Array) . '</ins>';
+	    $i++;
+	  }
+	  return implode(' ', $diffArray);
+	}
+	//-----------------------------------------------
+	// 再起的にhtmlファイルとgzファイルのみ削除
+	//-----------------------------------------------
+	public static function recursive_delete_htm_gz($dir) {
+		// ディレクトリが存在しない場合は処理を中断する
+		if(!file_exists($dir)) {
+			return;
+		}
+		// ディレクトリ内のファイル・フォルダを取得する
+		$files = scandir($dir);
+		// ファイル・フォルダを順に処理する
+		foreach($files as $file) {
+			// カレントディレクトリ、親ディレクトリ、.git、fileuploadは無視する
+			if ($file == '.' || $file == '..' || $file == '.git' || $file == 'fileupload') {
+				continue;
+			}
+			// ファイルパスを作成する
+			$filepath = $dir.$file;
+			// ファイルの種類によって処理を分岐する
+			if (is_dir($filepath)) {
+				$filepath = $filepath.'/';
+				// ディレクトリの場合は再帰的に処理する
+				basic::recursive_delete_htm_gz($filepath);
+			} 
+			else {
+				// ファイルの場合は拡張子を取得する
+				$ext = pathinfo($filepath, PATHINFO_EXTENSION);
+				if ($ext == 'html' || $ext == 'gz') {
+					// htmlファイルまたはgzファイルの場合は削除する
+					unlink($filepath);
+				}
+			}
+		} // foreach ($files as $file) {
+	}
+	//----------
+	// cron起動
+	//----------
+	public static function start_cron($site_data_array, $increment = 200) {
+		// 進めるcron取得
+		$cron_res = model_db::query("
+			SELECT *
+			FROM cron
+			WHERE complete = 0
+			ORDER BY primary_id ASC
+			LIMIT 0, 1
+		");
+		if(empty($cron_res[0]['type'])) { $cron_res[0]['type'] = ''; }
+		// type:articleの場合
+		if($cron_res[0]['type'] == 'article') {
+			$count = (int)$cron_res[0]['count'];
+			// 記事情報取得
+			$new_article_res = model_db::query("
+				SELECT primary_id
+				FROM article
+				WHERE del = 0
+				ORDER BY primary_id DESC
+				LIMIT 0, 1
+			");
+			// 最新記事id取得
+			$latest_article_primary_id = (int)$new_article_res[0]['primary_id'];
+			// 次のカウント
+			$next_count = ($count+$increment);
+			// 繰り返しでarticleを最新化していく
+			while($count < $next_count) {
+				$count++;
+				$article_res = model_db::query("
+					SELECT primary_id
+					FROM article
+					WHERE del = 0
+					AND primary_id = ".$count."
+					ORDER BY primary_id DESC
+					LIMIT 0, 1
+				");
+				// 記事がdel:0の場合
+				if($article_res) {
+					// ディレクトリ作成パス取得
+					$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$count.'';
+					// ディレクトリがなかった場合
+					if(!file_exists($directory_path)) {
+						// ディレクトリ作成
+						basic::dir_create($directory_path);
+						// ファイル複製
+						copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+					}
+					// htmlがなかった場合
+					if(!file_exists($directory_path.'/index.html')) {
+						// 擬似的array生成
+						$html_gzip_create_list_array = array(
+							0 => array(
+										'http_path'         => HTTP.'article/'.$count.'/',
+										'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$count.'',
+							), 
+						); // $html_gzip_create_list_array = array(
+						// multi版：静的化+圧縮化
+						basic::multi_html_gzip_create($html_gzip_create_list_array);
+					}
+				} // if($article_res) {
+				// 最新記事まで差し掛かったら completeを1にして繰り返しを抜ける
+				if($count == $latest_article_primary_id) {
+					 model_db::query("
+						UPDATE cron 
+						SET complete = 1
+						WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
+					");
+					break;
+				}
+			} // while($count < $next_count) {
+			// cron更新
+			 model_db::query("
+				UPDATE cron 
+				SET count = ".$count."
+				WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
+			");
+		} // if($cron_res[0]['type'] == 'article') {
+	}
+
+
+
+
+
+
+
+
+
+
 }

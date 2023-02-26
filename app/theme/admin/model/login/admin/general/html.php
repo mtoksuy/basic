@@ -34,6 +34,11 @@ class model_login_admin_general_html {
 
 		// 圧縮化HTML
 		$compression_html = ($general_data_array['compression'] == 1) ? '<option value="1" selected>有効化</option><option value="0">無効化</option>':'<option value="1">有効化</option><option value="0" selected>無効化</option>';
+
+		// cron残り実行数取得
+		$cron_run_num = model_login_admin_general_basis::cron_run_num_get();
+
+		// サイト設定HTML
 		$general_html = '
 			<div class="general">
 				<div class="general_inner">
@@ -66,7 +71,12 @@ class model_login_admin_general_html {
 							<label for="article_view_num">1ページに表示する最大投稿数</label>
 							<input name="article_view_num" id="article_view_num" type="number" step="1" min="1" value="'.$general_data_array['article_view_num'].'">
 						</div>
-
+						<div class="block">
+							<label>サイト内手動cron実行数</label>
+							<input name="run_cron_num" id="run_cron_num" type="number" step="1" min="1" value="'.$general_data_array['run_cron_num'].'">
+							<div >現在残り：'.$cron_run_num.'件</div>
+							<input type="submit" class="cron" value="cron実行" name="cron">
+						</div>
 						<div class="block">
 							<label for="admin_theme_color">管理画面のテーマカラー</label>
 							<fieldset>

@@ -6,7 +6,19 @@
 		$now = 'general';
 		// ポストの中身をエンティティ化する
 		$post = basic::post_security();
-		if($post) {
+		if(empty($post['cron'])) { $post['cron'] = ''; }
+		if(empty($post['submit'])) { $post['submit'] = ''; }
+
+		// 手動cron実行
+		if($post['cron']) {
+			$increment = $site_data_array['run_cron_num']-5; // あとでどうにかする
+			// cron起動
+			basic::start_cron($site_data_array, $increment);
+			header('Location: '.HTTP.'login/admin/general/');
+			exit;
+		}
+		// 基本
+		if($post['submit']) {
 			//pre_var_dump($post);
 			if($_FILES['site_icon']['tmp_name']) {
 				// ico保存
@@ -33,6 +45,8 @@
 			model_login_admin_post_basis::newarticle_dir_create($site_data_array);
 */
 		}
+
+
 		// 一般データarray取得
 		$general_data_array = model_login_admin_general_basis::general_data_array_get();
 		// 一般設定HTML生成
