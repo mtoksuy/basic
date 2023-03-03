@@ -6,7 +6,13 @@ class model_login_admin_post_basis {
 	public static function markdown_html_conversion($markdown, $user_id_data_array = null) {
 //		pre_var_dump($markdown);
 //		pre_var_dump($user_id_data_array);
-//var_dump($markdown);
+//pre_var_dump($markdown);
+
+		// コード内をHTMLエンティティに変換に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8');;
+		}, $markdown);
 
 		// 改行変換
 		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
@@ -32,6 +38,12 @@ class model_login_admin_post_basis {
 <div class="check_point"><div class="check_point_inner"><div class="check_point_inner_heading">\\2</div>\\3</div></div>
 ', $markdown);
 //pre_var_dump($markdown);
+
+		// 見出し ハッシュタグを୨୧ハッシュタグ୨୧に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
+		}, $markdown);
 
 		// h6変換
 		$markdown = preg_replace('/##### (.*?)
@@ -62,8 +74,6 @@ class model_login_admin_post_basis {
 ', $markdown);
 
 
-
-
 		// ハッシュタグ変換(半角空白、全角空白版)
 		$markdown = preg_replace('/#(.*?) /', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
 		$markdown = preg_replace('/#(.*?)　/', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
@@ -75,6 +85,14 @@ class model_login_admin_post_basis {
 
 
 
+
+
+
+		// 1行セパレーターを୨୧1行セパレーター୨୧に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("---", '୨୧1行セパレーター୨୧', $matches[0]);
+		}, $markdown);
 
 		// 1行セパレーター変換
 		$markdown = preg_replace('/---/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
@@ -277,6 +295,29 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			return str_replace("古尾土の改行", '
 ', $matches[0]);
 		}, $txt);
+
+
+		// コード内 1行セパレーターを戻す
+		$pattern = '/<code>(.*?)<\/code>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return preg_replace("/୨୧1行セパレーター୨୧/", '---', $matches[0]);
+		}, $txt);
+		// コード内 ハッシュタグを戻す
+		$pattern = '/<code>(.*?)<\/code>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
+		}, $txt);
+
+
+//<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
+
+
+
+
+
+
+
+
 
 		return $txt;
 	}
