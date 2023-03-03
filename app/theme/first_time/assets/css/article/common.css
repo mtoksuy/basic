@@ -36,7 +36,9 @@ article {
 	letter-spacing: 0.3px;
 */
 }
-
+/***
+目次
+***/
 article .index {
 	list-style: decimal;
 	counter-reset: number;
@@ -46,9 +48,11 @@ article .index {
 	border: 1px solid #ddd;
 	padding: 15px 20px;
 	padding: 15px 20px  5px 20px;
+	margin: 15px 0 30px 0;
 	width: 100%;
 	border-radius: 4px;
 	background-color: #fcfcfc;
+	box-sizing: border-box;
 }
 
 article .index .title {
@@ -240,23 +244,19 @@ article ul.number {
 	list-style-type: decimal;
 }
 
-article ul.index {
-	list-style-type: decimal;
-	margin: 0 0 30px 0;
-}
-
-
 /*****
 コード
 *****/
 article .code {
 	word-wrap: break-word;
-	margin: 0 0 30px 0;
+	margin: 15px 0 30px 0;
 }
 article .code pre {
 	font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
 	padding: 16px;
 	overflow: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 	font-size: 12px;
 	background-color: #f6f8fa;
 	border-radius: 6px;
