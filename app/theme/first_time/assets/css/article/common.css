@@ -52,6 +52,7 @@ article .index {
 	width: 100%;
 	border-radius: 4px;
 	background-color: #fcfcfc;
+	box-sizing: border-box;
 }
 
 article .index .title {
