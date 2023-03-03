@@ -87,6 +87,25 @@ class model_sitemap_html {
 			}
 		}
 		//
+		// sitemap_common.xml生成
+		//
+
+			// 合体
+			$sitemap_xml = 
+				'<?xml version="1.0" encoding="UTF-8"?>
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+		<url>
+			<loc>'.HTTP.'</loc>
+			<changefreq>weekly</changefreq>
+			<priority>1.0</priority>
+		</url>'.$page_list.'
+	</urlset>';
+		// sitemap_common.xmlの場所
+		$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap_common.xml';
+		$sitemap_xml_http_path = HTTP.'/sitemap/sitemap_common.xml';
+		// sitemap.xml書き込み
+		file_put_contents($sitemap_xml_path, $sitemap_xml);
+		//
 		// sitemap.xml生成
 		//
 		// 初期化
@@ -94,19 +113,18 @@ class model_sitemap_html {
 		// 全体xml
 		$sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-		<url>
-			<loc>'.HTTP.'</loc>
-			<changefreq>weekly</changefreq>
-			<priority>1.0</priority>
-		</url>'.$page_list.$sitemap_article_split_xml.'
+		<sitemap>
+			<loc>'.HTTP.'/sitemap/sitemap_common.xml'.'</loc>
+		</sitemap>'.$sitemap_article_split_xml.'
 	</sitemapindex>';
 		// sitemap.xmlの場所
 		$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
 		// sitemap.xml書き込み
 		file_put_contents($sitemap_xml_path, $sitemap_xml);
-	
-	
-	
+
+
+
+
 
 
 

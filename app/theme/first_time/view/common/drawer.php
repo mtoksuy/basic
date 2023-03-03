@@ -22,9 +22,7 @@
 					<input placeholder="キーワード検索" type="search" name="q" id="q" value="<?php if($_GET['q']) {echo $_GET['q']; }?>" autocomplete="off">
 					<div class="search_logo">
 						<input type="submit" value="">
-<!--
 						<img width="16" height="17" title="検索" alt="検索" src="<?php echo HTTP; ?>app/assets/svg/common/search_logo_1.svg">
--->
 					</div>
 				</form>
 			</div>
