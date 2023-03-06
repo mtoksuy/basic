@@ -62,8 +62,8 @@ class model_sitemap_html {
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'.$value.'
 	</urlset>';
 			// sitemap.xmlの場所
-			$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap_article_split_'.($key+1).'.xml';
-			$sitemap_xml_http_path = HTTP.'/sitemap/sitemap_article_split_'.($key+1).'.xml';
+			$sitemap_xml_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap_article_split_'.($key+1).'.xml';
+			$sitemap_xml_http_path = HTTP.'sitemap/sitemap_article_split_'.($key+1).'.xml';
 			// sitemap.xml書き込み
 			file_put_contents($sitemap_xml_path, $sitemap_xml);
 			// 分割xmlをまとめる(sitemap.xml生成に使用)
@@ -101,8 +101,8 @@ class model_sitemap_html {
 		</url>'.$page_list.'
 	</urlset>';
 		// sitemap_common.xmlの場所
-		$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap_common.xml';
-		$sitemap_xml_http_path = HTTP.'/sitemap/sitemap_common.xml';
+		$sitemap_xml_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap_common.xml';
+		$sitemap_xml_http_path = HTTP.'sitemap/sitemap_common.xml';
 		// sitemap.xml書き込み
 		file_put_contents($sitemap_xml_path, $sitemap_xml);
 		//
@@ -114,11 +114,11 @@ class model_sitemap_html {
 		$sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 		<sitemap>
-			<loc>'.HTTP.'/sitemap/sitemap_common.xml'.'</loc>
+			<loc>'.HTTP.'sitemap/sitemap_common.xml'.'</loc>
 		</sitemap>'.$sitemap_article_split_xml.'
 	</sitemapindex>';
 		// sitemap.xmlの場所
-		$sitemap_xml_path = PATH.'/app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
+		$sitemap_xml_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap/sitemap.xml';
 		// sitemap.xml書き込み
 		file_put_contents($sitemap_xml_path, $sitemap_xml);
 
