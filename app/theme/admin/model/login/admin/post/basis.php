@@ -11,7 +11,7 @@ class model_login_admin_post_basis {
 		// コード内をHTMLエンティティに変換に変換
 		$pattern = '/```(.*?)```/s';
 		$markdown = preg_replace_callback($pattern, function($matches) {
-			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8');;
+			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8', false);
 		}, $markdown);
 
 		// 改行変換
