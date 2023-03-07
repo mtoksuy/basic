@@ -756,9 +756,8 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 					'.$index_li_html.'
 				</ul>';
 			// 目次変換
-			$markdown = preg_replace('/##index##
-/', $index_html
-, $markdown);
+			$markdown = preg_replace('/##index##(.*?)
+/', $index_html, $markdown);
 		} // if(preg_match('/##index##/', $markdown)) {
 	return $markdown;
 	}
