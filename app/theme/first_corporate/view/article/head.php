@@ -10,6 +10,8 @@
 	<meta property="og:image" content="<?php echo HTTP;?>app/assets/img/article_ogp/<?php echo $method;?>.png"/>
 	<!-- canonical -->
 	<link rel="canonical" href="<?php echo HTTP.$controller_query; ?>/"/>
+	<!-- 記事JSON-LDリッチリザルト -->
+	<?php echo $article_json_ld_rich_lizarto; ?>
 	<!-- icon -->
 	<link rel="shortcut icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['icon']; ?>" type="image/vnd.microsoft.icon"/>
 	<link rel="apple-touch-icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['apple_touch_icon']; ?>"/>
