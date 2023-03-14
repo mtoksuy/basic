@@ -324,13 +324,16 @@ class model_article_html {
 		pre_var_dump($article_res[0]['create_time']);
 		pre_var_dump($article_res[0]['update_time']);
 */
+		$datePublished = '';
+		$dateModified = '';
+		$article_json_ld_rich_lizarto = '';
 		foreach($article_res as $kye => $value) {
 //			pre_var_dump($value);
 //pre_var_dump($value);
 		$headline = mb_strimwidth($value['title'], 0, 94, "...");
 		$create_date = new DateTime($value['create_time']);
 		// ユーザー情報取得
-		$user_data_array = model_info_basis::amatem_user_data_get($value['basic_id']);
+		$user_data_array = basic::user_data_get($value['basic_id']);
 		$author_name = $user_data_array['name'];
 		// 更新がある場合
 		if($value['update_time']) {
@@ -361,7 +364,7 @@ class model_article_html {
 	'.$dateModified.'
 }
 </script>';
-//pre_var_dump($article_json_ld_rich_lizardo);
+//pre_var_dump($article_json_ld_rich_lizarto);
 		}
 		return $article_json_ld_rich_lizarto;
 	}
