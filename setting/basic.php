@@ -288,25 +288,38 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function setup_to_user_signup($post) {
 		// hash生成
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
-			// ユーザー登録
-			model_db::query("
-				INSERT INTO user (
-					basic_id,
-					password,
-					icon
-				)
-				VALUES (
-					'".$post['basic_id']."', 
-					'".$password_hash."',
-					'default_1.png'
-				)
-			");
-			// サイト名変更
-			model_db::query("
-				UPDATE setting 
-				SET
-					title = '".$post['site_name']."'
-				WHERE setting_id = 1;");
+		// iconランダム選択
+		$icon_array = array(
+			0 => 'basic_default_icon_black_1.png', 
+			1 => 'basic_default_icon_blue_1.png', 
+			2 => 'basic_default_icon_green_1.png', 
+			3 => 'basic_default_icon_pink_1.png', 
+			4 => 'basic_default_icon_yellow_1.png', 
+			5 => 'default_1.png', 
+		);
+		// ランダムなキーを取得
+		$random_key = array_rand($icon_array);
+		// ランダムに選択されたアイコンのファイル名を取得
+		$random_icon_name = $icon_array[$random_key];
+		// ユーザー登録
+		model_db::query("
+			INSERT INTO user (
+				basic_id,
+				password,
+				icon
+			)
+			VALUES (
+				'".$post['basic_id']."', 
+				'".$password_hash."',
+				'".$random_icon_name."'
+			)
+		");
+		// サイト名変更
+		model_db::query("
+			UPDATE setting 
+			SET
+				title = '".$post['site_name']."'
+			WHERE setting_id = 1;");
 	}
 	//----------------
 	//サイト情報取得
@@ -804,8 +817,29 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					$html = basic::css_inline($value['http_path'], $html);
 					// JSインライン化 todo:未完成。ペンディング
 			//		$html = basic::js_inline($value['http_path'], $html);
+					// 記事専用 code内改行、半角空白全角空白タブは圧縮しない 開始
+					$pattern = '/<div class="code">(.*?)<\/div>/s';
+					$html = preg_replace_callback($pattern, function($matches) {
+						return str_replace('
+', '記事専用改行圧縮前', $matches[0]);
+					}, $html);
+					$html = preg_replace_callback($pattern, function($matches) {
+						return str_replace(' ', '記事専用半角空白圧縮前', $matches[0]);
+					}, $html);
+					$html = preg_replace_callback($pattern, function($matches) {
+						return str_replace('　', '記事専用全角空白圧縮前', $matches[0]);
+					}, $html);
+					$html = preg_replace_callback($pattern, function($matches) {
+						return str_replace('	', '記事専用タブ圧縮前', $matches[0]);
+					}, $html);
 					//HTML圧縮
 					$html = basic::html_comp($html);
+					// 記事専用 code内改行、半角空白全角空白タブは圧縮しない 終了
+					$html = preg_replace("/記事専用改行圧縮前/", '
+', $html);
+					$html = preg_replace("/記事専用半角空白圧縮前/", ' ', $html);
+ 					$html = preg_replace("/記事専用全角空白圧縮前/", '　', $html);
+					$html = preg_replace("/記事専用タブ圧縮前/", '	', $html);
 					// 圧縮したindexファイル生成
 					file_put_contents($value['directory_path'].'/index.html', $html);
 					// 圧縮したindexファイルの内容を読み込む
@@ -814,9 +848,9 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					$gzip = gzopen($value['directory_path'].'/index.html.gz' ,'w9');
 					gzwrite($gzip ,$code);
 					gzclose($gzip);
-				}
-			} // if($site_data_array['compression_type'] === 'gz') {
-		} // if((int)$site_data_array['compression'] === 1) {
+				} // if($site_data_array['compression_type'] === 'gz') {
+			} // if((int)$site_data_array['compression'] === 1) {
+		} // foreach($html_gzip_create_list_array as $key => $value) {
 	}
 
 	//------------------------
