@@ -11,7 +11,7 @@ class model_login_admin_post_basis {
 		// コード内をHTMLエンティティに変換に変換
 		$pattern = '/```(.*?)```/s';
 		$markdown = preg_replace_callback($pattern, function($matches) {
-			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8');;
+			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8', false);
 		}, $markdown);
 
 		// 改行変換
@@ -756,9 +756,8 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 					'.$index_li_html.'
 				</ul>';
 			// 目次変換
-			$markdown = preg_replace('/##index##
-/', $index_html
-, $markdown);
+			$markdown = preg_replace('/##index##(.*?)
+/', $index_html, $markdown);
 		} // if(preg_match('/##index##/', $markdown)) {
 	return $markdown;
 	}

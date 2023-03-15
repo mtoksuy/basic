@@ -2,6 +2,8 @@
 	$method = preg_replace('/article\//', '', $controller_query);
 	//  記事データ取得
 	$article_res = model_article_basis::article_get($method);
+	// 記事JSON-LDリッチリザルト生成
+	$article_json_ld_rich_lizarto = model_article_html::article_json_ld_rich_lizarto_create($article_res);
 	// 記事データがない場合
 	if(!$article_res) {
 		header("HTTP/1.1 404 Not Found");
