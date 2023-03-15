@@ -19,6 +19,7 @@ class model_db {
 	//-------
 	 public static function query($query) {
 		global $db_config_array;
+		$query_pattern = '';
 		// DB接続
 		$db = model_db::db_conect($db_config_array);
 
