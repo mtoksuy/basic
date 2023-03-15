@@ -22,7 +22,7 @@ class model_setup_html {
 			<!-- contact -->
 			<div class="setup">
 				<div class="setup_inner">
-					<h2 class="setup_title">Basicへようこそ。始める前に、以下の項目を知っておく必要があります。</h2>
+					<h2 class="setup_title">Basicへようこそ。始める前に、以下の情報を準備をする必要があります。</h2>
 					<ol>
 						<li>データベース名</li>
 						<li>データベースのユーザー名</li>
