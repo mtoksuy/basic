@@ -288,25 +288,38 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function setup_to_user_signup($post) {
 		// hash生成
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
-			// ユーザー登録
-			model_db::query("
-				INSERT INTO user (
-					basic_id,
-					password,
-					icon
-				)
-				VALUES (
-					'".$post['basic_id']."', 
-					'".$password_hash."',
-					'default_1.png'
-				)
-			");
-			// サイト名変更
-			model_db::query("
-				UPDATE setting 
-				SET
-					title = '".$post['site_name']."'
-				WHERE setting_id = 1;");
+		// iconランダム選択
+		$icon_array = array(
+			0 => 'basic_default_icon_black_1.png', 
+			1 => 'basic_default_icon_blue_1.png', 
+			2 => 'basic_default_icon_green_1.png', 
+			3 => 'basic_default_icon_pink_1.png', 
+			4 => 'basic_default_icon_yellow_1.png', 
+			5 => 'default_1.png', 
+		);
+		// ランダムなキーを取得
+		$random_key = array_rand($icon_array);
+		// ランダムに選択されたアイコンのファイル名を取得
+		$random_icon_name = $icon_array[$random_key];
+		// ユーザー登録
+		model_db::query("
+			INSERT INTO user (
+				basic_id,
+				password,
+				icon
+			)
+			VALUES (
+				'".$post['basic_id']."', 
+				'".$password_hash."',
+				'".$random_icon_name."'
+			)
+		");
+		// サイト名変更
+		model_db::query("
+			UPDATE setting 
+			SET
+				title = '".$post['site_name']."'
+			WHERE setting_id = 1;");
 	}
 	//----------------
 	//サイト情報取得
