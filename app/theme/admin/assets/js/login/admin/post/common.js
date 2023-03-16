@@ -432,3 +432,73 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 		text_count_check_num_get(contents);
 	});
 
+
+	/*******************************************
+	ページ読み込み時に記事文字数をチェックする
+	*******************************************/
+	$(function() {
+		var dropArea = $('#content');
+		
+		// ドラッグ&ドロップイベントを処理する関数
+		function handleDragOver(event) {
+			event.stopPropagation();
+			event.preventDefault();
+//			dropArea.css('background-color', '#EFEFEF');
+			dropArea.css('filter', 'brightness(95%)');
+			dropArea.css('cursor', 'copy');
+		}
+		
+		// ファイルをドロップした時に呼び出される関数
+		function handleFileSelect(event) {
+			event.stopPropagation();
+			event.preventDefault();
+//			dropArea.css('background-color', '#FFFFFF');
+			dropArea.css('filter', 'brightness(100%)');
+			dropArea.css('cursor', 'auto');
+			
+			// ドロップされたファイルを取得
+			var files = event.originalEvent.dataTransfer.files;
+			// ファイルをアップロードする
+			for(var i = 0; i < files.length; i++) {
+				uploadFile(files[i]);
+			}
+		}
+		
+		// ドロップエリアのイベントを設定する
+		dropArea.on('dragover', handleDragOver);
+		dropArea.on('dragleave', function() {
+			dropArea.css('filter', 'brightness(100%)');
+			dropArea.css('cursor', 'auto');
+//			dropArea.css('background-color', '#FFFFFF');
+		});
+		dropArea.on('drop', handleFileSelect);
+		
+		// ファイルをアップロードする関数
+		function uploadFile(file) {
+			var formData = new FormData();
+			formData.append('uploadFile', file);
+			
+			$.ajax({
+				url: '../../../ajax/login/admin/post/image_upload/',
+				type : "POST",
+				data : formData,
+				cache       : false,
+				contentType : false,
+				processData : false,
+				//			dataType    : "html", // jsonではなくhtmlらしい
+				dataType    : "json", // あれ？ひとまずこれで
+				success: function(data) {
+					// フォーカスを瞬時に戻す
+					$('#content').focus();
+					// 選択中のテキスト取得
+					var selected_text = window.getSelection().toString();
+					// テキスト挿入
+					document.execCommand('insertText', false, '('+data['image_http']+')\n');
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.error('アップロードエラー: ' + textStatus, errorThrown);
+				}
+			});
+		}
+	});
+
