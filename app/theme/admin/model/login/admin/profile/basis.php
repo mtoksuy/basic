@@ -68,7 +68,7 @@ class model_login_admin_profile_basis {
 			//gifの場合
 			case IMAGETYPE_GIF:
 				// イメージリソース取得
-				$ImageResource = imagecreatefromjpeg($orgFile);
+				$ImageResource = imagecreatefromgif($orgFile);
 			break;
 			//webpの場合
 			case 18:
@@ -133,13 +133,6 @@ class model_login_admin_profile_basis {
 		 break;
 		}
 	}
-
-
-
-
-
-
-
 
 
 
