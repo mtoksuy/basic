@@ -105,6 +105,11 @@ if($controller_query == 'login') {
 login/admin
 ***********/
 if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
+	// セッションがない場合、ログインページに遷移させる
+	if(!($_SESSION)) {
+		header('location: '.HTTP.'login/');
+		exit;
+	}
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	////////////////

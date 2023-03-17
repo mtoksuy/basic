@@ -209,9 +209,33 @@ class model_login_admin_fileupload_basis {
 }
 
 
-
-
-
+	//------------------------
+	// シングルfile_array生成
+	//------------------------
+	public static function single_flle_array_create($files, $length = 32) {
+		// 拡張子取得+拡張子なしname取得
+			$mb_strrpos = mb_strrpos($files['uploadFile']['name'], '.');
+			$mb_substr = mb_substr($files['uploadFile']['name'], $mb_strrpos);
+			$extension = $mb_substr;
+			$name = preg_replace('/'.$mb_substr.'/', '', $files['uploadFile']['name']);
+		// size取得
+			$size = $files['uploadFile']['size'];	
+		// tmp_name取得
+			$tmp_name = $files['uploadFile']['tmp_name'];	
+		//type取得
+			$type = $files['uploadFile']['type'];
+		// $flle_array生成
+			$mk_passwd = substr(bin2hex(random_bytes($length)), 0, $length);
+			$flle_array[0]['full_name'] = $files['uploadFile']['name'];
+			$flle_array[0]['name'] = $name;
+			$flle_array[0]['extension'] = $extension;
+			$flle_array[0]['type'] = $type;
+			$flle_array[0]['size'] = $size;
+			$flle_array[0]['tmp_name'] = $tmp_name;
+			$flle_array[0]['random_name'] = $mk_passwd;
+//			pre_var_dump($flle_array);
+		return $flle_array;
+	}
 
 
 
