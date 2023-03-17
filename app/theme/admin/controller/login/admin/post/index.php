@@ -160,6 +160,8 @@
 				$draft_id = (int)$_GET['draft_id'];
 				// 記事データ取得
 				$article_draft_res = model_login_admin_draft_basis::article_draft_get($draft_id);
+				// 記事JSON-LDリッチリザルト生成
+				$article_json_ld_rich_lizarto = model_article_html::article_json_ld_rich_lizarto_create($article_draft_res);
 				// タイトル取得
 				$page_data_array['title'] = $article_draft_res[0]['title'];
 				// 記事データHTML生成

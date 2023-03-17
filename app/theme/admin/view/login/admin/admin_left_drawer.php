@@ -119,5 +119,15 @@
 						<a class="o_8" href="<?php echo HTTP;?>login/admin/profile/">プロフィール設定</a>
 					</li>
 				</ul>
+
+
+				<ul class="border">
+					<span>ツール設定</span>
+					<li<?php if($now == 'import') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/import/">インポート</a>
+					</li>
+				</ul>
+
+
 			</div>
 		</nav>

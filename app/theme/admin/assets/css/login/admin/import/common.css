@@ -1,0 +1,57 @@
+
+/**************
+インポート設定
+**************/
+.import {
+	position: relative;
+	margin: 0 0 0 30px;
+	color: var(--theme-text-color);
+}
+.import .import_inner {
+	position: relative;
+}
+.import .import_inner .content_box {
+	margin: 30px 0 0 0;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+.import .import_inner .content_box .left {
+	width: 220px;
+}
+.import .import_inner .content_box .left b {
+	display: block;
+}
+.import .import_inner .content_box .left a {
+	color: var(--theme-color4);
+}
+.import .import_inner .content_box .right {
+	width: 440px;
+}
+.import .import_inner .content_box .right p {
+
+}
+
+/**************
+1024px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+}
+/**************
+375px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 375px) {
+	.admin_right {
+		width: 183px;
+	}
+}
+/**************
+320px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 320px) {
+	.admin_right {
+		width: 128px;
+	}
+}
