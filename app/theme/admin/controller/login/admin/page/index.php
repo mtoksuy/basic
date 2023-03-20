@@ -16,6 +16,7 @@
 		}
 		// 定義されていない変数を空定義
 		if(empty($preview_array)) {
+			$preview_array['page_id'] = '';
 			$preview_array['title'] = '';
 			$preview_array['content'] = '';
 			$preview_array['draft_id'] = '';
