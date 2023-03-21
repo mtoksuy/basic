@@ -1042,13 +1042,18 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			");
 		} // if($cron_res[0]['type'] == 'article') {
 	}
-
-
-
-
-
-
-
+	//---------------------------------------------
+	// 特定の文字列が2連続である場合1つにする
+	//---------------------------------------------
+	public static function replace_recursive($str, $target_str = '/') {
+		$new_str = str_replace($target_str.$target_str, $target_str, $str);
+		if ($new_str !== $str) {
+			return basic::replace_recursive($new_str);
+		} 
+		else {
+			return $new_str;
+		}
+	}
 
 
 
