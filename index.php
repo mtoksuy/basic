@@ -110,6 +110,13 @@ if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
 		header('location: '.HTTP.'login/');
 		exit;
 	}
+	// page機能 複数階層への対処
+		$controller_query_array = explode('/', $controller_query);
+		$controller_query_trimmed = implode('/', array_slice($controller_query_array, 0, 3));
+		$valid_queries = ["login/admin/page", "login/admin/pagelist", "login/admin/pagedraft"];
+		if(in_array($controller_query_trimmed, $valid_queries)) {
+			$controller_query = $controller_query_trimmed;
+		}
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	////////////////
