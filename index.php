@@ -101,6 +101,29 @@ if($controller_query == 'login') {
 	exit;
 }
 
+
+
+/*******************
+login/admin/plugin/
+*******************/
+if(preg_match('/login\/admin\/plugin\//', $controller_query, $controller_query_array)) {
+	// プラグイン用 $controller_query
+	$controller_query = preg_replace('/login\/admin\/plugin\//', '', $controller_query);
+	// root
+	if(!preg_match('/\//', $controller_query)  ) {
+		$plugin_name = $controller_query;
+		$controller_query = 'root';
+	}
+	// rootじゃない
+	else {
+		$controller_query_e = explode('/', $controller_query);
+		$plugin_name = $controller_query_e[0];
+		$controller_query = preg_replace('/'.$plugin_name.'\//', '', $controller_query);
+	}
+	// コントローラー読み込み
+	require_once(PATH.'app/plugin/'.$plugin_name.'/controller/'.$controller_query.'/index.php');
+	exit;
+}
 /**********
 login/admin
 ***********/
