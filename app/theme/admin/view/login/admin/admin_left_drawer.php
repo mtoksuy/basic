@@ -128,6 +128,31 @@
 					</li>
 				</ul>
 
+				<ul class="border">
+					<span>プラグイン設定</span>
+					<li<?php if($now == 'plugin') {echo ' class="now"';}?>>
+						<a class="o_8" href="<?php echo HTTP;?>login/admin/plugin/">プラグイン追加</a>
+					</li>
+					<?php
+					//
+					// プラグイン機能 プロトタイプ実装
+					//
+					$dir = PATH.'app/plugin';
+					$now_class_name = '';
+					foreach (glob("$dir/*", GLOB_ONLYDIR)  as $folder) {
+						if($now == basename($folder)) {$now_class_name = ' class="now"';}
+						echo 
+							('<li'.$now_class_name.'>
+								<a class="o_8" href="'.HTTP.'login/admin/plugin/'.basename($folder).'/">'.basename($folder).'</a>
+							</li>');
+						// 初期化
+						$now_class_name = '';
+					}
+					?>
+				</ul>
+
+
+
 
 			</div>
 		</nav>
