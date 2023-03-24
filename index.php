@@ -101,6 +101,29 @@ if($controller_query == 'login') {
 	exit;
 }
 
+
+
+/*******************
+login/admin/plugin/
+*******************/
+if(preg_match('/login\/admin\/plugin\//', $controller_query, $controller_query_array)) {
+	// プラグイン用 $controller_query
+	$controller_query = preg_replace('/login\/admin\/plugin\//', '', $controller_query);
+	// root
+	if(!preg_match('/\//', $controller_query)  ) {
+		$plugin_name = $controller_query;
+		$controller_query = 'root';
+	}
+	// rootじゃない
+	else {
+		$controller_query_e = explode('/', $controller_query);
+		$plugin_name = $controller_query_e[0];
+		$controller_query = preg_replace('/'.$plugin_name.'\//', '', $controller_query);
+	}
+	// コントローラー読み込み
+	require_once(PATH.'app/plugin/'.$plugin_name.'/controller/'.$controller_query.'/index.php');
+	exit;
+}
 /**********
 login/admin
 ***********/
@@ -110,6 +133,13 @@ if(preg_match('/login\/admin/', $controller_query, $controller_query_array)) {
 		header('location: '.HTTP.'login/');
 		exit;
 	}
+	// page機能 複数階層への対処
+		$controller_query_array = explode('/', $controller_query);
+		$controller_query_trimmed = implode('/', array_slice($controller_query_array, 0, 3));
+		$valid_queries = ["login/admin/page", "login/admin/pagelist", "login/admin/pagedraft"];
+		if(in_array($controller_query_trimmed, $valid_queries)) {
+			$controller_query = $controller_query_trimmed;
+		}
 	// コントローラー読み込み
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	////////////////
