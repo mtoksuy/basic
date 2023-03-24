@@ -153,9 +153,6 @@ wrapper
 **************/
 
 #nav-drawer {
-	/*
-	display:none;
-*/
 	position: relative;
 	float: right;
 	z-index: 10;
@@ -244,7 +241,6 @@ wrapper
 	transform: translateX(105%);
 	/*右に隠しておく*/
 }
-
 
 /*チェックが入ったらもろもろ表示*/
 
@@ -488,9 +484,6 @@ section_block_box_right
 .section_block_box_right {
 	padding: 30px 5% 30px 0;
 	display: flex;
-	/*
-	background-color: #B04CFF;
-*/
 }
 
 .section_block_box_right .section_block_box_right_right_content {
@@ -674,24 +667,9 @@ footer
 	display: flex;
 	flex-direction: column-reverse;
 	list-style: none;
-	/*
-	flex-basis: 33%;
-*/
 	box-sizing: border-box;
 	align-self: stretch;
 }
-
-
-/*
-.footer_box_bottom ul li:nth-child(1) {
-	border-left: 1px solid #ccc;
-}
-
-.footer_box_bottom ul li:nth-child(2) {
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-}
-*/
 
 .footer_box_bottom ul li a {
 	padding: 0px 10px 0px 10px;
@@ -783,16 +761,9 @@ footer
 	width: 16px;
 	height: 16px;
 	border: solid 0px #d7d7d7;
-/*
-	background: url('../../../../../assets/svg/common/search_logo_1.svg') left top no-repeat;
-*/
 background-color: #f5f5f5;
 	cursor: pointer;
 }
-/*
-L:                            http://localhost/basic/app/assets/svg/common/search_logo_1.svg
-file:///Applications/MAMP/htdocs/basic/app/assets/svg/common/search_logo_1.svg
-*/
 
 /***************
 検索窓スウィッチ

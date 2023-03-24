@@ -14,6 +14,12 @@ $post = basic::post_security();
 // ログインしている場合
 if($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
+	// 特定の文字列が2連続である場合1つにする
+	$post['permalink'] = basic::replace_recursive($post['permalink'], '/');
+	// 文末の/を削除
+	$post['permalink'] = rtrim($post['permalink'], '/');
+	// 先頭の/を削除
+	$post['permalink'] = ltrim($post['permalink'], '/');
 	// 下書き保存
 	$query = model_login_admin_page_basis::markdown_page_draft_save($post);
 }
