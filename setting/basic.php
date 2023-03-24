@@ -1055,6 +1055,26 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		}
 	}
 
+	//---------------------------------
+	// 特定の配下のファイル一覧取得
+	//---------------------------------
+	public static function getPhpFilesInSelectDirectory($dir, $target_dir, $extension = 'php') {
+		$files = glob($dir . '/*');
+		$phpFiles = [];
+		foreach ($files as $file) {
+			if (is_dir($file)) {
+				$phpFiles = array_merge($phpFiles, basic::getPhpFilesInSelectDirectory($file, $target_dir, $extension));
+			}
+			elseif (strpos($file, '/'.$target_dir.'/') !== false && pathinfo($file, PATHINFO_EXTENSION) == $extension) {
+				$phpFiles[] = $file;
+			}
+		}
+		return $phpFiles;
+	}
+
+
+
+
 
 
 }
