@@ -105,6 +105,7 @@ if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 	define('ROOT_DIR', $ROOT_DIR);
 	define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 	$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+	$PATH = str_replace('\\', '/', $PATH);
 	define('PATH', $PATH);
 	define('INTERNAL_PATH', dirname(__FILE__).'/');
 	define('TITLE', 'basic サイト構築するならベーシック。世界一簡単なCMS');
