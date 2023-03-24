@@ -8,6 +8,41 @@
 
 	$cmd_2  = 'find '.PATH.'app/theme/admin/model -type f -name "*.php"';
 	exec($cmd_2, $arr_2, $res_2);
+
+
+	$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+define('PATH', $PATH);
+$path = PATH . 'app/theme/admin';
+
+$getPhpFilesInModelDirectory = function ($dir) use (&$getPhpFilesInModelDirectory) {
+    $files = glob($dir . '/*');
+    $phpFiles = [];
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            $phpFiles = array_merge($phpFiles, $getPhpFilesInModelDirectory($file));
+        } elseif (strpos($file, '/model/') !== false && pathinfo($file, PATHINFO_EXTENSION) == 'php') {
+            $phpFiles[] = $file;
+        }
+    }
+    return $phpFiles;
+};
+
+$phpFiles = $getPhpFilesInModelDirectory($path);
+//var_dump($phpFiles);
+if($phpFiles) {
+	foreach($phpFiles as $key => $value) {
+		$value = str_replace(PATH.'app/theme/admin/model', '' , $value);
+		preg_match('/^\/(.*)\//', $value, $value_array);
+	   $dir_data = $value_array[0];
+	   $file_name = str_replace($value_array[0], '' , $value);
+	   $class_name = preg_replace('/\.php/', '' , $file_name);
+	   require_once(PATH.'app/theme/admin/model'.$dir_data.$file_name);
+	   $dir_data_under = preg_replace('/\//', '_' , $dir_data);
+	   $dir_data_under =  'model'.$dir_data_under.$class_name;
+	   $load_class_list[] = $dir_data_under;
+	   ${$dir_data_under} = new $dir_data_under();
+	}
+}
 	if($arr_2) {
 		foreach($arr_2 as $key => $value) {
 			$value = str_replace(PATH.'app/theme/admin/model', '' , $value);
