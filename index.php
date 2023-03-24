@@ -201,50 +201,34 @@ if(preg_match('/article\//', $controller_query, $controller_query_array)) {
 	$controller_query = urldecode($controller_query);
 	$hashtag_explode = explode('/', $controller_query);
 	if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz')) {
-		$is_windows = false;
-
-		if (isset($_SERVER['HTTP_USER_AGENT'])) {
-			$ua = $_SERVER['HTTP_USER_AGENT'];
-			if (strpos($ua, 'Windows') !== false) {
-				$is_windows = true;
+		// ローカルかつwidnows判定
+		$is_local_and_windows = basic::is_local_and_windows();
+		// ローカルwidnows用
+		if($is_local_and_windows) {
+			// gz読み込み
+			header('Content-Encoding: gzip');
+			$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz'; // 圧縮されたファイルパス
+			// windowsでのキモ
+			$contents = file_get_contents("compress.zlib://" . $file_path); // gzファイルを読み込む
+			// エンコーディングを検出し、UTF-8に変換して表示する
+			$detected_encoding = mb_detect_encoding($contents);
+			if ($detected_encoding !== "UTF-8") {
+				$contents = mb_convert_encoding($contents, "UTF-8", $detected_encoding);
 			}
+			echo $contents;
 		}
-		
-		if ($is_windows && php_uname('s') == "Windows NT") {
-			echo "Windows環境で実行されています。";
-		} else {
-			echo "Windows環境ではありません。";
+		// 通常
+		else {
+			// gz読み込み
+			header('Content-Encoding: gzip');
+			readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
 		}
-
-var_dump( php_uname('s'));
-
-
-
-
-
-
-
-
-	// gz読み込み
-	header('Content-Encoding: gzip');
-	$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz'; // 圧縮されたファイルパス
-	$contents = file_get_contents("compress.zlib://" . $file_path); // gzファイルを読み込む
-
-	// エンコーディングを検出し、UTF-8に変換して表示する
-	$detected_encoding = mb_detect_encoding($contents);
-	if ($detected_encoding !== "UTF-8") {
-		$contents = mb_convert_encoding($contents, "UTF-8", $detected_encoding);
-	}
-	echo $contents;
-	
-//		readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
-
-
-exit;
+		exit;
 	}
 	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html')) {
 		// コントローラー読み込み
 		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html');
+		exit;
 	}
 	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php')) {
 		// コントローラー読み込み
@@ -268,26 +252,27 @@ if(preg_match('/newarticle\//', $controller_query, $controller_query_array)) {
 ********/
 // app/controller/配下に同名のPHPファイルがないか探す。
 if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz')) {
-
-
-	/*
-	// gz読み込み
-	header('Content-Encoding: gzip');
-
-	$handle = gzopen(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz', "rb"); // gzファイルをバイナリ読み込みモードでオープン
-	$contents = gzread($handle, filesize($file_path)); // gzファイルを読み込む
-	gzclose($handle); // gzファイルをクローズ
-	
-	// エンコーディングを検出し、UTF-8に変換して表示する
-	$detected_encoding = mb_detect_encoding($contents);
-	if ($detected_encoding !== "UTF-8") {
-		$contents = mb_convert_encoding($contents, "UTF-8", $detected_encoding);
-	}
-	echo $contents;
-	readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
-
-*/
-exit;
+		// ローカルかつwidnows判定
+		$is_local_and_windows = basic::is_local_and_windows();
+		// ローカルwidnows用
+		if($is_local_and_windows) {
+			// gz読み込み
+			header('Content-Encoding: gzip');
+			$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz'; // 圧縮されたファイルパス
+			// windowsでのキモ
+			$contents = file_get_contents("compress.zlib://" . $file_path); // gzファイルを読み込む
+			// エンコーディングを検出し、UTF-8に変換して表示する
+			$detected_encoding = mb_detect_encoding($contents);
+			if ($detected_encoding !== "UTF-8") {
+				$contents = mb_convert_encoding($contents, "UTF-8", $detected_encoding);
+			}
+			echo $contents;
+		}
+		else {
+			// gz読み込み
+			header('Content-Encoding: gzip');
+			readfile(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html.gz');
+		}
 }
 	else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.html')) {
 		// コントローラー読み込み
@@ -296,7 +281,6 @@ exit;
 		else if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php')) {
 			// コントローラー読み込み
 			require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$controller_query.'/index.php');
-			exit;
 		}
 			// エラー表示
 			else {
@@ -305,6 +289,5 @@ exit;
 				require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 				exit;
 		}
-
 
 
