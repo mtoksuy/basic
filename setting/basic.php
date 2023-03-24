@@ -1042,10 +1042,35 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			");
 		} // if($cron_res[0]['type'] == 'article') {
 	}
+	//---------------------------------------------
+	// 特定の文字列が2連続である場合1つにする
+	//---------------------------------------------
+	public static function replace_recursive($str, $target_str = '/') {
+		$new_str = str_replace($target_str.$target_str, $target_str, $str);
+		if ($new_str !== $str) {
+			return basic::replace_recursive($new_str);
+		} 
+		else {
+			return $new_str;
+		}
+	}
 
-
-
-
+	//---------------------------------
+	// 特定の配下のファイル一覧取得
+	//---------------------------------
+	public static function getPhpFilesInSelectDirectory($dir, $target_dir, $extension = 'php') {
+		$files = glob($dir . '/*');
+		$phpFiles = [];
+		foreach ($files as $file) {
+			if (is_dir($file)) {
+				$phpFiles = array_merge($phpFiles, basic::getPhpFilesInSelectDirectory($file, $target_dir, $extension));
+			}
+			elseif (strpos($file, '/'.$target_dir.'/') !== false && pathinfo($file, PATHINFO_EXTENSION) == $extension) {
+				$phpFiles[] = $file;
+			}
+		}
+		return $phpFiles;
+	}
 
 
 

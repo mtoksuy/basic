@@ -1,6 +1,8 @@
-![ViewComponent logo](/app/theme/admin/assets/img/logo/basic_logo_1.svg#gh-light-mode-only)
-![ViewComponent logo](/app/theme/admin/assets/img/logo/basic_logo_1.svg#gh-dark-mode-only)
-
+![ViewComponent logo](https://basic.dance/app/assets/img/ogp/basic_ogp_1.png)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg?style=flat-square)](https://php.net/)
+[![GitHub release](https://img.shields.io/github/v/release/mtoksuy/basic)](https://github.com/mtoksuy/basic)
+[![GitHub forks](https://img.shields.io/github/forks/mtoksuy/basic)](https://github.com/mtoksuy/basic/network)
+[![GitHub stars](https://img.shields.io/github/stars/mtoksuy/basic)](https://github.com/mtoksuy/basic/stargazers)
 
 # Basicセットアップ
 ## 0.事前準備
