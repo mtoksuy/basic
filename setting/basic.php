@@ -530,6 +530,8 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				}
 				// 素のhtml抽出
 				$html = file_get_contents($http_path);
+				// 文字化けさせないためにutf-8に変換
+				$html = mb_convert_encoding($html,'utf-8','auto');
 				//コメントアウトを削除
 				$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
 				// CSSインライン化
@@ -811,6 +813,8 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					}
 					// 素のhtml抽出
 					$html = file_get_contents($value['http_path']);
+					// 文字化けさせないためにutf-8に変換
+					$html = mb_convert_encoding($html,'utf-8','auto');
 					//コメントアウトを削除
 					$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
 					// CSSインライン化
@@ -1071,10 +1075,25 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		}
 		return $phpFiles;
 	}
-
-
-
-
+	//-----------------------------
+	// ローカルかつwidnows判定
+	//-----------------------------
+	public static function is_local_and_windows() {
+		$is_local_and_windows = false;
+		// ローカル環境
+		if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
+			if (isset($_SERVER['HTTP_USER_AGENT'])) {
+				$ua = $_SERVER['HTTP_USER_AGENT'];
+				if (strpos($ua, 'Windows') !== false) {
+					$is_local_and_windows = true;
+				}
+			}
+		} // if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
+		return $is_local_and_windows;
+	}
 
 
 }
+
+
+
