@@ -35,7 +35,9 @@ article {
 	letter-spacing: 0.3px;
 */
 }
-
+/***
+目次
+***/
 article .index {
 	list-style: decimal;
 	counter-reset: number;
@@ -45,9 +47,11 @@ article .index {
 	border: 1px solid #ddd;
 	padding: 15px 20px;
 	padding: 15px 20px  5px 20px;
+	margin: 15px 0 30px 0;
 	width: 100%;
 	border-radius: 4px;
 	background-color: #fcfcfc;
+	box-sizing: border-box;
 }
 
 article .index .title {
@@ -58,12 +62,9 @@ margin-bottom: 18px;
 font-weight: bold;
 }
 
-
-
-
 article .index li {
 	cursor: pointer;
-	color: #48BF84;
+	color: var(--theme-color1);
 	position: relative;
 	padding-left: 30px;
 	margin: 0 0 15px 0;
@@ -133,13 +134,15 @@ article .index li:hover {
 ******/
 article h1 {
 	font-size: 32px;
+	margin: 0 0 30px 0;
+	font-weight: 500;
 }
 
 article h2 {
 	font-size: 22px;
 	margin: 45px 0 30px 0;
 	border: none;
-	border-bottom: 3px solid #48BF84;
+	border-bottom: 3px solid var(--theme-color1);
 	padding: 0px 15px 15px 38px;
 	position: relative;
 }
@@ -147,7 +150,7 @@ article h2 {
 article h2:before {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-color1);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -160,7 +163,7 @@ article h2:before {
 article h2:after {
 	border: 1px solid;
 	border-radius: 2px;
-	color: #48BF84;
+	color: var(--theme-color1);
 	content: "";
 	font-size: 95%;
 	height: 14px;
@@ -174,14 +177,14 @@ article h3 {
 	font-size: 20px;
 	margin: 30px 0 15px 0;
 	border: none;
-	border-left: 2px solid #48BF84;
+	border-left: 2px solid var(--theme-color1);
 	padding: 5px 5px 5px 15px;
 }
 
 article h4 {
 	font-size: 18px;
 	margin: 30px 0 15px 0;
-	border-left: 1px solid #48BF84;
+	border-left: 1px solid var(--theme-color1);
 	padding: 0px 0px 0px 5px;
 }
 
@@ -202,7 +205,7 @@ article img {
 }
 
 article strong {
-	color: #f24763;
+	color: var(--theme-color1);
 }
 
 article .article_data {
@@ -232,6 +235,7 @@ article .posted_date_time {}
 article .update_date_time {}
 
 article p {
+	font-size: 16px;
 	margin: 0;
 }
 
@@ -239,10 +243,40 @@ article ul.number {
 	list-style-type: decimal;
 }
 
-article ul.index {
-	list-style-type: decimal;
-	margin: 0 0 30px 0;
+/*****
+コード
+*****/
+article .code {
+	word-wrap: break-word;
+	margin: 15px 0 30px 0;
 }
+article .code pre {
+	font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+	padding: 16px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	font-size: 12px;
+	background-color: #f6f8fa;
+	border-radius: 6px;
+}
+article .code pre code {
+	display: inline;
+	padding: 0;
+	margin: 0;
+	overflow: visible;
+	line-height: inherit;
+	word-wrap: normal;
+	background-color: transparent;
+	border: 0;
+	tab-size: 2;
+	-moz-tab-size: 2;
+}
+
+
+
+
+
 
 pre.code {
 	white-space: pre-wrap;
@@ -265,6 +299,16 @@ pre.code code {
 	padding: 15px;
 	margin: 0 0 30px 0 !important;
 }
+
+
+
+
+
+
+
+
+
+
 
 .half_half {
 	list-style: none;
@@ -387,7 +431,7 @@ PR
 
 .pr {
 	padding: 30px;
-	border: 5px solid #48BF84;
+	border: 5px solid var(--theme-color1);
 }
 
 .pr .pr_title {
@@ -412,7 +456,7 @@ PR
 }
 
 .pr a {
-	color: #48BF84;
+	color: var(--theme-color1);
 }
 
 .pr_prompt_button_list {
@@ -422,7 +466,7 @@ PR
 .pr .pr_prompt_button {
 	position: relative;
 	right: -42px;
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	cursor: pointer;
 	border: solid 0px rgb(46, 181, 29);
 	display: inline-flex;
@@ -442,7 +486,7 @@ PR
 	right: -42px;
 	color: #282828;
 	background-color: #fff;
-	border: solid 1px #48BF84;
+	border: solid 1px var(--theme-color1);
 	cursor: pointer;
 	display: inline-flex;
 	margin: 0 10px 0 0;
@@ -459,32 +503,17 @@ PR
 ハッシュタグ
 ************/
 
-.article_hashtag {}
-
-.article_hashtag ul {
-	list-style: none;
-	padding: 0;
-	margin: 30px 0 0 0;
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.article_hashtag ul li {
+.hashtag {
 	display: inline-block;
-	max-width: 100%;
-	margin-right: 8px;
-	margin-bottom: 8px;
 }
-
-.article_hashtag ul li a {
+.hashtag a {
 	color: #212121;
 	border: 1px solid #d7d7d7;
 	padding: 5px 8px 5px 8px;
 	border-radius: 3px;
 	font-size: 14px;
 }
-
-.article_hashtag ul li a::before {
+.hashtag a::before {
 	content: '#';
 }
 
@@ -570,14 +599,14 @@ PR
 }
 
 .related_articles span {
-	border-bottom: 1px solid #48BF84;
+	border-bottom: 1px solid var(--theme-color1);
 	padding: 0 0 12px;
 	position: relative;
 	display: block;
 }
 
 .related_articles span::before {
-	border-bottom: 2px solid #48BF84;
+	border-bottom: 2px solid var(--theme-color1);
 	content: '　';
 	padding: 0 0 11px;
 	position: absolute;
@@ -660,7 +689,7 @@ PR
 
 .amazon_link .amazon_link_inner {
 	margin: 60px 0 30px 0;
-	border: 1px solid #A9DABE;
+	border: 1px solid var(--theme-color1);
 	list-style: none;
 	padding: 0;
 	display: flex;
@@ -675,7 +704,7 @@ PR
 	position: absolute;
 	top: -29px;
 	left: 15px;
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	padding: 0 10px;
 	border-radius: 3px 3px 0 0;
 	color: #fff;
@@ -704,7 +733,7 @@ PR
 .amazon_link .amazon_link_inner .amazon_link_right .amazon_link_heading {
 	margin: 0px 0 15px 0;
 	border: none;
-	border-bottom: 0px solid #48BF84;
+	border-bottom: 0px solid var(--theme-color1);
 	padding: 0px 0 0px;
 }
 
@@ -772,7 +801,7 @@ PR
 }
 
 .amazon_link .amazon_link_inner .amazon_link_right .amazon_products_link a {
-	background-color: #48BF84;
+	background-color: var(--theme-color1);
 	padding: 8px 1px 10px 5px;
 	color: #fff;
 	border-radius: 3px;
@@ -840,7 +869,9 @@ PR
 	border-right: solid 9px transparent;
 }
 
-.quote .quote_inner blockquote p {}
+.quote .quote_inner blockquote p {
+	opacity: 0.8;
+}
 
 .quote .quote_inner blockquote strong {
 	color: #212121;
@@ -873,7 +904,7 @@ amazon_review
 	/*
 	background: #fbfbfb;
 */
-	border-left: 1px solid #48BF84;
+	border-left: 1px solid var(--theme-color1);
 }
 
 .amazon_review:before {
@@ -924,7 +955,7 @@ check_point
 .check_point {}
 
 .check_point .check_point_inner {
-	border: 3px solid #48BF84;
+	border: 3px solid var(--theme-color1);
 	border-radius: 12px;
 	position: relative;
 	padding: 15px 15px 15px 0px;
@@ -1003,7 +1034,7 @@ check_point
 	/*
 background-color: #fcfcfc;
 */
-	border: 2px dashed #ffa3a3;
+	border: 2px dashed #86c2ff;
 	display: block;
 	margin: 15px 0 30px;
 	padding: 15px;
@@ -1046,7 +1077,7 @@ padding: 10px;
 	width: 100%;
 	height: auto;
 	background-color: #FcFcFc;
-	border: 0px solid #48BF84;
+	border: 0px solid var(--theme-color1);
 	border-radius: 72px;
 	box-sizing: border-box;
 	padding: 5px;
@@ -1131,7 +1162,7 @@ padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
 	/*
-	border: 1px solid #48BF84;
+	border: 1px solid var(--theme-color1);
 */
 	border: 1px solid rgba(92, 147, 187, 0.2);
 	border-radius: 3px;
