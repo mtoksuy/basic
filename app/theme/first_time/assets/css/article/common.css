@@ -690,7 +690,7 @@ PR
 
 .amazon_link .amazon_link_inner {
 	margin: 60px 0 30px 0;
-	border: 1px solid #A9DABE;
+	border: 1px solid var(--theme-color1);
 	list-style: none;
 	padding: 0;
 	display: flex;
