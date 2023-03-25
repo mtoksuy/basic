@@ -39,11 +39,11 @@
 				<li data-clip_name="headline_1"><span class="howto"># </span>見出し1</li>
 				<li data-clip_name="headline_2"><span class="howto">## </span>見出し2</li>
 				<li data-clip_name="headline_3"><span class="howto">### </span>見出し3</li>
+				<li data-clip_name="code"><span class="howto">```</span>コード<span class="howto">```</span></li>
 				<li data-clip_name="separator"><span class="howto">---</span>1行セパレーター<span class="howto"></span></li>
 				<li data-clip_name="strong"><span class="howto">*</span>太文字<span class="howto">*</span></li>
 				<li data-clip_name="marker"><span class="howto">__</span>マーカー<span class="howto">__</span></li>
 				<li data-clip_name="link"><span class="howto">[text](url)</span>リンク</li>
-				<li data-clip_name="card_link"><span class="howto"></span>カード形式リンク</li>
 				<li data-clip_name="image"><span class="howto">(url)</span>画像</li>
 				<li data-clip_name="list"><span class="howto">*</span>リスト</li>
 				<li data-clip_name="checkpoint">チェックポイント</li>
