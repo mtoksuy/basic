@@ -162,8 +162,15 @@ letter-spacing: 0.3px;
 .clip ul li {
 	cursor: pointer;
 }
-
-
+.clip ul li .howto {
+	opacity: 0.3;
+}
+/*
+重なりがない場合は
+	opacity: 0.3;
+重なりがある場合は
+	filter: brightness(50%);
+*/
 /*************************************
 ショートカット下書き保存お知らせ機能
 *************************************/
