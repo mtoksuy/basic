@@ -356,7 +356,9 @@ main
 .main {
 	padding: 0px 0 0;
 	margin: 0 auto;
+/*
 	width: 70%;
+*/
 }
 
 .main main_inner {}

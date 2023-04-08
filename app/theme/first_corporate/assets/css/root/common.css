@@ -157,6 +157,9 @@ content_block_v3
 .content_block_v3 ul li article a .card_article_contents h1 {
 
 }
+.content_block_v3 ul li article a .card_article_contents .thumbnail {
+	display: none;
+}
 .content_block_v3 ul li article a .card_article_contents .card_article_contents_summary {
 
 }

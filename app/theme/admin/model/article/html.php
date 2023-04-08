@@ -5,15 +5,28 @@ class model_article_html {
 	//-----------------------
 	public static function article_list_html_create($article_list_res) {
 		$article_list_li = '';
+		$thumbnail_html = '';
 		foreach($article_list_res as $key => $value) {
 			// 記事データ取得
-			$unix_time            = strtotime($value["create_time"]);
-			$local_time           = date('Y-m-d', $unix_time);
+			$unix_time                   = strtotime($value["create_time"]);
+			$local_time                  = date('Y-m-d', $unix_time);
 			$local_japanese_time  = date('Y年m月d日', $unix_time);
-			$article_year_time    = date('Y', $unix_time);
+			$article_year_time       = date('Y', $unix_time);
 //pre_var_dump($value);
 			// 記事HTMLテキスト取得
 			$article_contents     = htmlspecialchars_decode($value["content"]);
+			// basicのユーザーデータ取得
+			$user_data_array = basic::user_data_get($value['basic_id']);
+			// サムネイルHTML生成
+			$thumbnail_html = model_article_html::thumbnail_html_create($article_contents);
+			// サムネイルを指定してなかった場合はデフォルトサムネイル表示
+			if(!$thumbnail_html) {
+				if(file_exists(PATH.'app/assets/img/article_ogp/'.$value['primary_id'].'.png')) {
+					$thumbnail_html = '<div class="thumbnail"> <img src="'.HTTP.'app/assets/img/article_ogp/'.$value['primary_id'].'.png" decoding="async" loading="lazy"> </div>';
+				}
+			}
+			// マークダウンをhtmlに変換
+			$article_contents = model_login_admin_post_basis::markdown_html_conversion($article_contents, $user_data_array);
 			// 改行を消す&タブ削除
 			$article_contests = str_replace(array("\r\n", "\r", "\n", "\t"), '', $article_contents);
 			// 本文を5680文字に丸める
@@ -32,6 +45,7 @@ class model_article_html {
 					<article>
 						<a href="'.HTTP.'article/'.$value['primary_id'].'/" class="o_8">
 							<div class="card_article_contents">
+								'.$thumbnail_html.'
 								<h1>'.$title.'</h1>
 								<div class="card_article_contents_summary">'.$summary_contents.'</div>
 								<div class="card_article_contents_time">'.$local_japanese_time.'</div>
@@ -77,6 +91,8 @@ class model_article_html {
 			$article_contents     = htmlspecialchars_decode($value["content"]);
 			// basicのユーザーデータ取得
 			$user_data_array = basic::user_data_get($value['basic_id']);
+			// サムネイルHTML生成
+			$thumbnail_html = model_article_html::thumbnail_html_create($article_contents);
 			// マークダウンをhtmlに変換
 			$article_contents = model_login_admin_post_basis::markdown_html_conversion($article_contents, $user_data_array);
 			// 画像をwebpに差し替える(既存で存在していたら)
@@ -111,12 +127,6 @@ class model_article_html {
 			$article_previous_next_res_array = model_article_basis::article_previous_next_get($article_primary_id);
 			$detail_article_bottom_html = model_article_html::article_previous_next_html_create($article_primary_id);
 
-
-
-
-
-
-
 			// 記事HTML
 			$article_html = ('
 				<article>
@@ -127,6 +137,7 @@ class model_article_html {
 						</div>
 						'.$posted_date_time_html.'
 						'.$update_date_time_html.'
+						'.$thumbnail_html.'
 					</div>
 					'.$article_contents.'
 					'.$hashtag_html.'
@@ -591,7 +602,6 @@ class model_article_html {
 //		preg_match_all();
 		preg_match_all('/<img(.*?)>/', $article_contents, $img_array_1);
 		preg_match_all('/src="(.*?)"/', $article_contents, $img_array_2);
-
 		// 下準備
 		foreach($img_array_1[0] as $key => $value) {
 			$img_array_1_oni = preg_replace('/\//', '\/', $value);
@@ -604,13 +614,20 @@ class model_article_html {
 		foreach($img_array_2[1] as $key => $value) {
 			$result = strstr($value, 'app');
 //			pre_var_dump($value);
-//			pre_var_dump($result);
+//			pre_var_dump(PATH.$result);
+			// パスインフォ
+			$file_info = pathinfo(PATH.$result);
 			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
 //		pre_var_dump($result_array[0]);
 			// ファイル名の頭にwebp_追加
 			$webp_path = preg_replace('/(\/[0-9]{4}\/[0-9]{2}\/)/', '\\1webp_', $result);
+			// エラー回避 image:"(画像URL)" など書かれた場合
+			if(empty($file_info['extension'])) {
+				$file_info['extension'] = '';
+			}
 			// 拡張子をwebpに変換
-			$webp_path = preg_replace('/\.(.*?)$/', '.webp', $webp_path);
+			$webp_path = preg_replace('/\.'.$file_info['extension'].'$/i', '.webp', $webp_path);
+//			pre_var_dump($webp_path);
 			// パスがあった場合
 			if($webp_path) {
 				$webp_exists_path = PATH.$webp_path;
@@ -625,6 +642,51 @@ class model_article_html {
 		} // foreach($img_array_2[1] as $key => $value) {
 		return $article_contents;
 	}
+
+	//------------------------
+	// サムネイルHTML生成
+	//------------------------
+	public static function thumbnail_html_create($markdown) {
+		// ()削除
+		$patterns = array (
+			'/"\(/s',
+			'/\)"/s',
+		);
+		$markdown = preg_replace($patterns , '"', $markdown);
+		// サムネイル変換
+		$markdown = preg_match('/\[thumbnail:(.*?)image:"(.*?)"(.*?)]/s' , $markdown, $markdown_array);
+		if($markdown_array) {
+			$thumbnail_html = 
+				'<div class="thumbnail">
+					<img src="'.$markdown_array[2].'">
+				</div>';
+			// 画像をwebpに差し替える(既存で存在していたら)
+			$thumbnail_html = model_article_html::image_to_webp_replace($thumbnail_html);
+		}
+		else {
+			$thumbnail_html = '';
+		}
+		return  $thumbnail_html;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

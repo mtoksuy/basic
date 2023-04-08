@@ -125,21 +125,21 @@ class model_login_admin_general_html {
 								<div class="admin_theme_color_option">
 									<input name="admin_theme_color" id="admin_color_calmo" type="radio" value="calmo" '.$calmo_checked.'>
 									<label for="admin_color_calmo">カルモ
-										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ calmo_1.svg">
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_calmo_1.svg">
 									</label>
 								</div> <!-- admin_theme_color_option -->
 
 								<div class="admin_theme_color_option">
 									<input name="admin_theme_color" id="admin_color_sakura" type="radio" value="sakura" '.$sakura_checked.'>
 									<label for="admin_color_sakura">サクラ
-										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ sakura_1.svg">
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_sakura_1.svg">
 									</label>
 								</div> <!-- admin_theme_color_option -->
 
 								<div class="admin_theme_color_option">
 									<input name="admin_theme_color" id="admin_color_arbre" type="radio" value="arbre" '.$arbre_checked.'>
 									<label for="admin_color_arbre">アーブル
-										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_ arbre_1.svg">
+										<img src="'.HTTP.'app/theme/admin/assets/img/svg/theme_color_image_view_1_arbre_1.svg">
 									</label>
 								</div> <!-- admin_theme_color_option -->
 							</fieldset>
