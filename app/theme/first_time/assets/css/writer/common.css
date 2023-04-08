@@ -69,12 +69,15 @@ writer
 
 .writer .writer_inner .writer_inner_right ul li {
 	margin: 0 0 30px 0;
-	width: 100%;
+	width: 33%;
 }
-
+.writer .writer_inner .writer_inner_right ul li:hover {
+	background-color: #f0f0f0;
+}
 .writer .writer_inner .writer_inner_right ul li a {
 	display: block;
 	color: #292f33;
+	padding: 12px;
 }
 
 .writer .writer_inner .writer_inner_right ul li a:visited {
@@ -83,8 +86,23 @@ writer
 
 .writer .writer_inner .writer_inner_right img {
 	width: 100%;
-	height: auto;
+	box-shadow: rgba(0, 0, 0, 0.05) 1px 1px 0px 0px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	margin: 0 0 15px 0;
+	border-radius: 3px;
+	height: 10.3vw;
+	object-fit: cover;
 }
+.writer .writer_inner .writer_inner_right h1 {
+	font-size: 20px;
+	margin: 0 0 8px 0;
+}
+
+
+
 
 
 /**************

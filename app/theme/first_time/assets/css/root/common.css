@@ -6,6 +6,7 @@ root
 
 .root .root_inner {
 	margin: 0 auto;
+	width: 95%;
 }
 
 .root .root_inner .card_article {}
@@ -59,10 +60,13 @@ root
 	border-bottom-left-radius: 2px;
 	margin: 0 0 15px 0;
 	border-radius: 3px;
+	height: 14.6vw;
+	object-fit: cover;
 }
 
 .root .root_inner .card_article .card_article_inner ul li article a .card_article_contents h1 {
 	font-size: 20px;
+	margin: 0 0 8px 0;
 }
 
 .root .root_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_summary {}
@@ -70,6 +74,17 @@ root
 .root .root_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_time {}
 
 
+
+
+
+/**************
+1024px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 14vw;
+	}
 /**************
 880px以下の設定
 **************/
@@ -81,7 +96,11 @@ root
 	.root .root_inner .card_article .card_article_inner ul li article a {
 		padding: 15px;
 	}
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 24vw;
+	}
 }
+
 
 
 /**************
@@ -94,6 +113,9 @@ root
 	}
 	.root .root_inner .card_article .card_article_inner ul li article a {
 		padding: 5px;
+	}
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 48vw;
 	}
 }
 
