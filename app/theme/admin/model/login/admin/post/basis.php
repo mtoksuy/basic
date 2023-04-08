@@ -8,6 +8,16 @@ class model_login_admin_post_basis {
 //		pre_var_dump($user_id_data_array);
 //pre_var_dump($markdown);
 
+		// image:""内の()を削除
+		$pattern = '/image:"(.*?)"/';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+		$patterns = array (
+			'"(',
+			')"',
+		);
+			return str_replace($patterns, '"', $matches[0]);
+		}, $markdown);
+
 		// コード内をHTMLエンティティに変換に変換
 		$pattern = '/```(.*?)```/s';
 		$markdown = preg_replace_callback($pattern, function($matches) {
@@ -206,6 +216,27 @@ class model_login_admin_post_basis {
 
 
 
+		// サムネイル変換
+		$markdown = preg_replace('/\[thumbnail:(.*?)image:"(.*?)"(.*?)]/s', '', $markdown);
+
+/*
+	// サムネイル変換
+	$markdown = preg_replace('/thumbnail:\(((.*?)png)\)/', 'ああああああああああ<img src="\\1">', $markdown);
+Todo：
+thumbnail:(http://localhost/basic/app/assets/fileupload/2023/03/スクリーンショット 2023-03-26 0.48.21_1.png)
+or
+[thumbnail:
+	image:"http://localhost/basic/app/assets/fileupload/2023/03/スクリーンショット 2023-03-26 0.48.21_1.png"
+]
+
+サムネイル判定を行い、直接表示(場所は最上部 タイトル サムネイル 著者 投稿日の順)
+画像生成はしない。CSSで画角調整を行い、はみ出ている箇所は非表示
+
+// 記事データHTML生成
+$article_data_array = model_article_html::article_html_create($article_draft_res);
+で サムネイル判定を行い(別関数作成、リターンでサムネイル取得して記事内容に流し込む)
+*/
+
 		// 画像変換
 		$markdown = preg_replace('/\(((.*?)jpg)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)jpeg)\)/', '<img src="\\1">', $markdown);
@@ -222,10 +253,75 @@ class model_login_admin_post_basis {
 		// アマゾン変換
 //		$markdown = preg_replace('/\[amazon:(.*?)brand:(.*?)title:(.*?)price:(.*?)rating:(.*?)review:(.*?)image:(.*?)link:(.*?)\]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\7"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\3</h3><div class="amazon_link_price">\\4</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\5.png"><span>\\6個の評価</span></div><span class="amazon_link_button"><a href="\\8" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
 
+		$pattern = '/\[amazon:(.*?)brand:"(.*?)"(.*?)title:"(.*?)"(.*?)price:"(.*?)"(.*?)rating:"(.*?)"(.*?)review:"(.*?)"(.*?)image:"(.*?)"(.*?)link:"(.*?)"(.*?)]/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			$rating_matches_float = (float)$matches[8];
+/*
+当初の仕様
+			if($rating_matches_float === (float)0) {
+				$rating = '3.0';
+			}
+			else if($rating_matches_float <= 0.5) {
+				$rating = '0.5';
+			}
+			else if($rating_matches_float <= 1) {
+				$rating = '1.0';
+			}
+			else if($rating_matches_float <= 1.5) {
+				$rating = '1.5';
+			}
+			else if($rating_matches_float <= 2) {
+				$rating = '2.0';
+			}
+			else if($rating_matches_float <= 2.5) {
+				$rating = '2.5';
+			}
+			else if($rating_matches_float <= 3) {
+				$rating = '3.0';
+			}
+			else if($rating_matches_float <= 3.5) {
+				$rating = '3.5';
+			}
+			else if($rating_matches_float <= 4) {
+				$rating = '4.0';
+			}
+			else if($rating_matches_float <= 4.5) {
+				$rating = '4.5';
+			}
+			else if($rating_matches_float <= 5) {
+				$rating = '5.0';
+			}
+			else if($rating_matches_float >= 5) {
+				$rating = '5.0';
+			}
+			else {
+				$rating = '3.0';
+			}
+*/
+			// v_0.9.7.1からの仕様
+			$rating = round($rating_matches_float * 2) / 2;
+			// 例外
+			if ($rating_matches_float <= 0) {
+				$rating = '3.0';
+			}
+			// 例外
+			if ($rating_matches_float <= 0.2) {
+				$rating = '0.5';
+			}
+			// 例外
+			if ($rating_matches_float >= 5) {
+				$rating = '5.0';
+			}
+			preg_match('/\./', $rating, $rating_array);
+			if(!$rating_array) {
+				$rating = $rating.'.0';
+			}
+			return str_replace('rating:"'.$matches[8].'"', 'rating:"'.$rating.'"', $matches[0]);
+		}, $markdown);
 
 
 		// アマゾン変換
-		$markdown = preg_replace('/\[amazon:(.*?)brand:"(.*?)"(.*?)title:"(.*?)"(.*?)price:"(.*?)"(.*?)rating:"(.*?)"(.*?)review:"(.*?)"(.*?)image:"(.*?)"(.*?)link:"(.*?)"(.*?)]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\12" alt="\\4"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\4</h3><div class="amazon_link_price">\\6</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\8.png"><span>\\10個の評価</span></div><span class="amazon_link_button"><a href="\\14" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
+		$markdown = preg_replace('/\[amazon:(.*?)brand:"(.*?)"(.*?)title:"(.*?)"(.*?)price:"(.*?)"(.*?)rating:"(.*?)"(.*?)review:"(.*?)"(.*?)image:"(.*?)"(.*?)link:"(.*?)"(.*?)]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\12" alt="\\4"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\4</h3><div class="amazon_link_price">\\6</div><div class="amazon_link_rating"><img src="'.HTTP.'/app/assets/img/common/rating_1_\\8.png"><span>\\10個の評価</span></div><span class="amazon_link_button"><a href="\\14" target="_blank"><img src="'.HTTP.'/app/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
 
 		// アマゾン_v2変換
 		$markdown = preg_replace('/\[amazon_v2:(.*?)ASIN:"(.*?)"(.*?)brand:"(.*?)"(.*?)title:"(.*?)"(.*?)price:"(.*?)"(.*?)rating:"(.*?)"(.*?)review:"(.*?)"(.*?)image:"(.*?)"(.*?)link:"(.*?)"(.*?)]/s', '<div class="amazon_link" asin-data="\\2"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\14" alt="\\6"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\4</span><a href="'.HTTP.'products/\\2/" target="_blank">\\6</a></h3><div class="amazon_link_price">\\8</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\10.png"><span>\\12個の評価</span></div><span class="amazon_link_button"><a href="\\16" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span><div class="amazon_products_link"><a href="'.HTTP.'products/\\2/" target="_blank"><img src="'.HTTP.'assets/img/common/amazon_products_link_1.png"></a></div></div></div></div>', $markdown);
@@ -308,16 +404,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
 		}, $txt);
 
-
 //<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
-
-
-
-
-
-
-
-
 
 		return $txt;
 	}
