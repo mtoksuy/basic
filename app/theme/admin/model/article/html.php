@@ -617,11 +617,14 @@ class model_article_html {
 //			pre_var_dump(PATH.$result);
 			// パスインフォ
 			$file_info = pathinfo(PATH.$result);
-//			pre_var_dump($file_info);
 			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
 //		pre_var_dump($result_array[0]);
 			// ファイル名の頭にwebp_追加
 			$webp_path = preg_replace('/(\/[0-9]{4}\/[0-9]{2}\/)/', '\\1webp_', $result);
+			// エラー回避 image:"(画像URL)" など書かれた場合
+			if(empty($file_info['extension'])) {
+				$file_info['extension'] = '';
+			}
 			// 拡張子をwebpに変換
 			$webp_path = preg_replace('/\.'.$file_info['extension'].'$/i', '.webp', $webp_path);
 //			pre_var_dump($webp_path);
@@ -644,6 +647,12 @@ class model_article_html {
 	// サムネイルHTML生成
 	//------------------------
 	public static function thumbnail_html_create($markdown) {
+		// ()削除
+		$patterns = array (
+			'/"\(/s',
+			'/\)"/s',
+		);
+		$markdown = preg_replace($patterns , '"', $markdown);
 		// サムネイル変換
 		$markdown = preg_match('/\[thumbnail:(.*?)image:"(.*?)"(.*?)]/s' , $markdown, $markdown_array);
 		if($markdown_array) {
