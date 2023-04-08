@@ -206,6 +206,27 @@ class model_login_admin_post_basis {
 
 
 
+		// サムネイル変換
+		$markdown = preg_replace('/\[thumbnail:(.*?)image:"(.*?)"(.*?)]/s', '', $markdown);
+
+/*
+	// サムネイル変換
+	$markdown = preg_replace('/thumbnail:\(((.*?)png)\)/', 'ああああああああああ<img src="\\1">', $markdown);
+Todo：
+thumbnail:(http://localhost/basic/app/assets/fileupload/2023/03/スクリーンショット 2023-03-26 0.48.21_1.png)
+or
+[thumbnail:
+	image:"http://localhost/basic/app/assets/fileupload/2023/03/スクリーンショット 2023-03-26 0.48.21_1.png"
+]
+
+サムネイル判定を行い、直接表示(場所は最上部 タイトル サムネイル 著者 投稿日の順)
+画像生成はしない。CSSで画角調整を行い、はみ出ている箇所は非表示
+
+// 記事データHTML生成
+$article_data_array = model_article_html::article_html_create($article_draft_res);
+で サムネイル判定を行い(別関数作成、リターンでサムネイル取得して記事内容に流し込む)
+*/
+
 		// 画像変換
 		$markdown = preg_replace('/\(((.*?)jpg)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)jpeg)\)/', '<img src="\\1">', $markdown);
@@ -308,16 +329,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
 		}, $txt);
 
-
 //<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
-
-
-
-
-
-
-
-
 
 		return $txt;
 	}

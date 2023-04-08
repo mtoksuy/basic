@@ -68,6 +68,13 @@
 				else if(clip_name == 'index') {
 					clip_content = '##index##';
 				}
+				else if(clip_name == 'thumbnail') {
+					let stringWithoutParentheses = selected_text;
+					if (selected_text.startsWith("(") && selected_text.endsWith(")")) {
+						stringWithoutParentheses = selected_text.slice(1, -1);
+					}
+					clip_content = '[thumbnail:\n	image:"'+stringWithoutParentheses+'"\n]';
+				}
 			// テキスト挿入
 			document.execCommand('insertText', false, clip_content);
 			if(navigator.clipboard){

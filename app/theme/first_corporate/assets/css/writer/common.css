@@ -84,8 +84,8 @@ writer
 .writer .writer_inner .writer_inner_right img {
 	width: 100%;
 	height: auto;
+	display: none;
 }
-
 
 /**************
 1024px以下の設定
