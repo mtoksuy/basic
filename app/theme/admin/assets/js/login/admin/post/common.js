@@ -39,6 +39,10 @@
 					const listItems = selected_text.split('\n').map(text => `* ${text}\n`).join('');
 					clip_content = listItems;
 				}
+				else if(clip_name == 'table') {
+					// リスト形式に変換する
+					clip_content = '|'+selected_text+'|';
+				}
 				else if(clip_name == 'image') {
 					clip_content = '('+selected_text+')';
 				}
