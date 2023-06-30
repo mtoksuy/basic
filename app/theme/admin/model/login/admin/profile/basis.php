@@ -15,11 +15,14 @@ class model_login_admin_profile_basis {
 	//  プロフィール設定保存
 	//------------------------
 	public static function profile_save($post) {
+		// 現在時刻取得
+		$now_time = date('Y-m-d H:i:s');
 		$profile_res = model_db::query("
 			UPDATE user 
 			SET 
 				name = '".$post['name']."',
-				profile = '".$post['profile']."'
+				profile = '".$post['profile']."',
+				update_time = '".$now_time."'
 			WHERE primary_id = ".$_SESSION['primary_id']."");
 	}
 	//-----------------------------
