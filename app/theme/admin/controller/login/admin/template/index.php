@@ -1,8 +1,11 @@
 <?php
-		$get = basic::get_security();
-		$post = basic::post_security();
-		// 定義されていない変数を空定義
-		if(empty($get['file'])) { $get['file'] = ''; }
+	$get = basic::get_security();
+	$post = basic::post_security();
+	// 定義されていない変数を空定義
+	if(empty($get['file'])) { $get['file'] = ''; }
+
+	// ロールアクセス制御コンテンツ判断強制アドミン移動
+	model_login_admin_basis::role_access_control_admin_move();
 
 	if($_SESSION['basic_id']) {
 //		pre_var_dump($get);

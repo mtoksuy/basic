@@ -2,23 +2,9 @@
 $coreupdate = '';
 $contact_unread_count_html = '';
 
-		// ロールアクセス制御
-		switch($_SESSION['role']) {
-		// 管理者
-		case 'admin':
+	// ロールアクセス制御コンテンツ判断強制アドミン移動
+	model_login_admin_basis::role_access_control_admin_move(array('admin'));
 
-		break;
-		// 編集者
-		case 'editor':
-			// 移動
-			header('Location: '.HTTP.'login/admin/');
-		break;
-		// 投稿者
-		case 'postor':
-			// 移動
-			header('Location: '.HTTP.'login/admin/');
-		break;
-		}
 	// ログインしている場合
 	if($_SESSION['basic_id']) {
 		$now = 'coreupdate';
