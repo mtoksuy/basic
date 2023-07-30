@@ -95,15 +95,15 @@
 		}
 
 	if($_SESSION['basic_id']) {
-			///////
-			// 投稿
-			///////
+			//////////////////
+			// 投稿(下書き含む
+			//////////////////
 			if($_POST['title'] && $_POST['content']) {
 				// ポストの中身をエンティティ化する
 				$post = basic::post_security($_POST);
 				///////////////////////////////////////////////////////////
-				// 下記事があった場合
-				if($post['draft_id'] && $post['basic_id'] == $_SESSION['basic_id']) {
+				// 下記事があった場合(本人,admi,eitor対応
+				if($post['draft_id'] && $post['basic_id'] == $_SESSION['basic_id'] || $post['draft_id'] && $_SESSION['role'] == 'admin' || $post['draft_id'] && $_SESSION['role'] == 'editor') {
 					// 下書き記事削除
 					model_login_admin_draft_basis::article_draft_delete($post['draft_id']);
 				}
