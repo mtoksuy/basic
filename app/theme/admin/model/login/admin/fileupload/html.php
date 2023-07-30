@@ -19,7 +19,9 @@ class model_login_admin_fileupload_html {
 							<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple="multiple" webkitdirectory="" directory="">
 -->
 							<input type="file" name="uploadFile[]" id="uploadFile" accept="" multiple>
+<!-- デバッグ用 クリックしてファイル送って確認したい時使用
 							<input type="submit" value="確認" name="submit" style="top: -42px;position: relative;">
+-->
 						</form>
 			            <div id="btnInputFile">
 							<span>ファイルを選択する</span>

@@ -30,9 +30,6 @@ class model_login_admin_draft_basis {
 		編集者：editor
 		投稿者：postor
 		*/
-$_SESSION['role'] = 'admin';
-
-pre_var_dump($_SESSION['role']);
 		switch($_SESSION['role']) {
 			// 管理者
 			case 'admin':

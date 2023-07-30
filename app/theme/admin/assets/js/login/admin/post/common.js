@@ -212,7 +212,6 @@
 			content = $('#content').val();
 			article_id = $('#article_id').val();
 			basic_id = $('#basic_id').val();
-			alert('1');
 			// Ajaxで送信
 			$.ajax({
 				url: '../../../ajax/login/admin/post/edit/',
