@@ -115,7 +115,7 @@ CREATE TABLE `user` (
   `name` varchar(512) DEFAULT NULL,
   `icon` varchar(256) DEFAULT NULL,
   `profile` text DEFAULT NULL,
-  `authority_type` varchar(256) DEFAULT NULL,
+  `role` varchar(256) DEFAULT NULL,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL

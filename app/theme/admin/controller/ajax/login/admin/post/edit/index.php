@@ -13,8 +13,8 @@ $post = basic::post_security();
 if($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
 	if(!empty($post)) {
-		// 本人確認
-		if($post['basic_id'] == $basic_id) {
+		// 本人確認 or admin,ediotr権限あれば表示
+		if($post['basic_id'] == $basic_id || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 			// ハッシュタグリスト json_encodeで取得
 			$hashtag_selection_json = model_login_admin_post_basis::hashtag_selection_list_json_encode_get($post['content']);
 			// 編集保存

@@ -286,6 +286,8 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	//セットアップからユーザー登録
 	//--------------------------------
 	public static function setup_to_user_signup($post) {
+		// 現在時刻取得
+		$now_time = date('Y-m-d H:i:s');
 		// hash生成
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
 		// iconランダム選択
@@ -306,12 +308,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			INSERT INTO user (
 				basic_id,
 				password,
-				icon
+				icon,
+				role,
+				update_time
 			)
 			VALUES (
 				'".$post['basic_id']."', 
 				'".$password_hash."',
-				'".$random_icon_name."'
+				'".$random_icon_name."',
+				'admin',
+				'".$now_time."'
 			)
 		");
 		// サイト名変更

@@ -597,6 +597,15 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//新規投稿
 	//---------
 	public static function markdown_post_add($post, $hashtag_selection_json) {
+		$basic_id = '';
+		// 新規投稿の場合
+		if($post['basic_id'] == '') {
+			$basic_id = $_SESSION['basic_id'];
+		}
+		// 下書きの場合(本人,admin,editorが投稿した時の挙動
+		else {
+			$basic_id = $post['basic_id'];
+		}
 		$query = model_db::query("
 			INSERT INTO article 
 			(
@@ -606,7 +615,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				content
 			) 
 			VALUES (
-				'".$_SESSION['basic_id']."',
+				'".$basic_id."',
 				'".$post['title']."',
 				'".$hashtag_selection_json."', 
 				'".$post['content']."'
