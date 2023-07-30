@@ -66,6 +66,9 @@ class model_login_admin_html {
 				<li>
 					<a class="o_8" href="'.HTTP.'" target="_blank">サイトを表示</a>
 				</li>
+				<li>
+					<a class="o_8" href="'.HTTP.'writer/'.$_SESSION['basic_id'].'/" target="_blank">マイページ</a>
+				</li>
 			</ul>';
 
 		// アップデートパーツ
