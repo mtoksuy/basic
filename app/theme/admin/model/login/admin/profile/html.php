@@ -14,7 +14,7 @@ class model_login_admin_profile_html {
 					<form method="post" action="" class="profile_form" enctype="multipart/form-data">
 						<div class="block">
 							<label for="basic_id">basic_id名</label>
-							<input id="basic_id" maxlength="15" name="basic_id" type="text" value="'.$user_data_array['basic_id'].'" disabled="disabled">
+							'.$user_data_array['basic_id'].'
 						</div>
 
 
