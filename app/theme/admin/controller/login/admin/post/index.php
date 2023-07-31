@@ -21,16 +21,96 @@
 		if(empty($page_data_array['title'])) { $page_data_array['title'] = ''; }
 		if(empty($site_data_array['title'])) { $site_data_array['title'] = ''; }
 
+/*********************************************************************************/
+
+		// /login/admin/post/ へアクセスの場合
+		if($_GET['article_id'] == '' && $_GET['edit'] == '' && $_GET['delete'] == '' && $_GET['draft_id'] == '') {
+//			pre_var_dump('login/admin/post/ へアクセスの場合');
+		}
+		// 編集系、削除系はこちら
+		else {
+			$article_id = (int)$_GET['article_id'];
+			// 記事編集、削除
+			if($article_id) {
+				// 記事データ取得
+				$article_res = model_article_basis::article_get($article_id);
+/*
+				pre_var_dump($_SESSION['basic_id']);
+				pre_var_dump($_SESSION['role']);
+				pre_var_dump($article_res[0]['basic_id']);
+*/
+				// ロールアクセス制御
+				switch($_SESSION['role']) {
+					// 管理者
+					case 'admin':
+			
+					break;
+					// 編集者
+					case 'editor':
+			
+					break;
+					// 投稿者
+					case 'postor':
+						// 同じ場合
+						if($_SESSION['basic_id'] === $article_res[0]['basic_id']) {
+			
+						}
+						// 違う人の記事を開いた場合adminに戻す
+						else {
+							// 強制移動
+							header('Location: '.HTTP.'login/admin/');
+						}
+					break;
+				}
+			}
+			$draft_id = (int)$_GET['draft_id'];
+			// 下記事編集、削除
+			if($draft_id) {
+				// 記事データ取得
+				$article_draft_res = model_login_admin_draft_basis::article_draft_get($draft_id);
+/*
+				pre_var_dump($_SESSION['basic_id']);
+				pre_var_dump($_SESSION['role']);
+				pre_var_dump($article_draft_res[0]['basic_id']);
+*/
+				// ロールアクセス制御
+				switch($_SESSION['role']) {
+					// 管理者
+					case 'admin':
+
+					break;
+					// 編集者
+					case 'editor':
+			
+					break;
+					// 投稿者
+					case 'postor':
+						// 同じ場合
+						if($_SESSION['basic_id'] === $article_draft_res[0]['basic_id']) {
+			
+						}
+						// 違う人の記事を開いた場合adminに戻す
+						else {
+							// 強制移動
+							header('Location: '.HTTP.'login/admin/');
+						}
+					break;
+				}
+			}
+		}
+
+/*********************************************************************************/
+
 	if($_SESSION['basic_id']) {
-			///////
-			// 投稿
-			///////
+			//////////////////
+			// 投稿(下書き含む
+			//////////////////
 			if($_POST['title'] && $_POST['content']) {
 				// ポストの中身をエンティティ化する
 				$post = basic::post_security($_POST);
 				///////////////////////////////////////////////////////////
-				// 下記事があった場合
-				if($post['draft_id'] && $post['basic_id'] == $_SESSION['basic_id']) {
+				// 下記事があった場合(本人,admi,eitor対応
+				if($post['draft_id'] && $post['basic_id'] == $_SESSION['basic_id'] || $post['draft_id'] && $_SESSION['role'] == 'admin' || $post['draft_id'] && $_SESSION['role'] == 'editor') {
 					// 下書き記事削除
 					model_login_admin_draft_basis::article_draft_delete($post['draft_id']);
 				}
@@ -104,8 +184,8 @@
 				$article_id = (int)$_GET['article_id'];
 				// 記事データ取得
 				$article_res = model_article_basis::article_get($article_id);
-				// 本人確認
-				if($_SESSION['basic_id'] == $article_res[0]['basic_id']) {
+				// 本人確認 or admin,ediotr権限あれば表示
+				if($_SESSION['basic_id'] == $article_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 	//				pre_var_dump($article_res[0]['primary_id']);
 					// 記事削除
 					 model_login_admin_post_basis::markdown_post_delete($article_res[0]['primary_id']);
@@ -130,7 +210,6 @@
 					header('Location: '.HTTP.'login/admin/list/');
 					return false;
 				}
-	
 			}
 			/////////////////
 			// 下書き編集機能
@@ -139,11 +218,10 @@
 				$draft_id = (int)$_GET['draft_id'];
 				// 記事データ取得
 				$article_res = model_login_admin_draft_basis::article_draft_get($draft_id);
-				// 本人確認
-				if($_SESSION['basic_id'] == $article_res[0]['basic_id']) {
+				// 本人確認 or admin,ediotr権限あれば表示
+				if($_SESSION['basic_id'] == $article_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 	//				pre_var_dump($article_res);
 	//				pre_var_dump($_SESSION);
-	
 					$preview_array['title'] = $article_res[0]['title'];
 					$preview_array['content'] = $article_res[0]['content'];
 					$preview_array['draft_id'] = $article_res[0]['primary_id'];
@@ -177,8 +255,8 @@
 				$article_id = (int)$_GET['article_id'];
 				// 記事データ取得
 				$article_res = model_article_basis::article_get($article_id);
-				// 本人確認
-				if($_SESSION['basic_id'] == $article_res[0]['basic_id']) {
+				// 本人確認 or admin,ediotr権限あれば表示
+				if($_SESSION['basic_id'] == $article_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 	//				pre_var_dump($article_res);
 	//				pre_var_dump($_SESSION);
 					$preview_array['title'] = $article_res[0]['title'];

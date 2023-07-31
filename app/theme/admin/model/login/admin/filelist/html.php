@@ -137,7 +137,14 @@ class model_login_admin_filelist_html {
 				$image_box_html = 
 					'<object width="100%" height="100%" data="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'"  type="text/plain"></object>';
 			}
-			// 画像以外の場合
+			/////////////
+			// 音声の場合
+			/////////////
+			else if(preg_match('/audio/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<audio controls src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'" type="audio/mp3"></audio>';
+			}
+			// 上記以外の場合
 			else {
 				 $image_box_html = '<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">';
 			}
@@ -163,7 +170,7 @@ class model_login_admin_filelist_html {
 					<div class="file_modal">
 						<div class="file_modal_inner">
 							<div class="file_modal_inner_top">
-								<h1>ファイル詳細</h1>
+								<h1>ファイル詳細</h1><!-- デバッグでMIMEタイプを確認する際はh1内に $value[type]を仕込む -->
 								<div class="next" file_id="'.$file_next_prev_res['next']['primary_id'].'"><</div>
 								<div class="prev" file_id="'.$file_next_prev_res['prev']['primary_id'].'">></div>
 								<div class="delete">×</div>

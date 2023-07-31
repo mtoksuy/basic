@@ -44,6 +44,7 @@
 				<li data-clip_name="link"><span class="howto">[text](url)</span>リンク</li>
 				<li data-clip_name="image"><span class="howto">(url)</span>画像</li>
 				<li data-clip_name="list"><span class="howto">*</span>リスト</li>
+				<li data-clip_name="table"><span class="howto">|</span>テーブル<span class="howto">|</span></li>
 				<li data-clip_name="checkpoint">チェックポイント</li>
 				<li data-clip_name="box">囲み</li>
 				<li data-clip_name="blowing">吹き出し</li>

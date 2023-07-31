@@ -17,6 +17,9 @@ class model_login_basis {
 				$_SESSION["email"]            = $value["email"];
 				$_SESSION["name"]            = $value["name"];
 				$_SESSION["icon"]              = $value["icon"];
+				$_SESSION["profile"]           = $value["profile"];
+				$_SESSION["role"]               = $value["role"];
+				$_SESSION["del"]                = $value["del"];
 				$_SESSION["create_time"]  = $value["create_time"];
 				$_SESSION["update_time"] = $value["update_time"];
 				$_SESSION["basic_http"]    = HTTP;
@@ -55,6 +58,9 @@ class model_login_basis {
 				$_SESSION["email"]            = $value["email"];
 				$_SESSION["name"]            = $value["name"];
 				$_SESSION["icon"]              = $value["icon"];
+				$_SESSION["profile"]           = $value["profile"];
+				$_SESSION["role"]               = $value["role"];
+				$_SESSION["del"]                = $value["del"];
 				$_SESSION["create_time"]  = $value["create_time"];
 				$_SESSION["update_time"] = $value["update_time"];
 				// クッキー生成(一ヶ月有効)

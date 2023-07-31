@@ -277,9 +277,6 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//編集保存
 	//---------
 	public static function markdown_page_edit_save($post) {
-
-
-
 		$primary_page_res = model_db::query("
 			SELECT * 
 				FROM page

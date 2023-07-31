@@ -601,20 +601,24 @@ class model_article_html {
 //		var_dump($article_contents);
 //		preg_match_all();
 		preg_match_all('/<img(.*?)>/', $article_contents, $img_array_1);
-		preg_match_all('/src="(.*?)"/', $article_contents, $img_array_2);
+		preg_match_all('/img src="(.*?)"/', $article_contents, $img_array_2);
 		// 下準備
 		foreach($img_array_1[0] as $key => $value) {
 			$img_array_1_oni = preg_replace('/\//', '\/', $value);
 //			pre_var_dump($img_array_1_oni);
 			$img_html_array[] = $img_array_1_oni;
 		}
-//			pre_var_dump($img_html_array);
-
+/*
+			pre_var_dump($img_html_array);
+			pre_var_dump($img_array_2);
+*/
 		// webp変換
 		foreach($img_array_2[1] as $key => $value) {
 			$result = strstr($value, 'app');
-//			pre_var_dump($value);
-//			pre_var_dump(PATH.$result);
+/*
+			pre_var_dump($value);
+			pre_var_dump(PATH.$result);
+*/
 			// パスインフォ
 			$file_info = pathinfo(PATH.$result);
 			preg_match('/\/[0-9]{4}\/[0-9]{2}\//', $result, $result_array);
@@ -627,7 +631,6 @@ class model_article_html {
 			}
 			// 拡張子をwebpに変換
 			$webp_path = preg_replace('/\.'.$file_info['extension'].'$/i', '.webp', $webp_path);
-//			pre_var_dump($webp_path);
 			// パスがあった場合
 			if($webp_path) {
 				$webp_exists_path = PATH.$webp_path;
@@ -642,7 +645,6 @@ class model_article_html {
 		} // foreach($img_array_2[1] as $key => $value) {
 		return $article_contents;
 	}
-
 	//------------------------
 	// サムネイルHTML生成
 	//------------------------

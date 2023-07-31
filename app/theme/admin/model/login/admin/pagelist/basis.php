@@ -9,7 +9,6 @@ class model_login_admin_pagelist_basis {
 			FROM page
 			WHERE del = 0
 			AND draft = 0
-			AND basic_id = '".$_SESSION['basic_id']."'
 			ORDER BY primary_id DESC
 		");
 		return $article_pagelist_res;

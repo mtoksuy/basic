@@ -12,8 +12,8 @@ $post = basic::post_security();
 // ログインしている場合
 if($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
-	// 本人確認
-	if($post['basic_id'] == $basic_id) {
+	// 本人確認またはロール、admi,editor確認
+	if($_SESSION['basic_id'] == $page_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 		// 特定の文字列が2連続である場合1つにする
 		$post['permalink'] = basic::replace_recursive($post['permalink'], '/');
 		// 文末の/を削除
