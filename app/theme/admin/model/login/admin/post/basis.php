@@ -248,18 +248,86 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		$markdown = preg_replace('/\(((.*?)JPEG)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)png)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)PNG)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)gif)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)GIF)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)svg)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)SVG)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)webp)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)WEBP)\)/', '<img src="\\1">', $markdown);
-
-//		$markdown = preg_replace('/\[checkpoint\r\n# (.*?)\r\n(.*?)\]/s', '
-
-
-
-
-
-
-
-
+		// PDF変換
+		$markdown = preg_replace('/\(((.*?)pdf)\)/', '<embed class="pdf" src="\\1" type="application/pdf" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PDF)\)/', '<embed class="pdf" src="\\1" type="application/pdf" width="100%" height="500px">', $markdown);
+		// txt変換
+		$markdown = preg_replace('/\(((.*?)txt)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TXT)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// html対応
+		$markdown = preg_replace('/\(((.*?)html)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)HTML)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)htm)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)HTM)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		// json対応
+		$markdown = preg_replace('/\(((.*?)json)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)JSON)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		// 動画対応
+		$markdown = preg_replace('/\(((.*?)mp4)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mp4"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MP4)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mp4"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)avi)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/avi"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AVI)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/avi"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mov)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mov"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MOV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mov"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)wmv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/wmv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WMV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/wmv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)flv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/flv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)FLV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/flv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)webm)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WebM)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WEBM)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mpeg2)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mpeg2"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MPEG2)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mpeg2"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mkv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mkv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MKV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mkv"></video>', $markdown);
+		// 音声対応
+		$markdown = preg_replace('/\(((.*?)wav)\)/', '<audio controls src="\\1" type="audio/wav"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WAV)\)/', '<audio controls src="\\1" type="audio/wav"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aif)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AIF)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aiff)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AIFF)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mp3)\)/', '<audio controls src="\\1" type="audio/mp3"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MP3)\)/', '<audio controls src="\\1" type="audio/mp3"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)wma)\)/', '<audio controls src="\\1" type="audio/wma"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WMA)\)/', '<audio controls src="\\1" type="audio/wma"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aac)\)/', '<audio controls src="\\1" type="audio/aac"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AAC)\)/', '<audio controls src="\\1" type="audio/aac"></audio>', $markdown);
+		// xml対応
+		$markdown = preg_replace('/\(((.*?)xml)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)XML)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// css対応
+		$markdown = preg_replace('/\(((.*?)css)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)CSS)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// js対応
+		$markdown = preg_replace('/\(((.*?)js)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)JS)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// doc対応
+		$markdown = preg_replace('/\(((.*?)doc)\)/', '<embed class="pdf" src="\\1" type="application/msword" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)DOC)\)/', '<embed class="pdf" src="\\1" type="application/msword" width="100%" height="500px">', $markdown);
+		// ppt、pps対応
+		$markdown = preg_replace('/\(((.*?)ppt)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PPT)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)pps)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PPS)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		// csv対応
+		$markdown = preg_replace('/\(((.*?)csv)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)CSV)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// tsv対応
+		$markdown = preg_replace('/\(((.*?)tsv)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TSV)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// log対応
+		$markdown = preg_replace('/\(((.*?)log)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)LOG)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// tmp対応
+		$markdown = preg_replace('/\(((.*?)tmp)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TMP)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
 
 		// テーブル変換
 		$markdown = preg_replace("/((\|.*?(?=(\n|\r|\r\n|<br>)))+(\n|\r|\r\n|<br>))+/s", "<table><tbody>$0</tbody></table>", $markdown);
