@@ -25,12 +25,41 @@ class model_login_admin_draft_basis {
 	//下書きの記事リストデータ取得
 	//---------------------------------
 	public static function article_draft_list_get() {
-		$article_draft_list_res = model_db::query("
-			SELECT * 
-			FROM article_draft
-			WHERE del = 0
-			ORDER BY primary_id DESC
-			LIMIT 0, 100");
+		/*
+		管理者：admin
+		編集者：editor
+		投稿者：postor
+		*/
+		switch($_SESSION['role']) {
+			// 管理者
+			case 'admin':
+				$article_draft_list_res = model_db::query("
+					SELECT * 
+					FROM article_draft
+					WHERE del = 0
+					ORDER BY primary_id DESC
+					LIMIT 0, 100");
+			break;
+			// 編集者
+			case 'editor':
+				$article_draft_list_res = model_db::query("
+					SELECT * 
+					FROM article_draft
+					WHERE del = 0
+					ORDER BY primary_id DESC
+					LIMIT 0, 100");
+			break;
+			// 投稿者
+			case 'postor':
+				$article_draft_list_res = model_db::query("
+					SELECT * 
+					FROM article_draft
+					WHERE del = 0
+					AND basic_id = '".$_SESSION['basic_id']."'
+					ORDER BY primary_id DESC
+					LIMIT 0, 100");
+			break;
+		}
 		return $article_draft_list_res;
 	}
 

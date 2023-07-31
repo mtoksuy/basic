@@ -132,7 +132,14 @@ class model_login_admin_filelist_basis {
 				$image_box_html = 
 					'<object width="100%" height="100%" data="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'"  type="text/plain"></object>';
 			}
-			// 画像以外の場合
+			/////////////
+			// 音声の場合
+			/////////////
+			else if(preg_match('/audio/', $value['type'], $type_array)) {
+				$image_box_html = 
+					'<audio controls src="'.HTTP.'app/assets/fileupload'.'/'.$value['year'].'/'.$value['month'].'/'.$value['full_name'].'" type="audio/mp3"></audio>';
+			}
+			// 上記以外の場合
 			else {
 				 $image_box_html = '<img src="'.HTTP.'app/theme/admin/assets/img/svg/basic_fileupload_file_2.svg">';
 			}

@@ -24,14 +24,17 @@ class model_login_admin_post_basis {
 			return htmlspecialchars($matches[0], ENT_COMPAT, 'UTF-8', false);
 		}, $markdown);
 
+//		pre_var_dump($markdown);
+
 		// 改行変換
-		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
+		$markdown = preg_replace('/\r\n\r\n|\n\n|\r\r/', '
 <br>
 ', $markdown);
+
 		// 最後に改行追加
 		$markdown=$markdown.'
 ';
-//var_dump($markdown);
+//pre_var_dump($markdown);
 /*
 		// チェックポイント変換
 		$markdown = preg_replace('/\[checkpoint\r\n# (.*?)\r\n(.*?)\]/s', '
@@ -155,6 +158,7 @@ class model_login_admin_post_basis {
 
 */
 
+
 		// コード変換：先頭改行なし版
 		$markdown = preg_replace('/```(.*?)
 ```/s', '<div class="code"><pre><code>\\1</code></pre></div>', $markdown);
@@ -244,11 +248,133 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		$markdown = preg_replace('/\(((.*?)JPEG)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)png)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)PNG)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)gif)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)GIF)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)svg)\)/', '<img src="\\1">', $markdown);
+		$markdown = preg_replace('/\(((.*?)SVG)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)webp)\)/', '<img src="\\1">', $markdown);
 		$markdown = preg_replace('/\(((.*?)WEBP)\)/', '<img src="\\1">', $markdown);
+		// PDF変換
+		$markdown = preg_replace('/\(((.*?)pdf)\)/', '<embed class="pdf" src="\\1" type="application/pdf" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PDF)\)/', '<embed class="pdf" src="\\1" type="application/pdf" width="100%" height="500px">', $markdown);
+		// txt変換
+		$markdown = preg_replace('/\(((.*?)txt)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TXT)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// html対応
+		$markdown = preg_replace('/\(((.*?)html)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)HTML)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)htm)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)HTM)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		// json対応
+		$markdown = preg_replace('/\(((.*?)json)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)JSON)\)/', '<object width="100%" height="500px" data="\\1" type="text/plain"></object>', $markdown);
+		// 動画対応
+		$markdown = preg_replace('/\(((.*?)mp4)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mp4"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MP4)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mp4"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)avi)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/avi"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AVI)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/avi"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mov)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mov"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MOV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mov"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)wmv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/wmv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WMV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/wmv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)flv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/flv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)FLV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/flv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)webm)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WebM)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WEBM)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/webm"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mpeg2)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mpeg2"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MPEG2)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mpeg2"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mkv)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mkv"></video>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MKV)\)/', '<video controls="" width="100%" height="auto"><source src="\\1" type="video/mkv"></video>', $markdown);
+		// 音声対応
+		$markdown = preg_replace('/\(((.*?)wav)\)/', '<audio controls src="\\1" type="audio/wav"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WAV)\)/', '<audio controls src="\\1" type="audio/wav"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aif)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AIF)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aiff)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AIFF)\)/', '<audio controls src="\\1" type="audio/aif"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)mp3)\)/', '<audio controls src="\\1" type="audio/mp3"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)MP3)\)/', '<audio controls src="\\1" type="audio/mp3"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)wma)\)/', '<audio controls src="\\1" type="audio/wma"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)WMA)\)/', '<audio controls src="\\1" type="audio/wma"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)aac)\)/', '<audio controls src="\\1" type="audio/aac"></audio>', $markdown);
+		$markdown = preg_replace('/\(((.*?)AAC)\)/', '<audio controls src="\\1" type="audio/aac"></audio>', $markdown);
+		// xml対応
+		$markdown = preg_replace('/\(((.*?)xml)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)XML)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// css対応
+		$markdown = preg_replace('/\(((.*?)css)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)CSS)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// js対応
+		$markdown = preg_replace('/\(((.*?)js)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)JS)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// doc対応
+		$markdown = preg_replace('/\(((.*?)doc)\)/', '<embed class="pdf" src="\\1" type="application/msword" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)DOC)\)/', '<embed class="pdf" src="\\1" type="application/msword" width="100%" height="500px">', $markdown);
+		// ppt、pps対応
+		$markdown = preg_replace('/\(((.*?)ppt)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PPT)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)pps)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		$markdown = preg_replace('/\(((.*?)PPS)\)/', '<embed class="pdf" src="\\1" type="application/vnd.ms-powerpoint" width="100%" height="500px">', $markdown);
+		// csv対応
+		$markdown = preg_replace('/\(((.*?)csv)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)CSV)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// tsv対応
+		$markdown = preg_replace('/\(((.*?)tsv)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TSV)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// log対応
+		$markdown = preg_replace('/\(((.*?)log)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)LOG)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		// tmp対応
+		$markdown = preg_replace('/\(((.*?)tmp)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
+		$markdown = preg_replace('/\(((.*?)TMP)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
 
-//		$markdown = preg_replace('/\[checkpoint\r\n# (.*?)\r\n(.*?)\]/s', '
-
+		// テーブル変換
+		$markdown = preg_replace("/((\|.*?(?=(\n|\r|\r\n|<br>)))+(\n|\r|\r\n|<br>))+/s", "<table><tbody>$0</tbody></table>", $markdown);
+		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
+		// テーブル内部変換
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			// 1行ずつtrタグで囲む
+			$matches[0] = preg_replace("/\|(.*?)(?=(\n|\r|\r\n))/", "<tr>|$1</tr>", $matches[0]);
+			// '|' で分割。ただし、先頭と最後の空白要素は削除
+			$items = array_slice(explode('|', $matches[0]), 1, -1); // 最後の行に指定されたhは効かない
+			// 各要素を '<td>' タグで囲みます。
+			$items = array_map(function($item) {
+				// trタグでスライスされた部分は例外でそのまま返す(この実装の仕様上)
+				if($item === 'h</tr>
+<tr>') {
+					return '<td>h</td>
+</tr>
+<tr>';
+				}
+				else if($item === '</tr>
+<tr>') {
+					return $item;
+				}
+				else {
+					// h指定があるならtd class="header"として返す
+					if(preg_match('/ h$/', $item, $item_array)) {
+						$item = preg_replace('/ h$/', '', $item);
+						return '<td class="header">'.$item.'</td>';
+					}
+					// 通常はこちら
+					else {
+						return "<td>{$item}</td>";
+					}
+				}
+			}, $items);
+			// 全ての要素を結合し、'<tr>' タグで囲む
+			$replaced_text = "<tr>\n\t" . implode("\n\t", $items) . "\n</tr>\n";
+			// trセクション内の一番最後に<td>h<\/td>があればtrタグにheaderクラスを付与する。途中tdタグにクラスが付与されている場合は無効にする
+			$pattern = '/<tr>((?:\s*<td>.*?<\/td>)*)\s*<td>h<\/td>\s*<\/tr>/';
+			$replacement = '<tr class="header">$1</tr>';
+			$replaced_text = preg_replace($pattern, $replacement, $replaced_text);
+			// 無効になったhを削除
+			$replaced_text = preg_replace('/<td>h<\/td>/', '', $replaced_text);
+			// 最後にtableタグで囲む
+			$replaced_text = '<table><tbody>'.$replaced_text.'</tbody></table>';
+				return $replaced_text;
+		}, $markdown);
 	
 		// アマゾン変換
 //		$markdown = preg_replace('/\[amazon:(.*?)brand:(.*?)title:(.*?)price:(.*?)rating:(.*?)review:(.*?)image:(.*?)link:(.*?)\]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\7"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\3</h3><div class="amazon_link_price">\\4</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\5.png"><span>\\6個の評価</span></div><span class="amazon_link_button"><a href="\\8" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
@@ -342,6 +468,17 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		// 吹き出し変換
 		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'app/assets/img/user/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
 
+
+
+
+
+
+
+
+
+
+
+
 /*
 		pre_var_dump($user_id_data_array['icon']);
 		pre_var_dump($_SESSION);
@@ -349,6 +486,8 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		pre_var_dump($markdown);
 */
 // icon
+
+
 
 //pre_var_dump($markdown);
 file_put_contents(PATH.'setting/markdown_article_tmp.txt', $markdown);
@@ -381,6 +520,7 @@ if($file){
 /* ファイルポインタをクローズ */
 fclose($file);
 
+//pre_var_dump($txt);
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 //file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmp.txt', $txt);
@@ -391,7 +531,6 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			return str_replace("古尾土の改行", '
 ', $matches[0]);
 		}, $txt);
-
 
 		// コード内 1行セパレーターを戻す
 		$pattern = '/<code>(.*?)<\/code>/s';
@@ -405,6 +544,38 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		}, $txt);
 
 //<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
+
+		// テーブル内tdタグとpタグを削除
+		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			$matches[0] = str_replace("<td></td>", '', $matches[0]);
+			$matches[0] = str_replace("<p>", '', $matches[0]);
+			$matches[0] = str_replace("</p>", '', $matches[0]);
+			return $matches[0];
+		}, $txt);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		return $txt;
 	}
@@ -494,6 +665,15 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 	//新規投稿
 	//---------
 	public static function markdown_post_add($post, $hashtag_selection_json) {
+		$basic_id = '';
+		// 新規投稿の場合
+		if($post['basic_id'] == '') {
+			$basic_id = $_SESSION['basic_id'];
+		}
+		// 下書きの場合(本人,admin,editorが投稿した時の挙動
+		else {
+			$basic_id = $post['basic_id'];
+		}
 		$query = model_db::query("
 			INSERT INTO article 
 			(
@@ -503,7 +683,7 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 				content
 			) 
 			VALUES (
-				'".$_SESSION['basic_id']."',
+				'".$basic_id."',
 				'".$post['title']."',
 				'".$hashtag_selection_json."', 
 				'".$post['content']."'
@@ -859,9 +1039,10 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 		$hashtag_selection_array = array();
 		//////////////////////markdown_html_conversion参照//////////////////////////////
 		// 改行変換
-		$markdown = preg_replace('/\r\n\r\n|\n\n/', '
+		$markdown = preg_replace('/\r\n\r\n|\n\n|\r\r/', '
 <br>
 ', $markdown);
+
 		// 最後に改行追加
 		$markdown=$markdown.'
 ';

@@ -2,6 +2,9 @@
 
 	$contact_unread_count_html = '';
 
+	// ロールアクセス制御コンテンツ判断強制アドミン移動
+	model_login_admin_basis::role_access_control_admin_move();
+
 	if($_SESSION['basic_id']) {
 		$now = 'pagelist';
 		// ページ一覧取得

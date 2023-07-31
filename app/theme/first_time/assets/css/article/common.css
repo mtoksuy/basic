@@ -333,12 +333,13 @@ pre.code code {
 	width: 100%;
 	height: 100%;
 }
-
+/****
+table
+****/
 table {
 	display: block;
 	overflow: auto;
-	margin: 1.5em 0;
-	border-left: 1px solid #ddd;
+	margin: 15px 0 30px 0;
 	border-collapse: collapse;
 }
 
@@ -350,13 +351,20 @@ th {
 	border-right: 1px solid #ccc;
 	padding: 8px 10px;
 }
-
+table .header {
+/*
+	font-weight: bold;
+*/
+    background-color: #dfe4ff !important;
+}
 tr:nth-child(odd) {
-	background-color: #eee;
+	background-color: #f3f3f3;
 }
 
 td {
+	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 	padding: 8px 10px;
 	max-width: 600px;

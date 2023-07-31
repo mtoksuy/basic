@@ -105,7 +105,7 @@ CREATE TABLE `setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
-(1, '0.9.7.1', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
+(1, '0.9.8', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `user` (
   `name` varchar(512) DEFAULT NULL,
   `icon` varchar(256) DEFAULT NULL,
   `profile` text DEFAULT NULL,
-  `authority_type` varchar(256) DEFAULT NULL,
+  `role` varchar(256) DEFAULT NULL,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
