@@ -1,11 +1,14 @@
 <?php
 /*
 * Ajax ブログ機能：画像アップロード コントローラー
-* 
+* 画像だけではなく全てのファイル対応
 * 
 * 
 */
 header("Content-Type: application/json; charset=UTF-8");
+
+$flle_array = '';
+$image_http = '';
 
 // ポストの中身をエンティティ化する
 $post = basic::post_security();

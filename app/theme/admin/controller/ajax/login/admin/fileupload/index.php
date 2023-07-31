@@ -7,6 +7,9 @@
 */
 header("Content-Type: application/json; charset=UTF-8");
 
+$ajax_fileupload_html = '';
+$flle_array = '';
+
 // ポストの中身をエンティティ化する
 //$post = library_security_basis::post_security();
 //ini_set('display_errors', 0);
