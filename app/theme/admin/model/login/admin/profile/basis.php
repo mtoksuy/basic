@@ -39,6 +39,11 @@ class model_login_admin_profile_basis {
 	// アイコンを正方形にする
 	//--------------------------
 	public static function image_square_edit($image_path, $random_hash, $savePath, $square_size = 256) {
+		// svg対策
+		$height = 0;
+		$width = 0;
+		$imginfo[2] = '';
+
 		// $image_pathから拡張子取得前料理
 		$extension_explode = explode('.', $image_path);
 		// ソートを逆にする
@@ -79,62 +84,64 @@ class model_login_admin_profile_basis {
 				$ImageResource = imagecreatefromwebp($orgFile);
 			break;
 		}
-		// イメージリソースから、横、縦ピクセルサイズ取得
-		$width  = imagesx($ImageResource);    // 横幅
-		$height = imagesy($ImageResource);    // 縦幅
- 
-		if ($width >= $height) {
-		    // 横長の画像の時
-		    $side = $height;
-		    $x = floor(($width - $height) / 2);
-		    $y = 0;
-		    $width = $side;
-		} else {
-		    // 縦長の画像の時
-		    $side = $width;
-		    $y = floor(($height - $width) / 2);
-		    $x = 0;
-		    $height = $side;
-		}
-		switch ($imginfo[2]) {
-		 // jpeg
-		 case 2:
-			// 出力ファイル名
-			$filename = $random_hash.$extension;
-			$square_new = imagecreatetruecolor($square_width, $square_height);
-			imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
-			imagejpeg($square_new, $savePath . $filename, 100);
-		 break;
-		 
-		 // gif
-		 case 1:
-		 	// 何もしない
-		 break;
-		 // png
-		 case 3:
-			// 出力ファイル名
-			$filename = $random_hash.$extension;
-			 $square_new = imagecreatetruecolor($square_width, $square_height);
-			 imagealphablending($square_new, false);        // アルファブレンディングを無効
-			 imageSaveAlpha($square_new, true);             // アルファチャンネルを有効
-			 $transparent = imagecolorallocatealpha($square_new, 0, 0, 0, 127); // 透明度を持つ色を作成
-			 imagefill($square_new, 0, 0, $transparent);    // 塗りつぶす
-			 imagecopyresampled($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
-			 imagepng($square_new, $savePath . $filename);
-		break;
-		 // webp
-		 case 18:
-			// 出力ファイル名
-			$filename = $random_hash.$extension;
-			$square_new = imagecreatetruecolor($square_width, $square_height);
-			imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
-			imagewebp($square_new, $savePath . $filename, 100);
-		 break;
-		 // デフォルト
-		 Default:
-
-		 break;
-		}
+		// svg対応
+		if($mime_type != NULL) {
+			// イメージリソースから、横、縦ピクセルサイズ取得
+			$width  = imagesx($ImageResource);    // 横幅
+			$height = imagesy($ImageResource);    // 縦幅
+			if ($width >= $height) {
+				// 横長の画像の時
+				$side = $height;
+				$x = floor(($width - $height) / 2);
+				$y = 0;
+				$width = $side;
+			}
+			else {
+				// 縦長の画像の時
+				$side = $width;
+				$y = floor(($height - $width) / 2);
+				$x = 0;
+				$height = $side;
+			}
+			switch($imginfo[2]) {
+				 // jpeg
+				 case 2:
+					// 出力ファイル名
+					$filename = $random_hash.$extension;
+					$square_new = imagecreatetruecolor($square_width, $square_height);
+					imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
+					imagejpeg($square_new, $savePath . $filename, 100);
+				 break;
+				 
+				 // gif
+				 case 1:
+				 	// 何もしない
+				 break;
+				 // png
+				 case 3:
+					// 出力ファイル名
+					$filename = $random_hash.$extension;
+					 $square_new = imagecreatetruecolor($square_width, $square_height);
+					 imagealphablending($square_new, false);        // アルファブレンディングを無効
+					 imageSaveAlpha($square_new, true);             // アルファチャンネルを有効
+					 $transparent = imagecolorallocatealpha($square_new, 0, 0, 0, 127); // 透明度を持つ色を作成
+					 imagefill($square_new, 0, 0, $transparent);    // 塗りつぶす
+					 imagecopyresampled($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
+					 imagepng($square_new, $savePath . $filename);
+				break;
+				 // webp
+				 case 18:
+					// 出力ファイル名
+					$filename = $random_hash.$extension;
+					$square_new = imagecreatetruecolor($square_width, $square_height);
+					imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
+					imagewebp($square_new, $savePath . $filename, 100);
+				 break;
+				 // デフォルト
+				 Default:
+				 break;
+				} // switch ($imginfo[2]) {
+			}  // if($mime_type != NULL) {
 	}
 
 
