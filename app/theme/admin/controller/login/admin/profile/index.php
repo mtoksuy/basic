@@ -6,6 +6,7 @@
 		$now = 'profile';
 		// ポストの中身をエンティティ化する
 		$post = basic::post_security();
+		// 更新があった場合
 		if($post) {
 			//pre_var_dump($post);
 			if($_FILES['icon']['tmp_name']) {
@@ -54,7 +55,7 @@
 			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('profile');
 			// multi版：静的化+圧縮化
 			basic::multi_html_gzip_create($html_gzip_create_list_array);
-		}
+		} // if($post) {
 		// プロフィールデータarray取得
 		$user_data_array = basic::user_data_get($_SESSION['primary_id']);
 		// プロフィール設定HTML生成
