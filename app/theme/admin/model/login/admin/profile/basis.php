@@ -22,7 +22,6 @@ class model_login_admin_profile_basis {
 			SET 
 				name = '".$post['name']."',
 				profile = '".$post['profile']."',
-				email = '".$post['email']."',
 				update_time = '".$now_time."'
 			WHERE primary_id = ".$_SESSION['primary_id']."");
 	}
