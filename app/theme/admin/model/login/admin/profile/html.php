@@ -31,6 +31,12 @@ class model_login_admin_profile_html {
 
 
 						<div class="block">
+							<label for="profile">メールアドレス</label>
+							<input id="email" maxlength="64" name="email" type="email" placeholder="メールアドレスを入力" value="'.$user_data_array['email'].'">
+						</div>
+
+
+						<div class="block">
 							<label for="icon">アイコン</label>
 							'.$icon_html.'
 							<div class="upload_button">
