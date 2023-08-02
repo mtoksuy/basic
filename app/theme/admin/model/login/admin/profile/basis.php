@@ -23,8 +23,9 @@ class model_login_admin_profile_basis {
 				name = '".$post['name']."',
 				profile = '".$post['profile']."',
 				email = '".$post['email']."',
+				role = '".$post['role']."', 
 				update_time = '".$now_time."'
-			WHERE primary_id = ".$_SESSION['primary_id']."");
+			WHERE basic_id = '".$post['basic_id']."'");
 	}
 	//-----------------------------
 	//  プロフィールicon設定保存

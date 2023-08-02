@@ -1,14 +1,31 @@
 <?php
 
 	$contact_unread_count_html = '';
+	// 定義されていない変数を空定義
+	if(empty($_GET['basic_id'])) { $_GET['basic_id'] = ''; }
+	if(empty($_GET['edit'])) { $_GET['edit'] = ''; }
+	if(empty($_GET['delete'])) { $_GET['delete'] = ''; }
 
 	if($_SESSION['basic_id']) {
 		$now = 'profile';
 		// ポストの中身をエンティティ化する
 		$post = basic::post_security();
+		// ゲットの中身をエンティティ化する
+		$get = basic::get_security();
+
+		// 管理者編集用 ユーザーの管理から飛んでくる想定 管理者以外はこの時点で弾く
+		if($_GET['basic_id'] && $_GET['edit']) {
+			// ロールアクセス制御コンテンツ判断強制アドミン移動
+			model_login_admin_basis::role_access_control_admin_move(array('admin'));
+			// 管理者自身が編集を押した場合は通常のプロフィール設定に飛ぶ
+			if($_SESSION['basic_id'] == $_GET['basic_id']) {
+				header('Location: '.HTTP.'login/admin/profile/');
+				exit;
+			}
+		}
+
 		// 更新があった場合
 		if($post) {
-			//pre_var_dump($post);
 			if($_FILES['icon']['tmp_name']) {
 				//getimagesize関数で画像情報を取得する
 				list($img_width, $img_height, $mime_type, $attr) = getimagesize($_FILES['icon']['tmp_name']);
@@ -43,7 +60,7 @@
 				// プロフィール変更
 					model_db::query("
 						UPDATE user SET icon = '".$random_hash.'.'.$img_extension."'
-						WHERE primary_id = ".$_SESSION['primary_id']."
+						WHERE basic_id = '".$post['basic_id']."'
 					");
 				$savePath = PATH.'app/assets/img/user/';
 				// アイコンを正方形にする

@@ -170,9 +170,6 @@ class model_login_admin_html {
 				<li'.$addClass['general'].'>
 					<a class="o_8" href="'.HTTP.'login/admin/general/">一般設定</a>
 				</li>
-				<li'.$addClass['usermanagement'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
-				</li>
 			</ul>';
 		// アカウント設定パーツ
 		$accountSettings_border_parts = 
@@ -180,6 +177,9 @@ class model_login_admin_html {
 				<span>アカウント設定</span>
 				<li'.$addClass['profile'].'>
 					<a class="o_8" href="'.HTTP.'login/admin/profile/">プロフィール設定</a>
+				</li>
+				<li'.$addClass['usermanagement'].'>
+					<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
 				</li>
 			</ul>';
 		// ツールパーツ

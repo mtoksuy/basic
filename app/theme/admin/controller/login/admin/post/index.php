@@ -59,6 +59,7 @@
 						else {
 							// 強制移動
 							header('Location: '.HTTP.'login/admin/');
+							exit;
 						}
 					break;
 				}
