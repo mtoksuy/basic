@@ -8,7 +8,9 @@ class model_login_basis {
 			SELECT *
 			FROM user
 			WHERE basic_id  = '".$post["user_login"]."'
-			OR    email           = '".$post["user_login"]."'");
+			AND del = 0
+			OR email           = '".$post["user_login"]."'
+			AND del = 0");
 		foreach($query as $key => $value) {
 			if(password_verify($post['user_password'], $value['password'])) {
 				// セッション生成

@@ -1,6 +1,6 @@
 
 <head>
-	<title><?php echo 'プロフィール設定｜アドミン｜ログイン'.'｜'.TITLE; ?></title>
+	<title><?php echo 'ユーザーの管理｜アドミン｜ログイン'.'｜'.TITLE; ?></title>
 	<!-- meta -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -15,5 +15,7 @@
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/common/common.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/common.css" type="text/css">
 	<?php /*admin_theme_color設定*/ if(!($site_data_array['admin_theme_color'] === 'default')) { echo '<link rel="stylesheet" href="'.HTTP.'app/theme/admin/assets/css/admin_theme_color/'.$site_data_array['admin_theme_color'].'.css" type="text/css">'; } ?>
+	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/list/common.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/profile/common.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/login/admin/usermanagement/common.css" type="text/css">
 </head>
