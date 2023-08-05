@@ -91,7 +91,6 @@ $site_data_array = basic::site_data_get();
 $page_data_array = basic::page_data_get($controller_query);
 //pre_var_dump($controller_query);
 //pre_var_dump($page_data_array);
-
 /****
 login
 *****/
@@ -100,8 +99,14 @@ if($controller_query == 'login') {
 	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 	exit;
 }
-
-
+/**********************
+login/password_reissue
+**********************/
+if($controller_query == 'login/password_reissue') {
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+	exit;
+}
 
 /*******************
 login/admin/plugin/
@@ -289,5 +294,3 @@ if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$contr
 				require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
 				exit;
 		}
-
-
