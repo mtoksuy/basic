@@ -53,6 +53,7 @@ margin: 0 auto;
 
 }
 .login .login_inner a {
+/*
 	background: #f0f0f1;
 	border-color: #0a4b78;
 	color: #0a4b78;
@@ -60,6 +61,7 @@ margin: 0 auto;
 	padding: 7px 7px 7px 7px;
 	border-radius: 3px;
 	font-size: 14px;
+*/
 }
 .login .login_inner a:link {
 
@@ -74,9 +76,9 @@ margin: 0 auto;
 
 
 
-/*
+/*************
 
-*/
+**************/
 .login_form {
 	margin: 20px 0 0 0;
 }
@@ -133,6 +135,14 @@ width: 100%;
 	padding: 0px 7px 7px 0px;
 	position: relative;
 }
+.password_reissue {
+
+}
+.password_reissue a {
+	font-size: 14px;
+	margin: 0 0 0 15px;
+}
+
 /*******************
 640px以下の設定
 *******************/
