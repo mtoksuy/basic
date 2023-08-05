@@ -73,6 +73,7 @@ class model_login_admin_html {
 
 		// アップデートパーツ
 		$update_unread_count_html = '';
+		// basic_version_get API出力受け取る
 		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
 		$json_decode_response = json_decode($response , true);
 		if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) {
@@ -170,9 +171,6 @@ class model_login_admin_html {
 				<li'.$addClass['general'].'>
 					<a class="o_8" href="'.HTTP.'login/admin/general/">一般設定</a>
 				</li>
-				<li'.$addClass['usermanagement'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
-				</li>
 			</ul>';
 		// アカウント設定パーツ
 		$accountSettings_border_parts = 
@@ -180,6 +178,9 @@ class model_login_admin_html {
 				<span>アカウント設定</span>
 				<li'.$addClass['profile'].'>
 					<a class="o_8" href="'.HTTP.'login/admin/profile/">プロフィール設定</a>
+				</li>
+				<li'.$addClass['usermanagement'].'>
+					<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
 				</li>
 			</ul>';
 		// ツールパーツ
