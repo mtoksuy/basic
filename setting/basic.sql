@@ -131,7 +131,10 @@ CREATE TABLE `user` (
 
 ALTER TABLE `article`
   ADD PRIMARY KEY (`primary_id`),
-  ADD KEY `basic_id` (`basic_id`);
+  ADD KEY `idx_basic_id` (`basic_id`),
+  ADD KEY `idx_title` (`title`),
+  ADD KEY `idx_del` (`del`),
+  ADD KEY `idx_title_del` (`title`, `del`);
 
 ALTER TABLE `article_draft`
   ADD PRIMARY KEY (`primary_id`);
