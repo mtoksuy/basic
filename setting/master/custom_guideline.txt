@@ -1,0 +1,11 @@
+
+-------------custom概要-------------
+通常
+basic/setting/master/xxx.php
+を読みに行くが
+basic/setting/custom_xxx.php
+があればcustom_xxx.phpを読みに行く
+
+-------------対応master-------------
+・article
+他のマスターも要望があれば改修を行う
