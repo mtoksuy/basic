@@ -72,8 +72,15 @@ class model_login_admin_import_basis {
 			$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.(int)$res[0]['primary_id'].'';
 			// ディレクトリ作成
 			basic::dir_create($directory_path);
-			// ファイル複製
-			copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+			if(file_exists(PATH.'setting/master/custom_article.php')) {
+				// ファイル複製
+				copy(PATH.'setting/master/custom_article.php', $directory_path.'/index.php');
+			}
+			// custom_articleがない場合
+			else {
+				// ファイル複製
+				copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+			}
 			// 記事OGP画像生成
 			model_login_admin_post_basis::media_article_ogp_create($res, $site_data_array);
 			// 静的化+圧縮化する際のリストarray取得

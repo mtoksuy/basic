@@ -1,11 +1,27 @@
 
 -------------custom概要-------------
 通常
-basic/setting/master/xxx.php
+setting/master/xxx.php
 を読みに行くが
-basic/setting/custom_xxx.php
+setting/custom_xxx.php
 があればcustom_xxx.phpを読みに行く
 
 -------------対応master-------------
 ・article
 他のマスターも要望があれば改修を行う
+
+
+-------------custom例-------------
+setting/master/article.php
+を
+setting/master/custom_article.php
+にコピー(削除はしないで下さい)
+15行目の
+	// 記事のHTML生成
+	$article_data_array = model_article_html::article_html_create($article_res);
+を
+	// 記事のHTML生成
+	$article_data_array = model_xxx_html::article_html_create($article_res);
+などとして
+自身のテーマで作成したモデルの関数を使用したり自由自在にカスタマイズ可能です。
+カスタマイズする際は model_article_html::article_html_create($article_res); の内容をそのままコピーして好きに改修するのが楽です。
