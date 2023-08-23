@@ -19,3 +19,13 @@
 .coreupdate .coreupdate_inner a:visited {
 
 }
+
+.coreupdate .coreupdate_inner .alert {
+	border: 2px dashed var(--theme-color4);
+	display: inline-block;
+	margin: 15px 0 30px;
+	padding: 15px;
+}
+.coreupdate .coreupdate_inner .alert p {
+	margin: 0px 0 0px;
+}
