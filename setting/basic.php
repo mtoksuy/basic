@@ -1018,8 +1018,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					if(!file_exists($directory_path)) {
 						// ディレクトリ作成
 						basic::dir_create($directory_path);
-						// ファイル複製
-						copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+						// custom_articleがある場合
+						if(file_exists(PATH.'setting/master/custom_article.php')) {
+							// ファイル複製
+							copy(PATH.'setting/master/custom_article.php', $directory_path.'/index.php');
+						}
+						// custom_articleがない場合
+						else {
+							// ファイル複製
+							copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+						}
 					}
 					// htmlがなかった場合
 					if(!file_exists($directory_path.'/index.html')) {
