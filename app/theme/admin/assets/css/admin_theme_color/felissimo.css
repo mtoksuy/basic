@@ -1,0 +1,41 @@
+/********************************
+管理画面テーマカラーカスタム変数
+********************************/
+/************************
+1背景
+2レフトドロワー
+3レフトドロワーホバー時
+4通知
+************************/
+:root {
+	--theme-color1: #fcfcfc;
+	--theme-color2: #035AA6;
+	--theme-color3: #1d73bf;
+	--theme-color4: #76c1cb;
+
+	--theme-h1-text-color: #292929;
+	--theme-h2-text-color: #292929;
+	--theme-h3-text-color: #292929;
+
+	--theme-h-design-color: #76c1cb;
+
+	--theme-border-text-color: #8e9aff;
+	--theme-button-text-color: #f0f0f0;
+	--theme-text-color: #292929;
+	--theme-link-text-color: #f0f0f0;
+
+	--theme-border-color1: #254991;
+	--theme-border-color2: #e8e8e8;
+	--theme-border-color3: #CCC;
+
+	--theme-now-color: #76c1cb;
+
+	--theme-template-title-text-color: #72deec;
+
+	--theme-post-placeholder-color: #ccc;
+	--theme-form-background-color: #fcfcfc;
+
+	--theme-general-select-background-color: #fcfcfc;
+
+	--theme-filelist-filename-background-color: #fcfcfc;
+}

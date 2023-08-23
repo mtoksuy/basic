@@ -1,0 +1,141 @@
+/*****
+main
+*****/
+
+.main {
+	padding: 0px 0 0;
+	margin: 0 auto;
+	width: 95vw;
+}
+
+
+/*****
+writer
+*****/
+
+.writer {}
+
+.writer .writer_inner {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.writer .writer_inner .writer_inner_left {
+	margin: 0 0 30px 0;
+	list-style: none;
+	padding: 15px 15px 15px 2.5%;
+	flex-basis: 30%;
+	box-sizing: border-box;
+	align-self: stretch;
+}
+
+.writer .writer_inner .writer_inner_left img {}
+
+.writer .writer_inner .writer_inner_left .profile_card_content_name {}
+
+.writer .writer_inner .writer_inner_left .profile_card_content_name h1 {
+	font-size: 24px;
+}
+
+.writer .writer_inner .writer_inner_left {}
+
+.writer .writer_inner .writer_inner_left .profile_card_content_summary {}
+
+.writer .writer_inner .writer_inner_left .profile_card_content_sns {
+	margin: 0 0 15px 0;
+}
+
+.writer .writer_inner .writer_inner_left .profile_card_content_site {}
+
+.writer .writer_inner .writer_inner_right {
+	margin: 0 0 30px 0;
+	padding: 15px;
+	flex-basis: 70%;
+	box-sizing: border-box;
+	align-self: stretch;
+}
+
+.writer .writer_inner .writer_inner_right ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	word-break: break-all;
+}
+
+.writer .writer_inner .writer_inner_right ul li {
+	margin: 0 0 30px 0;
+	width: 33%;
+}
+.writer .writer_inner .writer_inner_right ul li:hover {
+	background-color: #f0f0f0;
+}
+.writer .writer_inner .writer_inner_right ul li a {
+	display: block;
+	color: #292f33;
+	padding: 12px;
+}
+
+.writer .writer_inner .writer_inner_right ul li a:visited {
+	text-decoration: none;
+}
+
+.writer .writer_inner .writer_inner_right img {
+	width: 100%;
+	box-shadow: rgba(0, 0, 0, 0.05) 1px 1px 0px 0px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	margin: 0 0 15px 0;
+	border-radius: 3px;
+	height: 10.3vw;
+	object-fit: cover;
+}
+.writer .writer_inner .writer_inner_right h1 {
+	font-size: 20px;
+	margin: 0 0 8px 0;
+}
+
+
+
+
+
+/**************
+1024px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.main {
+		padding: 0px 0 0;
+		margin: 0 auto;
+	}
+	.writer .writer_inner .writer_inner_left {
+		flex-basis: 100%;
+		padding: 0px 15px 15px 2.5%;
+		padding: 0px 10px 15px 10px;
+	}
+	.writer .writer_inner .writer_inner_right ul {
+			padding: 0px 10px 15px 10px;
+	}
+	.writer .writer_inner .writer_inner_right {
+		padding: 0px;
+		flex-basis: 100%;
+	}
+}
+
+
+/**************
+748px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 748px) {
+	.main {
+		padding: 0px 0 0;
+		margin: 0 auto;
+	}
+}

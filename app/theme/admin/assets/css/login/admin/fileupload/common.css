@@ -1,0 +1,340 @@
+
+.upload {
+	position: relative;
+	width: 100%;
+}
+.upload .upload_inner {
+	margin: 0 auto;
+	padding: 30px;
+}
+.upload_inner_box {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.upload .upload_inner .upload_inner_title {
+
+}
+.upload .upload_inner .upload_inner_sub {
+
+}
+.upload_inner_html_create {
+	padding: 5px;
+}
+
+
+#upFileWrap {
+	list-style: none;
+	flex-basis: 40%;
+	box-sizing: border-box;
+}
+.loding {
+	flex-basis: 18%;
+	box-sizing: border-box;
+}
+.loding .text {
+	margin:0;
+}
+.loding .text b {
+	color: #e63870;
+}
+.loding .timer-loader {
+
+}
+/****************************************************/
+@-moz-keyframes timer-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes timer-loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes timer-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+/* :not(:required) hides this rule from IE9 and below */
+.timer-loader:not(:required) {
+	margin: 30px auto;
+  border: 6px solid #e63870;
+  -moz-border-radius: 24px;
+  -webkit-border-radius: 24px;
+  border-radius: 24px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+	display: block;
+  overflow: hidden;
+  position: relative;
+  text-indent: -9999px;
+  width: 48px;
+  height: 48px;
+}
+.timer-loader:not(:required)::before {
+  -moz-animation: timer-loader 1250ms infinite linear;
+  -webkit-animation: timer-loader 1250ms infinite linear;
+  animation: timer-loader 1250ms infinite linear;
+  -moz-transform-origin: 3px 3px;
+  -ms-transform-origin: 3px 3px;
+  -webkit-transform-origin: 3px 3px;
+  transform-origin: 3px 3px;
+  background: #e63870;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 19.2px;
+  left: 15px;
+  top: 15px;
+}
+.timer-loader:not(:required)::after {
+  -moz-animation: timer-loader 15000ms infinite linear;
+  -webkit-animation: timer-loader 15000ms infinite linear;
+  animation: timer-loader 15000ms infinite linear;
+  -moz-transform-origin: 3px 3px;
+  -ms-transform-origin: 3px 3px;
+  -webkit-transform-origin: 3px 3px;
+  transform-origin: 3px 3px;
+  background: #e63870;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 16px;
+  left: 15px;
+  top: 15px;
+}
+/****************************************************/
+
+
+.upload_inner_html_create_box {
+	position: relative;
+	flex-basis: 40%;
+	box-sizing: border-box;
+}
+.upload_inner_html_create {
+	width: 100%;
+	height: 300px;
+	font-size: 14px;
+	background-color: rgb(39, 39, 39);
+	color: rgb(159, 159, 159);
+	padding: 10px;
+	box-sizing: border-box;
+}
+.upload_inner_html_create_box .cdn_html_copy_btn {
+	position: relative;
+	top: -4px;
+	right: 0px;
+	border: solid 1px #e63870;
+	display: inline-block;
+	padding: 5px;
+	cursor: pointer;
+}
+
+
+
+
+
+
+#inputFile {
+    position: relative;
+	width: 100%;
+	height: 300px;
+    text-align: center;
+    border: 2px dashed var(--theme-border-color3);
+}
+
+#dropArea {
+    position: absolute;
+    width: 100%;
+	margin: 65px 0 0 0;
+}
+
+#dropArea.dragover {
+    border: 2px solid #16a5bf;
+    background: rgba(22, 165, 191, 0.6);
+}
+
+#uploadFile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: block;
+    width: 100%;
+    height: 300px;
+    opacity: 0;
+}
+
+#inputFileWrap {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    display: inline-block;
+}
+
+#btnInputFile,
+#btnChangeFile {
+    display: table;
+	margin: 140px auto;
+}
+
+#btnChangeFile {
+    display: none;
+}
+
+
+#btnInputFile span,
+#btnChangeFile span {
+    position: relative;
+    z-index: 2;
+	padding: 15px;
+    border-radius: 3px;
+    text-decoration: none;
+	color: var(--theme-button-text-color);
+	background-color: var(--theme-color4);
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#upFileWrap.selected #btnInputFile {
+    display: none;
+}
+
+#upFileWrap.selected #btnChangeFile {
+    display: table;
+}
+
+.upload_form_submit {
+position: relative;
+top: 215px;
+z-index: 30;
+padding: 15px;
+cursor: pointer;
+color: var(--theme-text-color);
+background-color: var(--theme-color4);
+margin: 0 0 30px 0;
+padding: 18px;
+width: 100%;
+font-size: 18px;
+box-sizing: border-box;
+border-radius: 2px;
+border: 0px solid #a5a5a5;
+-webkit-appearance: none;
+}
+
+.upload_cdn_view {
+
+}
+.upload_cdn_view picture {
+
+}
+.upload_cdn_view picture img {
+	width: 33%;
+	height: auto;
+}
+
+.upload_cdn_view {
+
+}
+.upload_cdn_view h2 {
+	margin: 50px 0 30px 0;
+}
+
+
+/*******************
+ajax_fileupload_html
+*******************/
+.fileupload_show {
+
+}
+.fileupload_show ul {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-wrap: wrap;
+word-break: break-all;
+}
+.fileupload_show ul li {
+	width: 100%;
+	border-bottom: solid 1px var(--theme-border-color2);
+	position: relative;
+}
+.fileupload_show ul li .svg {
+	width: 80px;
+}
+.fileupload_show ul li img {
+width: 240px;
+height: auto;
+}
+.fileupload_show ul li .name {
+	color: var(--theme-text-color);
+	display: block;
+}
+.fileupload_show ul li .hidden_url {
+	display: none;
+}
+.fileupload_show ul li .hidden_url_textarea {
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.fileupload_show ul li .url_copy {
+	display: block;
+}
+.fileupload_show ul li .url_copy_btn {
+	border-radius: 3px 3px 3px 3px;
+	position: relative;
+	top: 0px;
+	right: 0px;
+/*
+	border: solid 1px #e63870;
+*/
+	display: inline-block;
+	padding: 0px 5px 0px 5px;
+	cursor: pointer;
+	color: var(--theme-button-text-color);
+	background-color: var(--theme-color4);
+	font-size: 12px;
+}
+.fileupload_show ul li .torst {
+	color: var(--theme-text-color);
+ }
+
+
+
+
