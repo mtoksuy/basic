@@ -1,0 +1,127 @@
+/***
+root
+***/
+
+.root {}
+
+.root .root_inner {
+	margin: 0 auto;
+	width: 95%;
+}
+
+.root .root_inner .card_article {}
+
+.root .root_inner .card_article .card_article_inner {}
+
+.root .root_inner .card_article .card_article_inner ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	word-break: break-all;
+}
+
+.root .root_inner .card_article .card_article_inner ul li {
+	width: 33%;
+}
+
+.root .root_inner .card_article .card_article_inner ul li:hover {
+	background-color: #f0f0f0;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article {}
+
+.root .root_inner .card_article .card_article_inner ul li article a {
+	display: block;
+	color: #292f33;
+	padding: 25px;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article a:hover {}
+
+.root .root_inner .card_article .card_article_inner ul li article a::link {
+	color: #292f33;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article a::visited {
+	color: #292f33;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents {}
+
+.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+	width: 100%;
+	height: auto;
+	box-shadow: rgba(0, 0, 0, 0.05) 1px 1px 0px 2px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
+	margin: 0 0 15px 0;
+	border-radius: 3px;
+	height: 14.6vw;
+	object-fit: cover;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents h1 {
+	font-size: 20px;
+	margin: 0 0 8px 0;
+}
+
+.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_summary {}
+
+.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents .card_article_contents_time {}
+
+
+
+
+
+/**************
+1024px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 14vw;
+	}
+/**************
+880px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 880px) {
+	.root .root_inner .card_article .card_article_inner ul li {
+		width: 50%;
+	}
+	.root .root_inner .card_article .card_article_inner ul li article a {
+		padding: 15px;
+	}
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 24vw;
+	}
+}
+
+
+
+/**************
+480px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 480px) {
+	.root .root_inner .card_article .card_article_inner ul li {
+		width: 100%;
+	}
+	.root .root_inner .card_article .card_article_inner ul li article a {
+		padding: 5px;
+	}
+	.root .root_inner .card_article .card_article_inner ul li article a .card_article_contents img {
+		height: 48vw;
+	}
+}
+
+
+/**************
+320px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 320px) {}

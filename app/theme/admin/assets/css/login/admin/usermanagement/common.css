@@ -1,0 +1,35 @@
+
+/********
+user_add
+*********/
+.user_add {
+    padding: 15px;
+    border-bottom: 1px solid #d7d7d7;
+    position: relative;
+}
+.user_add .user_add_inner {
+
+}
+.user_add .user_add_inner .add_button {
+	display: inline-block;
+	background-color: var(--theme-color4);
+	border: 1px solid var(--theme-color4);
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 82%;
+	margin: 0 0 3px 0;
+}
+
+.user_add .user_add_inner .add_button a {
+    display: block;
+	color: var(--theme-button-text-color);
+	padding: 0px 8px;
+}
+.user_add .user_add_inner .add_button a:visited {
+
+}
+
+
+
+
+

@@ -1,0 +1,22 @@
+
+
+.markdown_editor .markdown_editor_inner form .permalink {
+position: absolute;
+top: -30px;
+right: 254px;
+}
+
+.markdown_editor .markdown_editor_inner form .permalink input[type="text"] {
+	color: var(--theme-text-color);
+	padding: 3px;
+	font-size: 16px;
+	background-color: aliceblue;
+	background-color: var(--theme-form-background-color);
+	border: 1px solid var(--theme-border-color1);
+	display: inline-block;
+	width: 120px;
+}
+.markdown_editor .markdown_editor_inner form .permalink .permalink_view {
+	color: var(--theme-text-color);
+	display: inline-block;
+}

@@ -1,0 +1,236 @@
+
+.filelist {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-wrap: wrap;
+word-break: break-all;
+}
+.filelist li {
+	width: 10%;
+border: solid 5px var(--theme-color1);
+box-sizing: border-box;
+}
+.filelist li a {
+display: block;
+color: #292f33;
+padding: 0px;
+  width: auto;
+  height: auto;
+text-align: center;
+	position: relative;
+display: grid;
+overflow:hidden;
+}
+.filelist li img {
+width: 100%;
+height: auto;
+  width: 7.8vw;
+  height: 7.8vw;
+  object-fit: cover;
+}
+.filelist li .file_name {
+	position: absolute;
+	bottom: 0px;
+	font-size: 12px;
+	background-color: var(--theme-filelist-filename-background-color);
+	line-height: 145%;
+	left: 0px;
+	padding: 0px 5px 5px 5px;
+	color: var(--theme-text-color);
+	border-top: solid 1px var(--theme-border-color2);
+	box-sizing: border-box;
+	width: 100%;
+}
+
+
+
+
+
+/***************
+ファイルモーダル
+***************/
+.file_modal {
+	background-color: #ffffff;
+position: fixed;
+top: 50px;
+left: 50px;
+right: 50px;
+bottom: 50px;
+z-index: 160000;
+	border-radius: 12px;
+	overflow-y: hidden;
+
+}
+.file_modal .file_modal_inner {
+position: relative;	
+width: 100%;
+height: 100%;
+
+}
+
+.file_modal .file_modal_inner .file_modal_inner_top {
+width: 100%;
+min-height: 50px;
+position: relative;
+position: absolute;
+border-bottom: solid 1px #ccc;
+z-index: 15;
+}
+
+.file_modal .file_modal_inner .file_modal_inner_top h1 {
+margin: 17px 0 15px 15px;
+color: #0f0f0f;
+font-size: 24px;
+}
+.file_modal .file_modal_inner .file_modal_inner_top .next {
+	position: absolute;
+	top: 0px;
+	right: 118px;
+	font-size: 24px;
+	border: solid 1px #ccc;
+	width: 38px;
+	height: 47px;
+	padding: 16px 0 0 20px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.file_modal .file_modal_inner .file_modal_inner_top .prev {
+position: absolute;
+top: 0px;
+right: 59px;
+font-size: 24px;
+border: solid 1px #ccc;
+width: 38px;
+height: 47px;
+padding: 16px 0 0 20px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+.file_modal .file_modal_inner .file_modal_inner_top .delete {
+position: absolute;
+top: 0px;
+right: 0px;
+font-size: 24px;
+border: solid 1px #ccc;
+width: 38px;
+height: 47px;
+padding: 16px 0 0 20px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.file_modal .file_modal_inner .left {
+width: 65%;
+height: 100%;
+position: relative;
+padding: 65px 0 0 0;
+box-sizing: border-box;
+float: left;
+}
+.file_modal .file_modal_inner .left .image_box {
+box-sizing: border-box;
+height: 100%;
+position: relative;
+padding: 30px;
+}
+.file_modal .file_modal_inner .left img {
+display: block;
+margin: 0 auto;
+width: auto;
+height: 100%;
+/*
+width: 100%;
+height: auto;
+*/
+}
+.file_modal .file_modal_inner .left .image_box img.landscape {
+	width: 100%;
+	height: auto;
+}
+.file_modal .file_modal_inner .left .image_box img.portrait {
+	width: auto;
+	height: 100%;
+}
+.file_modal .file_modal_inner .right {
+width: 35%;
+height: 100%;
+position: relative;
+padding: 65px 0 0 0;
+box-sizing: border-box;
+float: left;
+}
+.file_modal .file_modal_inner .right .file_data {
+padding: 30px;
+}
+.file_modal .file_modal_inner .right .file_data .full_name {
+
+}
+.file_modal .file_modal_inner .right .file_data .type {
+
+}
+.file_modal .file_modal_inner .right .file_data .create_time {
+
+}
+.file_modal .file_modal_inner .right .file_data .size {
+
+}
+.file_modal .file_modal_inner .right .file_data .byte {
+
+}
+.file_modal .file_modal_inner .right .file_data .hidden_url {
+display: none;
+}
+.file_modal .file_modal_inner .right .file_data .url_copy_btn {
+	border-radius: 3px 3px 3px 3px;
+	position: relative;
+	top: 0px;
+	right: 0px;
+/*
+	border: solid 1px #e63870;
+*/
+	display: inline-block;
+	padding: 0px 5px 0px 5px;
+	cursor: pointer;
+	color: var(--theme-button-text-color);
+	background-color: var(--theme-color4);
+	font-size: 12px;
+}
+.fileupload_show ul li .torst {
+	color: #cccccc;
+}
+
+
+
+
+
+.select_move_overlay .select_move_overlay_inner .select_move_overlay_inner_box, 
+.select_html_overlay .select_html_overlay_inner .select_html_overlay_inner_box, 
+.select_trash_overlay .select_trash_overlay_inner .select_trash_overlay_inner_box {
+
+}
+.file_modal_overlay {
+	background-color: #000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 150000;
+	overflow-y: hidden;
+	opacity: 0.75;
+}
+.file_modal_overlay .file_modal_overlay_inner {
+
+}
+

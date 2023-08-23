@@ -1,0 +1,16 @@
+@charset "UTF-8";
+body {
+
+}
+
+.error {
+padding: 0px 0 0;
+margin: 0 auto;
+}
+.error .error_inner {
+width: 640px;
+margin: 50px auto;
+}
+.error .error_inner .logo h1 {
+
+}

@@ -1,0 +1,56 @@
+
+
+.markdown_editor .markdown_editor_inner form {
+	width: 76%;
+}
+.markdown_editor .markdown_editor_inner form .title {
+font-size: 18px;
+color: var(--theme-template-title-text-color);
+margin: 0 0 15px 0;
+}
+.clip {
+
+}
+
+.clip ul {
+
+}
+.clip ul li {
+	margin: 0 0 15px 0;
+	padding: 0 0 0 10px;
+}
+
+
+.clip ul li.now {
+/*
+	border-left: solid #43464D 5px;
+*/
+	box-shadow: -5px 0px 0px var(--theme-now-color);
+}
+
+
+
+
+
+
+
+
+
+
+.clip ul li a {
+	display: block;
+	color: var(--theme-text-color);
+}
+
+.clip ul li .description {
+	display: block;
+	line-height: 65%;
+	color: var(--theme-template-title-text-color);
+}
+
+
+
+
+
+
+

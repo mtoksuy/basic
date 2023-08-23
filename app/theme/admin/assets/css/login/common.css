@@ -1,0 +1,151 @@
+@charset "UTF-8";
+body {
+
+}
+
+.header {
+padding: 0px 0 0;
+margin: 0 auto;
+}
+.header .header_inner {
+width: 640px;
+margin: 0 auto;
+}
+.header .header_inner .logo {
+	text-align: center;
+	margin: 50px 0 0 0;
+}
+.header .header_inner .logo h1 {
+
+}
+.header .header_inner .logo h1 a {
+
+}
+.header .header_inner .logo h1 a img {
+
+}
+
+
+.main {
+padding: 0px 0 0;
+margin: 0 auto;
+}
+.main .main_inner {
+}
+.login {
+	width: 620px;
+	margin: 80px auto;
+}
+.login .login_inner {
+
+}
+.login .login_inner .login_title {
+
+}
+.login .login_inner ol {
+
+}
+.login .login_inner ol li {
+
+}
+
+.login .login_inner p {
+
+}
+.login .login_inner a {
+/*
+	background: #f0f0f1;
+	border-color: #0a4b78;
+	color: #0a4b78;
+	border: 1px solid #0a4b78;
+	padding: 7px 7px 7px 7px;
+	border-radius: 3px;
+	font-size: 14px;
+*/
+}
+.login .login_inner a:link {
+
+}
+.login .login_inner a:visited {
+
+}
+.login .login_inner a:hover {
+
+}
+
+
+
+
+/*************
+
+**************/
+.login_form {
+	margin: 20px 0 0 0;
+}
+.login_form label {
+	display: block;
+}
+
+.login_form input[type="text"],
+.login_form  input[type="password"]  {
+background-color: #fff;
+border: 1px solid #e1e8ed;
+border-radius: 5px;
+color: #474747;
+box-sizing: border-box;
+font-size: 82%;
+margin: 0;
+outline: 0 none;
+padding: 15px;
+transition: background 0.2s linear 0s;
+width: 100%;
+-webkit-appearance: none;
+}
+.login_form input[type="text"]::placeholder,
+.login_form  input[type="password"]::placeholder  {
+	color: #2c3338;
+}
+
+
+
+.login_form p {
+
+}
+.login_form input[type="submit"] {
+	background-color: #3786ff;
+	border: medium none #ff3f3f;
+	border-radius: 5px;
+	color: #fcfcfc;
+	margin: 30px 0 15px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 50px;
+	position: relative;
+	width: 100%;
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+.login .login_title_deading_1 {
+	font-size: 16px;
+	margin: 35px 0 15px 0;
+	border: none;
+	border-bottom: 2px solid #48BF84;
+	padding: 0px 7px 7px 0px;
+	position: relative;
+}
+.password_reissue {
+
+}
+.password_reissue a {
+	font-size: 14px;
+	margin: 0 0 0 15px;
+}
+
+/*******************
+640px以下の設定
+*******************/
+@media screen and (min-width: 0px) and (max-width: 740px) {
+
+}

@@ -1,0 +1,248 @@
+@charset "UTF-8";
+
+:root {
+	--http: '';
+}
+
+
+.clear {
+  clear: both;
+}
+.clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.m_b_minus_30 {
+  margin-bottom: -30px !important;
+}
+.m_b_minus_15 {
+  margin-bottom: -15px !important;
+}
+.m_0 {
+  margin: 0 !important;
+}
+.m_t_5 {
+  margin-top: 5px !important;
+}
+.m_t_10 {
+  margin-top: 10px !important;
+}
+.m_t_15 {
+  margin-top: 15px !important;
+}
+.m_t_30 {
+  margin-top: 30px !important;
+}
+.m_t_45 {
+  margin-top: 45px !important;
+}
+.m_t_60 {
+  margin-top: 60px !important;
+}
+.m_t_100 {
+  margin-top: 100px !important;
+}
+.m_b_0 {
+  margin-bottom: 0 !important;
+}
+.m_b_5 {
+  margin-bottom: 5px !important;
+}
+.m_b_10 {
+  margin-bottom: 10px !important;
+}
+.m_b_15 {
+  margin-bottom: 15px !important;
+}
+.m_b_30 {
+  margin-bottom: 30px !important;
+}
+.m_b_45 {
+  margin-bottom: 45px !important;
+}
+.m_b_60 {
+  margin-bottom: 60px !important;
+}
+.m_b_100 {
+  margin-bottom: 100px !important;
+}
+
+.o_1,.o_2,.o_3,.o_4,.o_5,.o_6,.o_7,.o_8,.o_9 {
+  -webkit-transition: all 0.1s ease 0s;
+  -moz-transition: all 0.1s ease 0s;
+  -ms-transition: all 0.1s ease 0s;
+  -o-transition: all 0.1s ease 0s;
+  transition: all 0.1s ease 0s;
+}
+.o_1:hover {
+  opacity: .1;
+}
+.o_2:hover {
+  opacity: .2;
+}
+.o_3:hover {
+  opacity: .3;
+}
+.o_4:hover {
+  opacity: .4;
+}
+.o_5:hover {
+  opacity: .5;
+}
+.o_6:hover {
+  opacity: .6;
+}
+.o_7:hover {
+  opacity: .7;
+}
+.o_8:hover {
+  opacity: .8;
+}
+.o_9:hover {
+  opacity: .9;
+}
+
+.f_s_60 {
+  font-size: 60%;
+}
+.f_s_85 {
+  font-size: 85%;
+}
+.f_s_100 {
+  font-size: 100%;
+}
+.f_s_105 {
+  font-size: 105%;
+}
+.f_s_110 {
+  font-size: 110%;
+}
+.f_s_115 {
+  font-size: 115%;
+}
+.f_s_120 {
+  font-size: 120%;
+}
+.f_s_125 {
+  font-size: 125%;
+}
+.f_s_130 {
+  font-size: 130%;
+}
+.f_s_135 {
+  font-size: 135%;
+}
+.f_s_140 {
+  font-size: 140%;
+}
+.f_s_145 {
+  font-size: 145%;
+}
+.f_s_150 {
+  font-size: 150%;
+}
+.f_s_155 {
+  font-size: 155%;
+}
+.f_s_160 {
+  font-size: 160%;
+}
+.f_s_165 {
+  font-size: 165%;
+}
+.f_s_170 {
+  font-size: 170%;
+}
+.f_s_175 {
+  font-size: 175%;
+}
+.f_s_180 {
+  font-size: 180%;
+}
+.f_s_185 {
+  font-size: 185%;
+}
+.f_s_190 {
+  font-size: 190%;
+}
+.f_s_195 {
+  font-size: 195%;
+}
+.f_s_200 {
+  font-size: 200%;
+}
+.f_s_205 {
+  font-size: 205%;
+}
+.f_s_210 {
+  font-size: 210%;
+}
+.f_s_215 {
+  font-size: 215%;
+}
+.f_s_220 {
+  font-size: 220%;
+}
+.f_s_225 {
+  font-size: 225%;
+}
+.f_s_230 {
+  font-size: 230%;
+}
+.f_s_235 {
+  font-size: 235%;
+}
+.f_s_240 {
+  font-size: 240%;
+}
+.f_s_245 {
+  font-size: 245%;
+}
+.f_s_250 {
+  font-size: 250%;
+}
+
+.text_left {
+  text-align: left;
+}
+.text_center {
+  text-align: center;
+}
+.text_right {
+  text-align: right;
+}
+
+.block {
+	display: block;
+}
+.inline {
+  display: inline;
+}
+
+.white {
+	color: #fff;
+}
+.black {
+  color: #000;
+}
+.red {
+  color: red;
+}
+.blue {
+  color: #00f;
+}
+.green {
+  color: green;
+}
+
+.no_select {
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
