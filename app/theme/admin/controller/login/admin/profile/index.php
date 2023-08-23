@@ -5,7 +5,7 @@
 	if(empty($_GET['basic_id'])) { $_GET['basic_id'] = ''; }
 	if(empty($_GET['edit'])) { $_GET['edit'] = ''; }
 	if(empty($_GET['delete'])) { $_GET['delete'] = ''; }
-
+	// 更新があった場合
 	if($_SESSION['basic_id']) {
 		$now = 'profile';
 		// ポストの中身をエンティティ化する
@@ -31,26 +31,26 @@
 				list($img_width, $img_height, $mime_type, $attr) = getimagesize($_FILES['icon']['tmp_name']);
 				//list関数の第3引数にはgetimagesize関数で取得した画像のMIMEタイプが格納されているので条件分岐で拡張子を決定する
 				switch($mime_type){
-				//jpegの場合
-				case IMAGETYPE_JPEG:
-				//拡張子の設定
-				$img_extension = "jpg";
-				break;
-				//pngの場合
-				case IMAGETYPE_PNG:
-				//拡張子の設定
-				$img_extension = "png";
-				break;
-				//gifの場合
-				case IMAGETYPE_GIF:
-				//拡張子の設定
-				$img_extension = "gif";
-				break;
-				//webpの場合
-				case 18:
-				//拡張子の設定
-				$img_extension = "webp";
-				break;
+					//jpegの場合
+					case IMAGETYPE_JPEG:
+						//拡張子の設定
+						$img_extension = "jpg";
+					break;
+					//pngの場合
+					case IMAGETYPE_PNG:
+						//拡張子の設定
+						$img_extension = "png";
+					break;
+					//gifの場合
+					case IMAGETYPE_GIF:
+						//拡張子の設定
+						$img_extension = "gif";
+					break;
+					//webpの場合
+					case 18:
+						//拡張子の設定
+						$img_extension = "webp";
+					break;
 				}
 				$length = 32;
 				$random_hash = substr(base_convert(hash('sha256', uniqid()), 16, 36), 0, $length);
