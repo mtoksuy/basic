@@ -1,0 +1,65 @@
+
+----------------------Basic設計思想----------------------
+
+・全てのアクセスを index.php に集約させる
+・極限まで機能を削ぎ落としたシンプルなcontroller、model、view
+・model内はbasis.php(主にDBを使う場合の関数)とhtml.php(主にHTMLを生成する関数)にモデルを明示的に切り分け
+・徹底的なviewのテンプレート思考
+・	関数使用時にモデルを明示的にする  例：$lohin_message = model_login_basis::login($post);
+・全てのモデルはオートローダーで自動で読みこむ
+
+
+----------------------画面遷移図----------------------
+
+https://{任意ドメイン}/setup/:セットアップ
+setting/db_config.php がない場合、強制遷移する
+
+https://{任意ドメイン}/:トップページ
+├https://{任意ドメイン}/about/:私たちについて
+├https://{任意ドメイン}/sitemap/:サイトマップ
+├https://{任意ドメイン}/contact/:お問い合わせ
+└https://{任意ドメイン}/login/:ログイン
+　└https://{任意ドメイン}/login/admin/:アドミン
+　　├https://{任意ドメイン}/writer/mtoksuy/:マイページ
+　　├https://{任意ドメイン}/login/admin/coreupdate/:アップデート
+　　├https://{任意ドメイン}/login/admin/post/:ブログを書く
+　　├https://{任意ドメイン}/login/admin/list/:投稿一覧
+　　├https://{任意ドメイン}/login/admin/draft/:下書き一覧
+　　├https://{任意ドメイン}/login/admin/fileupload/:ファイルアップロード
+　　├https://{任意ドメイン}/login/admin/filelist/:ファイル一覧
+　　├https://{任意ドメイン}/login/admin/contactlist/:お問い合わせ一覧
+　　├https://{任意ドメイン}/login/admin/themeswitching/:テーマ切り替え
+　　├https://{任意ドメイン}/login/admin/page/:ページ作成
+　　├https://{任意ドメイン}/login/admin/pagelist/:ページ一覧
+　　├https://{任意ドメイン}/login/admin/pagedraft/:ページ下書き
+　　├https://{任意ドメイン}/login/admin/rootedit/:トップページ編集
+　　├https://{任意ドメイン}/login/admin/template/:テンプレート編集
+　　├https://{任意ドメイン}/login/admin/general/:一般設定
+　　├https://{任意ドメイン}/login/admin/profile/:プロフィール設定
+　　├https://{任意ドメイン}/login/admin/usermanagement/:ユーザーの管理
+　　├https://{任意ドメイン}/login/admin/import/:インポート
+　　└https://{任意ドメイン}/login/admin/plugin/:プラグイン
+
+
+----------------------DBテーブル一覧----------------------
+article
+　ブログを書く機能
+article_draft
+　ブログを書く機能。下書き登録、更新
+contact
+　お問い合わせ機能
+cron
+　Basic内部cron。テーマ変更が発火
+fileupload
+　ファイルアップロード機能、ブログを書く機能、ノート機能
+page
+　ノート機能
+setting
+　セットアップ機能、サイト設定機能
+token
+　パスワードをお忘れですか ?機能
+user
+　プロフィール設定機能、ユーザーの管理機能
+
+・表示高速化を念頭に基本的にはレフトジョインなどの結合はしないように設計をしています。
+・userテーブルのbasic_idが全てのテーブルと紐づいています。

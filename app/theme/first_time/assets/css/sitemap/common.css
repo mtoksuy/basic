@@ -1,0 +1,119 @@
+/*****
+main
+******/
+
+.main {
+	width: auto;
+}
+
+
+/************
+section_block
+*************/
+
+.section_block {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+
+/******
+sitemap
+******/
+
+.sitemap {}
+
+.sitemap h2 {
+	font-size: 20px;
+	margin: 30px 0 15px 0;
+}
+
+.sitemap .sitemap_inner {
+	width: 65%;
+	margin: 0 auto;
+}
+
+.sitemap .sitemap_inner .sitemap_title_top {
+	font-size: 24px;
+	color: #3C93FF;
+	font-weight: bold;
+	margin: 0 0 30px 0;
+}
+
+.sitemap .sitemap_inner .sitemap_title {
+	font-size: 28px;
+	color: #2f2f2f;
+	margin: 0 0 30px 0;
+}
+
+.sitemap .sitemap_inner .sitemap_title_bottom {
+	font-size: 16px;
+	text-align: center;
+	margin: 0;
+}
+
+.sitemap .sitemap_inner .sitemap_contents {}
+
+.sitemap .sitemap_inner .sitemap_contents .section_block {
+	margin: 0 0 30px 0;
+}
+
+.sitemap .sitemap_inner .sitemap_contents .section_block h2 {}
+
+.sitemap .sitemap_inner .sitemap_contents .section_block h3 {}
+
+
+/**************
+1024px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.main {
+		padding: 0px 0 0;
+		margin: 0 auto;
+	}
+	.sitemap {
+		margin: 30px 0 0 0;
+	}
+}
+
+
+/**************
+748px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 748px) {
+	.main {
+		padding: 0px 0 0;
+		margin: 0 auto;
+	}
+}
+
+
+/**************
+640px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 640px) {
+	.main .main_inner {
+		margin: 0 15px;
+	}
+	.sitemap .sitemap_inner {
+		width: 100%;
+		margin: 0 auto;
+	}
+}
+
+
+/**************
+480px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 480px) {}
+
+
+/**************
+320px以下の設定
+**************/
+
+@media screen and (min-width: 0px) and (max-width: 320px) {}

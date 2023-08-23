@@ -1,0 +1,106 @@
+#.htaccess
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+</IfModule>
+
+# ファイルの優先順位
+DirectoryIndex index.html.gz index.html index.php
+
+# RewriteEngineをOnにする
+Options +FollowSymLinks
+
+# 内部ディレクトリ非表示
+Options -Indexes
+
+RewriteEngine on
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule .+ %{REQUEST_URI}.gz
+
+#スタイルシート (.css)
+<FilesMatch "\.css\.gz$">
+	ForceType text/css
+	AddEncoding x-gzip .gz
+</FilesMatch>
+
+#Javascript (.js)
+<FilesMatch "\.js\.gz$">
+	ForceType application/x-javascript
+	AddEncoding x-gzip .gz
+</FilesMatch>
+
+#HTML (.html)
+<FilesMatch "\.html\.gz$">
+	ForceType   text/html
+	AddEncoding x-gzip .gz
+</FilesMatch>
+
+#PHP (.php)
+<FilesMatch "\.php\.gz$">
+	ForceType   text/html
+	AddEncoding x-gzip .gz
+</FilesMatch>
+
+# https強制
+# RewriteEngine on
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# index名削除
+RewriteEngine on
+RewriteCond %{THE_REQUEST} ^.*/index.html
+RewriteRule ^(.*)index.html$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# index名削除
+RewriteEngine on
+RewriteCond %{THE_REQUEST} ^.*/index.php
+RewriteRule ^(.*)index.php$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# www削除
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+
+# Expires を指定する方法
+<IfModule mod_expires.c>
+	ExpiresActive On
+#	ExpiresActive Off
+	# 全てをキャッシュする
+	# ExpiresDefault                  "access plus 1 days"
+
+	# HTML
+	ExpiresByType text/html                "access plus 6 hours"
+
+
+	# Favicon
+	ExpiresByType image/vnd.microsoft.icon "access plus 3 month"
+	ExpiresByType image/x-icon                     "access plus 3 month"
+
+	# CSS
+	ExpiresByType text/css                 "access plus 1 year"
+
+	# JavaScript
+	ExpiresByType application/javascript    "access plus 1 year"
+	ExpiresByType application/x-javascript "access plus 1 year"
+	ExpiresByType text/javascript                "access plus 1 year"
+
+	# 画像や動画
+	ExpiresByType audio/ogg                           "access plus 3 month"
+	ExpiresByType image/bmp                         "access plus 3 month"
+	ExpiresByType image/gif                            "access plus 3 month"
+	ExpiresByType image/jpeg                         "access plus 3 month"
+	ExpiresByType image/png                          "access plus 3 month"
+	ExpiresByType image/svg+xml                  "access plus 3 month"
+	ExpiresByType image/webp                       "access plus 3 month"
+	ExpiresByType image/avif                          "access plus 3 month"
+	ExpiresByType video/mp4                          "access plus 3 month"
+	ExpiresByType video/ogg                           "access plus 3 month"
+	ExpiresByType video/webm                       "access plus 3 month"
+
+	# Other
+    ExpiresByType text/x-cross-domain-policy "access plus 3 month"
+
+	# データはキャッシュさせない
+#	ExpiresByType application/json       "access plus 0 seconds"
+</IfModule>
