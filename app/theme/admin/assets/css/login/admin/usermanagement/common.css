@@ -29,7 +29,9 @@ user_add
 
 }
 
-
-
-
-
+/*****************
+draft_list_content
+*****************/
+.draft_list_content p {
+    color: var(--theme-text-color);
+}

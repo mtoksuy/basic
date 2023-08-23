@@ -8,6 +8,17 @@ class model_login_admin_post_basis {
 //		pre_var_dump($user_id_data_array);
 //pre_var_dump($markdown);
 
+		// 正しくpreg_replaceできるように変換
+		$markdown = preg_replace('/\+/', '喙', $markdown);
+		$markdown = preg_replace('/\./', '蜚', $markdown);
+		$markdown = preg_replace('/\^/', '艨', $markdown);
+		$markdown = preg_replace('/\$/', '盈', $markdown);
+		$markdown = preg_replace('/\|/', '槭', $markdown);
+		$markdown = preg_replace('/\-/', '靂', $markdown);
+		$markdown = preg_replace('/\{/', '冀', $markdown);
+		$markdown = preg_replace('/\}/', '笆', $markdown);
+		$markdown = preg_replace('/\?/', '罘', $markdown);
+
 		// image:""内の()を削除
 		$pattern = '/image:"(.*?)"/';
 		$markdown = preg_replace_callback($pattern, function($matches) {
@@ -553,28 +564,16 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			$matches[0] = str_replace("</p>", '', $matches[0]);
 			return $matches[0];
 		}, $txt);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		// 戻す
+		$txt = preg_replace('/\喙/', '+', $txt);
+		$txt = preg_replace('/蜚/', '.', $txt);
+		$txt = preg_replace('/艨/', '^', $txt);
+		$txt = preg_replace('/盈/', '$', $txt);
+		$txt = preg_replace('/槭/', '|', $txt);
+		$txt = preg_replace('/靂/', '-', $txt);
+		$txt = preg_replace('/冀/', '{', $txt);
+		$txt = preg_replace('/笆/', '}', $txt);
+		$txt = preg_replace('/罘/', '?', $txt);
 
 
 		return $txt;

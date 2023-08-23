@@ -172,6 +172,20 @@ CREATE TABLE `setting` (
   ALTER TABLE `setting` ADD `article_view_num` varchar(256) DEFAULT '12';
   ALTER TABLE `setting` ADD `run_cron_num` varchar(256) DEFAULT '500';
 
+CREATE TABLE `token` (
+  `primary_id` int(10) UNSIGNED NOT NULL,
+  `basic_id` varchar(256) DEFAULT NULL,
+  `token` varchar(256) DEFAULT NULL,
+  `expiration_date` varchar(256) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+  ALTER TABLE `token` ADD `primary_id` int(10) UNSIGNED NOT NULL;
+  ALTER TABLE `token` ADD `basic_id` varchar(256) DEFAULT NULL;
+  ALTER TABLE `token` ADD `toke` varchar(256) DEFAULT NULL;
+  ALTER TABLE `token` ADD `expiration_date` varchar(256) DEFAULT NULL;
+  ALTER TABLE `token` ADD `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `basic_id` varchar(256) DEFAULT NULL,
@@ -180,7 +194,7 @@ CREATE TABLE `user` (
   `name` varchar(512) DEFAULT NULL,
   `icon` varchar(256) DEFAULT NULL,
   `profile` text DEFAULT NULL,
-  `authority_type` varchar(256) DEFAULT NULL,
+  `role` varchar(256) DEFAULT NULL,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
@@ -193,7 +207,7 @@ CREATE TABLE `user` (
   ALTER TABLE `user` ADD `name` varchar(512) DEFAULT NULL;
   ALTER TABLE `user` ADD `icon` varchar(256) DEFAULT NULL;
   ALTER TABLE `user` ADD `profile` text DEFAULT NULL;
-  ALTER TABLE `user` ADD `authority_type` varchar(256) DEFAULT NULL;
+  ALTER TABLE `user` ADD `role` varchar(256) DEFAULT NULL;
   ALTER TABLE `user` ADD `del` tinyint(4) NOT NULL DEFAULT '0';
   ALTER TABLE `user` ADD `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
   ALTER TABLE `user` ADD `update_time` varchar(256) DEFAULT NULL;
@@ -227,6 +241,9 @@ ALTER TABLE `page`
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`setting_id`);
 
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`primary_id`);
+
 ALTER TABLE `user`
   ADD PRIMARY KEY (`primary_id`);
 
@@ -253,6 +270,9 @@ ALTER TABLE `page`
 
 ALTER TABLE `setting`
   MODIFY `setting_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `token`
+  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `user`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;

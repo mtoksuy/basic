@@ -105,7 +105,15 @@ CREATE TABLE `setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
-(1, '0.9.8', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
+(1, '0.9.9', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
+
+CREATE TABLE `token` (
+  `primary_id` int(10) UNSIGNED NOT NULL,
+  `basic_id` varchar(256) DEFAULT NULL,
+  `token` varchar(256) DEFAULT NULL,
+  `expiration_date` varchar(256) DEFAULT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -124,6 +132,10 @@ CREATE TABLE `user` (
 ALTER TABLE `article`
   ADD PRIMARY KEY (`primary_id`),
   ADD KEY `basic_id` (`basic_id`);
+  ADD KEY `idx_basic_id` (`basic_id`),
+  ADD KEY `idx_title` (`title`),
+  ADD KEY `idx_del` (`del`),
+  ADD KEY `idx_title_del` (`title`, `del`);
 
 ALTER TABLE `article_draft`
   ADD PRIMARY KEY (`primary_id`);
@@ -149,6 +161,9 @@ ALTER TABLE `page`
 
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`setting_id`);
+
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`primary_id`);
 
 ALTER TABLE `user`
   ADD PRIMARY KEY (`primary_id`);
@@ -176,6 +191,9 @@ ALTER TABLE `page`
 
 ALTER TABLE `setting`
   MODIFY `setting_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `token`
+  MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `user`
   MODIFY `primary_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
