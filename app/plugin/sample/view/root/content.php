@@ -13,11 +13,11 @@
 						<p>Basic version .<?php echo $site_data_array['basic_version']; ?></p>
 						<p style="border-bottom:1px solid var(--theme-border-color2);"> </p>
 						<p>公開している記事数の合計数を表示するsampleプラグインです。</p>
-						<p>記事合計数：<?php echo $article_res[0]['COUNT(*)'] ?></p>
+						<p>記事合計数：<b><?php echo $article_res[0]['COUNT(*)'] ?></b></p>
 
 
 						<p class="m_0">プラグインを作成する際のポイント</p>
-						<p>Basicのクラス、関数は全て利用できます。</p>
+						<p>Basicなど全てのクラス、関数は利用できます。</p>
 					</div> <!-- summary_box -->
 				</div> <!-- summary_inner -->
 			</div> <!-- summary -->
