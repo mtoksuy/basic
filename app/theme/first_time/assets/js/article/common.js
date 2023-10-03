@@ -13,7 +13,8 @@
 					header_height = 0;
 				}
 			this_wording = $(this).html();
-			p(this_wording);
+			// HTMLタグを取り除く正規表現を使用して置換
+			this_wording = this_wording.replace(/<ol>(.*?)<\/ol>/g, '');
 			$('h2').each(function(i, e) {
 				if(this_wording == $(this).html()) {
 					cotents_offset_top = $(this).offset().top;
@@ -21,7 +22,7 @@
 				}
 			});
 		}
-	}, '.index li');
+	}, '.index ol li .h2_scroll_btn');
 	/***********************
 	目次から見出しh3にジャンプ
 	***********************/
@@ -36,7 +37,8 @@
 					header_height = 0;
 				}
 			this_wording = $(this).html();
-			p(this_wording);
+			// HTMLタグを取り除く正規表現を使用して置換
+			this_wording = this_wording.replace(/<ol class="sub">(.*?)<\/ol>/g, '');
 			$('h3').each(function(i, e) {
 				if(this_wording == $(this).html()) {
 					cotents_offset_top = $(this).offset().top;
@@ -44,7 +46,7 @@
 				}
 			});
 		}
-	}, '.index_2 li');
+	}, '.index ol li .nest li .h3_scroll_btn');
 	/**************************
 	目次から見出しh4にジャンプ
 	**************************/
