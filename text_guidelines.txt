@@ -20,7 +20,7 @@ https://{任意ドメイン}/:トップページ
 ├https://{任意ドメイン}/contact/:お問い合わせ
 └https://{任意ドメイン}/login/:ログイン
 　└https://{任意ドメイン}/login/admin/:アドミン
-　　├https://{任意ドメイン}/writer/mtoksuy/:マイページ
+　　├https://{任意ドメイン}/writer/{ユーザー名}/:マイページ
 　　├https://{任意ドメイン}/login/admin/coreupdate/:アップデート
 　　├https://{任意ドメイン}/login/admin/post/:ブログを書く
 　　├https://{任意ドメイン}/login/admin/list/:投稿一覧
