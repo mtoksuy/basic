@@ -89,14 +89,13 @@ class model_login_admin_post_basis {
 /', '<h3>\\1</h3>
 ', $markdown);
 
-		// 目次変換
-		$markdown = model_login_admin_post_basis::index_conversion($markdown);
-
 		// h2変換
 		$markdown = preg_replace('/# (.*?)
 /', '<h2>\\1</h2>
 ', $markdown);
 
+		// 目次変換
+		$markdown = model_login_admin_post_basis::index_conversion($markdown);
 
 		// ハッシュタグ変換(半角空白、全角空白版)
 		$markdown = preg_replace('/#(.*?) /', '<div class="hashtag"><a href="'.HTTP.'hashtag/\\1/">\\1</a></div> ', $markdown);
@@ -531,7 +530,26 @@ if($file){
 /* ファイルポインタをクローズ */
 fclose($file);
 
-//pre_var_dump($txt);
+
+		// 目次内 pタグ削除
+		$pattern = '/<div class="index">(.*?)<ol>(.*?)<\/div>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("<p>", '', $matches[0]);
+		}, $txt);
+		// 目次内 pタグ削除
+		$pattern = '/<div class="index">(.*?)<ol>(.*?)<\/div>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("</p>", '', $matches[0]);
+		}, $txt);
+
+		// 無駄なpタグ削除
+		$txt = preg_replace('/<p><\/p>/', '', $txt);
+		$txt = preg_replace('/<p> <\/p>/', '', $txt);
+		$txt = preg_replace('/<p>	<\/p>/', '', $txt);
+		$txt = preg_replace('/<p>		<\/p>/', '', $txt);
+		$txt = preg_replace('/<p>			<\/p>/', '', $txt);
+		$txt = preg_replace('/<p>				<\/p>/', '', $txt);
+
 // 改行を削除
 $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 //file_put_contents(PATH.'login/admin/markdown_post/markdown_post_tmp.txt', $txt);
@@ -1004,28 +1022,59 @@ echo ('<img src="http://localhost/basic/app/assets/img/article_ogp/'.$res[0]['pr
 	//目次変換
 	//----------
 	public static function index_conversion($markdown) {
-		$index_li_html = '';
-		if(preg_match('/##index##/', $markdown)) {
-			// h2リスト取得
-			preg_match_all('/# (.*?)
-/', $markdown, $markdown_array);
-			// 目次html生成
-			foreach($markdown_array[1] as $key => $value) {
-				// li html生成
-				$index_li_html .= 
-					'<li>'.$value.'</li>';
+		$pattern = "/<(h[2-6])>(.*?)<\/\\1>/";
+		preg_match_all($pattern, $markdown, $matches, PREG_SET_ORDER);
+		$currentIndex = 0;
+		// 前回副章確認チェック
+		$befor_sub_chapter_check = 0;
+		$indexContent = 
+			'<div class="index">
+			<div class="title">目次</div>
+			<ol>';
+		foreach($matches as $match) {
+			$tag = $match[1];
+			$content = $match[2];
+
+
+
+//pre_var_dump($tag);
+
+			switch($tag) {
+				case 'h2':
+					if($befor_sub_chapter_check == 0) {
+						$indexContent .= '<li><span class="h2_scroll_btn">'.$content.'</span></li>';
+					}
+					if($befor_sub_chapter_check == 1) {
+						$indexContent .= '</ol>
+</li><li><span class="h2_scroll_btn">'.$content.'</span></li>';
+					}
+					// 初期化
+					$befor_sub_chapter_check = 0;
+					$currentIndex = 0;
+				break;
+				case 'h3':
+				// 前回副章確認チェック
+				$befor_sub_chapter_check = 1;
+				if($currentIndex == 0) {
+					$indexContent = preg_replace('/<\/li>\s*$/', '', $indexContent);
+					$indexContent .= '<ol class="nest">
+<li><span class="h3_scroll_btn">'.$content.'</span></li>';
+				}
+				if($currentIndex == 1) {
+					$indexContent .= '<li><span class="h3_scroll_btn">'.$content.'</span></li>';
+				}
+				$currentIndex = 1;
+				break;
+				// h4,,h5, h6などの他のヘッダータグを追加する場合は、ここに追加
+				default:
+				break;
 			}
-			// 目次html合体
-			$index_html = 
-				'<ul class="index">
-				<p class="title">目次</p>
-					'.$index_li_html.'
-				</ul>';
-			// 目次変換
-			$markdown = preg_replace('/##index##(.*?)
-/', $index_html, $markdown);
-		} // if(preg_match('/##index##/', $markdown)) {
-	return $markdown;
+		}
+		// 結合
+		$indexContent .= "</ol>\n</div>";
+		// 目次変換
+		$markdown = preg_replace('/##index##(.*?)/', $indexContent, $markdown);
+		return $markdown;
 	}
 	//------------------------------------------
 	// ハッシュタグリスト json_encodeで取得
