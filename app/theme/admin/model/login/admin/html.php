@@ -76,7 +76,9 @@ class model_login_admin_html {
 		// basic_version_get API出力受け取る
 		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
 		$json_decode_response = json_decode($response , true);
-		if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) {
+		// バージョン判定
+		$result = basic::compareVersions($site_data_array['basic_version'], $json_decode_response['latest_basic_version']);
+		if($result < 0) {
 			$update_unread_count_html = '<span class="contact_unread_count"> </span>';
 		}
 		$update_border_parts = 
