@@ -252,6 +252,22 @@ if(preg_match('/newarticle\//', $controller_query, $controller_query_array)) {
 	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/index.php');
 	exit;
 }
+/********
+ライター
+********/
+if(preg_match('/writer\//', $controller_query, $controller_query_array)) {
+	$controller_query = urldecode($controller_query);
+	$hashtag_explode = explode('/', $controller_query);
+/*
+pre_var_dump($controller_query);
+pre_var_dump($hashtag_explode);
+pre_var_dump(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php');
+*/
+	// コントローラー読み込み
+	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php');
+	exit;
+}
+
 /*******
 通常遷移
 ********/
