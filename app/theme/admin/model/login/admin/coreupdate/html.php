@@ -7,9 +7,12 @@ class model_login_admin_coreupdate_html {
 		$alert_text = '';
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
-		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true'); $json_decode_response = json_decode($response , true);
-		// $update_action_text
-		if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) {
+		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
+		$json_decode_response = json_decode($response , true);
+		// バージョン判定
+		$result = basic::compareVersions($site_data_array['basic_version'], $json_decode_response['latest_basic_version']);
+		if($result < 0) {
+			// $update_action_text
 			$update_action_text = '<a href="'.HTTP.'login/admin/coreupdate/?coreupdate=true">Basicを最新のバージョンにする</a>';
 		}
 		else {

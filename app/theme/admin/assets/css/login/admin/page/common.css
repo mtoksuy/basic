@@ -1,9 +1,21 @@
 
-
+/*** デフォルト ***/
 .markdown_editor .markdown_editor_inner form .permalink {
 position: absolute;
 top: -30px;
 right: 254px;
+}
+/*** chorme対応 ***/
+_:lang(x)::-internal-media-controls-overlay-cast-button, .markdown_editor .markdown_editor_inner form .permalink {
+	position: absolute;
+	top: -29px;
+	right: 290px;
+}
+/*** safari対応 ***/
+_:lang(x)+_:-webkit-full-screen-document, .markdown_editor .markdown_editor_inner form .permalink {
+	position: absolute;
+	top: -30px;
+	right: 264px;
 }
 
 .markdown_editor .markdown_editor_inner form .permalink input[type="text"] {

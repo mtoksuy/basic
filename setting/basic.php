@@ -1105,9 +1105,30 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		} // if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 		return $is_local_and_windows;
 	}
+	//------------------
+	// バージョン判定
+	//------------------
+	public static function compareVersions($version1, $version2) {
+		$v1Parts = explode('.', $version1);
+		$v2Parts = explode('.', $version2);
+		
+		for ($i = 0; $i < count($v1Parts); $i++) {
+			$v1Part = intval($v1Parts[$i]);
+			$v2Part = intval($v2Parts[$i]);
+
+			if ($v1Part < $v2Part) {
+				return -1; // $version1 が $version2 よりも小さい
+			} 
+			elseif ($v1Part > $v2Part) {
+				return 1; // $version1 が $version2 よりも大きい
+			}
+		}
+		return 0; // バージョンが等しい
+	}
+
+
+
+
 
 
 }
-
-
-
