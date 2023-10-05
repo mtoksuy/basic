@@ -7,9 +7,8 @@
 	<!-- canonical -->
 	<link rel="canonical" href="<?php echo HTTP.$controller_query; ?>/">
 	<!-- icon -->
-	<link rel="shortcut icon" href="<?php echo HTTP;?>app/theme/admin/assets/img/icon/basic_icon_1.ico" type="image/vnd.microsoft.icon">
-	<link rel="apple-touch-icon" href="<?php echo HTTP;?>app/theme/admin/assets/img/icon/apple_touch_icon_1.png" />
-	<link rel="apple-touch-icon-precomposed" href="<?php echo HTTP;?>app/theme/admin/assets/img/icon/apple_touch_icon_1.png" />
+	<link rel="icon" href="<?php echo HTTP;?>app/theme/admin/assets/img/icon/basic_icon_1.svg">
+	<link rel="apple-touch-icon" href="<?php echo HTTP;?>app/theme/admin/assets/img/icon/apple_touch_icon_1.png">
 	<!-- css -->
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/assets/css/core.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/admin/assets/css/common/common.css" type="text/css">
