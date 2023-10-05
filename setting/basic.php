@@ -1044,18 +1044,24 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				} // if($article_res) {
 				// 最新記事まで差し掛かったら completeを1にして繰り返しを抜ける
 				if($count == $latest_article_primary_id) {
+					$complete_time = date("Y-m-d H:i:s");
 					 model_db::query("
 						UPDATE cron 
-						SET complete = 1
+						SET 
+							complete = 1,
+							complete_time = '".$complete_time."'
 						WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
 					");
 					break;
 				}
 			} // while($count < $next_count) {
+			$complete_time = date("Y-m-d H:i:s");
 			// cron更新
 			 model_db::query("
 				UPDATE cron 
-				SET count = ".$count."
+				SET 
+					count = ".$count.",
+					complete_time = '".$complete_time."'
 				WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
 			");
 		} // if($cron_res[0]['type'] == 'article') {
