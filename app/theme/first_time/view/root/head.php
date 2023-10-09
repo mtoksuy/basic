@@ -13,9 +13,8 @@
 	<!-- canonical -->
 	<link rel="canonical" href="<?php echo HTTP; ?>"/>
 	<!-- icon -->
-	<link rel="shortcut icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['icon']; ?>" type="image/vnd.microsoft.icon"/>
-	<link rel="apple-touch-icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['apple_touch_icon']; ?>"/>
-	<link rel="apple-touch-icon-precomposed" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['apple_touch_icon_precomposed']; ?>"/>
+	<link rel="icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['icon']; ?>">
+	<link rel="apple-touch-icon" href="<?php echo HTTP;?>app/assets/img/icon/<?php echo $site_data_array['apple_touch_icon']; ?>">
 	<!-- css -->
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/assets/css/core.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo HTTP;?>app/theme/<?php echo $site_data_array['theme']; ?>/assets/css/common/common.css" type="text/css"/>

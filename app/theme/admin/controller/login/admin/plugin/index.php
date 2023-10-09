@@ -12,7 +12,7 @@
 		$now = 'plugin';
 		$content_html = '
 			<h1>プラグイン追加 実装中</h1>
-			<p>Basic version .0.9.6</p>
+			<p>Basic version .'.$site_data_array['basic_version'].'</p>
 			<p style="border-bottom:1px solid var(--theme-border-color2);"> </p>';
 
 		if($get) {

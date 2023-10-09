@@ -76,7 +76,9 @@ class model_login_admin_html {
 		// basic_version_get API出力受け取る
 		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
 		$json_decode_response = json_decode($response , true);
-		if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) {
+		// バージョン判定
+		$result = basic::compareVersions($site_data_array['basic_version'], $json_decode_response['latest_basic_version']);
+		if($result < 0) {
 			$update_unread_count_html = '<span class="contact_unread_count"> </span>';
 		}
 		$update_border_parts = 
@@ -173,15 +175,29 @@ class model_login_admin_html {
 				</li>
 			</ul>';
 		// アカウント設定パーツ
+		// ロール振り分け
+		switch($_SESSION['role']) {
+			// 管理者
+			case 'admin':
+			// 編集者
+			case 'editor':
+				$usermanagement_li = 
+					'<li'.$addClass['usermanagement'].'>
+						<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
+					</li>';
+			break;
+			// 投稿者
+			case 'postor':
+				$usermanagement_li = '';
+			break;
+		}
 		$accountSettings_border_parts = 
 			'<ul class="border">
 				<span>アカウント設定</span>
 				<li'.$addClass['profile'].'>
 					<a class="o_8" href="'.HTTP.'login/admin/profile/">プロフィール設定</a>
 				</li>
-				<li'.$addClass['usermanagement'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
-				</li>
+					'.$usermanagement_li.'
 			</ul>';
 		// ツールパーツ
 		$toolSettings_border_parts = 
@@ -206,34 +222,52 @@ class model_login_admin_html {
 			// 初期化
 			$now_class_name = '';
 		}
-		$pluginSettings_border_parts = 
-			'<ul class="border">
-				<span>プラグイン設定</span>
-				<li'.$addClass['plugin'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/plugin/">プラグイン追加</a>
-					'.$plugin_list_html.'
-				</li>
-			</ul>';
+		// ロール振り分け
+		switch($_SESSION['role']) {
+			// 管理者
+			case 'admin':
+			// 編集者
+			case 'editor':
+			$pluginSettings_border_parts = 
+				'<ul class="border">
+					<span>プラグイン設定</span>
+					<li'.$addClass['plugin'].'>
+						<a class="o_8" href="'.HTTP.'login/admin/plugin/">プラグイン追加</a>
+						'.$plugin_list_html.'
+					</li>
+				</ul>';
+			break;
+			// 投稿者
+			case 'postor':
+			$pluginSettings_border_parts = 
+				'<ul class="border">
+					<span>プラグイン設定</span>
+					<li'.$addClass['plugin'].'>
+						'.$plugin_list_html.'
+					</li>
+				</ul>';
+			break;
+		}
 
 //var_dump($_SESSION['role']);
 
 		// ロール振り分け
 		switch($_SESSION['role']) {
-		// 管理者
-		case 'admin':
-			// 管理者出力
-			$admin_left_drawer_html = $basis_border_parts.$update_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$siteSettings_border_parts.$accountSettings_border_parts.$toolSettings_border_parts.$pluginSettings_border_parts;
-		break;
-		// 編集者
-		case 'editor':
-			// 編集者出力
-			$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$accountSettings_border_parts.$pluginSettings_border_parts;
-		break;
-		// 投稿者
-		case 'postor':
-			// 投稿者出力
-			$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$accountSettings_border_parts;
-		break;
+			// 管理者
+			case 'admin':
+				// 管理者出力
+				$admin_left_drawer_html = $basis_border_parts.$update_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$siteSettings_border_parts.$accountSettings_border_parts.$toolSettings_border_parts.$pluginSettings_border_parts;
+			break;
+			// 編集者
+			case 'editor':
+				// 編集者出力
+				$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$accountSettings_border_parts.$pluginSettings_border_parts;
+			break;
+			// 投稿者
+			case 'postor':
+				// 投稿者出力
+				$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$accountSettings_border_parts.$pluginSettings_border_parts;
+			break;
 		}
 		return $admin_left_drawer_html;
 	}

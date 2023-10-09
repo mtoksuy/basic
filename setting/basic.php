@@ -1044,18 +1044,24 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				} // if($article_res) {
 				// 最新記事まで差し掛かったら completeを1にして繰り返しを抜ける
 				if($count == $latest_article_primary_id) {
+					$complete_time = date("Y-m-d H:i:s");
 					 model_db::query("
 						UPDATE cron 
-						SET complete = 1
+						SET 
+							complete = 1,
+							complete_time = '".$complete_time."'
 						WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
 					");
 					break;
 				}
 			} // while($count < $next_count) {
+			$complete_time = date("Y-m-d H:i:s");
 			// cron更新
 			 model_db::query("
 				UPDATE cron 
-				SET count = ".$count."
+				SET 
+					count = ".$count.",
+					complete_time = '".$complete_time."'
 				WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
 			");
 		} // if($cron_res[0]['type'] == 'article') {
@@ -1105,9 +1111,30 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		} // if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
 		return $is_local_and_windows;
 	}
+	//------------------
+	// バージョン判定
+	//------------------
+	public static function compareVersions($version1, $version2) {
+		$v1Parts = explode('.', $version1);
+		$v2Parts = explode('.', $version2);
+		
+		for ($i = 0; $i < count($v1Parts); $i++) {
+			$v1Part = intval($v1Parts[$i]);
+			$v2Part = intval($v2Parts[$i]);
+
+			if ($v1Part < $v2Part) {
+				return -1; // $version1 が $version2 よりも小さい
+			} 
+			elseif ($v1Part > $v2Part) {
+				return 1; // $version1 が $version2 よりも大きい
+			}
+		}
+		return 0; // バージョンが等しい
+	}
+
+
+
+
 
 
 }
-
-
-

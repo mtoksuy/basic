@@ -10,9 +10,9 @@ CREATE TABLE `article` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `article` (`primary_id`, `basic_id`, `title`, `hashtag`, `content`, `del`, `create_time`, `update_time`) VALUES
-(1, NULL, 'Hello world!', '[\"1\"]', 'ようこそ！Basicの世界へ\r\nこの記事はサンプル記事です。\r\nBasicは誰でも簡単にマークダウン方式で記事が書けて簡単にサイトが運営できますので楽しみながらあれこれいじってみて下さい。', 0, '2022-10-13 20:33:50', NULL),
-(2, NULL, 'Basicではどんなサイトが構築できるか', 'サンプルのハッシュタグ', 'Basicではお気軽に目的に沿ったサイト運営が可能です。\r\n\r\n・ブログ\r\n・会社HP\r\n・ぺらいち\r\n・etc.\r\n\r\nなどがすぐにでも構築可能です。わからない事がございましたら公式のお問い合わせ or 公式のSNSにて気軽にご連絡してください。\r\n\r\n・ECサイト\r\nにつきましてもBasicで構築できるようアップデート中でございます。', 0, '2022-10-13 20:35:53', NULL),
-(3, NULL, 'Basicは世界一簡単なCMSを目指しています', NULL, '最初からPC・スマホ対応なのはもちろんのこと、画面からでもファイル編集からでも誰でも簡単にサイト構築できるのがBasicです。\r\n\r\n何かお困りな事がありましたらお気軽にご連絡ください。', 0, '2022-10-30 13:17:35', NULL);
+(1, NULL, 'Hello world!', '["はじめての記事"]', 'ようこそ！Basicの世界へ\r\nこの記事はサンプル記事です。\r\nBasicは誰でも簡単にマークダウン方式で記事が書けて簡単にサイトが運営できますので楽しみながらあれこれいじってみて下さい。', 0, '2022-10-13 20:33:50', NULL),
+(2, NULL, 'Basicではどんなサイトが構築できるか', '[]', 'Basicではお気軽に目的に沿ったサイト運営が可能です。\r\n\r\n・ブログ\r\n・会社HP\r\n・ぺらいち\r\n・etc.\r\n\r\nなどがすぐにでも構築可能です。わからない事がございましたら公式のお問い合わせ or 公式のSNSにて気軽にご連絡してください。\r\n\r\n・ECサイト\r\nにつきましてもBasicで構築できるようアップデート中でございます。', 0, '2022-10-13 20:35:53', NULL),
+(3, NULL, 'Basicは世界一簡単なCMSを目指しています', '[]', '最初からPC・スマホ対応なのはもちろんのこと、画面からでもファイル編集からでも誰でも簡単にサイト構築できるのがBasicです。\r\n\r\n何かお困りな事がありましたらお気軽にご連絡ください。', 0, '2022-10-30 13:17:35', NULL);
 
 CREATE TABLE `article_draft` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -104,8 +104,8 @@ CREATE TABLE `setting` (
   `run_cron_num` varchar(256) DEFAULT '500'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `apple_touch_icon_precomposed`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
-(1, '0.9.9', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.ico', 'basic_apple_touch_icon_1.png', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
+INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
+(1, '0.9.10', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.svg', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
 
 CREATE TABLE `token` (
   `primary_id` int(10) UNSIGNED NOT NULL,

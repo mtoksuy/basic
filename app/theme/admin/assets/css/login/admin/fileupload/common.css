@@ -167,7 +167,10 @@
 
 #inputFile {
     position: relative;
+/*
 	width: 100%;
+*/
+	margin: 30px 30px 0px 30px;
 	height: 300px;
     text-align: center;
     border: 2px dashed var(--theme-border-color3);

@@ -1,9 +1,21 @@
 
-
+/*** デフォルト ***/
 .markdown_editor .markdown_editor_inner form .permalink {
 position: absolute;
 top: -30px;
 right: 254px;
+}
+/*** chorme対応 ***/
+_:lang(x)::-internal-media-controls-overlay-cast-button, .markdown_editor .markdown_editor_inner form .permalink {
+	position: absolute;
+	top: -29px;
+	right: 290px;
+}
+/*** safari対応 ***/
+_:lang(x)+_:-webkit-full-screen-document, .markdown_editor .markdown_editor_inner form .permalink {
+	position: absolute;
+	top: -30px;
+	right: 264px;
 }
 
 .markdown_editor .markdown_editor_inner form .permalink input[type="text"] {
@@ -20,3 +32,51 @@ right: 254px;
 	color: var(--theme-text-color);
 	display: inline-block;
 }
+
+
+/**************
+1024px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+	.markdown_editor .markdown_editor_inner form .save_button_list {
+		position: absolute;
+		top: -30px;
+		right: -11px;
+	}
+	.markdown_editor .markdown_editor_inner form {
+		width: 82%;
+		margin: 0 0 0 0;
+	}
+}
+/***************
+768px以下の設定
+***************/
+@media screen and (min-width: 0px) and (max-width: 768px) {
+	.markdown_editor .markdown_editor_inner form .save_button_list {
+		position: absolute;
+		top: -30px;
+		right: -11px;
+	}
+	.markdown_editor .markdown_editor_inner form {
+		width: 75%;
+		margin: 0 0 0 0;
+	}
+
+}
+/**************
+640px以下の設定
+**************/
+@media screen and (min-width: 0px) and (max-width: 640px) {
+	.markdown_editor .markdown_editor_inner form .save_button_list {
+		position: absolute;
+		top: -30px;
+		right: 7px;
+	}
+}
+
+
+
+
+
+
+
