@@ -1,7 +1,7 @@
 
 <div class="markdown_editor">
 	<div class="markdown_editor_inner">
-		<form method="post" action="" class="post_form" style="<?php $is_mac = basic::is_mac();if(!$is_mac) {echo 'width: 75%;';}?>">
+		<form method="post" action="" class="post_form" style="<?php /*$is_mac = basic::is_mac();if(!$is_mac) {echo 'width: 75%;';} なぜmac時に75に指定したか後で考える*/?>">
 			<input type="text" placeholder="タイトルを記入" value="<?php echo $preview_array['title']; ?>" name="title" id="title">
 			<textarea placeholder="投稿内容を記入" name="content" id="content"><?php echo $preview_array['content']; ?></textarea>
 			<!--  記事・basic_id情報 -->
