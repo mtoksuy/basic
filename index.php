@@ -8,25 +8,17 @@ require_once('setting/config.php');
 ////////////////////////////
 $controller_query = '';
 $theme_name      = '';
+
+////////////////////////////
+// オートローダー読み込み
+////////////////////////////
+require_once('setting/model_autoLoader.php'); 
+
 ////////////////////////////
 // コントローラークエリ生成
 ////////////////////////////
-// URLをスラッシュで分解
-$array_parse_uri = explode('/', $_SERVER['REQUEST_URI']);
-foreach($array_parse_uri as $kye => $value) {
-	// basic配置ディレクトリ、'', getをスキップ
-	if($value == ROOT_DIR || $value == '' || preg_match('/\?/', $value) == true) {
+$controller_query = basic::controller_query_create();
 
-	}
-		// コントローラークエリ生成 (関数を作って変数リターンの方がいいかも
-		else {
-			$controller_query = $controller_query.'/'.$value;
-			$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
-		}
-}
-// 上記では対応できなかった部分をよしなに
-$controller_query = str_replace(ROOT_DIR, '', $controller_query);
-$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 /**********************
 // setupエラー文非表示
 **********************/
@@ -34,21 +26,18 @@ if($controller_query == 'setup') {
 	// エラー表示
 	ini_set('display_errors', 0);
 }
-////////////////////////////
-// オートローダー読み込み
-////////////////////////////
-require_once('setting/model_autoLoader.php'); 
-////////////////////////////
+/////////////////////////////////////////////////////////////////
 // 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
-////////////////////////////
+/////////////////////////////////////////////////////////////////
 if($_SESSION) {
 	if(!($_SESSION['basic_http'] == HTTP)) {
 	// ログアウト
 	model_login_basis::logout();
 	}
 }
-
+//////////////////////////////////////////////////
 // アクセスURL 重複スラッシュを1スラッシュに戻す
+//////////////////////////////////////////////////
 if(preg_match('/\/\//', $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'])) {
 	$FULL_HTTP = preg_replace('/\/\//', '/', FULL_HTTP);
 	header('Location: '.$FULL_HTTP);
@@ -263,9 +252,18 @@ pre_var_dump($controller_query);
 pre_var_dump($hashtag_explode);
 pre_var_dump(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php');
 */
-	// コントローラー読み込み
-	require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php');
-	exit;
+	if(file_exists(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php')) {
+		// コントローラー読み込み
+		require_once(PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$hashtag_explode[0].'/'.$hashtag_explode[1].'/index.php');
+		exit;
+	}
+	// エラー表示
+	else {
+		header("HTTP/1.1 404 Not Found");
+		$controller_query = 'error';
+		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
+		exit;
+	}
 }
 
 /*******
