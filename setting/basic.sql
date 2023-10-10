@@ -7,7 +7,7 @@ CREATE TABLE `article` (
   `del` tinyint(1) DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `article` (`primary_id`, `basic_id`, `title`, `hashtag`, `content`, `del`, `create_time`, `update_time`) VALUES
 (1, NULL, 'Hello world!', '["はじめての記事"]', 'ようこそ！Basicの世界へ\r\nこの記事はサンプル記事です。\r\nBasicは誰でも簡単にマークダウン方式で記事が書けて簡単にサイトが運営できますので楽しみながらあれこれいじってみて下さい。', 0, '2022-10-13 20:33:50', NULL),
@@ -23,7 +23,7 @@ CREATE TABLE `article_draft` (
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `contact` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `contact` (
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `read_check` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `cron` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `cron` (
   `complete` tinyint(4) DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `complete_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `fileupload` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -57,13 +57,13 @@ CREATE TABLE `fileupload` (
   `month` varchar(256) DEFAULT NULL,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `hashtag` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `hashtag_name` varchar(256) DEFAULT NULL,
   `del` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `hashtag` (`primary_id`, `hashtag_name`, `del`) VALUES
 (1, 'サンプルのハッシュタグ', 0);
@@ -78,7 +78,7 @@ CREATE TABLE `page` (
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `page` (`primary_id`, `basic_id`, `permalink`, `title`, `content`, `draft`, `del`, `create_time`, `update_time`) VALUES
 (1, NULL, 'about', '私たちについて', 'aboutのサンプルページです。', 0, 0, '2022-10-13 20:33:50', NULL);
@@ -102,10 +102,10 @@ CREATE TABLE `setting` (
   `compression_type` varchar(256) DEFAULT NULL,
   `article_view_num` varchar(256) DEFAULT '12',
   `run_cron_num` varchar(256) DEFAULT '500'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `setting` (`setting_id`, `basic_version`, `admin_theme_color`, `url`, `title`, `description`, `site_icon`, `date_format`, `time_format`, `theme`, `language`, `icon`, `apple_touch_icon`, `compression`, `compression_type`, `article_view_num`, `run_cron_num`) VALUES
-(1, '0.9.10', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.svg', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
+(1, '0.9.11', 'default', NULL, NULL, NULL, 'a.ico', 'Y年m月d日', 'H:i:s', 'first_time', NULL, 'basic_icon_1.svg', 'basic_apple_touch_icon_1.png', 1, 'gz', '12', '500');
 
 CREATE TABLE `token` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `token` (
   `token` varchar(256) DEFAULT NULL,
   `expiration_date` varchar(256) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `user` (
   `primary_id` int(10) UNSIGNED NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE `user` (
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `article`
   ADD PRIMARY KEY (`primary_id`),

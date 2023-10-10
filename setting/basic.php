@@ -1131,6 +1131,38 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		}
 		return 0; // バージョンが等しい
 	}
+	//-----------------------------
+	// コントローラークエリ生成
+	//-----------------------------
+	public static function controller_query_create() {
+		$controller_query = '';
+		$theme_name      = '';
+
+		// URLをスラッシュで分解
+		$array_parse_uri = explode('/', $_SERVER['REQUEST_URI']);
+//		pre_var_dump(ROOT_DIR);
+//		pre_var_dump($array_parse_uri);
+		foreach($array_parse_uri as $kye => $value) {
+			// basic配置ディレクトリ、'', getをスキップ
+			if($value == ROOT_DIR || $value == '' || preg_match('/\?/', $value) == true) {
+			
+			}
+			// コントローラークエリ生成 (関数を作って変数リターンの方がいいかも
+			else {
+				$controller_query = $controller_query.'/'.$value;
+				$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
+			}
+		}
+//		pre_var_dump($controller_query);
+		
+		// 上記では対応できなかった部分(階層があっても対応)をよしなに
+		$ROOT_DIR_pattern = preg_replace('/\//', '\/', ROOT_DIR);
+		$controller_query = preg_replace('/^'.$ROOT_DIR_pattern.'/', '', $controller_query);
+//		pre_var_dump($controller_query);
+		$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
+//		pre_var_dump($controller_query);
+		return $controller_query;
+	}
 
 
 
