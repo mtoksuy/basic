@@ -26,8 +26,8 @@
 	 $article_view_num = $site_data_array['article_view_num'];
 	// さらに前の記事を見るデータ取得
 	list($next_article_list_res, $paging_num) = model_writer_basis::next_article_list_res_get($writer_basic_id, $method, $article_view_num);
-	// ライター記事データがない場合
-	if(!$next_article_list_res) {
+	// ページング機能向け ライター記事データがない場合
+	if(!$next_article_list_res && $method != 0) {
 		header("HTTP/1.1 404 Not Found");
 		$controller_query = 'error';
 		require_once(PATH.'app/theme/admin/controller/'.$controller_query.'/index.php');
