@@ -22,8 +22,6 @@
 			// トークン登録
 			model_login_password_reissue_basis::token_set($user_data_array, $token);
 			$api_url = 'https://basic.dance/api/?send_support_mail';
-			$api_url = 'https://basic.dance/api/?send_support_mail';
-			$api_url = 'http://localhost/basic_dance/api/?send_support_mail';
 			$data = array(
 				'send_support_mail' => true,
 				'to'                            => $user_data_array['email'],
