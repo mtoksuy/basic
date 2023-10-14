@@ -7,6 +7,8 @@
 	if(empty($user_basic_id_check)) { $user_basic_id_check = ''; }
 	if(empty($user_password_check)) { $user_password_check = ''; }
 
+	// エラー表示
+	ini_set('display_errors', 0);
 
 ////////////
 // ステップ1
@@ -58,6 +60,10 @@ if($_GET['step'] == 2) {
 				} // foreach($basic_sql_word_explode as $key => $value) {	
 			} // if(!$setting_res) {
 		} // if($connect_check) {
+		else {
+			// db_config.phpファイル削除
+			unlink(PATH.'setting/db_config.php');
+		}
 	} // if($_POST['submit'] == '送信') {
 } // if($_GET['step'] == 2) {
 //var_dump('コンプリート：'.$_GET['complete']);
