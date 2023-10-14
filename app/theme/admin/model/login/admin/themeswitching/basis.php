@@ -77,6 +77,17 @@ class model_login_admin_themeswitching_basis {
 				// multi版：静的化+圧縮化
 				basic::multi_html_gzip_create($html_gzip_create_list_array);
 			}
+			// ディレクトリがあった場合
+			else if(file_exists($directory_path)) {
+
+			}
+			// htmlがなかった場合
+			if(!file_exists($directory_path.'/index.html')) {
+				// 静的化+圧縮化する際のリストarray取得
+				$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('page', $value['permalink']);
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
+			}
 		} // foreach($res as $key => $value) {
 		// ライター取得
 		$res = model_db::query("
@@ -84,6 +95,7 @@ class model_login_admin_themeswitching_basis {
 			FROM user
 			WHERE del = 0
 		");
+
 		// ライター
 		foreach($res as $key => $value) {
 			// ディレクトリ作成パス取得
@@ -96,6 +108,18 @@ class model_login_admin_themeswitching_basis {
 				copy(PATH.'setting/master/writer.php', $directory_path.'/index.php');
 				// 静的化+圧縮化する際のリストarray取得
 				// $html_gzip_create_list_array = basic::html_gzip_create_list_array_get('page', $value['permalink']);
+				// 手動代替
+				$html_gzip_create_list_array = array(
+					0 => array(
+						'http_path'         => HTTP.'writer/'.$value['basic_id'].'/',
+						'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$value['basic_id'].'',
+					),
+				); // $html_gzip_create_list_array = array(
+				// multi版：静的化+圧縮化
+				basic::multi_html_gzip_create($html_gzip_create_list_array);
+			}
+			// htmlがなかった場合
+			if(!file_exists($directory_path.'/index.html')) {
 				// 手動代替
 				$html_gzip_create_list_array = array(
 					0 => array(
