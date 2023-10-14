@@ -31,6 +31,8 @@ class model_login_basis {
 				setcookie('basic_login_key', $value['password'], time() + 2592000, '/');
 				// 死んでる
 				model_login_basis::login_history_record($_SESSION["basic_id"]);
+				// send_support_infoに対してポストする
+				model_login_basis::send_support_info_post();
 				// 移動
 				header('Location: '.HTTP.'login/admin/');
 				exit;
@@ -127,4 +129,34 @@ class model_login_basis {
 			)
 		");
 	}
+	//-----------------------------------------
+	// send_support_infoに対してポストする
+	//-----------------------------------------
+	public static function send_support_info_post() {
+		// 定義されていない変数を空定義
+		if(empty($_SERVER['HTTP_HOST'])) { $_SERVER['HTTP_HOST'] = ''; }
+		if(empty($_SERVER['HTTP_USER_AGENT'])) { $_SERVER['HTTP_USER_AGENT'] = ''; }
+		if(empty($_SERVER['SERVER_SOFTWARE'])) { $_SERVER['SERVER_SOFTWARE'] = ''; }
+		if(empty($_SERVER['SERVER_PORT'])) { $_SERVER['SERVER_PORT'] = ''; }
+		if(empty($_SERVER['DOCUMENT_ROOT'])) { $_SERVER['DOCUMENT_ROOT'] = ''; }
+		if(empty($_SERVER['REQUEST_SCHEME'])) { $_SERVER['REQUEST_SCHEME'] = ''; }
+
+		$api_url = 'https://basic.dance/api/?send_support_info';
+
+		$data = array(
+			'send_support_info'     => true,
+			'HTTP_HOST'              => $_SERVER['HTTP_HOST'],
+			'HTTP_USER_AGENT' => $_SERVER['HTTP_USER_AGENT'],
+			'SERVER_SOFTWARE' => $_SERVER['SERVER_SOFTWARE'],
+			'SERVER_PORT'          => $_SERVER['SERVER_PORT'],
+			'DOCUMENT_ROOT'   => $_SERVER['DOCUMENT_ROOT'],
+			'REQUEST_SCHEME'  => $_SERVER['REQUEST_SCHEME'],
+		);
+		// send_support_info API POSTで送信する
+		 basic::api_post($api_url, $data);
+	}
+
+
+
+
 }
