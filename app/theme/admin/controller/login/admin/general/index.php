@@ -23,7 +23,7 @@
 		// 基本
 		if($post['submit']) {
 			//pre_var_dump($post);
-			if($_FILES['site_icon']['tmp_name']) {
+			if($_FILES['icon']['tmp_name']) {
 				// ico保存
 				model_login_admin_general_basis::ico_save($_FILES);
 			}

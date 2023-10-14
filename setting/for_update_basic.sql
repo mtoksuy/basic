@@ -159,7 +159,6 @@ CREATE TABLE `setting` (
   ALTER TABLE `setting` ADD `url` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `title` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `description` varchar(256) DEFAULT NULL;
-  ALTER TABLE `setting` ADD `site_icon` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `date_format` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `time_format` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `theme` varchar(256) DEFAULT NULL;
