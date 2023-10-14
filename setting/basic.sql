@@ -90,7 +90,6 @@ CREATE TABLE `setting` (
   `url` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `site_icon` varchar(256) DEFAULT NULL,
   `date_format` varchar(256) DEFAULT NULL,
   `time_format` varchar(256) DEFAULT NULL,
   `theme` varchar(256) DEFAULT NULL,

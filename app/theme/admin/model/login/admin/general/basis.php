@@ -29,11 +29,11 @@ class model_login_admin_general_basis {
 	//  ico保存
 	//----------
 	public static function ico_save($files) {
-		if(move_uploaded_file($files['site_icon']['tmp_name'], PATH.'app/assets/img/icon/'.$files['site_icon']['name'])) {
+		if(move_uploaded_file($files['icon']['tmp_name'], PATH.'app/assets/img/icon/'.$files['icon']['name'])) {
 		$general_res = model_db::query("
 			UPDATE setting 
 			SET 
-				icon = '".$files['site_icon']['name']."'
+				icon = '".$files['icon']['name']."'
 			WHERE setting_id = 1");
 		}
 	}

@@ -52,17 +52,13 @@ class model_login_admin_general_html {
 							<textarea id="site_summary" placeholder="サイトの概要" name="site_summary">'.$general_data_array['description'].'</textarea>
 						</div>
 						<div class="block">
-							<label for="site_icon">サイトのicon(対応拡張子：svg, ico, jpg, png, gif  推奨48px×48px)</label>
-
-
-
-
+							<label for="icon">サイトのicon(対応拡張子：svg, ico, jpg, png, gif  推奨48px×48px)</label>
 
 							'.$ico_html.'
-							<input id="site_icon" type="file" name="site_icon" accept="image/*">
+							<input id="icon" type="file" name="icon" accept="image/*">
 						</div>
 						<div class="block">
-							<label for="site_icon">サイトのapple-touch-icon(対応拡張子：png 推奨512px×512px)</label>
+							<label for="apple_touch_icon">サイトのapple-touch-icon(対応拡張子：png 推奨512px×512px)</label>
 							'.$apple_touch_icon_html.'
 							<input id="apple_touch_icon" type="file" name="apple_touch_icon" accept="image/*">
 						</div>
