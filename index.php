@@ -10,6 +10,13 @@ $controller_query = '';
 $theme_name      = '';
 
 ////////////////////////////
+// setupエラー文非表示
+////////////////////////////
+if(preg_match('/setup/', FULL_HTTP)) {
+	// エラー表示
+	ini_set('display_errors', 0);
+}
+////////////////////////////
 // オートローダー読み込み
 ////////////////////////////
 require_once('setting/model_autoLoader.php'); 
@@ -19,13 +26,6 @@ require_once('setting/model_autoLoader.php');
 ////////////////////////////
 $controller_query = basic::controller_query_create();
 
-/**********************
-// setupエラー文非表示
-**********************/
-if($controller_query == 'setup') {
-	// エラー表示
-	ini_set('display_errors', 0);
-}
 /////////////////////////////////////////////////////////////////
 // 同ドメイン他階層、別basicでログインがある場合、強制ログアウト
 /////////////////////////////////////////////////////////////////

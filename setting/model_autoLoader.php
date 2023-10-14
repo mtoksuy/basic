@@ -1,6 +1,7 @@
 <?php 
 	require_once(PATH.'setting/basic.php');
 	$basic = new basic();
+
 	require_once(PATH.'setting/db.php');
 	$model_db = new model_db();
 
@@ -34,11 +35,10 @@
 		if($connect_check) {
 			// サイト情報取得
 			$site_data_array = basic::site_data_get();
+			// 現在設定しているテーマのモデル読み込み
+			$theme_name = $site_data_array['theme'];
 		}
-		// 現在設定しているテーマのモデル読み込み
-		$theme_name = $site_data_array['theme'];
 	}
-
 	////////////////////////////////////////////
 	// theme > $theme_name
 	////////////////////////////////////////////
