@@ -1163,6 +1163,28 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 //		pre_var_dump($controller_query);
 		return $controller_query;
 	}
+	//-------------
+	//  API POST
+	//-------------
+	public static function api_post($api_url, $data) {
+		// cURLセッションを初期化
+		$ch = curl_init($api_url);
+		// POSTリクエストを設定
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+		// レスポンスを文字列で取得するオプションを設定
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		// リクエストを実行し、レスポンスを取得
+		$response = curl_exec($ch);
+		// エラー処理（必要に応じて）
+		if (curl_errno($ch)) {
+			echo 'cURLエラー: ' . curl_error($ch);
+		}
+		// cURLセッションを終了
+		curl_close($ch);
+		// レスポンスをリターン
+		return $response;
+	}
 
 
 
