@@ -339,6 +339,9 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		$markdown = preg_replace('/\(((.*?)tmp)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
 		$markdown = preg_replace('/\(((.*?)TMP)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
 
+
+		// テーブル作成する時だけ槭を|変換する(後で戻す)
+		$markdown = preg_replace('/槭/', '|', $markdown);
 		// テーブル変換
 		$markdown = preg_replace("/((\|.*?(?=(\n|\r|\r\n|<br>)))+(\n|\r|\r\n|<br>))+/s", "<table><tbody>$0</tbody></table>", $markdown);
 		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
@@ -385,7 +388,9 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 			$replaced_text = '<table><tbody>'.$replaced_text.'</tbody></table>';
 				return $replaced_text;
 		}, $markdown);
-	
+		// テーブル作成と押したらまた|を槭に変換する
+		$markdown = preg_replace('/\|/', '槭', $markdown);
+
 		// アマゾン変換
 //		$markdown = preg_replace('/\[amazon:(.*?)brand:(.*?)title:(.*?)price:(.*?)rating:(.*?)review:(.*?)image:(.*?)link:(.*?)\]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\7"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\3</h3><div class="amazon_link_price">\\4</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\5.png"><span>\\6個の評価</span></div><span class="amazon_link_button"><a href="\\8" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
 
