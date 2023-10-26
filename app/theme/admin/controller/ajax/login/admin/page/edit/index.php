@@ -9,11 +9,12 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // ポストの中身をエンティティ化する
 $post = basic::post_security();
+
 // ログインしている場合
 if($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
 	// 本人確認またはロール、admi,editor確認
-	if($_SESSION['basic_id'] == $page_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
+	if($_SESSION['basic_id'] == $post['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 		// 特定の文字列が2連続である場合1つにする
 		$post['permalink'] = basic::replace_recursive($post['permalink'], '/');
 		// 文末の/を削除
@@ -34,14 +35,28 @@ if($_SESSION) {
 		$sitemap_xml = model_sitemap_html::sitemap_xml_create($article_all_list_res, $page_all_list_res);
 	}
 }
-// データセット
-$json_data = array(
-	'post'           => $post,
-	'query'         => $query,
-	'primary_id' => $query['page_id'],
-	'basic_id'     => $query['basic_id'],
-	'page_url'     => $query['page_url'],
-);
+
+if($query) {
+	// データセット
+	$json_data = array(
+		'post'           => $post,
+		'query'         => $query,
+		'primary_id' => $query['page_id'],
+		'basic_id'     => $query['basic_id'],
+		'page_url'     => $query['page_url'],
+	);
+}
+else {
+	// データセット
+	$json_data = array(
+		'post'           => $post,
+		'query'         => $query,
+		'primary_id' => '',
+		'basic_id'     => '',
+		'page_url'     => '',
+	);
+}
+
 echo json_encode($json_data);
 
 ?>
