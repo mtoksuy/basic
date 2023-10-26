@@ -1,40 +1,40 @@
 CREATE TABLE `article` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `basic_id` varchar(256) DEFAULT NULL,
-  `title` varchar(256) DEFAULT NULL,
-  `hashtag` longtext DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
-  `del` tinyint(4) NOT NULL DEFAULT '0',
+  `title` varchar(256) NOT NULL,
+  `hashtag` longtext,
+  `content` longtext NOT NULL,
+  `del` tinyint(1) DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `article` ADD `primary_id` int(10) UNSIGNED NOT NULL;
 ALTER TABLE `article` ADD `basic_id` varchar(256) DEFAULT NULL;
-ALTER TABLE `article` ADD `title` varchar(256) DEFAULT NULL;
-ALTER TABLE `article` ADD `hashtag` longtext DEFAULT NULL;
-ALTER TABLE `article` ADD `content` longtext DEFAULT NULL;
-ALTER TABLE `article` ADD `del` tinyint(4) DEFAULT '0';
+ALTER TABLE `article` ADD `title` varchar(256) NOT NULL;
+ALTER TABLE `article` ADD `hashtag` longtext;
+ALTER TABLE `article` ADD `content` longtext NOT NULL;
+ALTER TABLE `article` ADD `del` tinyint(1) DEFAULT '0';
 ALTER TABLE `article` ADD `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `article` ADD `update_time` varchar(256) DEFAULT NULL;
+ALTER TABLE `article` ADD `update_timeee` varchar(256) DEFAULT NULL;
 
 CREATE TABLE `article_draft` (
   `primary_id` int(10) UNSIGNED NOT NULL,
   `basic_id` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
-  `hashtag` longtext DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
+  `hashtag` longtext,
+  `content` longtext,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
   ALTER TABLE `article_draft` ADD `primary_id` int(10) UNSIGNED NOT NULL;
   ALTER TABLE `article_draft` ADD `basic_id` varchar(256) DEFAULT NULL;
   ALTER TABLE `article_draft` ADD `title` varchar(256) DEFAULT NULL;
-  ALTER TABLE `article_draft` ADD `hashtag` longtext DEFAULT NULL;
-  ALTER TABLE `article_draft` ADD `content` longtext DEFAULT NULL;
-  ALTER TABLE `article_draft` ADD `del` tinyint(4) DEFAULT '0';
+  ALTER TABLE `article_draft` ADD `hashtag` longtext;
+  ALTER TABLE `article_draft` ADD `content` longtext;
+  ALTER TABLE `article_draft` ADD `del` tinyint(4) NOT NULL DEFAULT '0';
   ALTER TABLE `article_draft` ADD `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
   ALTER TABLE `article_draft` ADD `update_time` varchar(256) DEFAULT NULL;
 
@@ -44,18 +44,18 @@ CREATE TABLE `contact` (
   `company` varchar(256) DEFAULT NULL,
   `name` varchar(256) DEFAULT NULL,
   `email` varchar(256) DEFAULT NULL,
-  `content` longtext DEFAULT NULL,
+  `contents` longtext,
   `del` tinyint(4) NOT NULL DEFAULT '0',
   `read_check` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
   ALTER TABLE `contact` ADD `primary_id` int(10) UNSIGNED NOT NULL;
   ALTER TABLE `contact` ADD `title` varchar(256) DEFAULT NULL;
   ALTER TABLE `contact` ADD `company` varchar(256) DEFAULT NULL;
   ALTER TABLE `contact` ADD `name` varchar(256) DEFAULT NULL;
   ALTER TABLE `contact` ADD `email` varchar(256) DEFAULT NULL;
-  ALTER TABLE `contact` ADD `contents` longtext DEFAULT NULL;
+  ALTER TABLE `contact` ADD `contents` longtext;
   ALTER TABLE `contact` ADD `del` tinyint(4) NOT NULL DEFAULT '0';
   ALTER TABLE `contact` ADD `read_check` tinyint(4) NOT NULL DEFAULT '0';
   ALTER TABLE `contact` ADD `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
@@ -68,7 +68,7 @@ CREATE TABLE `cron` (
   `complete` tinyint(4) DEFAULT '0',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `complete_time` varchar(256) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
   ALTER TABLE `cron` ADD `primary_id` int(10) UNSIGNED NOT NULL;
   ALTER TABLE `cron` ADD `count` int(11) DEFAULT '0';
@@ -139,6 +139,7 @@ CREATE TABLE `setting` (
   `url` varchar(256) DEFAULT NULL,
   `title` varchar(256) DEFAULT NULL,
   `description` varchar(256) DEFAULT NULL,
+  `site_icon` varchar(256) DEFAULT NULL,
   `date_format` varchar(256) DEFAULT NULL,
   `time_format` varchar(256) DEFAULT NULL,
   `theme` varchar(256) DEFAULT NULL,
@@ -150,8 +151,9 @@ CREATE TABLE `setting` (
   `compression_type` varchar(256) DEFAULT NULL,
   `article_view_num` varchar(256) DEFAULT '12',
   `run_cron_num` varchar(256) DEFAULT '500'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+  ALTER TABLE `setting` ADD `setting_id` int(10) UNSIGNED NOT NULL;
   ALTER TABLE `setting` ADD `basic_version` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `admin_theme_color` varchar(256) DEFAULT NULL;
   ALTER TABLE `setting` ADD `url` varchar(256) DEFAULT NULL;
@@ -175,7 +177,7 @@ CREATE TABLE `token` (
   `token` varchar(256) DEFAULT NULL,
   `expiration_date` varchar(256) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
   ALTER TABLE `token` ADD `primary_id` int(10) UNSIGNED NOT NULL;
   ALTER TABLE `token` ADD `basic_id` varchar(256) DEFAULT NULL;
@@ -211,10 +213,7 @@ CREATE TABLE `user` (
 
 ALTER TABLE `article`
   ADD PRIMARY KEY (`primary_id`),
-  ADD KEY `idx_basic_id` (`basic_id`),
-  ADD KEY `idx_title` (`title`),
-  ADD KEY `idx_del` (`del`),
-  ADD KEY `idx_title_del` (`title`, `del`);
+  ADD KEY `basic_id` (`basic_id`);
 
 ALTER TABLE `article_draft`
   ADD PRIMARY KEY (`primary_id`);
@@ -227,10 +226,10 @@ ALTER TABLE `cron`
 
 ALTER TABLE `fileupload`
   ADD PRIMARY KEY (`primary_id`),
-  ADD KEY `idx_year` (`year`),
-  ADD KEY `idx_content_type` (`type`),
-  ADD KEY `idx_extension` (`extension`),
-  ADD KEY `idx_year_month` (`year`, `month`);
+  ADD KEY `year` (`year`),
+  ADD KEY `content_type` (`type`),
+  ADD KEY `extension` (`extension`),
+  ADD KEY `year_month` (`year`, `month`);
 
 ALTER TABLE `hashtag`
   ADD PRIMARY KEY (`primary_id`);
