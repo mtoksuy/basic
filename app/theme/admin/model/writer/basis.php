@@ -51,7 +51,7 @@ class model_writer_basis {
 	// さらに前の記事を見るディレクトリ生成
 	//-------------------------------------------
 	public static function next_article_diractory_create($writer_basic_id, $next_article_check, $paging_num) {
-		var_dump($next_article_check);
+//		var_dump($next_article_check);
 		if($next_article_check) {
 			$new_article_path = PATH.'writer/'.$writer_basic_id.'/'.$paging_num; 
 			// 指定されたディレクトリが存在するか確認
