@@ -42,6 +42,10 @@ class model_login_admin_post_basis {
 <br>
 ', $markdown);
 
+		// 改行変換(改行統一)
+		$markdown = preg_replace('/\r\n|\n|\r/', '
+', $markdown);
+
 		// 最後に改行追加
 		$markdown=$markdown.'
 ';
