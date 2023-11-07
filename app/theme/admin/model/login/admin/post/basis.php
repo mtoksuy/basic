@@ -344,57 +344,6 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 		$markdown = preg_replace('/\(((.*?)TMP)\)/', '<object width="100%" height="100%" data="\\1" type="text/plain"></object>', $markdown);
 
 
-		// テーブル作成する時だけ槭を|変換する(後で戻す)
-		$markdown = preg_replace('/槭/', '|', $markdown);
-		// テーブル変換
-		$markdown = preg_replace("/((\|.*?(?=(\n|\r|\r\n|<br>)))+(\n|\r|\r\n|<br>))+/s", "<table><tbody>$0</tbody></table>", $markdown);
-		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
-		// テーブル内部変換
-		$markdown = preg_replace_callback($pattern, function($matches) {
-			// 1行ずつtrタグで囲む
-			$matches[0] = preg_replace("/\|(.*?)(?=(\n|\r|\r\n))/", "<tr>|$1</tr>", $matches[0]);
-			// '|' で分割。ただし、先頭と最後の空白要素は削除
-			$items = array_slice(explode('|', $matches[0]), 1, -1); // 最後の行に指定されたhは効かない
-			// 各要素を '<td>' タグで囲みます。
-			$items = array_map(function($item) {
-				// trタグでスライスされた部分は例外でそのまま返す(この実装の仕様上)
-				if($item === 'h</tr>
-<tr>') {
-					return '<td>h</td>
-</tr>
-<tr>';
-				}
-				else if($item === '</tr>
-<tr>') {
-					return $item;
-				}
-				else {
-					// h指定があるならtd class="header"として返す
-					if(preg_match('/ h$/', $item, $item_array)) {
-						$item = preg_replace('/ h$/', '', $item);
-						return '<td class="header">'.$item.'</td>';
-					}
-					// 通常はこちら
-					else {
-						return "<td>{$item}</td>";
-					}
-				}
-			}, $items);
-			// 全ての要素を結合し、'<tr>' タグで囲む
-			$replaced_text = "<tr>\n\t" . implode("\n\t", $items) . "\n</tr>\n";
-			// trセクション内の一番最後に<td>h<\/td>があればtrタグにheaderクラスを付与する。途中tdタグにクラスが付与されている場合は無効にする
-			$pattern = '/<tr>((?:\s*<td>.*?<\/td>)*)\s*<td>h<\/td>\s*<\/tr>/';
-			$replacement = '<tr class="header">$1</tr>';
-			$replaced_text = preg_replace($pattern, $replacement, $replaced_text);
-			// 無効になったhを削除
-			$replaced_text = preg_replace('/<td>h<\/td>/', '', $replaced_text);
-			// 最後にtableタグで囲む
-			$replaced_text = '<table><tbody>'.$replaced_text.'</tbody></table>';
-				return $replaced_text;
-		}, $markdown);
-		// テーブル作成と押したらまた|を槭に変換する
-		$markdown = preg_replace('/\|/', '槭', $markdown);
-
 		// アマゾン変換
 //		$markdown = preg_replace('/\[amazon:(.*?)brand:(.*?)title:(.*?)price:(.*?)rating:(.*?)review:(.*?)image:(.*?)link:(.*?)\]/s', '<div class="amazon_link"><div class="amazon_link_inner"><div class="amazon_link_recommend">おすすめアイテム</div><div class="amazon_link_left"><p><img src="\\7"></p></div><div class="amazon_link_right"><h3 class="amazon_link_heading"><span>\\2</span>\\3</h3><div class="amazon_link_price">\\4</div><div class="amazon_link_rating"><img src="https://amatem.jp/assets/img/common/rating_1_\\5.png"><span>\\6個の評価</span></div><span class="amazon_link_button"><a href="\\8" target="_blank"><img src="https://amatem.jp/assets/img/common/amazon_logo_10.png">で詳細を見る</a></span></div></div></div>', $markdown);
 
@@ -486,6 +435,140 @@ $article_data_array = model_article_html::article_html_create($article_draft_res
 
 		// 吹き出し変換
 		$markdown = preg_replace('/\[blowing:(.*?)text:"(.*?)"(.*?)]/s', '<div class="blowing"><div class="blowing_inner"><div class="person"><figure class="person_icon"><img src="'.HTTP.'app/assets/img/user/'.$user_id_data_array['icon'].'" alt="" width="92" height="92"></figure></div><div class="name">'.$user_id_data_array['name'].'</div><div class="balloon"><p>\\2</p></div>	</div></div>', $markdown);
+
+
+/********************************テーブル機能以前以後************************************/
+
+
+		// テーブル作成する時だけ槭を|変換する(後で戻す)
+		$markdown = preg_replace('/槭/', '|', $markdown);
+
+		// 例外処理 h2〜h6
+		$pattern = '/<h([2-6])>(.*?)<\/h\1>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 a
+		$pattern = '/<a(.*?)>(.*?)<\/a>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 index
+		$pattern = '/<ol>(.*?)<\/ol>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 list
+		$pattern = '/<ul>(.*?)<\/ul>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 code
+		$pattern = '/<pre>(.*?)<\/pre>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 strong
+		$pattern = '/<strong>(.*?)<\/strong>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 mark
+		$pattern = '/<mark class="marker">(.*?)<\/mark>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 check_point
+		$pattern = '/<div class="check_point_inner_heading">(.*?)<\/div>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 box
+		$pattern = '/<div class="box">(.*?)<\/div>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 blowing_
+		$pattern = '/<div class="balloon">(.*?)<\/div>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 quote
+		$pattern = '/<div class="amazon_link_right">(.*?)<\/div>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 quote
+		$pattern = '/<h3 class="amazon_link_heading">(.*?)<\/h3>/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace('|', '槭', $matches[0]);
+		}, $markdown);
+		// 例外処理 quote 特殊ハック
+		$pattern = '/alt="(.*?)"/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return '';
+		}, $markdown);
+
+//		pre_var_dump($markdown);
+		// テーブル変換
+		$markdown = preg_replace("/((\|.*?(?=(\n|\r|\r\n|<br>)))+(\n|\r|\r\n|<br>))+/s", "<table><tbody>$0</tbody></table>", $markdown);
+//		pre_var_dump($markdown);
+
+		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
+		// テーブル内部変換
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			// 1行ずつtrタグで囲む
+			$matches[0] = preg_replace("/\|(.*?)(?=(\n|\r|\r\n))/", "<tr>|$1</tr>", $matches[0]);
+			// '|' で分割。ただし、先頭と最後の空白要素は削除
+			$items = array_slice(explode('|', $matches[0]), 1, -1); // 最後の行に指定されたhは効かない
+			// 各要素を '<td>' タグで囲みます。
+			$items = array_map(function($item) {
+				// trタグでスライスされた部分は例外でそのまま返す(この実装の仕様上)
+				if($item === 'h</tr>
+<tr>') {
+					return '<td>h</td>
+</tr>
+<tr>';
+				}
+				else if($item === '</tr>
+<tr>') {
+					return $item;
+				}
+				else {
+					// h指定があるならtd class="header"として返す
+					if(preg_match('/ h$/', $item, $item_array)) {
+						$item = preg_replace('/ h$/', '', $item);
+						return '<td class="header">'.$item.'</td>';
+					}
+					// 通常はこちら
+					else {
+						return "<td>{$item}</td>";
+					}
+				}
+			}, $items);
+			// 全ての要素を結合し、'<tr>' タグで囲む
+			$replaced_text = "<tr>\n\t" . implode("\n\t", $items) . "\n</tr>\n";
+			// trセクション内の一番最後に<td>h<\/td>があればtrタグにheaderクラスを付与する。途中tdタグにクラスが付与されている場合は無効にする
+			$pattern = '/<tr>((?:\s*<td>.*?<\/td>)*)\s*<td>h<\/td>\s*<\/tr>/';
+			$replacement = '<tr class="header">$1</tr>';
+			$replaced_text = preg_replace($pattern, $replacement, $replaced_text);
+			// 無効になったhを削除
+			$replaced_text = preg_replace('/<td>h<\/td>/', '', $replaced_text);
+			// 最後にtableタグで囲む
+			$replaced_text = '<table><tbody>'.$replaced_text.'</tbody></table>';
+				return $replaced_text;
+		}, $markdown);
+		// テーブル作成と押したらまた|を槭に変換する
+		$markdown = preg_replace('/\|/', '槭', $markdown);
+
+
+
+
+
+
+
+
+
 
 
 
