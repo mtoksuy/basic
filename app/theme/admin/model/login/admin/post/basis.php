@@ -111,7 +111,7 @@ class model_login_admin_post_basis {
 
 
 
-		// 1行セパレーターを୨୧1行セパレーター୨୧に変換
+		// コード内1行セパレーターを୨୧1行セパレーター୨୧に変換
 		$pattern = '/```(.*?)```/s';
 		$markdown = preg_replace_callback($pattern, function($matches) {
 			return str_replace("---", '୨୧1行セパレーター୨୧', $matches[0]);
@@ -127,6 +127,13 @@ class model_login_admin_post_basis {
 		// 1行セパレーター変換
 		$markdown = preg_replace('/靂靂靂/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
 
+
+
+		// コード内太文字強調を୨୧太文字強調୨୧に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("*", '୨୧太文字強調୨୧', $matches[0]);
+		}, $markdown);
 		// 太文字変換先頭バージョン
 		$markdown = preg_replace('/\r\n\*(.*?)\*/', '
  <strong>\\1</strong>', $markdown);
@@ -660,6 +667,11 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		$pattern = '/<code>(.*?)<\/code>/s';
 		$txt = preg_replace_callback($pattern, function($matches) {
 			return preg_replace("/୨୧1行セパレーター୨୧/", '---', $matches[0]);
+		}, $txt);
+		// コード内 太文字強調を戻す
+		$pattern = '/<code>(.*?)<\/code>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return preg_replace("/୨୧太文字強調୨୧/", '*', $matches[0]);
 		}, $txt);
 		// コード内 ハッシュタグを戻す
 		$pattern = '/<code>(.*?)<\/code>/s';
