@@ -111,18 +111,21 @@ class model_login_admin_post_basis {
 
 
 
-
-
-
-
 		// 1行セパレーターを୨୧1行セパレーター୨୧に変換
 		$pattern = '/```(.*?)```/s';
 		$markdown = preg_replace_callback($pattern, function($matches) {
 			return str_replace("---", '୨୧1行セパレーター୨୧', $matches[0]);
 		}, $markdown);
+		// 1行セパレーターを୨୧1行セパレーター୨୧に変換
+		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("靂靂靂", '୨୧1行セパレーター୨୧', $matches[0]);
+		}, $markdown);
 
 		// 1行セパレーター変換
 		$markdown = preg_replace('/---/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
+		// 1行セパレーター変換
+		$markdown = preg_replace('/靂靂靂/', '<div class="separator">-----୨୧-----୨୧-----୨୧-----‎</div>', $markdown);
 
 		// 太文字変換先頭バージョン
 		$markdown = preg_replace('/\r\n\*(.*?)\*/', '
