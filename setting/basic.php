@@ -563,17 +563,28 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function css_inline($http_path, $html) {
 		$search = '/<link(.*?)>/';
 		preg_match_all($search, $html, $html_array);
+		// link抽出
 		foreach($html_array[0] as $key => $value) {
+			// stylesheet抽出
 			if(preg_match('/stylesheet/', $value)) {
+				// CSSのurl抽出
 				preg_match('/href=("|\')(.*?)("|\')/', $value, $value_array);
-			 	$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
-				$css = file_get_contents($convert_to_uri);
-				$css = preg_replace('/
-/', '', $css);
-				$search = $html_array[0][$key];
-				$replace = '<style>'.$css.'</style>';
-				$search = preg_replace('/\?/', '\?', $search);
-				$html = preg_replace('#'.$search.'#', $replace, $html);
+				$pattern = preg_replace('/\//', '\/', HTTP);
+				// 自サイトのCSSのみCSSインライン化
+				if(preg_match('/'.$pattern.'/', $value_array[2])) {
+				 	$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
+					$css = file_get_contents($convert_to_uri);
+					$css = preg_replace('/
+	/', '', $css);
+					$search = $html_array[0][$key];
+					$replace = '<style>'.$css.'</style>';
+					$search = preg_replace('/\?/', '\?', $search);
+					$html = preg_replace('#'.$search.'#', $replace, $html);
+				}
+				// 外部CSSはそのまま
+				else {
+
+				}
 			}
 		} // foreach($html_array[0] as $key => $value) {
 		return $html;
