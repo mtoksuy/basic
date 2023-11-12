@@ -177,8 +177,8 @@
 				$draft_id = (int)$_GET['draft_id'];
 				// 記事データ取得
 				$article_draft_res = model_login_admin_draft_basis::article_draft_get($draft_id);
-				// 本人確認
-				if($_SESSION['basic_id'] == $article_draft_res[0]['basic_id']) {
+				// 本人確認,admi,eitor対応
+				if($_SESSION['basic_id'] == $article_draft_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 	//				pre_var_dump($article_draft_res[0]['primary_id']);
 					// 下書き削除
 					 model_login_admin_draft_basis::article_draft_delete($article_draft_res[0]['primary_id']);
