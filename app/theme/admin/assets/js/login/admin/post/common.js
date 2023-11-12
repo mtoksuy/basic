@@ -305,7 +305,7 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 							$('.shortcut_notice').css( {
 								'display': 'none',
 							});
-						},300);
+						},600);
 				     },
 				    complete: function (data) {
 		
@@ -339,7 +339,7 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 								$('.shortcut_notice').css( {
 									'display': 'none',
 								});
-							},300);
+							},600);
 					     },
 					    complete: function (data) {
 			

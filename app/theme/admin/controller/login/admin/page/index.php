@@ -211,7 +211,7 @@
 			$page_res = model_page_basis::page_get_primary_id_v($draft_id);
 			// 本人確認またはロール、admi,editor確認
 			if($_SESSION['basic_id'] == $page_res[0]['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
-				pre_var_dump($page_res);
+//				pre_var_dump($page_res);
 //				pre_var_dump($_SESSION);
 				$preview_array['title'] = $page_res[0]['title'];
 				$preview_array['content'] = $page_res[0]['content'];
