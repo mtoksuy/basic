@@ -726,6 +726,12 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			return $matches[0];
 		}, $txt);
 //pre_var_dump($txt);
+		// style内 「"」変換
+		$pattern = '/<style>(.*?)<\/style>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("&#039;", "'", $matches[0]);
+		}, $txt);
+//		pre_var_dump($txt);
 
 
 
