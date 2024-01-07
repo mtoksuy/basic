@@ -6,8 +6,16 @@ class model_login_admin_coreupdate_basis {
 	public static function basic_coreupdate() {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
-		// 最新バージョン取得
-		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true');
+		// コンテキスト
+		$context = stream_context_create([
+			'ssl' => [
+				'allow_self_signed' => true,
+				'verify_peer'            => false,
+				'verify_peer_name' => false,
+			],
+		]);
+		// basic_version_get API出力受け取る
+		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true', false, $context);
 		$json_decode_response = json_decode($response , true);
 		// 最新バージョンより低い場合に起動
 		if($site_data_array['basic_version'] < $json_decode_response['latest_basic_version']) { 
