@@ -17,15 +17,30 @@ class model_login_admin_profile_basis {
 	public static function profile_save($post) {
 		// 現在時刻取得
 		$now_time = date('Y-m-d H:i:s');
-		$profile_res = model_db::query("
-			UPDATE user 
-			SET 
-				name = '".$post['name']."',
-				profile = '".$post['profile']."',
-				email = '".$post['email']."',
-				role = '".$post['role']."', 
-				update_time = '".$now_time."'
-			WHERE basic_id = '".$post['basic_id']."'");
+		// メールアドレスをチェックする
+		$user_email_check = basic::email_check($post);
+		if($user_email_check) {
+			$profile_res = model_db::query("
+				UPDATE user 
+				SET 
+					name = '".$post['name']."',
+					profile = '".$post['profile']."',
+					email = '".$post['email']."',
+					role = '".$post['role']."', 
+					update_time = '".$now_time."'
+				WHERE basic_id = '".$post['basic_id']."'");
+		}
+		else {
+			$profile_res = model_db::query("
+				UPDATE user 
+				SET 
+					name = '".$post['name']."',
+					profile = '".$post['profile']."',
+					role = '".$post['role']."', 
+					update_time = '".$now_time."'
+				WHERE basic_id = '".$post['basic_id']."'");
+		}
+		return $user_email_check;
 	}
 	//-----------------------------
 	//  プロフィールicon設定保存
