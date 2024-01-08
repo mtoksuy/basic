@@ -638,6 +638,25 @@ class model_article_html {
 				if(file_exists($webp_exists_path)) {
 					// 画像サイズ取得
 					$image_path_filesize = getimagesize($webp_exists_path);
+
+					// スラッシュとスペースを一時的な文字列に置換
+					$tmp = preg_replace('/\//', 'tmpsurasshutmp', $webp_path);
+					$tmp = preg_replace('/ /', 'tmphankakukuuhakutmp', $tmp);
+					// URLエンコーディング
+					$tmp = urlencode($tmp);
+					// 一時的な文字列を元に戻す
+					$tmp = preg_replace('/tmpsurasshutmp/', '/', $tmp);
+					$webp_path = preg_replace('/tmphankakukuuhakutmp/', '%20', $tmp);
+
+					// スラッシュとスペースを一時的な文字列に置換
+					$tmp = preg_replace('/\//', 'tmpsurasshutmp', $result);
+					$tmp = preg_replace('/ /', 'tmphankakukuuhakutmp', $tmp);
+					// URLエンコーディング
+					$tmp = urlencode($tmp);
+					// 一時的な文字列を元に戻す
+					$tmp = preg_replace('/tmpsurasshutmp/', '/', $tmp);
+					$result = preg_replace('/tmphankakukuuhakutmp/', '%20', $tmp);
+
 					// webp変換
 					$article_contents = preg_replace('/'.$img_html_array[$key].'/', '<picture> <source type="image/webp" srcset="'.HTTP.$webp_path.'"> <img src="'.HTTP.$result.'" width="'.$image_path_filesize[0].'" height="'.$image_path_filesize[1].'" decoding="async" loading="lazy"> </picture>', $article_contents);
 				}

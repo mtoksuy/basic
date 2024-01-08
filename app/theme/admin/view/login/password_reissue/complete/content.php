@@ -13,12 +13,8 @@
 				</p>
 			</div>
 			<div class="password_reissue">
-				<a href="http://localhost/basic/login/">ログインはこちら</a>
+				<a href="<?php echo HTTP; ?>login/">ログインはこちら</a>
 			</div>
-
-
-
-
 		</form>
 	</div> <!-- contact_inner -->
 </div>

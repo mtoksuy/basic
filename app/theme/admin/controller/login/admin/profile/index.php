@@ -67,7 +67,7 @@
 				model_login_admin_profile_basis::image_square_edit($image_path, $random_hash, $savePath, 512);
 			}
 			// 一般設定保存
-			model_login_admin_profile_basis::profile_save($post);
+			$user_email_check = model_login_admin_profile_basis::profile_save($post);
 			// 静的化+圧縮化する際のリストarray取得
 			$html_gzip_create_list_array = basic::html_gzip_create_list_array_get('profile');
 			// multi版：静的化+圧縮化

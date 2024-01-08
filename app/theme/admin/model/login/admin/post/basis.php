@@ -65,10 +65,24 @@ class model_login_admin_post_basis {
 		$markdown = preg_replace('/\[checkpoint:(.*?)title:"(.*?)"(.*?)\]/s', '
 <div class="check_point"><div class="check_point_inner"><div class="check_point_inner_heading">\\2</div>\\3</div></div>
 ', $markdown);
-//pre_var_dump($markdown);
 
-		// 見出し ハッシュタグを୨୧ハッシュタグ୨୧に変換
+		// コード内 ハッシュタグを୨୧ハッシュタグ୨୧に変換
 		$pattern = '/```(.*?)```/s';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
+		}, $markdown);
+		// HTML内で#を୨୧ハッシュタグ୨୧に変換
+		$pattern = '/"(.*?)"/';
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
+		}, $markdown);
+		// HTML内で#を୨୧ハッシュタグ୨୧に変換
+		$pattern = "/'(.*?)'/";
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
+		}, $markdown);
+		// リンク内で#を୨୧ハッシュタグ୨୧に変換
+		$pattern = "/\((.*?)\)/";
 		$markdown = preg_replace_callback($pattern, function($matches) {
 			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
 		}, $markdown);
@@ -678,8 +692,21 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		$txt = preg_replace_callback($pattern, function($matches) {
 			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
 		}, $txt);
+		// HTML内 ハッシュタグを戻す
+		$pattern = '/"(.*?)"/';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
+		}, $txt);
+		// HTML内 ハッシュタグを戻す
+		$pattern = "/'(.*?)'/";
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
+		}, $txt);
+
+//pre_var_dump($txt);
 
 //<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
+
 
 		// テーブル内tdタグとpタグを削除
 		$pattern = '/<table><tbody>(.*?)<\/tbody><\/table>/s';
@@ -689,6 +716,35 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 			$matches[0] = str_replace("</p>", '', $matches[0]);
 			return $matches[0];
 		}, $txt);
+
+		// style内tdタグとpタグを削除
+		$pattern = '/<style>(.*?)<\/style>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			$matches[0] = str_replace("<p>", '', $matches[0]);
+			$matches[0] = str_replace("</p>", '', $matches[0]);
+			$matches[0] = str_replace('<div class="hashtag">', '', $matches[0]);
+			$matches[0] = preg_replace('<a href="(.*?)">', '', $matches[0]);
+			$matches[0] = str_replace('</a>', '', $matches[0]);
+			$matches[0] = str_replace('</div>', '', $matches[0]);
+			$matches[0] = str_replace('<br>', '
+', $matches[0]);
+			$matches[0] = str_replace('', '', $matches[0]);
+			$matches[0] = str_replace('<>', '#', $matches[0]);
+			return $matches[0];
+		}, $txt);
+//pre_var_dump($txt);
+		// style内 「"」変換
+		$pattern = '/<style>(.*?)<\/style>/s';
+		$txt = preg_replace_callback($pattern, function($matches) {
+			return str_replace("&#039;", "'", $matches[0]);
+		}, $txt);
+//		pre_var_dump($txt);
+
+
+
+
+
+
 		// 戻す
 		$txt = preg_replace('/\喙/', '+', $txt);
 		$txt = preg_replace('/蜚/', '.', $txt);
