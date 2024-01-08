@@ -61,7 +61,11 @@ class model_login_password_reissue_basis {
 		
 		// レスポンスを文字列で取得するオプションを設定
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
+		// SSL証明書のホスト名の検証を無効化
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		// SSL証明書の検証を無効化
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
 		// リクエストを実行し、レスポンスを取得
 		$response = curl_exec($ch);
 		
