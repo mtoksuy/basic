@@ -14,26 +14,26 @@ rootでsshログインしている前提でセットアップ方法を記述し�
 ## 移動
 cd var/www/html
 ## ダウンロード
-wget https://github.com/mtoksuy/basic/archive/refs/tags/v0.9.14.zip
+wget https://github.com/mtoksuy/basic/archive/refs/tags/v0.9.15.zip
 ## zip解凍
-unzip v0.9.14.zip
+unzip v0.9.15.zip
 ## zip削除
-rm -r -f v0.9.14.zip
+rm -r -f v0.9.15.zip
 ## 移動
-cd /var/www/html/basic-0.9.14/
+cd /var/www/html/basic-0.9.15/
 ## basicファイル群移動
 mv * .* /var/www/html/
 "."と".."をどうするか求められますが、スルーしてエンターを押してください。
 ## 移動
 cd /var/www/html/
 ## 空のディレクトリ削除
-rmdir /var/www/html/basic-0.9.14/
+rmdir /var/www/html/basic-0.9.15/
 ## 権限変更
 chown -R apache:apache /var/www/html
 ```
 ## 2.ローカルからアップロード
 ### 2-1.Download ZIP
-https://github.com/mtoksuy/basic/archive/refs/tags/v0.9.14.zip
+https://github.com/mtoksuy/basic/archive/refs/tags/v0.9.15.zip
 
 でローカルにダウンロードして開発している前提でセットアップ方法を記述してます。
 #### 2-1-1.FTPなどでアップロード
