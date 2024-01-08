@@ -81,6 +81,11 @@ class model_login_admin_post_basis {
 		$markdown = preg_replace_callback($pattern, function($matches) {
 			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
 		}, $markdown);
+		// リンク内で#を୨୧ハッシュタグ୨୧に変換
+		$pattern = "/\((.*?)\)/";
+		$markdown = preg_replace_callback($pattern, function($matches) {
+			return str_replace("#", '୨୧ハッシュタグ୨୧', $matches[0]);
+		}, $markdown);
 
 		// h6変換
 		$markdown = preg_replace('/##### (.*?)
@@ -697,6 +702,8 @@ $txt = str_replace(array("\r\n", "\r", "\n"), '', $txt);
 		$txt = preg_replace_callback($pattern, function($matches) {
 			return str_replace("୨୧ハッシュタグ୨୧", '#', $matches[0]);
 		}, $txt);
+
+//pre_var_dump($txt);
 
 //<div class="hashtag"><a href="http://localhost/basic/hashtag/ascii_upload_enable=YES/">ascii_upload_enable=YES</a></div>
 
