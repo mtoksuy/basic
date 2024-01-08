@@ -502,8 +502,28 @@ https://gray-code.com/javascript/get-the-key-pressed-on-the-key/
 					$('#content').focus();
 					// 選択中のテキスト取得
 					var selected_text = window.getSelection().toString();
-					// テキスト挿入
-					document.execCommand('insertText', false, '('+data['image_http']+')\n');
+					// テキストエリア
+					const textarea = document.getElementById("content");
+					// カーソルの位置を取得
+					const cursorPos = textarea.selectionStart;
+					// カーソルの左側のテキスト
+					const leftText = textarea.value.substring(0, cursorPos);
+					// カーソルの右側のテキスト
+					const rightText = textarea.value.substring(cursorPos);
+					// カーソルの左側1文字
+					const leftChar = cursorPos > 0 ? textarea.value[cursorPos - 1] : null;
+					// カーソルの右側1文字
+					const rightChar = cursorPos < textarea.value.length ? textarea.value[cursorPos] : null;
+					// カーソルの左と右が「"」だった場合
+					if(leftChar == '"' && rightChar == '"') {
+						// テキスト挿入
+						document.execCommand('insertText', false, ''+data['image_http']+'');
+					}
+					// 通常
+					else {
+						// テキスト挿入
+						document.execCommand('insertText', false, '('+data['image_http']+')\n');
+						}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					console.error('アップロードエラー: ' + textStatus, errorThrown);
