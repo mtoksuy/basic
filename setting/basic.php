@@ -577,8 +577,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				if(file_exists($directory_path.'/index.html.gz')) {
 					unlink($directory_path.'/index.html.gz');
 				}
+				// コンテキスト
+				$context = stream_context_create([
+					'ssl' => [
+						'allow_self_signed' => true,
+						'verify_peer'            => false,
+						'verify_peer_name' => false,
+					],
+				]);
 				// 素のhtml抽出
-				$html = file_get_contents($http_path);
+				$html = file_get_contents($http_path, false, $context);
 				// 文字化けさせないためにutf-8に変換
 				$html = mb_convert_encoding($html,'utf-8','auto');
 				//コメントアウトを削除
@@ -592,7 +600,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				// 圧縮したindexファイル生成
 				file_put_contents($directory_path.'/index.html', $html);
 				// 圧縮したindexファイルの内容を読み込む
-				$code = file_get_contents($directory_path.'/index.html');
+				$code = file_get_contents($directory_path.'/index.html', false, $context);
 				// gzip圧縮処理して該当フォルダにファイルを作成
 				$gzip = gzopen($directory_path.'/index.html.gz' ,'w9');
 				gzwrite($gzip ,$code);
@@ -616,7 +624,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				// 自サイトのCSSのみCSSインライン化
 				if(preg_match('/'.$pattern.'/', $value_array[2])) {
 				 	$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
-					$css = file_get_contents($convert_to_uri);
+					// コンテキスト
+					$context = stream_context_create([
+						'ssl' => [
+							'allow_self_signed' => true,
+							'verify_peer'            => false,
+							'verify_peer_name' => false,
+						],
+					]);
+					// CSS取得
+					$css = file_get_contents($convert_to_uri, false, $context);
 					$css = preg_replace('/
 	/', '', $css);
 					$search = $html_array[0][$key];
@@ -871,8 +888,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					if(file_exists($value['directory_path'].'/index.html.gz')) {
 						unlink($value['directory_path'].'/index.html.gz');
 					}
+					// コンテキスト
+					$context = stream_context_create([
+						'ssl' => [
+							'allow_self_signed' => true,
+							'verify_peer'            => false,
+							'verify_peer_name' => false,
+						],
+					]);
 					// 素のhtml抽出
-					$html = file_get_contents($value['http_path']);
+					$html = file_get_contents($value['http_path'], false, $context);
 					// 文字化けさせないためにutf-8に変換
 					$html = mb_convert_encoding($html,'utf-8','auto');
 					//コメントアウトを削除
@@ -907,7 +932,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					// 圧縮したindexファイル生成
 					file_put_contents($value['directory_path'].'/index.html', $html);
 					// 圧縮したindexファイルの内容を読み込む
-					$code = file_get_contents($value['directory_path'].'/index.html');
+					$code = file_get_contents($value['directory_path'].'/index.html', false, $context);
 					// gzip圧縮処理して該当フォルダにファイルを作成
 					$gzip = gzopen($value['directory_path'].'/index.html.gz' ,'w9');
 					gzwrite($gzip ,$code);
