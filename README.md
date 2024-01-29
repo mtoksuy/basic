@@ -26,7 +26,7 @@
 <tbody>
 <td align="center">
 <img width="2000" height="0" alt="" aria-hiden><br>
-<sub>デモを試したい方はこちら <a href="https://basic.dance/demo/login/">Demo</a></sub><br>
+<sub>デモを試したい方はこちら <a href="https://basic.dance/demo/login/" target="_blank">Demo</a></sub><br>
 <img width="2000" height="0" alt="" aria-hiden>
 </td>
 </tbody>
