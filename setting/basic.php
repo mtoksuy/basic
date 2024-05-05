@@ -166,7 +166,7 @@ class basic {
 	public static function config_file_create($post) {
 		$config_content = "<?php 
 // ローカル開発
-if(\$_SERVER['HTTP_HOST'] == 'localhost') {
+if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 		\$database_name = '" . $post['database_name'] . "';
 		\$host_name         = '" . $post['database_host'] . "';
 		\$user_name         = '" . $post['database_user'] . "';
