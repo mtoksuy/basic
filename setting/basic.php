@@ -388,7 +388,7 @@ if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 		$query = model_db::query("
 			SELECT *
 			FROM page
-			WHERE dir_name = '" . $controller_query . "'
+			WHERE permalink = '" . $controller_query . "'
 		");
 		if ($query) {
 			$page_data_array = $query[0];
@@ -898,6 +898,8 @@ if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 							'verify_peer_name' => false,
 						],
 					]);
+
+					pre_var_dump($value['http_path']);
 					// 素のhtml抽出
 					$html = file_get_contents($value['http_path'], false, $context);
 					// 文字化けさせないためにutf-8に変換
