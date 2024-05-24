@@ -122,17 +122,17 @@ else {
 		$PATH = preg_replace('/setting/', '', dirname(__FILE__));
 		define('PATH', $PATH);
 	}
-	// cron対策
+	//  cron環境
 	else {
-		define('HTTP', 'https://amatem.jp/');
+		define('HTTP', 'https://basic.dance/'); // URL指定
 		define('PATH', '/var/www/html/');
 	}
 	// デフォルト変数生成
 	define('ROOT_DIR', $ROOT_DIR);
 	define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 	define('INTERNAL_PATH', $_SERVER["DOCUMENT_ROOT"]);
-	define('TITLE', 'あまてむ - モノを通じて人と人が繋がる。');
-	define('META_DESCRIPTION', 'Amazonでお買い物する際のお助け支援サイトあまてむ。パソコンやカメラ、キャンプ用品などのあらゆるAmazonカテゴリー全てを網羅して徹底的な比較・検討ができるモノのSaaSを目指してます。');
+	define('TITLE', 'basic サイト構築するならベーシック。世界一簡単なCMS');
+	define('META_DESCRIPTION', 'Basic(ベーシック)は、ブログ、コーポレイトサイト、ECサイトと幅広く作ることができる世界で最もSEOに効くCMSです。');
 }
 
 /********************
