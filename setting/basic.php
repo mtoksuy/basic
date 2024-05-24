@@ -1266,4 +1266,40 @@ if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 		// レスポンスをリターン
 		return $response;
 	}
+	//--------------
+	// Docker環境確認
+	//--------------
+	public static function docker_env_check() {
+		$is_docker_env = false;
+		if (!empty($_ENV['HOSTNAME']) && preg_match('/^[0-9a-f]{12}$/', $_ENV['HOSTNAME'])) {
+			$is_docker_env = true;
+		} else {
+		}
+
+		$cgroup = file_get_contents('/proc/1/cgroup');
+		if (strpos($cgroup, 'docker') !== false || strpos($cgroup, 'kubepods') !== false) {
+			$is_docker_env = true;
+		} else {
+		}
+
+		if (file_exists('/.dockerenv')) {
+			$is_docker_env = true;
+		} else {
+		}
+
+		$docker_specific_vars = ['DOCKER_CERT_PATH', 'DOCKER_HOST', 'DOCKER_INSTANCE', 'docker'];
+		$found_docker_vars = array_filter($docker_specific_vars, function ($var) {
+			return isset($_ENV[$var]);
+		});
+		if (count($found_docker_vars) > 0) {
+			$is_docker_env = true;
+		} else {
+		}
+
+		if (!file_exists('/etc/localtime') || !file_exists('/etc/hostname')) {
+			$is_docker_env = true;
+		} else {
+		}
+		return $is_docker_env;
+	}
 }
