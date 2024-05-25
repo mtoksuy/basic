@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_login_admin_contactlist_basis {
 	//------------------------
 	// お問い合わせ一覧取得
@@ -19,7 +19,7 @@ class model_login_admin_contactlist_basis {
 		$contact_res = model_db::query("
 			SELECT * 
 			FROM contact
-			WHERE primary_id = ".$contact_id."
+			WHERE primary_id = " . $contact_id . "
 			AND del = 0
 			ORDER BY primary_id DESC
 		");
@@ -33,7 +33,7 @@ class model_login_admin_contactlist_basis {
 		$contact_res = model_db::query("
 			UPDATE contact
 			SET del = 1 
-			WHERE primary_id = ".$contact_id."
+			WHERE primary_id = " . $contact_id . "
 		");
 	}
 	//-------------
@@ -43,22 +43,19 @@ class model_login_admin_contactlist_basis {
 		$contact_res = model_db::query("
 			SELECT * 
 			FROM contact
-			WHERE primary_id = ".$contact_id."
+			WHERE primary_id = " . $contact_id . "
 			AND del = 0
 			ORDER BY primary_id DESC
 		");
-		if((int)$contact_res[0]['read_check'] == 0) {
+		if ((int)$contact_res[0]['read_check'] == 0) {
 			$contact_res = model_db::query("
 				UPDATE contact
 				SET read_check = 1 
-				WHERE primary_id = ".$contact_id."
+				WHERE primary_id = " . $contact_id . "
 			");
 			// 移動
-			header('Location: '.HTTP.'login/admin/contactlist/?contact_id='.$contact_id.'');
+			header('Location: ' . HTTP . 'login/admin/contactlist/?contact_id=' . $contact_id . '');
 			exit();
 		}
 	}
-
-
-
 }

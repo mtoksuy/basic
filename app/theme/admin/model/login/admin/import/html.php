@@ -10,7 +10,7 @@ class model_login_admin_import_html {
 					<div class="content_box">
 						<div class="left">
 							<b>WordPress</b>
-							<a href="'.HTTP.'login/admin/import/?import=wordpress">インポートする</a>
+							<a href="' . HTTP . 'login/admin/import/?import=wordpress">インポートする</a>
 						</div>
 						<div class="right">
 							<p>WordPress のエクスポートファイルから投稿をインポートします。</p>
@@ -25,8 +25,8 @@ class model_login_admin_import_html {
 	//--------------------------------
 	public static function import_detail_html_create($user_data_array, $get) {
 		// wordpressの場合
-		if($get['import'] == 'wordpress') {
-		$import_detail_html = '
+		if ($get['import'] == 'wordpress') {
+			$import_detail_html = '
 			<div class="import">
 				<div class="import_inner">
 					<div class="content_box">
@@ -44,6 +44,4 @@ class model_login_admin_import_html {
 		}
 		return $import_detail_html;
 	}
-
-
 }
