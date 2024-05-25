@@ -1,23 +1,25 @@
 <?php
-	$get = basic::get_security();
-	$post = basic::post_security();
-	if(empty($get['file'])) { $get['file'] = ''; }
+$get = basic::get_security();
+$post = basic::post_security();
+if (empty($get['file'])) {
+	$get['file'] = '';
+}
 
-	if($_SESSION['basic_id']) {
-		if($get['file']) {
-				$file_word = $get['file'];
-				$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/view/common/'.$get['file'];
-		}
-			// デフォルト設定
-			else {
-				$file_word = 'content.php';
-				$file_path = PATH.'app/theme/'.$site_data_array['theme'].'/view/root/content.php';
-			}
+if ($_SESSION['basic_id']) {
+	if ($get['file']) {
+		$file_word = $get['file'];
+		$file_path = PATH . 'app/theme/' . $site_data_array['theme'] . '/view/common/' . $get['file'];
+	}
+	// デフォルト設定
+	else {
+		$file_word = 'content.php';
+		$file_path = PATH . 'app/theme/' . $site_data_array['theme'] . '/view/root/content.php';
+	}
 
 	// ロールアクセス制御コンテンツ判断強制アドミン移動
 	model_login_admin_basis::role_access_control_admin_move();
 
-	if($post) {
+	if ($post) {
 		// ファイルの内容を保存
 		model_login_admin_template_basis::file_content_save($post, $file_path);
 		// 静的化+圧縮化する際のリストarray取得
@@ -35,10 +37,8 @@
 	$file_content = model_login_admin_rootedit_basis::file_content_get($file_path);
 
 	// テンプレート読み込み
-	require_once(PATH.'app/theme/admin/view/'.$controller_query.'/template.php');
+	require_once(PATH . 'app/theme/admin/view/' . $controller_query . '/template.php');
+} else {
+	// クッキーログイン
+	model_login_basis::cookie_login();
 }
-	else {
-		// クッキーログイン
-		model_login_basis::cookie_login();
-	}
-?>

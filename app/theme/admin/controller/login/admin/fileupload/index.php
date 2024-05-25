@@ -10,12 +10,12 @@ upload_max_filesize
 */
 
 //phpinfo();
-	if($_SESSION['basic_id']) {
-		$now = 'fileupload';
-		// ファイルアップロードHTML生成
-		$content_html = model_login_admin_fileupload_html::fileupload_html_create();
+if ($_SESSION['basic_id']) {
+	$now = 'fileupload';
+	// ファイルアップロードHTML生成
+	$content_html = model_login_admin_fileupload_html::fileupload_html_create();
 
-/*
+	/*
 $content_html = $content_html.'<div class="fileupload_show">
 			<ul><li>
 						<img class="svg" src="http://localhost/basic/app/theme/admin/assets/img/svg/basic_fileupload_file_1.svg">
@@ -28,20 +28,18 @@ $content_html = $content_html.'<div class="fileupload_show">
 
 
 	// ファイルが送られてきた場合
-	if($_FILES) {
+	if ($_FILES) {
 		$files = $_FILES;
-//		pre_var_dump($_FILES);
+		//		pre_var_dump($_FILES);
 		// file_array生成
 		$flle_array = model_login_admin_fileupload_basis::flle_array_create($files);
-//		pre_var_dump($flle_array);
+		//		pre_var_dump($flle_array);
 		// 画像アップロード&DB登録
 		model_login_admin_fileupload_basis::file_upload($flle_array);
 	}
-		// テンプレート読み込み
-		require_once(PATH.'app/theme/admin/view/'.$controller_query.'/template.php');
-	}
-		else {
-			// クッキーログイン
-			model_login_basis::cookie_login();
-		}
-?>
+	// テンプレート読み込み
+	require_once(PATH . 'app/theme/admin/view/' . $controller_query . '/template.php');
+} else {
+	// クッキーログイン
+	model_login_basis::cookie_login();
+}
