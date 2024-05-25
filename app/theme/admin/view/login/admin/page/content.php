@@ -1,31 +1,32 @@
-
 <div class="markdown_editor">
 	<div class="markdown_editor_inner">
-		<form method="post" action="" class="post_form" style="<?php $is_mac = basic::is_mac();if(!$is_mac) {echo 'width: 75%;';}?>">
+		<form method="post" action="" class="post_form" style="<?php $is_mac = basic::is_mac();
+																														if (!$is_mac) {
+																															echo 'width: 75%;';
+																														} ?>">
 			<div class="permalink">
 				<div class="permalink_view"><?php echo HTTP; ?></div>
-<input class="permalink_input" type="text" placeholder="URLを記入" value="<?php echo $preview_array['permalink'] ? $preview_array['permalink'] : basic::random_bytes_get(8) ?>" name="permalink" id="permalink">
+				<input class="permalink_input" type="text" placeholder="URLを記入" value="<?php echo $preview_array['permalink'] ? $preview_array['permalink'] : basic::random_bytes_get(8) ?>" name="permalink" id="permalink">
 			</div>
 			<input type="text" placeholder="タイトルを記入" value="<?php echo $preview_array['title']; ?>" name="title" id="title">
 			<textarea placeholder="投稿内容を記入" name="content" id="content"><?php echo $preview_array['content']; ?></textarea>
 			<!--  記事・basic_id情報 -->
-			<input  type="hidden" value="<?php echo $preview_array['draft_id']; ?>" name="draft_id" id="draft_id">
-			<input  type="hidden" value="<?php echo $preview_array['page_id']; ?>" name="page_id" id="page_id">
-			<input  type="hidden" value="<?php echo $preview_array['basic_id']; ?>" name="basic_id" id="basic_id">
+			<input type="hidden" value="<?php echo $preview_array['draft_id']; ?>" name="draft_id" id="draft_id">
+			<input type="hidden" value="<?php echo $preview_array['page_id']; ?>" name="page_id" id="page_id">
+			<input type="hidden" value="<?php echo $preview_array['basic_id']; ?>" name="basic_id" id="basic_id">
 			<!-- 保存機能 -->
 			<div class="save_button_list">
-			<?php 
-				if($_GET['page_id']) {
-						$save_html = '	<a class="check" href="'.HTTP.''.$preview_array['permalink'].'/" target="_blank">確認</a>
+				<?php
+				if ($_GET['page_id']) {
+					$save_html = '	<a class="check" href="' . HTTP . '' . $preview_array['permalink'] . '/" target="_blank">確認</a>
 						<input class="edit" type="submit" value="編集" name="draft">';
-				}
-					else {
-						$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
+				} else {
+					$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
 						<input class="draft" type="submit" value="下書きとして保存" name="draft">
 						<input class="submit" type="submit" value="作成" name="submit">';
-					}
+				}
 				echo $save_html;
-			?>
+				?>
 			</div>
 		</form>
 		<!-- 文字数チェック機能 -->

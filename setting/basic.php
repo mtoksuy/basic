@@ -1,4 +1,4 @@
-<?php 
+<?php
 class basic {
 	//------------------------
 	// ヴァーダンプの進化版
@@ -12,15 +12,14 @@ class basic {
 	// オブジェクトヴァーダンプ
 	//-----------------------------
 	function obj_var_dump($name, $val) {
-	// if (!isset($val)) {return ('');}
-	if (is_array($val)) {
-		ksort($val);
-		foreach ($val as $key => $contents) {
-			$key = $name . "['" . $key . "']";
-			$ret .= obj_var_dump($key, $contents);
-		}
-	}
-		else if (is_object($val)) {
+		// if (!isset($val)) {return ('');}
+		if (is_array($val)) {
+			ksort($val);
+			foreach ($val as $key => $contents) {
+				$key = $name . "['" . $key . "']";
+				$ret .= obj_var_dump($key, $contents);
+			}
+		} else if (is_object($val)) {
 			$className = get_class($val);
 			$vars = get_class_vars($className);
 			$props = get_object_vars($val);
@@ -33,25 +32,23 @@ class basic {
 				$key = 'OBJECT:' . $className . '->(method)';
 				$ret .= obj_var_dump($key, $methods);
 			}
-		}
-			else {
-				if (is_numeric($val)) {
-					$ret = '$' . $name . ' = ' . $val . ";\n";
-				}
-					else {
-						$val = htmlspecialchars($val);
-						$val = preg_replace('/[\r\n]/', '\\n ', $val);
-						$ret = '$' . $name . ' = \'' . $val . "';\n";
-					}
+		} else {
+			if (is_numeric($val)) {
+				$ret = '$' . $name . ' = ' . $val . ";\n";
+			} else {
+				$val = htmlspecialchars($val);
+				$val = preg_replace('/[\r\n]/', '\\n ', $val);
+				$ret = '$' . $name . ' = \'' . $val . "';\n";
 			}
-	echo '<pre>'.$ret.'</pre>';
+		}
+		echo '<pre>' . $ret . '</pre>';
 	}
 	//--------------------------------
 	//ポストの中身をエンティティ化する
 	//--------------------------------
 	public static function post_security() {
 		$post = array();
-		foreach($_POST as $key => $value) {
+		foreach ($_POST as $key => $value) {
 			$post[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 		}
 		return $post;
@@ -61,7 +58,7 @@ class basic {
 	//--------------------------------
 	public static function get_security() {
 		$get = array();
-		foreach($_GET as $key => $value) {
+		foreach ($_GET as $key => $value) {
 			$get[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 		}
 		return $get;
@@ -70,41 +67,38 @@ class basic {
 	//変数をエンティティ化する
 	//------------------------
 	public static function variable_security($variable) {
-		if(is_array($variable)) {
-			foreach($variable as $key => $value) {
+		if (is_array($variable)) {
+			foreach ($variable as $key => $value) {
 				$variable[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 			}
+		} else {
+			$variable = htmlspecialchars($$variable, ENT_QUOTES, 'UTF-8');
 		}
-			else {
-				$variable = htmlspecialchars($$variable, ENT_QUOTES, 'UTF-8');
-			}
 		return $variable;
 	}
 	//-------------------
 	// ディレクトリ作成
 	//-------------------
-	 public static function dir_create($directory_path) {
-		if( file_exists($directory_path) ) {
-		
-		}
-			else {
-				if(mkdir($directory_path, 0755, true)) {
-					chmod($directory_path, 0755);
-				}
+	public static function dir_create($directory_path) {
+		if (file_exists($directory_path)) {
+		} else {
+			if (mkdir($directory_path, 0755, true)) {
+				chmod($directory_path, 0755);
 			}
+		}
 	}
 	//----------------------------------
 	//ディレクトリー内のファイルを全削除
 	//----------------------------------
 	public static function dir_file_all_del($dir) {
 		// ディテクトリ内のオブジェクト取得
-		if($cache_opendir_object = opendir($dir)) {
+		if ($cache_opendir_object = opendir($dir)) {
 			// オブジェクト走査
 			while (false !== ($file_name = readdir($cache_opendir_object))) {
 				// .と..を外す
-				if($file_name != '.'  && $file_name != '..') {
+				if ($file_name != '.'  && $file_name != '..') {
 					// ファイル削除
-					unlink($dir.$file_name);
+					unlink($dir . $file_name);
 				}
 			}
 			// ディレクトリーを閉じる
@@ -115,9 +109,9 @@ class basic {
 	// ディレクトリ削除
 	//-------------------
 	public static function rmdirAll($dir) {
-	//	pre_var_dump($dir);
+		//	pre_var_dump($dir);
 		// 指定されたディレクトリ内の一覧を取得
-		$res = glob($dir.'/*');
+		$res = glob($dir . '/*');
 		// 一覧をループ
 		foreach ($res as $f) {
 			// is_file() を使ってファイルかどうかを判定
@@ -136,55 +130,54 @@ class basic {
 	//ディレクトリ削除v.2
 	//----------------------
 	/**
-	* 再帰的にディレクトリを削除する。
-	* @param string $dir ディレクトリ名（フルパス）
-	*/
-	 public static function removeDir($dir) {
-	    $cnt = 0;
-	    $handle = opendir($dir);
-	
-	    if (!$handle) {
-	        return ;
-	    }
-	    while (false !== ($item = readdir($handle))) {
-	        if ($item === "." || $item === "..") {
-	            continue;
-	        }
-	        $path = $dir . DIRECTORY_SEPARATOR . $item;
-	        if (is_dir($path)) {
-	            // 再帰的に削除
-	            $cnt = $cnt + basic::removeDir($path);
-	        }
-	        else {
-	            // ファイルを削除
-	            unlink($path);
-	        }
-	    }
-	    closedir($handle);
-	
-	    // ディレクトリを削除
-	    if (!rmdir($dir)) {
-	        return ;
-	    }
+	 * 再帰的にディレクトリを削除する。
+	 * @param string $dir ディレクトリ名（フルパス）
+	 */
+	public static function removeDir($dir) {
+		$cnt = 0;
+		$handle = opendir($dir);
+
+		if (!$handle) {
+			return;
+		}
+		while (false !== ($item = readdir($handle))) {
+			if ($item === "." || $item === "..") {
+				continue;
+			}
+			$path = $dir . DIRECTORY_SEPARATOR . $item;
+			if (is_dir($path)) {
+				// 再帰的に削除
+				$cnt = $cnt + basic::removeDir($path);
+			} else {
+				// ファイルを削除
+				unlink($path);
+			}
+		}
+		closedir($handle);
+
+		// ディレクトリを削除
+		if (!rmdir($dir)) {
+			return;
+		}
 	}
 	//---------------------
 	// configファイル生成
 	//----------------------
-	 public static function config_file_create($post) {
-	 	$config_content = "<?php 
+	public static function config_file_create($post) {
+		$config_content = "<?php 
 // ローカル開発
-if(\$_SERVER['HTTP_HOST'] == 'localhost') {
-		\$database_name = '".$post['database_name']."';
-		\$host_name         = '".$post['database_host']."';
-		\$user_name         = '".$post['database_user']."';
-		\$password           = '".$post['database_password']."';
+if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
+		\$database_name = '" . $post['database_name'] . "';
+		\$host_name         = '" . $post['database_host'] . "';
+		\$user_name         = '" . $post['database_user'] . "';
+		\$password           = '" . $post['database_password'] . "';
 }
 	// 本番
 	else {
-		\$database_name = '".$post['database_name']."';
-		\$host_name         = '".$post['database_host']."';
-		\$user_name         = '".$post['database_user']."';
-		\$password           = '".$post['database_password']."';
+		\$database_name = '" . $post['database_name'] . "';
+		\$host_name         = '" . $post['database_host'] . "';
+		\$user_name         = '" . $post['database_user'] . "';
+		\$password           = '" . $post['database_password'] . "';
 	}
 \$db_config_array = array(
 	'default' => array(
@@ -201,20 +194,31 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	'charset' => 'utf8mb4',    // charaset をutf8mb4に指定して追加
 	),
 );";
-	 	// ファイルに書き込む
-	 	file_put_contents(PATH.'setting/db_config.php', $config_content);
+		// ファイルに書き込む
+		file_put_contents(PATH . 'setting/db_config.php', $config_content);
 	}
-	//-----------------
+	//-------------
 	// DB接続チェック
-	//-----------------
-	 public static function db_conect_check($db_config_array) {
-		$db = new mysqli($db_config_array['default']['connection']['hostname'],$db_config_array['default']['connection']['username'],$db_config_array['default']['connection']['password'], $db_config_array['default']['connection']['database']);
+	//-------------
+	public static function db_conect_check($db_config_array) {
+		// エラーが発生した時に例外を投げないように設定
+		mysqli_report(MYSQLI_REPORT_OFF);
+
+		$db = new mysqli(
+			$db_config_array['default']['connection']['hostname'],
+			$db_config_array['default']['connection']['username'],
+			$db_config_array['default']['connection']['password'],
+			$db_config_array['default']['connection']['database']
+		);
+
+		// 接続確認
 		if ($db->connect_error) {
 			$connect_check = false;
+		} else {
+			$connect_check = true;
 		}
-			else {
-				$connect_check = true;
-			}
+		// エラー設定を元に戻す
+		mysqli_report(MYSQLI_REPORT_STRICT | MYSQLI_REPORT_ERROR);
 		return $connect_check;
 	}
 	//-------------------
@@ -225,62 +229,59 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$user_basic_id_check = true;
 		// 半角英数字(-_含む)だけか調べる
 		$pattern = '/^[a-zA-Z0-9_-]+$/';
-		if(preg_match($pattern, $post["basic_id"], $basic_id_array)) {
+		if (preg_match($pattern, $post["basic_id"], $basic_id_array)) {
 			$signup_basic_id_res = model_db::query("
 				SELECT *
 				FROM user
-				WHERE basic_id = '".$post["basic_id"]."'");
-			foreach($signup_basic_id_res as $key => $value) {
+				WHERE basic_id = '" . $post["basic_id"] . "'");
+			foreach ($signup_basic_id_res as $key => $value) {
 				$user_basic_id_check = false;
 			}
+		} else {
+			$user_basic_id_check = false;
 		}
-			else {
-				$user_basic_id_check = false;
-			}
 		return $user_basic_id_check;
 	}
-/**
-* 
-* PHPしか書けないザコがメールアドレス正規表現でガチ勢に挑んでみた
-* http://qiita.com/mpyw/items/257eabe0b43b1e02e6f7
-* 
-* 
-* 
-* 
-**/
+	/**
+	 * 
+	 * PHPしか書けないザコがメールアドレス正規表現でガチ勢に挑んでみた
+	 * http://qiita.com/mpyw/items/257eabe0b43b1e02e6f7
+	 * 
+	 * 
+	 * 
+	 * 
+	 **/
 	//--------------------------------------
 	//正しいメールアドレスかどうか調べる関数
 	//--------------------------------------
 	public static function validate_email($email, $strict = true) {
-	    $dot_string = $strict ?
-	        '(?:[A-Za-z0-9!#$%&*+=?^_`{|}~\'\\/-]|(?<!\\.|\\A)\\.(?!\\.|@))' :
-	        '(?:[A-Za-z0-9!#$%&*+=?^_`{|}~\'\\/.-])'
-	    ;
-	    $quoted_string = '(?:\\\\\\\\|\\\\"|\\\\?[A-Za-z0-9!#$%&*+=?^_`{|}~()<>[\\]:;@,. \'\\/-])';
-	    $ipv4_part = '(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
-	    $ipv6_part = '(?:[A-fa-f0-9]{1,4})';
-	    $fqdn_part = '(?:[A-Za-z](?:[A-Za-z0-9-]{0,61}?[A-Za-z0-9])?)';
-	    $ipv4 = "(?:(?:{$ipv4_part}\\.){3}{$ipv4_part})";
-	    $ipv6 = '(?:' .
-	        "(?:(?:{$ipv6_part}:){7}(?:{$ipv6_part}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){6}(?::{$ipv6_part}|:{$ipv4}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){5}(?:(?::{$ipv6_part}){1,2}|:{$ipv4}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){4}(?:(?::{$ipv6_part}){1,3}|(?::{$ipv6_part})?:{$ipv4}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){3}(?:(?::{$ipv6_part}){1,4}|(?::{$ipv6_part}){0,2}:{$ipv4}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){2}(?:(?::{$ipv6_part}){1,5}|(?::{$ipv6_part}){0,3}:{$ipv4}|:))" . '|' .
-	        "(?:(?:{$ipv6_part}:){1}(?:(?::{$ipv6_part}){1,6}|(?::{$ipv6_part}){0,4}:{$ipv4}|:))" . '|' .
-	        "(?::(?:(?::{$ipv6_part}){1,7}|(?::{$ipv6_part}){0,5}:{$ipv4}|:))" . 
-	    ')';
-	    $fqdn = "(?:(?:{$fqdn_part}\\.)+?{$fqdn_part})";
-	    $local = "({$dot_string}++|(\"){$quoted_string}++\")";
-	    $domain = "({$fqdn}|\\[{$ipv4}]|\\[{$ipv6}]|\\[{$fqdn}])";
-	    $pattern = "/\\A{$local}@{$domain}\\z/";
-	    return preg_match($pattern, $email, $matches) &&
-	        (
-	            !empty($matches[2]) && !isset($matches[1][66]) && !isset($matches[0][256]) ||
-	            !isset($matches[1][64]) && !isset($matches[0][254])
-	        )
-	    ;
+		$dot_string = $strict ?
+			'(?:[A-Za-z0-9!#$%&*+=?^_`{|}~\'\\/-]|(?<!\\.|\\A)\\.(?!\\.|@))' :
+			'(?:[A-Za-z0-9!#$%&*+=?^_`{|}~\'\\/.-])';
+		$quoted_string = '(?:\\\\\\\\|\\\\"|\\\\?[A-Za-z0-9!#$%&*+=?^_`{|}~()<>[\\]:;@,. \'\\/-])';
+		$ipv4_part = '(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])';
+		$ipv6_part = '(?:[A-fa-f0-9]{1,4})';
+		$fqdn_part = '(?:[A-Za-z](?:[A-Za-z0-9-]{0,61}?[A-Za-z0-9])?)';
+		$ipv4 = "(?:(?:{$ipv4_part}\\.){3}{$ipv4_part})";
+		$ipv6 = '(?:' .
+			"(?:(?:{$ipv6_part}:){7}(?:{$ipv6_part}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){6}(?::{$ipv6_part}|:{$ipv4}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){5}(?:(?::{$ipv6_part}){1,2}|:{$ipv4}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){4}(?:(?::{$ipv6_part}){1,3}|(?::{$ipv6_part})?:{$ipv4}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){3}(?:(?::{$ipv6_part}){1,4}|(?::{$ipv6_part}){0,2}:{$ipv4}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){2}(?:(?::{$ipv6_part}){1,5}|(?::{$ipv6_part}){0,3}:{$ipv4}|:))" . '|' .
+			"(?:(?:{$ipv6_part}:){1}(?:(?::{$ipv6_part}){1,6}|(?::{$ipv6_part}){0,4}:{$ipv4}|:))" . '|' .
+			"(?::(?:(?::{$ipv6_part}){1,7}|(?::{$ipv6_part}){0,5}:{$ipv4}|:))" .
+			')';
+		$fqdn = "(?:(?:{$fqdn_part}\\.)+?{$fqdn_part})";
+		$local = "({$dot_string}++|(\"){$quoted_string}++\")";
+		$domain = "({$fqdn}|\\[{$ipv4}]|\\[{$ipv6}]|\\[{$fqdn}])";
+		$pattern = "/\\A{$local}@{$domain}\\z/";
+		return preg_match($pattern, $email, $matches) &&
+			(
+				!empty($matches[2]) && !isset($matches[1][66]) && !isset($matches[0][256]) ||
+				!isset($matches[1][64]) && !isset($matches[0][254])
+			);
 	}
 	//---------------------------------
 	//メールアドレスをチェックする
@@ -290,18 +291,17 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$user_email_check = true;
 		// 正しいメールアドレスかどうか調べる関数
 		$user_email_check = basic::validate_email($post["email"]);
-		if($user_email_check) {
+		if ($user_email_check) {
 			$signup_email_res = model_db::query("
 				SELECT *
 				FROM user
-				WHERE email = '".$post["email"]."'");
-			foreach($signup_email_res as $key => $value) {
+				WHERE email = '" . $post["email"] . "'");
+			foreach ($signup_email_res as $key => $value) {
 				$user_email_check = false;
 			}
+		} else {
+			$user_email_check = false;
 		}
-			else {
-				$user_email_check = false;
-			}
 		return $user_email_check;
 	}
 	//---------------------------
@@ -312,17 +312,17 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$user_password_check = true;
 		// 半角英数字だけか調べる
 		$pattern = '/^[a-zA-Z0-9_-]+$/';
-		if(preg_match($pattern, $post["password"], $password_array)) {
+		if (preg_match($pattern, $post["password"], $password_array)) {
 			$password_number = strlen($post["password"]);
 			// 4文字未満ならアウト
-			if($password_number < 4) {
-					$user_password_check = false;
-			}
-		}
-			// 半角英数字以外が入っている場合
-			else {
+			if ($password_number < 4) {
 				$user_password_check = false;
 			}
+		}
+		// 半角英数字以外が入っている場合
+		else {
+			$user_password_check = false;
+		}
 		return $user_password_check;
 	}
 	//--------------------------------
@@ -335,12 +335,12 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
 		// iconランダム選択
 		$icon_array = array(
-			0 => 'basic_default_icon_black_1.png', 
-			1 => 'basic_default_icon_blue_1.png', 
-			2 => 'basic_default_icon_green_1.png', 
-			3 => 'basic_default_icon_pink_1.png', 
-			4 => 'basic_default_icon_yellow_1.png', 
-			5 => 'default_1.png', 
+			0 => 'basic_default_icon_black_1.png',
+			1 => 'basic_default_icon_blue_1.png',
+			2 => 'basic_default_icon_green_1.png',
+			3 => 'basic_default_icon_pink_1.png',
+			4 => 'basic_default_icon_yellow_1.png',
+			5 => 'default_1.png',
 		);
 		// ランダムなキーを取得
 		$random_key = array_rand($icon_array);
@@ -356,18 +356,18 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				update_time
 			)
 			VALUES (
-				'".$post['basic_id']."', 
-				'".$password_hash."',
-				'".$random_icon_name."',
+				'" . $post['basic_id'] . "', 
+				'" . $password_hash . "',
+				'" . $random_icon_name . "',
 				'admin',
-				'".$now_time."'
+				'" . $now_time . "'
 			)
 		");
 		// サイト名変更
 		model_db::query("
 			UPDATE setting 
 			SET
-				title = '".$post['site_name']."'
+				title = '" . $post['site_name'] . "'
 			WHERE setting_id = 1;");
 	}
 	//----------------
@@ -385,11 +385,11 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			WHERE del = 0
 			AND read_check = 0
 		");
-//		pre_var_dump($query);
-//		pre_var_dump($query_a);
+		//		pre_var_dump($query);
+		//		pre_var_dump($query_a);
 		$site_data_array = $query[0];
 		$site_data_array['contact_unread_count'] = $query_a[0]['COUNT(primary_id)'];
-//		pre_var_dump($site_data_array);
+		//		pre_var_dump($site_data_array);
 		return $site_data_array;
 	}
 	//----------------
@@ -400,9 +400,9 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$query = model_db::query("
 			SELECT *
 			FROM page
-			WHERE dir_name = '".$controller_query."'
+			WHERE permalink = '" . $controller_query . "'
 		");
-		if($query) {
+		if ($query) {
 			$page_data_array = $query[0];
 		}
 		return $page_data_array;
@@ -414,49 +414,76 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function pathToUrl($pPath, $pUrl) {
 		$path = trim($pPath);    // 変換対象パス
 		$url = trim($pUrl);      // 基準URL
-		
+
 		//-- 変換不要
-		if ($path === '') { return $url; }
-		
-		if (stripos($path, 'http://') === 0 ||
-		stripos($path, 'https://') === 0 ||
-		stripos($path, 'mailto:') === 0 ||
-		stripos($path, 'tel:') === 0) { return $path; }
-		
+		if ($path === '') {
+			return $url;
+		}
+
+		if (
+			stripos($path, 'http://') === 0 ||
+			stripos($path, 'https://') === 0 ||
+			stripos($path, 'mailto:') === 0 ||
+			stripos($path, 'tel:') === 0
+		) {
+			return $path;
+		}
+
 		//-- #anchor
-		if (strpos($path, '#') === 0) { return $url . $path; }
-		
+		if (strpos($path, '#') === 0) {
+			return $url . $path;
+		}
+
 		//-- 基準URLを分解
 		$urlAry = explode('/', $url);
-		if (!isset($urlAry[2])) { return false; }
-		
+		if (!isset($urlAry[2])) {
+			return false;
+		}
+
 		//-- //path
-		if (strpos($path, '//') === 0) { return $urlAry[0] . $path; }
-		
+		if (strpos($path, '//') === 0) {
+			return $urlAry[0] . $path;
+		}
+
 		//-- 基準URLのHOME(scheme://host)
 		$urlHome = $urlAry[0] . '//' . $urlAry[2];
-		
+
 		//-- 基準URLのパス
-		if (!$pathBase = parse_url($url, PHP_URL_PATH)) { $pathBase = '/'; }
-		
+		if (!$pathBase = parse_url($url, PHP_URL_PATH)) {
+			$pathBase = '/';
+		}
+
 		//-- ?query
-		if (strpos($path, '?') === 0) { return $urlHome . $pathBase . $path; }
-		
+		if (strpos($path, '?') === 0) {
+			return $urlHome . $pathBase . $path;
+		}
+
 		//-- /path
-		if (strpos($path, '/') === 0) { return $urlHome . $path; }
-		
+		if (strpos($path, '/') === 0) {
+			return $urlHome . $path;
+		}
+
 		//-- ./path or ../path
 		$pathBaseAry = array_filter(explode('/', $pathBase), 'strlen');
-		if (strpos(end($pathBaseAry), '.') !== false) { array_pop($pathBaseAry); }
-		
-		foreach (explode('/', $path) as $pathElem) {
-		if ($pathElem === '.') { continue; }
-		if ($pathElem === '..') { array_pop($pathBaseAry); continue; }
-		if ($pathElem !== '') { $pathBaseAry[] = $pathElem; }
+		if (strpos(end($pathBaseAry), '.') !== false) {
+			array_pop($pathBaseAry);
 		}
-		
+
+		foreach (explode('/', $path) as $pathElem) {
+			if ($pathElem === '.') {
+				continue;
+			}
+			if ($pathElem === '..') {
+				array_pop($pathBaseAry);
+				continue;
+			}
+			if ($pathElem !== '') {
+				$pathBaseAry[] = $pathElem;
+			}
+		}
+
 		return (substr($path, -1) === '/') ? $urlHome . '/' . implode('/', $pathBaseAry) . '/'
-		: $urlHome . '/' . implode('/', $pathBaseAry);
+			: $urlHome . '/' . implode('/', $pathBaseAry);
 	}
 	//--------------------------
 	//macかどうかをチェック
@@ -467,35 +494,34 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// UAに Macintosh が含まれるか
 		if (preg_match('/Macintosh/', $ua)) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
 	//------------------------------
 	// バイト数のフォーマット変換
 	//------------------------------
-	public static function byte_format($size, $dec=-1, $separate=false){
-	$units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-	$digits = ($size == 0) ? 0 : floor( log($size, 1024) );
-	
-	$over = false;
-	$max_digit = count($units) -1 ;
+	public static function byte_format($size, $dec = -1, $separate = false) {
+		$units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+		$digits = ($size == 0) ? 0 : floor(log($size, 1024));
 
-	if($digits == 0){
-		$num = $size;
-	} else if(!isset($units[$digits])) {
-		$num = $size / (pow(1024, $max_digit));
-		$over = true;
-	} else {
-		$num = $size / (pow(1024, $digits));
+		$over = false;
+		$max_digit = count($units) - 1;
+
+		if ($digits == 0) {
+			$num = $size;
+		} else if (!isset($units[$digits])) {
+			$num = $size / (pow(1024, $max_digit));
+			$over = true;
+		} else {
+			$num = $size / (pow(1024, $digits));
+		}
+
+		if ($dec > -1 && $digits > 0) $num = sprintf("%.{$dec}f", $num);
+		if ($separate && $digits > 0) $num = number_format($num, $dec);
+
+		return ($over) ? $num . $units[$max_digit] : $num . $units[$digits];
 	}
-	
-	if($dec > -1 && $digits > 0) $num = sprintf("%.{$dec}f", $num);
-	if($separate && $digits > 0) $num = number_format($num, $dec);
-	
-	return ($over) ? $num . $units[$max_digit] : $num . $units[$digits];
-}
 	//-------------------
 	// データベース調整
 	//-------------------
@@ -504,12 +530,12 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		model_db::query("
 			UPDATE article 
 			SET
-				basic_id = '".$post['basic_id']."'
+				basic_id = '" . $post['basic_id'] . "'
 		");
 		model_db::query("
 			UPDATE page
 			SET
-				basic_id = '".$post['basic_id']."'
+				basic_id = '" . $post['basic_id'] . "'
 		");
 	}
 	//-----------------
@@ -527,13 +553,13 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$query = model_db::query("
 			SELECT *
 			FROM user
-			WHERE primary_id = ".(int)$user_id."
+			WHERE primary_id = " . (int)$user_id . "
 		");
-		if(!$query) {
+		if (!$query) {
 			$query = model_db::query("
 				SELECT *
 				FROM user
-				WHERE basic_id = '".$user_id."'
+				WHERE basic_id = '" . $user_id . "'
 			");
 		}
 		$user_data_array = $query[0];
@@ -543,8 +569,8 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// 現在のブランチ名を取得
 	//--------------------------
 	public static function git_branch_name_get() {
-		$gitPath = PATH.".git/HEAD";
-		return trim(implode('/', array_slice(explode('/', file_get_contents($gitPath)),2)), "\n");
+		$gitPath = PATH . ".git/HEAD";
+		return trim(implode('/', array_slice(explode('/', file_get_contents($gitPath)), 2)), "\n");
 	}
 	//--------------------------------------
 	// ユーザーディレクトリセットアップ
@@ -553,11 +579,11 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
 		// ディレクトリ作成パス取得
-		$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$post['basic_id'].'';
+		$directory_path = PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $post['basic_id'] . '';
 		// ディレクトリ作成
 		basic::dir_create($directory_path);
 		// ファイル複製
-		copy(PATH.'setting/master/writer.php', $directory_path.'/index.php');
+		copy(PATH . 'setting/master/writer.php', $directory_path . '/index.php');
 	}
 	//------------------------------
 	// シングル版：静的化+圧縮化
@@ -566,16 +592,16 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
 		// 自動圧縮許可がある場合
-		if((int)$site_data_array['compression'] === 1) {
+		if ((int)$site_data_array['compression'] === 1) {
 			// 圧縮タイプ：gz
-			if($site_data_array['compression_type'] === 'gz') {
+			if ($site_data_array['compression_type'] === 'gz') {
 				// 該当index.html削除
-				if(file_exists($directory_path.'/index.html')) {
-					unlink($directory_path.'/index.html');
+				if (file_exists($directory_path . '/index.html')) {
+					unlink($directory_path . '/index.html');
 				}
 				// 該当index.html.gz削除
-				if(file_exists($directory_path.'/index.html.gz')) {
-					unlink($directory_path.'/index.html.gz');
+				if (file_exists($directory_path . '/index.html.gz')) {
+					unlink($directory_path . '/index.html.gz');
 				}
 				// コンテキスト
 				$context = stream_context_create([
@@ -588,22 +614,22 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				// 素のhtml抽出
 				$html = file_get_contents($http_path, false, $context);
 				// 文字化けさせないためにutf-8に変換
-				$html = mb_convert_encoding($html,'utf-8','auto');
+				$html = mb_convert_encoding($html, 'utf-8', 'auto');
 				//コメントアウトを削除
 				$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
 				// CSSインライン化
 				$html = basic::css_inline($http_path, $html);
 				// JSインライン化 todo:未完成。ペンディング
-		//		$html = basic::js_inline($http_path, $html);
+				//		$html = basic::js_inline($http_path, $html);
 				//HTML圧縮
 				$html = basic::html_comp($html);
 				// 圧縮したindexファイル生成
-				file_put_contents($directory_path.'/index.html', $html);
+				file_put_contents($directory_path . '/index.html', $html);
 				// 圧縮したindexファイルの内容を読み込む
-				$code = file_get_contents($directory_path.'/index.html', false, $context);
+				$code = file_get_contents($directory_path . '/index.html', false, $context);
 				// gzip圧縮処理して該当フォルダにファイルを作成
-				$gzip = gzopen($directory_path.'/index.html.gz' ,'w9');
-				gzwrite($gzip ,$code);
+				$gzip = gzopen($directory_path . '/index.html.gz', 'w9');
+				gzwrite($gzip, $code);
 				gzclose($gzip);
 			}
 		}
@@ -615,15 +641,15 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		$search = '/<link(.*?)>/';
 		preg_match_all($search, $html, $html_array);
 		// link抽出
-		foreach($html_array[0] as $key => $value) {
+		foreach ($html_array[0] as $key => $value) {
 			// stylesheet抽出
-			if(preg_match('/stylesheet/', $value)) {
+			if (preg_match('/stylesheet/', $value)) {
 				// CSSのurl抽出
 				preg_match('/href=("|\')(.*?)("|\')/', $value, $value_array);
 				$pattern = preg_replace('/\//', '\/', HTTP);
 				// 自サイトのCSSのみCSSインライン化
-				if(preg_match('/'.$pattern.'/', $value_array[2])) {
-				 	$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
+				if (preg_match('/' . $pattern . '/', $value_array[2])) {
+					$convert_to_uri = basic::convert_to_uri($value_array[2], $http_path);
 					// コンテキスト
 					$context = stream_context_create([
 						'ssl' => [
@@ -637,13 +663,12 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					$css = preg_replace('/
 	/', '', $css);
 					$search = $html_array[0][$key];
-					$replace = '<style>'.$css.'</style>';
+					$replace = '<style>' . $css . '</style>';
 					$search = preg_replace('/\?/', '\?', $search);
-					$html = preg_replace('#'.$search.'#', $replace, $html);
+					$html = preg_replace('#' . $search . '#', $replace, $html);
 				}
 				// 外部CSSはそのまま
 				else {
-
 				}
 			}
 		} // foreach($html_array[0] as $key => $value) {
@@ -655,26 +680,24 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function js_inline($http_path, $html) {
 		$search = '/<script(.*?)>/';
 		preg_match_all($search, $html, $html_array);
-		foreach($html_array[1] as $key => $value) {
+		foreach ($html_array[1] as $key => $value) {
 			preg_match('/src="(.*?)"/', $value, $value_array);
-			 $convert_to_uri = basic::convert_to_uri($value_array[1], $http_path);
-		 	 if(preg_match('/google/', $convert_to_uri)) {
-
+			$convert_to_uri = basic::convert_to_uri($value_array[1], $http_path);
+			if (preg_match('/google/', $convert_to_uri)) {
+			} else {
+				$js = file_get_contents($convert_to_uri);
+				$replace = '<script>' . $js . '</script>';
+				$search = preg_replace('/\?/', '\?', $html_array[0][$key]);
+				// jquery-3.5.1.min.jsのインライン化がうまくいかない
+				$html = preg_replace('#' . $search . '#', $replace, $html);
 			}
-				else {
-					$js = file_get_contents($convert_to_uri);
-					$replace = '<script>'.$js.'</script>';
-					$search = preg_replace('/\?/', '\?', $html_array[0][$key]);
-					// jquery-3.5.1.min.jsのインライン化がうまくいかない
-					$html = preg_replace('#'.$search.'#', $replace, $html);
-				}
 		}
 		return $html;
-	}	
+	}
 	//-----------
 	//HTML圧縮
 	//-----------
-	 public static function html_comp($html) {
+	public static function html_comp($html) {
 		// HTML圧縮
 		$search = array(
 			'/\>[^\S ]+/s',  // strip whitespaces after tags, except space
@@ -692,83 +715,83 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	//----------------------------
 	// 相対パスから絶対パス取得
 	//-----------------------------
-  /**
-   * http://web-tsukuru.com/187
-   * スクレイピングなどで画像URLを取得する時に使うために
-   * ベースURLを元に相対パスから絶対パスに変換する関数
-   *
-   * @param string $target_path 変換する相対パス
-   * @param string $http_path ベースとなるパス
-   * @return $uri string 絶対パスに変換済みのパス
-   */
+	/**
+	 * http://web-tsukuru.com/187
+	 * スクレイピングなどで画像URLを取得する時に使うために
+	 * ベースURLを元に相対パスから絶対パスに変換する関数
+	 *
+	 * @param string $target_path 変換する相対パス
+	 * @param string $http_path ベースとなるパス
+	 * @return $uri string 絶対パスに変換済みのパス
+	 */
 	public static function convert_to_uri($target_path, $http_path) {
-	    $component = parse_url($http_path);
-	
-	    $directory = preg_replace('!/[^/]*$!', '/', $component["path"]);
-	
-	    switch (true) {
-	
-	      // [0] 絶対パスのケース（簡易版)
-	      case preg_match("/^http/", $target_path):
-	        $uri =  $target_path;
-	        break;
-	
-	      // [1]「//exmaple.jp/aa.jpg」のようなケース
-	      case preg_match("/^\/\/.+/", $target_path):
-	        $uri =  $component["scheme"].":".$target_path;
-	        break;
-	
-	      // [2]「/aaa/aa.jpg」のようなケース
-	      case preg_match("/^\/[^\/].+/", $target_path):
-	        $uri =  $component["scheme"]."://".$component["host"].$target_path;
-	        break;
-	
-	      // [2']「/」のケース
-	      case preg_match("/^\/$/", $target_path):
-	        $uri =  $component["scheme"]."://".$component["host"].$target_path;
-	        break;
-	
-	      // [3]「./aa.jpg」のようなケース
-	      case preg_match("/^\.\/(.+)/", $target_path,$maches):
-	        $uri =  $component["scheme"]."://".$component["host"].$directory.$maches[1];
-	        break;
-	
-	      // [4]「aa.jpg」のようなケース（[3]と同じ）
-	      case preg_match("/^([^\.\/]+)(.*)/", $target_path,$maches):
-	        $uri =  $component["scheme"]."://".$component["host"].$directory.$maches[1].$maches[2];
-	        break;
-	
-	      // [5]「../aa.jpg」のようなケース
-	      case preg_match("/^\.\.\/.+/", $target_path):
-	        //「../」をカウント
-	        preg_match_all("!\.\./!", $target_path, $matches);
-	        $nest =  count($matches[0]);
-	
-	        //ベースURLのディレクトリを分解してカウント
-	        $dir = preg_replace('!/[^/]*$!', '/', $component["path"])."\n";
-	        $dir_array = explode("/",$dir);
-	        array_shift($dir_array);
-	        array_pop($dir_array);
-	        $dir_count = count($dir_array);
-	
-	        $count = $dir_count - $nest;
-	
-	        $pathto="";
-	        $i = 0;
-	        while ( $i < $count) {
-	          $pathto .= "/".$dir_array[$i];
-	          $i++;
-	        }
-	        $file = str_replace("../","",$target_path);
-	        $uri =  $component["scheme"]."://".$component["host"].$pathto."/".$file;
-	
-	        break;
-	
-	        default:
-	        $uri = $target_path;
-	    }
-	    return $uri;
-	  }
+		$component = parse_url($http_path);
+
+		$directory = preg_replace('!/[^/]*$!', '/', $component["path"]);
+
+		switch (true) {
+
+				// [0] 絶対パスのケース（簡易版)
+			case preg_match("/^http/", $target_path):
+				$uri =  $target_path;
+				break;
+
+				// [1]「//exmaple.jp/aa.jpg」のようなケース
+			case preg_match("/^\/\/.+/", $target_path):
+				$uri =  $component["scheme"] . ":" . $target_path;
+				break;
+
+				// [2]「/aaa/aa.jpg」のようなケース
+			case preg_match("/^\/[^\/].+/", $target_path):
+				$uri =  $component["scheme"] . "://" . $component["host"] . $target_path;
+				break;
+
+				// [2']「/」のケース
+			case preg_match("/^\/$/", $target_path):
+				$uri =  $component["scheme"] . "://" . $component["host"] . $target_path;
+				break;
+
+				// [3]「./aa.jpg」のようなケース
+			case preg_match("/^\.\/(.+)/", $target_path, $maches):
+				$uri =  $component["scheme"] . "://" . $component["host"] . $directory . $maches[1];
+				break;
+
+				// [4]「aa.jpg」のようなケース（[3]と同じ）
+			case preg_match("/^([^\.\/]+)(.*)/", $target_path, $maches):
+				$uri =  $component["scheme"] . "://" . $component["host"] . $directory . $maches[1] . $maches[2];
+				break;
+
+				// [5]「../aa.jpg」のようなケース
+			case preg_match("/^\.\.\/.+/", $target_path):
+				//「../」をカウント
+				preg_match_all("!\.\./!", $target_path, $matches);
+				$nest =  count($matches[0]);
+
+				//ベースURLのディレクトリを分解してカウント
+				$dir = preg_replace('!/[^/]*$!', '/', $component["path"]) . "\n";
+				$dir_array = explode("/", $dir);
+				array_shift($dir_array);
+				array_pop($dir_array);
+				$dir_count = count($dir_array);
+
+				$count = $dir_count - $nest;
+
+				$pathto = "";
+				$i = 0;
+				while ($i < $count) {
+					$pathto .= "/" . $dir_array[$i];
+					$i++;
+				}
+				$file = str_replace("../", "", $target_path);
+				$uri =  $component["scheme"] . "://" . $component["host"] . $pathto . "/" . $file;
+
+				break;
+
+			default:
+				$uri = $target_path;
+		}
+		return $uri;
+	}
 	//-------------------------------------------
 	// 静的化+圧縮化する際のリストarray取得
 	//-------------------------------------------
@@ -780,90 +803,81 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function html_gzip_create_list_array_get($method = 'root',  $permalink = NULL) {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
-		if($method == 'root') {
+		if ($method == 'root') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP,
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
-						),
+					'http_path'      => HTTP,
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
+				),
 			); // $html_gzip_create_list_array = array(
-		}
-		else if($method == 'article' || $method == 'newarticle') {
+		} else if ($method == 'article' || $method == 'newarticle') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP,
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
-						),
+					'http_path'      => HTTP,
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
+				),
 				1 => array(
-							'http_path'         => HTTP.'article/'.$permalink.'/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$permalink.'',
-						),
+					'http_path'      => HTTP . 'article/' . $permalink . '/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/article/' . $permalink . '',
+				),
 				2 => array(
-							'http_path'         => HTTP.'newarticle/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle',
-						),
+					'http_path'      => HTTP . 'newarticle/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/newarticle',
+				),
 				3 => array(
-							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
-						),
+					'http_path'      => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
+				),
 				4 => array(
-							'http_path'         => HTTP.'sitemap/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
-						),
+					'http_path'      => HTTP . 'sitemap/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
+				),
 			); // $html_gzip_create_list_array = array(
-		}
-		else if($method == 'article_del') {
+		} else if ($method == 'article_del') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP,
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/root',
-						),
+					'http_path'      => HTTP,
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
+				),
 				1 => array(
-							'http_path'         => HTTP.'newarticle/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/newarticle',
-						),
+					'http_path'      => HTTP . 'newarticle/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/newarticle',
+				),
 				2 => array(
-							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
-						),
+					'http_path'      => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
+				),
 				3 => array(
-							'http_path'         => HTTP.'sitemap/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
-						),
+					'http_path'      => HTTP . 'sitemap/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
+				),
 			); // $html_gzip_create_list_array = array(
-		}
-		else if($method == 'page') {
+		} else if ($method == 'page') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP.$permalink.'/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/'.$permalink.'',
-						),
+					'http_path'      => HTTP . $permalink . '/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/' . $permalink . '',
+				),
 				1 => array(
-							'http_path'         => HTTP.'sitemap/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
-						),
+					'http_path'      => HTTP . 'sitemap/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
+				),
 			); // $html_gzip_create_list_array = array(
-		}
-		else if($method == 'page_del') {
+		} else if ($method == 'page_del') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP.'sitemap/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/sitemap',
-						),
+					'http_path'      => HTTP . 'sitemap/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
+				),
 			); // $html_gzip_create_list_array = array(
-		}
-		else if($method == 'writer') {
-
-		}
-		else if($method == 'sitemap') {
-
-		}
-		else if($method == 'profile') {
+		} else if ($method == 'writer') {
+		} else if ($method == 'sitemap') {
+		} else if ($method == 'profile') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-							'http_path'         => HTTP.'writer/'.$_SESSION['basic_id'].'/',
-							'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/writer/'.$_SESSION['basic_id'].'',
-						),
+					'http_path'      => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
+				),
 			); // $html_gzip_create_list_array = array(
 		}
 		return $html_gzip_create_list_array;
@@ -872,53 +886,53 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// multi版：静的化+圧縮化
 	//---------------------------
 	public static function multi_html_gzip_create($html_gzip_create_list_array) {
-//		pre_var_dump($html_gzip_create_list_array);
+		//		pre_var_dump($html_gzip_create_list_array);
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
-		foreach($html_gzip_create_list_array as $key => $value) {
+		foreach ($html_gzip_create_list_array as $key => $value) {
 			// 自動圧縮許可がある場合
-			if((int)$site_data_array['compression'] === 1) {
+			if ((int)$site_data_array['compression'] === 1) {
 				// 圧縮タイプ：gz
-				if($site_data_array['compression_type'] === 'gz') {
+				if ($site_data_array['compression_type'] === 'gz') {
 					// 該当index.html削除
-					if(file_exists($value['directory_path'].'/index.html')) {
-						unlink($value['directory_path'].'/index.html');
+					if (file_exists($value['directory_path'] . '/index.html')) {
+						unlink($value['directory_path'] . '/index.html');
 					}
 					// 該当index.html.gz削除
-					if(file_exists($value['directory_path'].'/index.html.gz')) {
-						unlink($value['directory_path'].'/index.html.gz');
+					if (file_exists($value['directory_path'] . '/index.html.gz')) {
+						unlink($value['directory_path'] . '/index.html.gz');
 					}
 					// コンテキスト
 					$context = stream_context_create([
 						'ssl' => [
 							'allow_self_signed' => true,
-							'verify_peer'            => false,
-							'verify_peer_name' => false,
+							'verify_peer'       => false,
+							'verify_peer_name'  => false,
 						],
 					]);
 					// 素のhtml抽出
 					$html = file_get_contents($value['http_path'], false, $context);
 					// 文字化けさせないためにutf-8に変換
-					$html = mb_convert_encoding($html,'utf-8','auto');
+					$html = mb_convert_encoding($html, 'utf-8', 'auto');
 					//コメントアウトを削除
 					$html = preg_replace('/<!--[\s\S]*?-->/s', '', $html);
 					// CSSインライン化
 					$html = basic::css_inline($value['http_path'], $html);
 					// JSインライン化 todo:未完成。ペンディング
-			//		$html = basic::js_inline($value['http_path'], $html);
+					//		$html = basic::js_inline($value['http_path'], $html);
 					// 記事専用 code内改行、半角空白全角空白タブは圧縮しない 開始
 					$pattern = '/<div class="code">(.*?)<\/div>/s';
-					$html = preg_replace_callback($pattern, function($matches) {
+					$html = preg_replace_callback($pattern, function ($matches) {
 						return str_replace('
 ', '記事専用改行圧縮前', $matches[0]);
 					}, $html);
-					$html = preg_replace_callback($pattern, function($matches) {
+					$html = preg_replace_callback($pattern, function ($matches) {
 						return str_replace(' ', '記事専用半角空白圧縮前', $matches[0]);
 					}, $html);
-					$html = preg_replace_callback($pattern, function($matches) {
+					$html = preg_replace_callback($pattern, function ($matches) {
 						return str_replace('　', '記事専用全角空白圧縮前', $matches[0]);
 					}, $html);
-					$html = preg_replace_callback($pattern, function($matches) {
+					$html = preg_replace_callback($pattern, function ($matches) {
 						return str_replace('	', '記事専用タブ圧縮前', $matches[0]);
 					}, $html);
 					//HTML圧縮
@@ -927,15 +941,15 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 					$html = preg_replace("/記事専用改行圧縮前/", '
 ', $html);
 					$html = preg_replace("/記事専用半角空白圧縮前/", ' ', $html);
- 					$html = preg_replace("/記事専用全角空白圧縮前/", '　', $html);
+					$html = preg_replace("/記事専用全角空白圧縮前/", '　', $html);
 					$html = preg_replace("/記事専用タブ圧縮前/", '	', $html);
 					// 圧縮したindexファイル生成
-					file_put_contents($value['directory_path'].'/index.html', $html);
+					file_put_contents($value['directory_path'] . '/index.html', $html);
 					// 圧縮したindexファイルの内容を読み込む
-					$code = file_get_contents($value['directory_path'].'/index.html', false, $context);
+					$code = file_get_contents($value['directory_path'] . '/index.html', false, $context);
 					// gzip圧縮処理して該当フォルダにファイルを作成
-					$gzip = gzopen($value['directory_path'].'/index.html.gz' ,'w9');
-					gzwrite($gzip ,$code);
+					$gzip = gzopen($value['directory_path'] . '/index.html.gz', 'w9');
+					gzwrite($gzip, $code);
 					gzclose($gzip);
 				} // if($site_data_array['compression_type'] === 'gz') {
 			} // if((int)$site_data_array['compression'] === 1) {
@@ -946,9 +960,9 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// ディレクトリをコピー
 	//------------------------
 	public static function copy_dir($dir, $new_dir) {
-		$dir         = rtrim($dir, '/').'/';
-		$new_dir = rtrim($new_dir, '/').'/';
-		
+		$dir         = rtrim($dir, '/') . '/';
+		$new_dir = rtrim($new_dir, '/') . '/';
+
 		// コピー元ディレクトリが存在すればコピーを行う
 		if (is_dir($dir)) {
 			// コピー先ディレクトリが存在しなければ作成する
@@ -957,18 +971,17 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 				chmod($new_dir, 0755);
 			}
 			// ディレクトリを開く
-			if($handle = opendir($dir)) {
+			if ($handle = opendir($dir)) {
 				// ディレクトリ内のファイルを取得する
 				while (false !== ($file = readdir($handle))) {
 					if ($file === '.' || $file === '..') {
 						continue;
 					}
 					// 下の階層にディレクトリが存在する場合は再帰処理を行う
-					if(is_dir($dir.$file)) {
-						basic::copy_dir($dir.$file, $new_dir.$file);
-					} 
-					else {
-						copy($dir.$file, $new_dir.$file);
+					if (is_dir($dir . $file)) {
+						basic::copy_dir($dir . $file, $new_dir . $file);
+					} else {
+						copy($dir . $file, $new_dir . $file);
 					}
 				}
 				closedir($handle);
@@ -978,10 +991,12 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	//------------------------------
 	// php内部ライブラリチェック
 	//------------------------------
-	 public static function extensions_check($str) {
+	public static function extensions_check($str) {
 		$get_loaded_extensions = get_loaded_extensions();
-		foreach($get_loaded_extensions as $key => $value) {
-			if($value ==$str) { return true; }
+		foreach ($get_loaded_extensions as $key => $value) {
+			if ($value == $str) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -989,58 +1004,57 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// テキスト差分(英語大前提)
 	//------------------------------
 	public static function text_diff($text1, $text2) {
-	  $text1Array = explode(' ', $text1);
-	  $text2Array = explode(' ', $text2);
-	
-	  $diffArray = array();
-	  $commonArray = array_intersect($text1Array, $text2Array);
-	  $i = 0;
-	  foreach ($text1Array as $word) {
-	    if (!in_array($word, $commonArray)) {
-	      $diffArray[$i] = '<del>' . $word . '</del>';
-	      $i++;
-	    } else {
-	      while ($text2Array[0] != $word) {
-	        $diffArray[$i] = '<ins>' . $text2Array[0] . '</ins>';
-	        $i++;
-	        array_shift($text2Array);
-	      }
-	      $diffArray[$i] = $word;
-	      $i++;
-	      array_shift($text2Array);
-	    }
-	  }
-	  while (count($text2Array) > 0) {
-	    $diffArray[$i] = '<ins>' . array_shift($text2Array) . '</ins>';
-	    $i++;
-	  }
-	  return implode(' ', $diffArray);
+		$text1Array = explode(' ', $text1);
+		$text2Array = explode(' ', $text2);
+
+		$diffArray = array();
+		$commonArray = array_intersect($text1Array, $text2Array);
+		$i = 0;
+		foreach ($text1Array as $word) {
+			if (!in_array($word, $commonArray)) {
+				$diffArray[$i] = '<del>' . $word . '</del>';
+				$i++;
+			} else {
+				while ($text2Array[0] != $word) {
+					$diffArray[$i] = '<ins>' . $text2Array[0] . '</ins>';
+					$i++;
+					array_shift($text2Array);
+				}
+				$diffArray[$i] = $word;
+				$i++;
+				array_shift($text2Array);
+			}
+		}
+		while (count($text2Array) > 0) {
+			$diffArray[$i] = '<ins>' . array_shift($text2Array) . '</ins>';
+			$i++;
+		}
+		return implode(' ', $diffArray);
 	}
 	//-----------------------------------------------
 	// 再起的にhtmlファイルとgzファイルのみ削除
 	//-----------------------------------------------
 	public static function recursive_delete_htm_gz($dir) {
 		// ディレクトリが存在しない場合は処理を中断する
-		if(!file_exists($dir)) {
+		if (!file_exists($dir)) {
 			return;
 		}
 		// ディレクトリ内のファイル・フォルダを取得する
 		$files = scandir($dir);
 		// ファイル・フォルダを順に処理する
-		foreach($files as $file) {
+		foreach ($files as $file) {
 			// カレントディレクトリ、親ディレクトリ、.git、fileuploadは無視する
 			if ($file == '.' || $file == '..' || $file == '.git' || $file == 'fileupload') {
 				continue;
 			}
 			// ファイルパスを作成する
-			$filepath = $dir.$file;
+			$filepath = $dir . $file;
 			// ファイルの種類によって処理を分岐する
 			if (is_dir($filepath)) {
-				$filepath = $filepath.'/';
+				$filepath = $filepath . '/';
 				// ディレクトリの場合は再帰的に処理する
 				basic::recursive_delete_htm_gz($filepath);
-			} 
-			else {
+			} else {
 				// ファイルの場合は拡張子を取得する
 				$ext = pathinfo($filepath, PATHINFO_EXTENSION);
 				if ($ext == 'html' || $ext == 'gz') {
@@ -1062,9 +1076,11 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			ORDER BY primary_id ASC
 			LIMIT 0, 1
 		");
-		if(empty($cron_res[0]['type'])) { $cron_res[0]['type'] = ''; }
+		if (empty($cron_res[0]['type'])) {
+			$cron_res[0]['type'] = '';
+		}
 		// type:articleの場合
-		if($cron_res[0]['type'] == 'article') {
+		if ($cron_res[0]['type'] == 'article') {
 			$count = (int)$cron_res[0]['count'];
 			// 記事情報取得
 			$new_article_res = model_db::query("
@@ -1077,71 +1093,71 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 			// 最新記事id取得
 			$latest_article_primary_id = (int)$new_article_res[0]['primary_id'];
 			// 次のカウント
-			$next_count = ($count+$increment);
+			$next_count = ($count + $increment);
 			// 繰り返しでarticleを最新化していく
-			while($count < $next_count) {
+			while ($count < $next_count) {
 				$count++;
 				$article_res = model_db::query("
 					SELECT primary_id
 					FROM article
 					WHERE del = 0
-					AND primary_id = ".$count."
+					AND primary_id = " . $count . "
 					ORDER BY primary_id DESC
 					LIMIT 0, 1
 				");
 				// 記事がdel:0の場合
-				if($article_res) {
+				if ($article_res) {
 					// ディレクトリ作成パス取得
-					$directory_path = PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$count.'';
+					$directory_path = PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/article/' . $count . '';
 					// ディレクトリがなかった場合
-					if(!file_exists($directory_path)) {
+					if (!file_exists($directory_path)) {
 						// ディレクトリ作成
 						basic::dir_create($directory_path);
 						// custom_articleがある場合
-						if(file_exists(PATH.'setting/master/custom_article.php')) {
+						if (file_exists(PATH . 'setting/master/custom_article.php')) {
 							// ファイル複製
-							copy(PATH.'setting/master/custom_article.php', $directory_path.'/index.php');
+							copy(PATH . 'setting/master/custom_article.php', $directory_path . '/index.php');
 						}
 						// custom_articleがない場合
 						else {
 							// ファイル複製
-							copy(PATH.'setting/master/article.php', $directory_path.'/index.php');
+							copy(PATH . 'setting/master/article.php', $directory_path . '/index.php');
 						}
 					}
 					// htmlがなかった場合
-					if(!file_exists($directory_path.'/index.html')) {
+					if (!file_exists($directory_path . '/index.html')) {
 						// 擬似的array生成
 						$html_gzip_create_list_array = array(
 							0 => array(
-										'http_path'         => HTTP.'article/'.$count.'/',
-										'directory_path' => PATH.'app/theme/'.$site_data_array['theme'].'/controller/article/'.$count.'',
-							), 
+								'http_path'         => HTTP . 'article/' . $count . '/',
+								'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/article/' . $count . '',
+							),
 						); // $html_gzip_create_list_array = array(
 						// multi版：静的化+圧縮化
 						basic::multi_html_gzip_create($html_gzip_create_list_array);
 					}
 				} // if($article_res) {
 				// 最新記事まで差し掛かったら completeを1にして繰り返しを抜ける
-				if($count == $latest_article_primary_id) {
+				if ($count == $latest_article_primary_id) {
 					$complete_time = date("Y-m-d H:i:s");
-					 model_db::query("
+					model_db::query("
 						UPDATE cron 
 						SET 
 							complete = 1,
-							complete_time = '".$complete_time."'
-						WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
+							complete_time = '" . $complete_time . "'
+						WHERE primary_id = " . (int)$cron_res[0]['primary_id'] . "
 					");
 					break;
 				}
 			} // while($count < $next_count) {
 			$complete_time = date("Y-m-d H:i:s");
 			// cron更新
-			 model_db::query("
+			model_db::query("
 				UPDATE cron 
 				SET 
-					count = ".$count.",
-					complete_time = '".$complete_time."'
-				WHERE primary_id = ".(int)$cron_res[0]['primary_id']."
+					count = " . $count . ",
+					complete_time = '" . $complete_time . "'
+				WHERE primary_id = " . (int)$cron_res[0]['primary_id'] . "
 			");
 		} // if($cron_res[0]['type'] == 'article') {
 	}
@@ -1149,11 +1165,10 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	// 特定の文字列が2連続である場合1つにする
 	//---------------------------------------------
 	public static function replace_recursive($str, $target_str = '/') {
-		$new_str = str_replace($target_str.$target_str, $target_str, $str);
+		$new_str = str_replace($target_str . $target_str, $target_str, $str);
 		if ($new_str !== $str) {
 			return basic::replace_recursive($new_str);
-		} 
-		else {
+		} else {
 			return $new_str;
 		}
 	}
@@ -1167,8 +1182,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		foreach ($files as $file) {
 			if (is_dir($file)) {
 				$phpFiles = array_merge($phpFiles, basic::getPhpFilesInSelectDirectory($file, $target_dir, $extension));
-			}
-			elseif (strpos($file, '/'.$target_dir.'/') !== false && pathinfo($file, PATHINFO_EXTENSION) == $extension) {
+			} elseif (strpos($file, '/' . $target_dir . '/') !== false && pathinfo($file, PATHINFO_EXTENSION) == $extension) {
 				$phpFiles[] = $file;
 			}
 		}
@@ -1180,7 +1194,7 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function is_local_and_windows() {
 		$is_local_and_windows = false;
 		// ローカル環境
-		if(preg_match('/localhost/',$_SERVER["HTTP_HOST"])) {
+		if (preg_match('/localhost/', $_SERVER["HTTP_HOST"])) {
 			if (isset($_SERVER['HTTP_USER_AGENT'])) {
 				$ua = $_SERVER['HTTP_USER_AGENT'];
 				if (strpos($ua, 'Windows') !== false) {
@@ -1196,15 +1210,14 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 	public static function compareVersions($version1, $version2) {
 		$v1Parts = explode('.', $version1);
 		$v2Parts = explode('.', $version2);
-		
+
 		for ($i = 0; $i < count($v1Parts); $i++) {
 			$v1Part = intval($v1Parts[$i]);
 			$v2Part = intval($v2Parts[$i]);
 
 			if ($v1Part < $v2Part) {
 				return -1; // $version1 が $version2 よりも小さい
-			} 
-			elseif ($v1Part > $v2Part) {
+			} elseif ($v1Part > $v2Part) {
 				return 1; // $version1 が $version2 よりも大きい
 			}
 		}
@@ -1219,27 +1232,26 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 
 		// URLをスラッシュで分解
 		$array_parse_uri = explode('/', $_SERVER['REQUEST_URI']);
-//		pre_var_dump(ROOT_DIR);
-//		pre_var_dump($array_parse_uri);
-		foreach($array_parse_uri as $kye => $value) {
+		//		pre_var_dump(ROOT_DIR);
+		//		pre_var_dump($array_parse_uri);
+		foreach ($array_parse_uri as $kye => $value) {
 			// basic配置ディレクトリ、'', getをスキップ
-			if($value == ROOT_DIR || $value == '' || preg_match('/\?/', $value) == true) {
-			
+			if ($value == ROOT_DIR || $value == '' || preg_match('/\?/', $value) == true) {
 			}
 			// コントローラークエリ生成 (関数を作って変数リターンの方がいいかも
 			else {
-				$controller_query = $controller_query.'/'.$value;
+				$controller_query = $controller_query . '/' . $value;
 				$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
 			}
 		}
-//		pre_var_dump($controller_query);
-		
+		//		pre_var_dump($controller_query);
+
 		// 上記では対応できなかった部分(階層があっても対応)をよしなに
 		$ROOT_DIR_pattern = preg_replace('/\//', '\/', ROOT_DIR);
-		$controller_query = preg_replace('/^'.$ROOT_DIR_pattern.'/', '', $controller_query);
-//		pre_var_dump($controller_query);
+		$controller_query = preg_replace('/^' . $ROOT_DIR_pattern . '/', '', $controller_query);
+		//		pre_var_dump($controller_query);
 		$controller_query = preg_replace('/^\/{1}/', '', $controller_query);
-//		pre_var_dump($controller_query);
+		//		pre_var_dump($controller_query);
 		return $controller_query;
 	}
 	//-------------
@@ -1264,10 +1276,40 @@ if(\$_SERVER['HTTP_HOST'] == 'localhost') {
 		// レスポンスをリターン
 		return $response;
 	}
+	//--------------
+	// Docker環境確認
+	//--------------
+	public static function docker_env_check() {
+		$is_docker_env = false;
+		if (!empty($_ENV['HOSTNAME']) && preg_match('/^[0-9a-f]{12}$/', $_ENV['HOSTNAME'])) {
+			$is_docker_env = true;
+		} else {
+		}
 
+		$cgroup = file_get_contents('/proc/1/cgroup');
+		if (strpos($cgroup, 'docker') !== false || strpos($cgroup, 'kubepods') !== false) {
+			$is_docker_env = true;
+		} else {
+		}
 
+		if (file_exists('/.dockerenv')) {
+			$is_docker_env = true;
+		} else {
+		}
 
+		$docker_specific_vars = ['DOCKER_CERT_PATH', 'DOCKER_HOST', 'DOCKER_INSTANCE', 'docker'];
+		$found_docker_vars = array_filter($docker_specific_vars, function ($var) {
+			return isset($_ENV[$var]);
+		});
+		if (count($found_docker_vars) > 0) {
+			$is_docker_env = true;
+		} else {
+		}
 
-
-
+		if (!file_exists('/etc/localtime') || !file_exists('/etc/hostname')) {
+			$is_docker_env = true;
+		} else {
+		}
+		return $is_docker_env;
+	}
 }

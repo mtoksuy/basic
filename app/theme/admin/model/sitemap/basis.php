@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_sitemap_basis {
 	//--------------------
 	// 全記事リスト取得
@@ -91,7 +91,7 @@ class model_sitemap_basis {
 			SELECT * 
 			FROM products 
 			WHERE del = 0
-			AND ContextFreeName = '".$name."'");
+			AND ContextFreeName = '" . $name . "'");
 		return $products_res;
 	}
 	//----------------------------------------------
@@ -127,21 +127,4 @@ class model_sitemap_basis {
 			ORDER BY primary_id DESC");
 		return $page_res;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

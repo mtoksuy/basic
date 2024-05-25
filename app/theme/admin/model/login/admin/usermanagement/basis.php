@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_login_admin_usermanagement_basis {
 	//----------------------
 	// 全ユーザーarray取得
@@ -20,7 +20,7 @@ class model_login_admin_usermanagement_basis {
 		$all_user_res = model_db::query("
 			UPDATE user 
 			SET del = 1
-			WHERE basic_id = '".$get['basic_id']."'");
+			WHERE basic_id = '" . $get['basic_id'] . "'");
 	}
 	//---------------
 	// ユーザー追加
@@ -32,12 +32,12 @@ class model_login_admin_usermanagement_basis {
 		$password_hash = password_hash($post['password'], PASSWORD_DEFAULT);
 		// iconランダム選択
 		$icon_array = array(
-			0 => 'basic_default_icon_black_1.png', 
-			1 => 'basic_default_icon_blue_1.png', 
-			2 => 'basic_default_icon_green_1.png', 
-			3 => 'basic_default_icon_pink_1.png', 
-			4 => 'basic_default_icon_yellow_1.png', 
-			5 => 'default_1.png', 
+			0 => 'basic_default_icon_black_1.png',
+			1 => 'basic_default_icon_blue_1.png',
+			2 => 'basic_default_icon_green_1.png',
+			3 => 'basic_default_icon_pink_1.png',
+			4 => 'basic_default_icon_yellow_1.png',
+			5 => 'default_1.png',
 		);
 		// ランダムなキーを取得
 		$random_key = array_rand($icon_array);
@@ -54,12 +54,12 @@ class model_login_admin_usermanagement_basis {
 				update_time
 			)
 			VALUES (
-				'".$post['basic_id']."', 
-				'".$password_hash."',
-				'".$post['basic_id']."', 
-				'".$random_icon_name."',
-				'".$post['role']."',
-				'".$now_time."'
+				'" . $post['basic_id'] . "', 
+				'" . $password_hash . "',
+				'" . $post['basic_id'] . "', 
+				'" . $random_icon_name . "',
+				'" . $post['role'] . "',
+				'" . $now_time . "'
 			)
 		");
 	}
@@ -71,39 +71,9 @@ class model_login_admin_usermanagement_basis {
 		$user_article_post_count_res = model_db::query("
 			SELECT COUNT(basic_id) 
 			FROM article 
-			WHERE basic_id = '".$basic_id."'
+			WHERE basic_id = '" . $basic_id . "'
 			AND del = 0
 			ORDER BY primary_id DESC");
 		return $user_article_post_count_res;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_login_admin_profile_basis {
 	//----------------------
 	// 一般データarray取得
@@ -8,7 +8,7 @@ class model_login_admin_profile_basis {
 		$profile_res = model_db::query("
 			SELECT * 
 			FROM setting ");
-			$profile_data_array = $profile_res[0];
+		$profile_data_array = $profile_res[0];
 		return $profile_data_array;
 	}
 	//------------------------
@@ -19,26 +19,25 @@ class model_login_admin_profile_basis {
 		$now_time = date('Y-m-d H:i:s');
 		// メールアドレスをチェックする
 		$user_email_check = basic::email_check($post);
-		if($user_email_check) {
+		if ($user_email_check) {
 			$profile_res = model_db::query("
 				UPDATE user 
 				SET 
-					name = '".$post['name']."',
-					profile = '".$post['profile']."',
-					email = '".$post['email']."',
-					role = '".$post['role']."', 
-					update_time = '".$now_time."'
-				WHERE basic_id = '".$post['basic_id']."'");
-		}
-		else {
+					name = '" . $post['name'] . "',
+					profile = '" . $post['profile'] . "',
+					email = '" . $post['email'] . "',
+					role = '" . $post['role'] . "', 
+					update_time = '" . $now_time . "'
+				WHERE basic_id = '" . $post['basic_id'] . "'");
+		} else {
 			$profile_res = model_db::query("
 				UPDATE user 
 				SET 
-					name = '".$post['name']."',
-					profile = '".$post['profile']."',
-					role = '".$post['role']."', 
-					update_time = '".$now_time."'
-				WHERE basic_id = '".$post['basic_id']."'");
+					name = '" . $post['name'] . "',
+					profile = '" . $post['profile'] . "',
+					role = '" . $post['role'] . "', 
+					update_time = '" . $now_time . "'
+				WHERE basic_id = '" . $post['basic_id'] . "'");
 		}
 		return $user_email_check;
 	}
@@ -46,11 +45,11 @@ class model_login_admin_profile_basis {
 	//  プロフィールicon設定保存
 	//-----------------------------
 	public static function profile_icon_save($post) {
-		 model_db::query("
+		model_db::query("
 			UPDATE user 
 			SET 
-				icon = '".$post['icon']."'
-			WHERE primary_id = ".$_SESSION['primary_id']."");
+				icon = '" . $post['icon'] . "'
+			WHERE primary_id = " . $_SESSION['primary_id'] . "");
 	}
 	//--------------------------
 	// アイコンを正方形にする
@@ -66,43 +65,43 @@ class model_login_admin_profile_basis {
 		// ソートを逆にする
 		$extension_explode = array_reverse($extension_explode);
 		// 拡張子取得
-		$extension = '.'.$extension_explode[0];
+		$extension = '.' . $extension_explode[0];
 		// オリジナルパスを渡す
 		$orgFile = $image_path;
 		// 保存先パス
-//		$savePath = PATH.'app/assets/img/user/';
-		 // 出力ピクセルサイズで新規画像作成
-		 $square_width  = $square_size;
-		 $square_height = $square_size;
+		//		$savePath = PATH.'app/assets/img/user/';
+		// 出力ピクセルサイズで新規画像作成
+		$square_width  = $square_size;
+		$square_height = $square_size;
 
 		// 画像のピクセルサイズ情報を取得
 		$imginfo = getimagesize($orgFile);
 		//getimagesize関数で画像情報を取得する
 		list($img_width, $img_height, $mime_type, $attr) = getimagesize($image_path);
-		switch($mime_type) {
-			//jpegの場合
+		switch ($mime_type) {
+				//jpegの場合
 			case IMAGETYPE_JPEG:
 				// イメージリソース取得
 				$ImageResource = imagecreatefromjpeg($orgFile);
-			break;
-			//pngの場合
+				break;
+				//pngの場合
 			case IMAGETYPE_PNG:
 				// イメージリソース取得
 				$ImageResource = imagecreatefrompng($orgFile);
-			break;
-			//gifの場合
+				break;
+				//gifの場合
 			case IMAGETYPE_GIF:
 				// イメージリソース取得
 				$ImageResource = imagecreatefromgif($orgFile);
-			break;
-			//webpの場合
+				break;
+				//webpの場合
 			case 18:
 				// イメージリソース取得
 				$ImageResource = imagecreatefromwebp($orgFile);
-			break;
+				break;
 		}
 		// svg対応
-		if($mime_type != NULL) {
+		if ($mime_type != NULL) {
 			// イメージリソースから、横、縦ピクセルサイズ取得
 			$width  = imagesx($ImageResource);    // 横幅
 			$height = imagesy($ImageResource);    // 縦幅
@@ -112,56 +111,51 @@ class model_login_admin_profile_basis {
 				$x = floor(($width - $height) / 2);
 				$y = 0;
 				$width = $side;
-			}
-			else {
+			} else {
 				// 縦長の画像の時
 				$side = $width;
 				$y = floor(($height - $width) / 2);
 				$x = 0;
 				$height = $side;
 			}
-			switch($imginfo[2]) {
-				 // jpeg
-				 case 2:
+			switch ($imginfo[2]) {
+					// jpeg
+				case 2:
 					// 出力ファイル名
-					$filename = $random_hash.$extension;
+					$filename = $random_hash . $extension;
 					$square_new = imagecreatetruecolor($square_width, $square_height);
 					imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
 					imagejpeg($square_new, $savePath . $filename, 100);
-				 break;
-				 
-				 // gif
-				 case 1:
-				 	// 何もしない
-				 break;
-				 // png
-				 case 3:
+					break;
+
+					// gif
+				case 1:
+					// 何もしない
+					break;
+					// png
+				case 3:
 					// 出力ファイル名
-					$filename = $random_hash.$extension;
-					 $square_new = imagecreatetruecolor($square_width, $square_height);
-					 imagealphablending($square_new, false);        // アルファブレンディングを無効
-					 imageSaveAlpha($square_new, true);             // アルファチャンネルを有効
-					 $transparent = imagecolorallocatealpha($square_new, 0, 0, 0, 127); // 透明度を持つ色を作成
-					 imagefill($square_new, 0, 0, $transparent);    // 塗りつぶす
-					 imagecopyresampled($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
-					 imagepng($square_new, $savePath . $filename);
-				break;
-				 // webp
-				 case 18:
+					$filename = $random_hash . $extension;
+					$square_new = imagecreatetruecolor($square_width, $square_height);
+					imagealphablending($square_new, false);        // アルファブレンディングを無効
+					imageSaveAlpha($square_new, true);             // アルファチャンネルを有効
+					$transparent = imagecolorallocatealpha($square_new, 0, 0, 0, 127); // 透明度を持つ色を作成
+					imagefill($square_new, 0, 0, $transparent);    // 塗りつぶす
+					imagecopyresampled($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
+					imagepng($square_new, $savePath . $filename);
+					break;
+					// webp
+				case 18:
 					// 出力ファイル名
-					$filename = $random_hash.$extension;
+					$filename = $random_hash . $extension;
 					$square_new = imagecreatetruecolor($square_width, $square_height);
 					imagecopyresized($square_new, $ImageResource, 0, 0, $x, $y, $square_width, $square_height, $width, $height);
 					imagewebp($square_new, $savePath . $filename, 100);
-				 break;
-				 // デフォルト
-				 Default:
-				 break;
-				} // switch ($imginfo[2]) {
-			}  // if($mime_type != NULL) {
+					break;
+					// デフォルト
+				default:
+					break;
+			} // switch ($imginfo[2]) {
+		}  // if($mime_type != NULL) {
 	}
-
-
-
-
 }

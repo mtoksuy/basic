@@ -1,8 +1,7 @@
-
 <div class="admin">
 	<div class="admin_inner">
 		<div class="admin_left">
-			<?php require_once(PATH.'app/theme/admin/view/login/admin/admin_left_drawer.php'); /* admin_left_drawer読み込み*/ ?>
+			<?php require_once(PATH . 'app/theme/admin/view/login/admin/admin_left_drawer.php'); /* admin_left_drawer読み込み*/ ?>
 		</div>
 		<div class="admin_right">
 			<div class="summary">

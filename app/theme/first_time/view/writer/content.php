@@ -1,4 +1,3 @@
-
 <div class="writer">
 	<div class="writer_inner">
 		<div class="writer_inner_left">

@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_login_admin_pagelist_basis {
 	//-------------
 	//ページ一覧取得
@@ -13,5 +13,4 @@ class model_login_admin_pagelist_basis {
 		");
 		return $article_pagelist_res;
 	}
-
 }

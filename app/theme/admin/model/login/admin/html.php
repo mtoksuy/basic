@@ -8,31 +8,31 @@ class model_login_admin_html {
 		$admin_left_drawer_html = '';
 		// 今いるページに対してクラス付与
 		$addClass = [
-			'' => '', 
-			'coreupdate' => '', 
-			'post' => '', 
-			'list' => '', 
-			'draft' => '', 
-			'fileupload' => '', 
-			'filelist' => '', 
-			'contactlist' => '', 
-			'themeswitching' => '', 
-			'page' => '', 
-			'pagelist' => '', 
-			'pagedraft' => '', 
-			'rootedit' => '', 
-			'template' => '', 
-			'general' => '', 
-			'usermanagement' => '', 
-			'profile' => '', 
-			'import' => '', 
-			'plugin' => '', 
-			'' => '', 
-			'' => '', 
-			'' => '', 
-			'' => '', 
+			'' => '',
+			'coreupdate' => '',
+			'post' => '',
+			'list' => '',
+			'draft' => '',
+			'fileupload' => '',
+			'filelist' => '',
+			'contactlist' => '',
+			'themeswitching' => '',
+			'page' => '',
+			'pagelist' => '',
+			'pagedraft' => '',
+			'rootedit' => '',
+			'template' => '',
+			'general' => '',
+			'usermanagement' => '',
+			'profile' => '',
+			'import' => '',
+			'plugin' => '',
+			'' => '',
+			'' => '',
+			'' => '',
+			'' => '',
 		];
-		switch($now) {
+		switch ($now) {
 			case '':
 			case 'coreupdate':
 			case 'post':
@@ -54,20 +54,20 @@ class model_login_admin_html {
 			case 'plugin':
 			case '':
 				$addClass[$now] = ' class="now"';
-			break;
+				break;
 		}
 		// 基本パーツ
-		$basis_border_parts = 
+		$basis_border_parts =
 			'<ul class="border">
 				<span>基本</span>
-				<li'.$addClass[''].'>
-					<a class="o_8" href="'.HTTP.'login/admin/">ホーム</a>
+				<li' . $addClass[''] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/">ホーム</a>
 				</li>
 				<li>
-					<a class="o_8" href="'.HTTP.'" target="_blank">サイトを表示</a>
+					<a class="o_8" href="' . HTTP . '" target="_blank">サイトを表示</a>
 				</li>
 				<li>
-					<a class="o_8" href="'.HTTP.'writer/'.$_SESSION['basic_id'].'/" target="_blank">マイページ</a>
+					<a class="o_8" href="' . HTTP . 'writer/' . $_SESSION['basic_id'] . '/" target="_blank">マイページ</a>
 				</li>
 			</ul>';
 
@@ -83,199 +83,201 @@ class model_login_admin_html {
 		]);
 		// basic_version_get API出力受け取る
 		$response = file_get_contents('https://basic.dance/api/?basic_version_get=true', false, $context);
-		$json_decode_response = json_decode($response , true);
+		$json_decode_response = json_decode($response, true);
 		// バージョン判定
 		$result = basic::compareVersions($site_data_array['basic_version'], $json_decode_response['latest_basic_version']);
-		if($result < 0) {
+		if ($result < 0) {
 			$update_unread_count_html = '<span class="contact_unread_count"> </span>';
 		}
-		$update_border_parts = 
+		$update_border_parts =
 			'<ul class="border">
 				<span>アップデート機能</span>
-				<li'.$addClass['coreupdate'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/coreupdate/">更新</a>
-					'.$update_unread_count_html.'
+				<li' . $addClass['coreupdate'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/coreupdate/">更新</a>
+					' . $update_unread_count_html . '
 				</li>
 			</ul>';
 		// ブログパーツ
-		$blog_border_parts = 
+		$blog_border_parts =
 			'<ul class="border">
 				<span>ブログ機能</span>
-				<li'.$addClass['post'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/post/" target="_blank">ブログを書く</a>
+				<li' . $addClass['post'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/post/" target="_blank">ブログを書く</a>
 				</li>
-				<li'.$addClass['list'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/list/">投稿一覧</a>
+				<li' . $addClass['list'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/list/">投稿一覧</a>
 				</li>
-				<li'.$addClass['draft'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/draft/">下書き一覧</a>
+				<li' . $addClass['draft'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/draft/">下書き一覧</a>
 				</li>
 			</ul>';
 		// ファイルパーツ
-		$file_border_parts = 
+		$file_border_parts =
 			'<ul class="border">
 				<span>ファイル機能</span>
-				<li'.$addClass['fileupload'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/fileupload/">ファイルアップロード</a>
+				<li' . $addClass['fileupload'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/fileupload/">ファイルアップロード</a>
 				</li>
 
-				<li'.$addClass['filelist'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/filelist/">ファイル一覧</a>
+				<li' . $addClass['filelist'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/filelist/">ファイル一覧</a>
 				</li>
 			</ul>';
 		// お問い合わせパーツ
 		$contact_unread_count_html = '';
-		if((int)$site_data_array['contact_unread_count'] > 0) {
+		if ((int)$site_data_array['contact_unread_count'] > 0) {
 			$contact_unread_count_html = '<span class="contact_unread_count"> </span>';
 		}
-		$contact_border_parts = 
+		$contact_border_parts =
 			'<ul class="border">
 				<span>お問い合わせ機能</span>
-				<li'.$addClass['contactlist'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/contactlist/">お問い合わせ一覧</a>
-					'.$contact_unread_count_html.'
+				<li' . $addClass['contactlist'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/contactlist/">お問い合わせ一覧</a>
+					' . $contact_unread_count_html . '
 				</li>
 			</ul>';
 		// テーマパーツ
-		$themes_border_parts = 
+		$themes_border_parts =
 			'<ul class="border">
 				<span>テーマ機能</span>
-				<li'.$addClass['themeswitching'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/themeswitching/">テーマ切り替え</a>
+				<li' . $addClass['themeswitching'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/themeswitching/">テーマ切り替え</a>
 				</li>
 			</ul>';
 		// ページパーツ
-		$page_border_parts = 
+		$page_border_parts =
 			'<ul class="border">
 				<span>ページ機能</span>
-				<li'.$addClass['page'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/page/" target="_blank">ページ作成</a>
+				<li' . $addClass['page'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/page/" target="_blank">ページ作成</a>
 				</li>
-				<li'.$addClass['pagelist'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/pagelist/">ページ一覧</a>
+				<li' . $addClass['pagelist'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/pagelist/">ページ一覧</a>
 				</li>
-				<li'.$addClass['pagedraft'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/pagedraft/">下書き一覧</a>
+				<li' . $addClass['pagedraft'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/pagedraft/">下書き一覧</a>
 				</li>
 			</ul>';
 		// トップページ編集パーツ
 		$editTopPage_border_parts = '
 			<ul class="border">
 				<span>トップページ編集</span>
-				<li'.$addClass['rootedit'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/rootedit/" target="_blank">トップページ編集</a>
+				<li' . $addClass['rootedit'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/rootedit/" target="_blank">トップページ編集</a>
 				</li>
 			</ul>';
 		// テンプレート編集パーツ
-		$editTemplate_border_parts = 
+		$editTemplate_border_parts =
 			'<ul class="border">
 				<span>テンプレート編集</span>
-				<li'.$addClass['template'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/template/" target="_blank">テンプレート編集</a>
+				<li' . $addClass['template'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/template/" target="_blank">テンプレート編集</a>
 				</li>
 			</ul>';
 		// サイト設定パーツ
-		$siteSettings_border_parts = 
+		$siteSettings_border_parts =
 			'<ul class="border">
 				<span>サイト設定</span>
-				<li'.$addClass['general'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/general/">一般設定</a>
+				<li' . $addClass['general'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/general/">一般設定</a>
 				</li>
 			</ul>';
 		// アカウント設定パーツ
 		// ロール振り分け
-		switch($_SESSION['role']) {
-			// 管理者
+		switch ($_SESSION['role']) {
+				// 管理者
 			case 'admin':
-			// 編集者
+				// 編集者
 			case 'editor':
-				$usermanagement_li = 
-					'<li'.$addClass['usermanagement'].'>
-						<a class="o_8" href="'.HTTP.'login/admin/usermanagement/">ユーザーの管理</a>
+				$usermanagement_li =
+					'<li' . $addClass['usermanagement'] . '>
+						<a class="o_8" href="' . HTTP . 'login/admin/usermanagement/">ユーザーの管理</a>
 					</li>';
-			break;
-			// 投稿者
+				break;
+				// 投稿者
 			case 'postor':
 				$usermanagement_li = '';
-			break;
+				break;
 		}
-		$accountSettings_border_parts = 
+		$accountSettings_border_parts =
 			'<ul class="border">
 				<span>アカウント設定</span>
-				<li'.$addClass['profile'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/profile/">プロフィール設定</a>
+				<li' . $addClass['profile'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/profile/">プロフィール設定</a>
 				</li>
-					'.$usermanagement_li.'
+					' . $usermanagement_li . '
 			</ul>';
 		// ツールパーツ
-		$toolSettings_border_parts = 
+		$toolSettings_border_parts =
 			'<ul class="border">
 				<span>ツール設定</span>
-				<li'.$addClass['import'].'>
-					<a class="o_8" href="'.HTTP.'login/admin/import/">インポート</a>
+				<li' . $addClass['import'] . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/import/">インポート</a>
 				</li>
 			</ul>';
 		// プラグインパーツ
 		//
 		// プラグイン機能 プロトタイプ実装
 		//
-		$dir = PATH.'app/plugin';
+		$dir = PATH . 'app/plugin';
 		$plugin_list_html = '';
 		$now_class_name = '';
 		foreach (glob("$dir/*", GLOB_ONLYDIR)  as $folder) {
-			if($now == basename($folder)) {$now_class_name = ' class="now"';}
-				$plugin_list_html .= ('<li'.$now_class_name.'>
-					<a class="o_8" href="'.HTTP.'login/admin/plugin/'.basename($folder).'/">'.basename($folder).'</a>
+			if ($now == basename($folder)) {
+				$now_class_name = ' class="now"';
+			}
+			$plugin_list_html .= ('<li' . $now_class_name . '>
+					<a class="o_8" href="' . HTTP . 'login/admin/plugin/' . basename($folder) . '/">' . basename($folder) . '</a>
 				</li>');
 			// 初期化
 			$now_class_name = '';
 		}
 		// ロール振り分け
-		switch($_SESSION['role']) {
-			// 管理者
+		switch ($_SESSION['role']) {
+				// 管理者
 			case 'admin':
-			// 編集者
+				// 編集者
 			case 'editor':
-			$pluginSettings_border_parts = 
-				'<ul class="border">
+				$pluginSettings_border_parts =
+					'<ul class="border">
 					<span>プラグイン設定</span>
-					<li'.$addClass['plugin'].'>
-						<a class="o_8" href="'.HTTP.'login/admin/plugin/">プラグイン追加</a>
-						'.$plugin_list_html.'
+					<li' . $addClass['plugin'] . '>
+						<a class="o_8" href="' . HTTP . 'login/admin/plugin/">プラグイン追加</a>
+						' . $plugin_list_html . '
 					</li>
 				</ul>';
-			break;
-			// 投稿者
+				break;
+				// 投稿者
 			case 'postor':
-			$pluginSettings_border_parts = 
-				'<ul class="border">
+				$pluginSettings_border_parts =
+					'<ul class="border">
 					<span>プラグイン設定</span>
-					<li'.$addClass['plugin'].'>
-						'.$plugin_list_html.'
+					<li' . $addClass['plugin'] . '>
+						' . $plugin_list_html . '
 					</li>
 				</ul>';
-			break;
+				break;
 		}
 
-//var_dump($_SESSION['role']);
+		//var_dump($_SESSION['role']);
 
 		// ロール振り分け
-		switch($_SESSION['role']) {
-			// 管理者
+		switch ($_SESSION['role']) {
+				// 管理者
 			case 'admin':
 				// 管理者出力
-				$admin_left_drawer_html = $basis_border_parts.$update_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$siteSettings_border_parts.$accountSettings_border_parts.$toolSettings_border_parts.$pluginSettings_border_parts;
-			break;
-			// 編集者
+				$admin_left_drawer_html = $basis_border_parts . $update_border_parts . $blog_border_parts . $file_border_parts . $contact_border_parts . $themes_border_parts . $page_border_parts . $editTopPage_border_parts . $editTemplate_border_parts . $siteSettings_border_parts . $accountSettings_border_parts . $toolSettings_border_parts . $pluginSettings_border_parts;
+				break;
+				// 編集者
 			case 'editor':
 				// 編集者出力
-				$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$contact_border_parts.$themes_border_parts.$page_border_parts.$editTopPage_border_parts.$editTemplate_border_parts.$accountSettings_border_parts.$pluginSettings_border_parts;
-			break;
-			// 投稿者
+				$admin_left_drawer_html = $basis_border_parts . $blog_border_parts . $file_border_parts . $contact_border_parts . $themes_border_parts . $page_border_parts . $editTopPage_border_parts . $editTemplate_border_parts . $accountSettings_border_parts . $pluginSettings_border_parts;
+				break;
+				// 投稿者
 			case 'postor':
 				// 投稿者出力
-				$admin_left_drawer_html = $basis_border_parts.$blog_border_parts.$file_border_parts.$accountSettings_border_parts.$pluginSettings_border_parts;
-			break;
+				$admin_left_drawer_html = $basis_border_parts . $blog_border_parts . $file_border_parts . $accountSettings_border_parts . $pluginSettings_border_parts;
+				break;
 		}
 		return $admin_left_drawer_html;
 	}

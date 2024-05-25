@@ -11,10 +11,10 @@ header("Content-Type: application/json; charset=UTF-8");
 $post = basic::post_security();
 
 // ログインしている場合
-if($_SESSION) {
+if ($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
 	// 本人確認またはロール、admi,editor確認
-	if($_SESSION['basic_id'] == $post['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
+	if ($_SESSION['basic_id'] == $post['basic_id'] || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 		// 特定の文字列が2連続である場合1つにする
 		$post['permalink'] = basic::replace_recursive($post['permalink'], '/');
 		// 文末の/を削除
@@ -36,7 +36,7 @@ if($_SESSION) {
 	}
 }
 
-if($query) {
+if ($query) {
 	// データセット
 	$json_data = array(
 		'post'           => $post,
@@ -45,8 +45,7 @@ if($query) {
 		'basic_id'     => $query['basic_id'],
 		'page_url'     => $query['page_url'],
 	);
-}
-else {
+} else {
 	// データセット
 	$json_data = array(
 		'post'           => $post,
@@ -58,5 +57,3 @@ else {
 }
 
 echo json_encode($json_data);
-
-?>

@@ -1,4 +1,3 @@
-
 <div class="login">
 	<div class="login_inner">
 		<h1 class="login_title">パスワード再発行完了致しました</h1>
