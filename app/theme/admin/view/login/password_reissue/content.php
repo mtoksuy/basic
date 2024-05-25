@@ -1,4 +1,3 @@
-
 <div class="login">
 	<div class="login_inner">
 		<h1 class="login_title">パスワード再発行</h1>
@@ -14,7 +13,7 @@
 			<p class="submit clearfix">
 				<input type="submit" class="login_form_button" name="login_submit" value="パスワードを再発行する">
 			</p>
-			<?php echo '<p>'.$lohin_message.'</p>'; ?>
+			<?php echo '<p>' . $lohin_message . '</p>'; ?>
 		</form>
 	</div> <!-- contact_inner -->
 </div>
