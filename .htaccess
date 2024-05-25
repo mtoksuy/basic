@@ -2,12 +2,7 @@
 # 全てのアクセスをindex.phpにアクセスさせる
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
-    # ファイル、ディレクトリ、シンボリックリンクが存在しない場合にindex.phpへリダイレクト
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-    RewriteRule ^ index.php [L]
+		RewriteRule ^.*$ index.php
 </IfModule>
 
 # ファイルの優先順位

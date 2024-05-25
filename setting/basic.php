@@ -803,77 +803,70 @@ if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 	public static function html_gzip_create_list_array_get($method = 'root',  $permalink = NULL) {
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
-		// Docker環境確認
-		$docker_env_check = basic::docker_env_check();
-		if ($docker_env_check) {
-			$HTTP = 'http://host.docker.internal:8000/';
-		} else {
-			$HTTP = HTTP;
-		}
 		if ($method == 'root') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP,
+					'http_path'         => HTTP,
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
 				),
 			); // $html_gzip_create_list_array = array(
 		} else if ($method == 'article' || $method == 'newarticle') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP,
+					'http_path'         => HTTP,
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
 				),
 				1 => array(
-					'http_path'         => $HTTP . 'article/' . $permalink . '/',
+					'http_path'         => HTTP . 'article/' . $permalink . '/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/article/' . $permalink . '',
 				),
 				2 => array(
-					'http_path'         => $HTTP . 'newarticle/',
+					'http_path'         => HTTP . 'newarticle/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/newarticle',
 				),
 				3 => array(
-					'http_path'         => $HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'http_path'         => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
 				),
 				4 => array(
-					'http_path'         => $HTTP . 'sitemap/',
+					'http_path'         => HTTP . 'sitemap/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
 				),
 			); // $html_gzip_create_list_array = array(
 		} else if ($method == 'article_del') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP,
+					'http_path'         => HTTP,
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/root',
 				),
 				1 => array(
-					'http_path'         => $HTTP . 'newarticle/',
+					'http_path'         => HTTP . 'newarticle/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/newarticle',
 				),
 				2 => array(
-					'http_path'         => $HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'http_path'         => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
 				),
 				3 => array(
-					'http_path'         => $HTTP . 'sitemap/',
+					'http_path'         => HTTP . 'sitemap/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
 				),
 			); // $html_gzip_create_list_array = array(
 		} else if ($method == 'page') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP . $permalink . '/',
+					'http_path'         => HTTP . $permalink . '/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/' . $permalink . '',
 				),
 				1 => array(
-					'http_path'         => $HTTP . 'sitemap/',
+					'http_path'         => HTTP . 'sitemap/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
 				),
 			); // $html_gzip_create_list_array = array(
 		} else if ($method == 'page_del') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP . 'sitemap/',
+					'http_path'         => HTTP . 'sitemap/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/sitemap',
 				),
 			); // $html_gzip_create_list_array = array(
@@ -882,7 +875,7 @@ if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
 		} else if ($method == 'profile') {
 			$html_gzip_create_list_array = array(
 				0 => array(
-					'http_path'         => $HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
+					'http_path'         => HTTP . 'writer/' . $_SESSION['basic_id'] . '/',
 					'directory_path' => PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/writer/' . $_SESSION['basic_id'] . '',
 				),
 			); // $html_gzip_create_list_array = array(
