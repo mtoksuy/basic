@@ -12,7 +12,7 @@ class model_writer_html {
 					<h1>' . $writer_res[0]['name'] . '</h1>
 				</div>
 				<div class="writer_info_inner_summary">
-					<p>' . htmlspecialchars_decode($writer_res[0]['profile']) . '</p>
+					<p>' . htmlspecialchars_decode($writer_res[0]['profile'] ?? '') . '</p>
 				</div>
 			</div>
 		</div>';
