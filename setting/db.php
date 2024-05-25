@@ -51,7 +51,8 @@ class model_db {
 			}
 			return $select_array;
 		} catch (mysqli_sql_exception $e) {
-			echo "SQL Error: " . $e->getMessage(); // エラーメッセージの出力
+			// 後ほど logに出力する方法で再実装する
+			//			echo "SQL Error: " . $e->getMessage(); // エラーメッセージの出力
 			return []; // エラー発生時は空の配列を返す
 		}
 	}
