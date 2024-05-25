@@ -14,11 +14,11 @@ $flle_array = '';
 //$post = library_security_basis::post_security();
 //ini_set('display_errors', 0);
 // ログインしている場合
-if($_SESSION) {
+if ($_SESSION) {
 	// ファイルが送られてきた場合
-	if($_FILES) {
+	if ($_FILES) {
 		$files = $_FILES;
-//		pre_var_dump($_FILES);
+		//		pre_var_dump($_FILES);
 		// file_array生成
 		$flle_array = model_login_admin_fileupload_basis::flle_array_create($files);
 		// 画像アップロード&DB登録
@@ -33,5 +33,3 @@ $json_data = array(
 	'flle_array'                   => $flle_array,
 );
 echo json_encode($json_data);
-
-?>

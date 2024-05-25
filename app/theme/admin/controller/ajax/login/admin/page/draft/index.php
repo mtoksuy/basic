@@ -12,7 +12,7 @@ $permalink_check = '';
 // ポストの中身をエンティティ化する
 $post = basic::post_security();
 // ログインしている場合
-if($_SESSION) {
+if ($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
 	// 特定の文字列が2連続である場合1つにする
 	$post['permalink'] = basic::replace_recursive($post['permalink'], '/');
@@ -33,5 +33,3 @@ $json_data = array(
 	'permalink_check' => $permalink_check,
 );
 echo json_encode($json_data);
-
-?>

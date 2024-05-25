@@ -10,11 +10,11 @@ header("Content-Type: application/json; charset=UTF-8");
 // ポストの中身をエンティティ化する
 $post = basic::post_security();
 // ログインしている場合
-if($_SESSION) {
+if ($_SESSION) {
 	$basic_id = $_SESSION['basic_id'];
-	if(!empty($post)) {
+	if (!empty($post)) {
 		// 本人確認 or admin,ediotr権限あれば表示
-		if($post['basic_id'] == $basic_id || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
+		if ($post['basic_id'] == $basic_id || $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'editor') {
 			// ハッシュタグリスト json_encodeで取得
 			$hashtag_selection_json = model_login_admin_post_basis::hashtag_selection_list_json_encode_get($post['content']);
 			// 編集保存
@@ -32,5 +32,3 @@ $json_data = array(
 	'basic_id' => $query['basic_id'],
 );
 echo json_encode($json_data);
-
-?>
