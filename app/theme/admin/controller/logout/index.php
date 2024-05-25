@@ -1,3 +1,3 @@
-<?php 
-	// ログアウト
-	model_login_basis::logout();
+<?php
+// ログアウト
+model_login_basis::logout();
