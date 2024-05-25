@@ -5,13 +5,13 @@ class model_article_basis {
 	//----------------
 	public static function article_list_get($get_num = 10, $page_num = 1) {
 		// 取得する場所取得
-		$start_list_num = ($page_num*$get_num)-$get_num;
+		$start_list_num = ($page_num * $get_num) - $get_num;
 		$article_list_res = model_db::query("
 			SELECT *
 			FROM article
 			WHERE del = 0
 			ORDER BY primary_id DESC
-			LIMIT ".$start_list_num.", ".$get_num."");
+			LIMIT " . $start_list_num . ", " . $get_num . "");
 		return $article_list_res;
 	}
 	//-----------------------
@@ -23,11 +23,11 @@ class model_article_basis {
 			SELECT COUNT(primary_id)
 			FROM article
 			WHERE del = 0");
-		foreach($max_res as $key => $value) {
+		foreach ($max_res as $key => $value) {
 			$last_num = (int)$value['COUNT(primary_id)'];
 		}
 		// 最大ページング数取得
-		$max_paging_num = (int)ceil($last_num/$list_num);
+		$max_paging_num = (int)ceil($last_num / $list_num);
 		// new_article_paging_data生成
 		$new_article_paging_data_array = array(
 			'last_num'       => $last_num,
@@ -44,7 +44,7 @@ class model_article_basis {
 		$article_res = model_db::query("
 			SELECT * 
 			FROM article 
-			WHERE primary_id = ".$method."
+			WHERE primary_id = " . $method . "
 			AND del = 0
 			LIMIT 0, 1");
 		return $article_res;
@@ -66,9 +66,9 @@ class model_article_basis {
 									ORDER BY primary_id ASC
 									LIMIT 0 , 1");
 		$article_previous_next_res_array = array(
-		 'previous' => $query_p,
-		 'next'     => $query_n,
-		 );
+			'previous' => $query_p,
+			'next'     => $query_n,
+		);
 		return $article_previous_next_res_array;
 	}
 
@@ -81,7 +81,7 @@ class model_article_basis {
 			SELECT *
 			FROM article
 			WHERE del = 0
-			AND category = '".$category_name."'
+			AND category = '" . $category_name . "'
 			ORDER BY primary_id DESC");
 		return $category_article_res;
 	}
@@ -93,7 +93,7 @@ class model_article_basis {
 		$category_res = model_db::query("
 			SELECT *
 			FROM media_category
-			WHERE category_name = '".$category_name."'
+			WHERE category_name = '" . $category_name . "'
 		");
 		return $category_res;
 	}
@@ -104,7 +104,7 @@ class model_article_basis {
 		$article_res = model_db::query("
 			SELECT * 
 			FROM article 
-			WHERE amatem_id = '".$method."'
+			WHERE amatem_id = '" . $method . "'
 			AND del = 0
 			ORDER BY primary_id DESC");
 		return $article_res;
@@ -119,19 +119,19 @@ class model_article_basis {
 		// hashtag(json)をarrayに戻す
 		$hashtag_list_json_decode = json_decode($hashtag);
 		// ある場合正常に実行
-		if($hashtag_list_json_decode) {
-			foreach($hashtag_list_json_decode as $key => $value) {
+		if ($hashtag_list_json_decode) {
+			foreach ($hashtag_list_json_decode as $key => $value) {
 				$related_articles_res = model_db::query("
 						SELECT * 
 						FROM article 
-						WHERE hashtag LIKE '%".$value."%'
-						AND primary_id != ".$primary_id."
+						WHERE hashtag LIKE '%" . $value . "%'
+						AND primary_id != " . $primary_id . "
 						AND del = 0
 						ORDER BY primary_id DESC
 						LIMIT 0, 8
 				");
 				// 関連記事のprimary_id取得
-				foreach($related_articles_res as $key_1 => $value_1) {
+				foreach ($related_articles_res as $key_1 => $value_1) {
 					$related_articles_data_array[] = $value_1['primary_id'];
 				}
 			} // foreach($hashtag_list_json_decode as $key => $value) {
@@ -140,17 +140,17 @@ class model_article_basis {
 			// 歯抜けarrayを揃える
 			$related_articles_data_array = array_values($related_articles_data_array);
 			// INのリスト作成
-			foreach($related_articles_data_array as $key_2 => $value_2) {
-				$query .= $value_2.', ';
+			foreach ($related_articles_data_array as $key_2 => $value_2) {
+				$query .= $value_2 . ', ';
 			}
 			// 文末の, を削除
 			$query = rtrim($query, ', ');
-			$query = 'WHERE primary_id IN ('.$query.')';
-			if($related_articles_data_array) {
+			$query = 'WHERE primary_id IN (' . $query . ')';
+			if ($related_articles_data_array) {
 				$related_articles_res = model_db::query("
 						SELECT * 
 						FROM article 
-						".$query."
+						" . $query . "
 						ORDER BY primary_id DESC
 						LIMIT 0, 8
 				");
@@ -176,43 +176,42 @@ class model_article_basis {
 	//-----------------------------------
 	public static function next_article_list_res_get($paging_num = 0, $article_num = 20) {
 		$start_article_num = $paging_num * $article_num;
-//		pre_var_dump($start_article_num);
+		//		pre_var_dump($start_article_num);
 		// 取得する場所取得
 		$next_article_list_res = model_db::query("
 			SELECT *
 			FROM article
 			WHERE del = 0
 			ORDER BY primary_id DESC
-			LIMIT ".$start_article_num.", ".$article_num."");
+			LIMIT " . $start_article_num . ", " . $article_num . "");
 		// スタート地点取得
-		$paging_num = $paging_num+1;
-//		pre_var_dump($category_article_res);
-//		pre_var_dump($paging_num);
+		$paging_num = $paging_num + 1;
+		//		pre_var_dump($category_article_res);
+		//		pre_var_dump($paging_num);
 		return array($next_article_list_res, $paging_num);
 	}
 	//------------------------------------------
 	// さらに前の記事を見るディレクトリ生成
 	//-------------------------------------------
 	public static function next_article_diractory_create($next_article_check, $paging_num) {
-//		var_dump($paging_num);
-		if($next_article_check) {
-			$new_article_path = PATH.'newarticle/'.$paging_num; 
+		//		var_dump($paging_num);
+		if ($next_article_check) {
+			$new_article_path = PATH . 'newarticle/' . $paging_num;
 			// 指定されたディレクトリが存在するか確認
-			if(file_exists($new_article_path)){
+			if (file_exists($new_article_path)) {
 				//存在したときの処理
-	//			echo "作成しようとしたディレクトリは既に存在します";
-			}
-				else {
-					//存在しない時ディレクトリを生成
-					if(mkdir($new_article_path, 0777)) {
-						//作成したディレクトリのパーミッションを変更
-						chmod($new_article_path, 0777);
-						// マスターファイルコピー
-						copy(PATH.'master/newarticle.php', $new_article_path.'/index.php');
-						//作成に成功した時の処理
-	//					echo "作成に成功しました";
-					}
+				//			echo "作成しようとしたディレクトリは既に存在します";
+			} else {
+				//存在しない時ディレクトリを生成
+				if (mkdir($new_article_path, 0777)) {
+					//作成したディレクトリのパーミッションを変更
+					chmod($new_article_path, 0777);
+					// マスターファイルコピー
+					copy(PATH . 'master/newarticle.php', $new_article_path . '/index.php');
+					//作成に成功した時の処理
+					//					echo "作成に成功しました";
 				}
+			}
 		}
 		return $next_article_html;
 	}
@@ -221,26 +220,25 @@ class model_article_basis {
 	//-----------------------------------------------------------
 	public static function next_article_check($paging_num, $article_num) {
 		// ネクスト地点取得
-		$paging_num = $paging_num+1;
-/*
+		$paging_num = $paging_num + 1;
+		/*
 		pre_var_dump($paging_num);
 		pre_var_dump($article_num);
 */
 		$start_article_num = $paging_num * $article_num;
-//		pre_var_dump($start_article_num);
+		//		pre_var_dump($start_article_num);
 		// 取得する場所取得
 		$next_article_check_res = model_db::query("
 			SELECT *
 			FROM article
 			WHERE del = 0
 			ORDER BY primary_id DESC
-			LIMIT ".$start_article_num.", ".$article_num."");
-			if($next_article_check_res) {
-				$next_article_check = true;
-			}
-				else {
-					$next_article_check = false;
-				}
+			LIMIT " . $start_article_num . ", " . $article_num . "");
+		if ($next_article_check_res) {
+			$next_article_check = true;
+		} else {
+			$next_article_check = false;
+		}
 		return $next_article_check;
 	}
 }

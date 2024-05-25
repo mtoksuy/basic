@@ -1,5 +1,5 @@
-<?php 
-class model_search_basis  {
+<?php
+class model_search_basis {
 	//-------------------------
 	// プロダクト検索res取得
 	//-------------------------
@@ -43,11 +43,11 @@ class model_search_basis  {
 		*/
 		// キーワード部分クエリ生成
 		list($query, $multi_query_check) = model_search_basis::keyword_partial_query_create($get);
-/*
+		/*
 		pre_var_dump($query);
 		pre_var_dump($multi_query_check);
 */
-/*
+		/*
 LIKE 部分一致検索
 		$products_search_res = model_db::query("
 			SELECT primary_id, Title, ASIN, BrowseNodes, PrimaryImages, Brand, rating, review, Price, fall_percentage, rise_percentage
@@ -61,7 +61,7 @@ LIKE 部分一致検索
 		");
 */
 
-/*
+		/*
 LIKE 前文一致検索
 		$products_search_res = model_db::query("
 			SELECT primary_id, Title, ASIN, BrowseNodes, PrimaryImages, Brand, rating, review, Price, fall_percentage, rise_percentage
@@ -75,46 +75,46 @@ LIKE 前文一致検索
 		");
 */
 		// 複数キーワードの場合
-		if($multi_query_check) {
+		if ($multi_query_check) {
 			// 複数かつ「-」オプションが付与されてる場合
-			if(preg_match('/-/', $query)) {
+			if (preg_match('/-/', $query)) {
 				$products_search_res = model_db::query("
 					SELECT * 
 					FROM products 
 					WHERE MATCH(ContextFreeName, Title, performance, Brand) 
-					AGAINST ('".$query."' IN BOOLEAN MODE)
+					AGAINST ('" . $query . "' IN BOOLEAN MODE)
 					AND del = 0
 					ORDER BY ranking ASC
 					LIMIT 0, 1000
 				");
 			}
-				// 通常の複数キーワードの場合
-				else {
-					$products_search_res = model_db::query("
+			// 通常の複数キーワードの場合
+			else {
+				$products_search_res = model_db::query("
 						SELECT *, 
-						MATCH (ContextFreeName, Title, performance, Brand) AGAINST ('".$query."' IN NATURAL LANGUAGE MODE) AS score 
+						MATCH (ContextFreeName, Title, performance, Brand) AGAINST ('" . $query . "' IN NATURAL LANGUAGE MODE) AS score 
 						FROM products 
 						WHERE del = 0
 						ORDER BY score desc
 						LIMIT 0, 1000
 					");
-				}
+			}
 		}
-			// 単一キーワードの場合
-			else {
-				$products_search_res = model_db::query("
+		// 単一キーワードの場合
+		else {
+			$products_search_res = model_db::query("
 					SELECT * 
 					FROM products 
 					WHERE MATCH(ContextFreeName, Title, performance, Brand) 
-					AGAINST ('".$query."' IN BOOLEAN MODE)
+					AGAINST ('" . $query . "' IN BOOLEAN MODE)
 					AND del = 0
 					ORDER BY ranking ASC
 					LIMIT 0, 1000
 				");
-			}
-//pre_var_dump($query);
+		}
+		//pre_var_dump($query);
 
-/**********************************************************
+		/**********************************************************
 	例 FULLTEXTのインデックスを貼るSQL文
 	ALTER TABLE `amatem`.`products` ADD FULLTEXT `FULLTEXT_INDEX` (`ContextFreeName`, `Title`, `performance`, `Brand`) KEY_BLOCK_SIZE = 2 WITH PARSER ngram;
 FULLTEXT_INDEXはインデックスと名前(なんでもいい)
@@ -131,7 +131,7 @@ BOOLEAN MODE 完全に一致
 SELECT * FROM products WHERE MATCH(ContextFreeName, Title, performance, Brand) AGAINST ('+シリーズ +ワイヤレ' IN BOOLEAN MODE)
 
 ('あい こい' IN BOOLEAN MODE) OR一致 あんま使わんかも 基本は+でANDで繋げてく
-**********************************************************/
+		 **********************************************************/
 		return $products_search_res;
 	}
 	//------------------
@@ -141,8 +141,8 @@ SELECT * FROM products WHERE MATCH(ContextFreeName, Title, performance, Brand) A
 		$article_search_res = model_db::query("
 			SELECT *
 			FROM article
-			WHERE title LIKE '%".$get['q']."%' AND del = 0
-			OR content LIKE '%".$get['q']."%' AND del = 0
+			WHERE title LIKE '%" . $get['q'] . "%' AND del = 0
+			OR content LIKE '%" . $get['q'] . "%' AND del = 0
 			ORDER BY primary_id DESC
 			LIMIT 0, 1000
 		");
@@ -153,7 +153,7 @@ SELECT * FROM products WHERE MATCH(ContextFreeName, Title, performance, Brand) A
 	//--------------------
 	public static function res_count_get($res) {
 		$res_count = 0;
-		foreach($res as $key => $value) {
+		foreach ($res as $key => $value) {
 			$res_count++;
 		}
 		return $res_count;
@@ -167,30 +167,29 @@ SELECT * FROM products WHERE MATCH(ContextFreeName, Title, performance, Brand) A
 		// 半角全角スペースを統一する
 		$get['q'] = preg_replace('/ /', '　', $get['q']);
 		$get_q_explode = explode('　', $get['q']);
-		foreach($get_q_explode as $key => $value) {
-			if($value === '') {
+		foreach ($get_q_explode as $key => $value) {
+			if ($value === '') {
 				// 削除
 				unset($get_q_explode[$key]);
 			}
 		}
 		// 配列を詰める
 		$get_q_explode = array_merge($get_q_explode);
-		foreach($get_q_explode as $key => $value) {
+		foreach ($get_q_explode as $key => $value) {
 			// 複数クエリチェック変数 true変更
-			if($key >= 1) {
+			if ($key >= 1) {
 				$multi_query_check = true;
 			}
 			// オプション「-」である場合(NOT)
-			if(preg_match('/^-/', $value)) {
+			if (preg_match('/^-/', $value)) {
 				$value = preg_replace('/-/', '', $value);
-				$query = $query.'-'.$value.' ';
+				$query = $query . '-' . $value . ' ';
 			}
 			// オプション「""」である場合(完全一致)
-			else if(preg_match('/^\&quot;(.*?)\&quot;$/', $value, $value_array)) {
-				$query = $query.$value_array[1].' ';
-			}
-			else {
-				$query = $query.'+'.$value.' ';
+			else if (preg_match('/^\&quot;(.*?)\&quot;$/', $value, $value_array)) {
+				$query = $query . $value_array[1] . ' ';
+			} else {
+				$query = $query . '+' . $value . ' ';
 			}
 		}
 		// 文末の半角空白を削除
@@ -206,35 +205,26 @@ SELECT * FROM products WHERE MATCH(ContextFreeName, Title, performance, Brand) A
 		// 半角全角スペースを統一する
 		$get['q'] = preg_replace('/ /', '　', $get['q']);
 		$get_q_explode = explode('　', $get['q']);
-		foreach($get_q_explode as $key => $value) {
-			if($value === '') {
+		foreach ($get_q_explode as $key => $value) {
+			if ($value === '') {
 				// 削除
 				unset($get_q_explode[$key]);
 			}
 		}
 		// 配列を詰める
 		$get_q_explode = array_merge($get_q_explode);
-		foreach($get_q_explode as $key => $value) {
+		foreach ($get_q_explode as $key => $value) {
 			// オプション「-」である場合(NOT)
-			if(preg_match('/^-/', $value)) {
+			if (preg_match('/^-/', $value)) {
 				$value = preg_replace('/-/', '', $value);
 				$get_q_explode[$key] = $value;
 			}
 			// オプション「""」である場合(完全一致)
-			else if(preg_match('/^\&quot;(.*?)\&quot;$/', $value, $value_array)) {
+			else if (preg_match('/^\&quot;(.*?)\&quot;$/', $value, $value_array)) {
 				$get_q_explode[$key] = $value_array[1];
-			}
-			else {
-
+			} else {
 			}
 		}
 		return $get_q_explode;
 	}
-
-
-
-
-
-
-
 }
