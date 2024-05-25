@@ -119,6 +119,7 @@ class model_login_basis {
 	//ログイン履歴を記録する
 	//----------------------
 	public static function login_history_record($basic_id) {
+		/*
 		model_db::query("
 			INSERT INTO login_history (
 				basic_id
@@ -127,6 +128,7 @@ class model_login_basis {
 				'" . $basic_id . "'
 			)
 		");
+			*/
 	}
 	//-----------------------------------------
 	// send_support_infoに対してポストする
