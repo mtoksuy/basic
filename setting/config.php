@@ -104,10 +104,10 @@ if (preg_match('/localhost/', $_SERVER["HTTP_HOST"])) {
 	define('HTTP', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $SCRIPT_NAME);
 	define('ROOT_DIR', $ROOT_DIR);
 	define('FULL_HTTP', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-	$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+	$PATH = preg_replace('/setting/', '', __DIR__);
 	$PATH = str_replace('\\', '/', $PATH);
 	define('PATH', $PATH);
-	define('INTERNAL_PATH', dirname(__FILE__) . '/');
+	define('INTERNAL_PATH', __DIR__ . '/');
 	define('TITLE', 'basic サイト構築するならベーシック。世界一簡単なCMS');
 	define('META_DESCRIPTION', 'Basic(ベーシック)は、ブログ、コーポレイトサイト、ECサイトと幅広く作ることができる世界で最もSEOに効くCMSです。');
 }
@@ -116,7 +116,7 @@ else {
 	if ($_SERVER["HTTP_HOST"]) {
 		define('HTTP', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/' . $SCRIPT_NAME);
 		//			define('PATH', $_SERVER["DOCUMENT_ROOT"].'/'); 削除は一旦保留
-		$PATH = preg_replace('/setting/', '', dirname(__FILE__));
+		$PATH = preg_replace('/setting/', '', __DIR__);
 		define('PATH', $PATH);
 	}
 	//  cron環境
