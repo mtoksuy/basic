@@ -63,16 +63,16 @@ class basic {
 		}
 		return $get;
 	}
-	//------------------------
+	//--------------------
 	//変数をエンティティ化する
-	//------------------------
+	//--------------------
 	public static function variable_security($variable) {
 		if (is_array($variable)) {
 			foreach ($variable as $key => $value) {
 				$variable[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 			}
 		} else {
-			$variable = htmlspecialchars($$variable, ENT_QUOTES, 'UTF-8');
+			$variable = htmlspecialchars($variable, ENT_QUOTES, 'UTF-8');
 		}
 		return $variable;
 	}
