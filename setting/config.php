@@ -1,8 +1,8 @@
 <?php
 
-/**********
+/*******
 エラー設定
- **********/
+ ******/
 // ローカル環境
 if (preg_match('/localhost/', $_SERVER["HTTP_HOST"])) {
 	// エラー表示レベル
@@ -18,20 +18,17 @@ else {
 	// エラー表示
 	ini_set('display_errors', 1);
 }
-
-
 /*********
 ini_set設定
- **********/
+ *********/
 ini_set('memory_limit', '128M');
 ini_set('post_max_size', '10M');
 ini_set('upload_max_filesize', '10M');
 ini_set('max_file_uploads', 1000);
 ini_set('max_execution_time', 180);
-
-/*********
+/*******
 basic定数
- *********/
+ *******/
 define('theme', 'basic');
 /***************
 タイムゾーン指定
@@ -49,8 +46,8 @@ function pre_var_dump($data = '') {
 /**
  * オブジェクトや変数の中身を分かりやすくリストアップしたものを取得
  * @param  String $name $valが変数や配列だった場合の出力に使うラベルテキスト。
- * @param  Any $val  出力対象の変数またはオブジェクト。
- * @return String       リストアップされた変数、プロパティ、メソッドのリスト。
+ * @param  Any    $val  出力対象の変数またはオブジェクト。
+ * @return String リストアップされた変数、プロパティ、メソッドのリスト。
  */
 function obj_var_dump($name, $val) {
 	// if (!isset($val)) {return ('');}
@@ -84,9 +81,9 @@ function obj_var_dump($name, $val) {
 	}
 	echo '<pre>' . $ret . '</pre>';
 }
-/***************************************************************
+/****************************************************
  * ローカルと本番環境でどのディレクトリでも正常に動くように調整
- ***************************************************************/
+ ***************************************************/
 // index.php削除
 $SCRIPT_NAME = preg_replace('/\/index.php/', '', $_SERVER['SCRIPT_NAME']);
 // 先頭のスラッシュ削除
@@ -98,9 +95,9 @@ if ($SCRIPT_NAME) {
 	$SCRIPT_NAME = $SCRIPT_NAME . '/';
 }
 
-/********************************
+/****************************
  * ローカルと本番環境のpathを吸収
- *******************************/
+ ***************************/
 // ローカル環境
 if (preg_match('/localhost/', $_SERVER["HTTP_HOST"])) {
 	// デフォルト変数生成
@@ -112,7 +109,7 @@ if (preg_match('/localhost/', $_SERVER["HTTP_HOST"])) {
 	define('PATH', $PATH);
 	define('INTERNAL_PATH', dirname(__FILE__) . '/');
 	define('TITLE', 'basic サイト構築するならベーシック。世界一簡単なCMS');
-	define('META_DESCRIPTION', '概要');
+	define('META_DESCRIPTION', 'Basic(ベーシック)は、ブログ、コーポレイトサイト、ECサイトと幅広く作ることができる世界で最もSEOに効くCMSです。');
 }
 // 本番環境
 else {
@@ -135,7 +132,7 @@ else {
 	define('META_DESCRIPTION', 'Basic(ベーシック)は、ブログ、コーポレイトサイト、ECサイトと幅広く作ることができる世界で最もSEOに効くCMSです。');
 }
 
-/********************
+/**************
 セッションスタート
- ********************/
+ *************/
 session_start();
