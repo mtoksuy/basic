@@ -110,61 +110,68 @@ class model_login_admin_themeswitching_html {
 
 		return $theme_list_html;
 	}
-	//----------------------
+	//-----------------
 	// テーマ詳細html生成
-	//----------------------
+	//-----------------
 	public static function theme_detail_view_html_create($get) {
+//		pre_var_dump($get);
 		// サイト情報取得
 		$site_data_array = basic::site_data_get();
+//		pre_var_dump($site_data_array);
+
 		// readmeがある場合
 		if (file_exists(PATH . 'app/theme/' . $get['theme_name'] . '/assets/theme_info/readme.txt')) {
-			//			pre_var_dump($get);
 			$readme_txt_content = file_get_contents(PATH . 'app/theme/' . $get['theme_name'] . '/assets/theme_info/readme.txt');
+//			pre_var_dump($readme_txt_content);
+			/***************************************
+			\s*
+			任意の空白文字（スペース、タブ、改行など）にマッチ
+
+			(\S+)
+			空白以外の任意の文字にマッチ
+			***************************************/
 			// Theme Name取得
-			preg_match('/Theme Name:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Theme Name:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$theme_name = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Theme URL取得
-			preg_match('/Theme URL:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Theme URL:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$theme_url = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Author取得
-			preg_match('/Author:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
-			$author = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
-			// Author取得
-			preg_match('/Author:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Author:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$author = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Requires at least取得
-			preg_match('/Requires at least:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Requires at least:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$requires_at_least = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Version取得
-			preg_match('/Version:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Version:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$version = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Stable Version取得
-			preg_match('/Stable Version:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Stable Version:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$stable_version = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Description取得
-			preg_match('/Description:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Description:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$description = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// License取得
-			preg_match('/License:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/License:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$license = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// License URI取得
-			preg_match('/License URI:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/License URI:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$license_uri = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 			// Tags URI取得
-			preg_match('/Tags:(.*?)\n/', $readme_txt_content, $readme_txt_content_array);
+			preg_match('/Tags:\s*(\S+)/', $readme_txt_content, $readme_txt_content_array);
 			$tags = preg_replace('/^ |\n|\r|\r\n/', '', $readme_txt_content_array[1]);
 
 			$theme_detail_data_array = array(
-				'theme_name'       => $theme_name,
-				'theme_url'            => $theme_url,
-				'author'                  => $author,
+				'theme_name'        => $theme_name,
+				'theme_url'         => $theme_url,
+				'author'            => $author,
 				'requires_at_least' => $requires_at_least,
-				'version'                 => $version,
-				'stable_version'     => $stable_version,
-				'description'          => $description,
-				'license'                 => $license,
-				'license_uri'           => $license_uri,
-				'tags'                      => $tags,
+				'version'           => $version,
+				'stable_version'    => $stable_version,
+				'description'       => $description,
+				'license'           => $license,
+				'license_uri'       => $license_uri,
+				'tags'              => $tags,
 			);
 			// screenshot_http取得
 			if (file_exists(PATH . 'app/theme/' . $get['theme_name'] . '/assets/theme_info/screenshot.jpg') || file_exists(PATH . 'app/theme/' . $get['theme_name'] . '/assets/theme_info/screenshot.png')) {
