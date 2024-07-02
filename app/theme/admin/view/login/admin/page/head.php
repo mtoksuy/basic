@@ -1,5 +1,5 @@
 <head>
-	<title><?php echo 'ページ作成｜アドミン｜ログイン｜ポスト' . '｜' . TITLE; ?></title>
+	<title><?php echo 'ページ作成｜アドミン｜ログイン｜ポスト' . '｜' . $site_data_array['title']; ?></title>
 	<!-- meta -->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
