@@ -11,8 +11,7 @@ app/theme/first_time/controller/sitemap/sitemap.xml
 *.xml
 category/*
 writer/*
-
-
+vendor
 
 app/theme/first_time/controller/article/*
 !app/theme/first_time/controller/article/index.php
