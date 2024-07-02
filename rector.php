@@ -20,8 +20,6 @@ use Rector\Php73\Rector\FuncCall\SetCookieRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector;
 use Rector\Php80\Rector\NotIdentical\StrContainsRector;
 
-
-
 return static function (RectorConfig $rectorConfig): void {
 
   $rectorConfig->paths([
@@ -36,9 +34,9 @@ return static function (RectorConfig $rectorConfig): void {
   ]);
 
   $rectorConfig->skip([
-    RemoveExtraParametersRector::class,          // (3) を () にするバグ
+    RemoveExtraParametersRector::class,          // (数字) を () にするバグ
     TernaryToNullCoalescingRector::class,        // ? を ?? にする
-    //        FuncCallToStaticCallRector::class,           // str_random(48) を /Illuminate/Support/Str::random(48) にする
+    //        FuncCallToStaticCallRector::class,           // str_random(数字) を /Illuminate/Support/Str::random(数字) にする
     PowToExpRector::class,                       // pow を ** にする
     RenameMethodRector::class,                   // メソッドリネームにバグがあるのでスキップ
     TernaryToElvisRector::class,                 // 三項演算子を省略形にする
@@ -47,7 +45,7 @@ return static function (RectorConfig $rectorConfig): void {
     StringClassNameToClassConstantRector::class, // ストリング型を::classに変換する
     NullToStrictStringFuncCallArgRector::class,  // ストリングに決めつける
     LongArrayToShortArrayRector::class,          // arryを[]に変換
-    ListToArrayDestructRector::class,            //  listを[]に変換
+    ListToArrayDestructRector::class,            // listを[]に変換
     SetCookieRector::class,                      // set関数に配列を追加する
     ReturnNeverTypeRector::class,                // 関数のリターンの宣言を追加する
     StrContainsRector::class,                    // 互換性のない関数に変換する
