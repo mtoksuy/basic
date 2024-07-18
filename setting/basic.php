@@ -1,16 +1,16 @@
 <?php
 class basic {
-	//------------------------
+	//------------------
 	// ヴァーダンプの進化版
-	//------------------------
+	//------------------
 	public static function pre_var_dump($data = '') {
 		echo '<pre class="debug">';
 		var_dump($data);
 		echo '</pre>';
 	}
-	//-----------------------------
+	//---------------------
 	// オブジェクトヴァーダンプ
-	//-----------------------------
+	//---------------------
 	function obj_var_dump($name, $val) {
 		// if (!isset($val)) {return ('');}
 		if (is_array($val)) {
@@ -43,9 +43,9 @@ class basic {
 		}
 		echo '<pre>' . $ret . '</pre>';
 	}
-	//--------------------------------
+	//---------------------------
 	//ポストの中身をエンティティ化する
-	//--------------------------------
+	//---------------------------
 	public static function post_security() {
 		$post = array();
 		foreach ($_POST as $key => $value) {
@@ -53,9 +53,9 @@ class basic {
 		}
 		return $post;
 	}
-	//--------------------------------
+	//---------------------------
 	//ゲットの中身をエンティティ化する
-	//--------------------------------
+	//---------------------------
 	public static function get_security() {
 		$get = array();
 		foreach ($_GET as $key => $value) {
@@ -76,9 +76,9 @@ class basic {
 		}
 		return $variable;
 	}
-	//-------------------
+	//--------------
 	// ディレクトリ作成
-	//-------------------
+	//--------------
 	public static function dir_create($directory_path) {
 		if (file_exists($directory_path)) {
 		} else {
@@ -87,9 +87,9 @@ class basic {
 			}
 		}
 	}
-	//----------------------------------
+	//----------------------------
 	//ディレクトリー内のファイルを全削除
-	//----------------------------------
+	//----------------------------
 	public static function dir_file_all_del($dir) {
 		// ディテクトリ内のオブジェクト取得
 		if ($cache_opendir_object = opendir($dir)) {
@@ -105,9 +105,9 @@ class basic {
 			closedir($cache_opendir_object);
 		}
 	}
-	//-------------------
+	//--------------
 	// ディレクトリ削除
-	//-------------------
+	//--------------
 	public static function rmdirAll($dir) {
 		//	pre_var_dump($dir);
 		// 指定されたディレクトリ内の一覧を取得
@@ -126,9 +126,9 @@ class basic {
 		// 中身を削除した後、本体削除
 		rmdir($dir);
 	}
-	//----------------------
+	//----------------
 	//ディレクトリ削除v.2
-	//----------------------
+	//----------------
 	/**
 	 * 再帰的にディレクトリを削除する。
 	 * @param string $dir ディレクトリ名（フルパス）
@@ -160,38 +160,38 @@ class basic {
 			return;
 		}
 	}
-	//---------------------
+	//-----------------
 	// configファイル生成
-	//----------------------
+	//-----------------
 	public static function config_file_create($post) {
 		$config_content = "<?php 
 // ローカル開発
-if(preg_match('/localhost/',\$_SERVER['HTTP_HOST'])) {
-		\$database_name = '" . $post['database_name'] . "';
-		\$host_name         = '" . $post['database_host'] . "';
-		\$user_name         = '" . $post['database_user'] . "';
-		\$password           = '" . $post['database_password'] . "';
+if (preg_match('/localhost/', \$_SERVER['HTTP_HOST'])) {
+	\$database_name = '" . $post['database_name'] . "';
+	\$host_name     = '" . $post['database_host'] . "';
+	\$user_name     = '" . $post['database_user'] . "';
+	\$password      = '" . $post['database_password'] . "';
 }
-	// 本番
-	else {
-		\$database_name = '" . $post['database_name'] . "';
-		\$host_name         = '" . $post['database_host'] . "';
-		\$user_name         = '" . $post['database_user'] . "';
-		\$password           = '" . $post['database_password'] . "';
-	}
+// 本番
+else {
+	\$database_name = '" . $post['database_name'] . "';
+	\$host_name     = '" . $post['database_host'] . "';
+	\$user_name     = '" . $post['database_user'] . "';
+	\$password      = '" . $post['database_password'] . "';
+}
 \$db_config_array = array(
 	'default' => array(
-		'type'             => 'mysql',                     //
-		'profiling'       => 'true',                       // 
-		'table_prefix' => '',                              // 
-		'charset'        => 'utf8',                       // 
-		'connection'   => array(                      // 
-			'database'  => \$database_name, // 
-			'hostname' => \$host_name,         // 
-			'username' => \$user_name,         // 
-			'password'  => \$password,           //
+		'type'         => 'mysql', 
+		'profiling'    => 'true', 
+		'table_prefix' => '', 
+		'charset'      => 'utf8', 
+		'connection'   => array(
+			'database'       => \$database_name, 
+			'hostname'       => \$host_name, 
+			'username'       => \$user_name, 
+			'password'       => \$password, 
 		),
-	'charset' => 'utf8mb4',    // charaset をutf8mb4に指定して追加
+		'charset' => 'utf8mb4', // charaset をutf8mb4に指定して追加
 	),
 );";
 		// ファイルに書き込む
