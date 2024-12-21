@@ -9,6 +9,11 @@
 	<meta property="og:image" content="<?php echo HTTP; ?>app/assets/img/article_ogp/<?php echo $method; ?>.png" />
 	<!-- canonical -->
 	<link rel="canonical" href="<?php echo HTTP . $controller_query; ?>/" />
+<?php 
+/* 初期記事のみnoindexにする  */
+if((int)$method === 1 || (int)$method === 2 || (int)$method === 3) { echo '	<!-- noindex -->
+	<meta name="robots" content="noindex">
+';} ?>
 	<!-- 記事JSON-LDリッチリザルト -->
 	<?php echo $article_json_ld_rich_lizarto; ?>
 	<!-- icon -->

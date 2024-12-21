@@ -294,6 +294,9 @@ if (file_exists(PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/'
 } else if (file_exists(PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/' . $controller_query . '/index.php')) {
 	// コントローラー読み込み
 	require_once(PATH . 'app/theme/' . $site_data_array['theme'] . '/controller/' . $controller_query . '/index.php');
+} else if (file_exists(PATH . $controller_query)) {
+	// 純粋な読み込み
+	require_once(PATH . $controller_query);
 }
 // エラー表示
 else {
