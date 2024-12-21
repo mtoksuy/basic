@@ -1,8 +1,7 @@
+<!-- footer -->
+<footer class="footer clear">
+	<!-- footer_inner -->
+	<div class="footer_inner clearfix">
 
-			<!-- footer -->
-			<footer class="footer clear">
-				<!-- footer_inner -->
-				<div class="footer_inner clearfix">
-
-				</div>
-			</footer>  <!-- footer -->
+	</div>
+</footer> <!-- footer -->

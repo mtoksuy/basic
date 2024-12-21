@@ -1,4 +1,4 @@
-<?php 
+<?php
 class model_login_basis {
 	//--------
 	//ログイン
@@ -7,12 +7,12 @@ class model_login_basis {
 		$query = model_db::query("
 			SELECT *
 			FROM user
-			WHERE basic_id  = '".$post["user_login"]."'
+			WHERE basic_id  = '" . $post["user_login"] . "'
 			AND del = 0
-			OR email           = '".$post["user_login"]."'
+			OR email           = '" . $post["user_login"] . "'
 			AND del = 0");
-		foreach($query as $key => $value) {
-			if(password_verify($post['user_password'], $value['password'])) {
+		foreach ($query as $key => $value) {
+			if (password_verify($post['user_password'], $value['password'])) {
 				// セッション生成
 				$_SESSION["primary_id"]    = $value["primary_id"];
 				$_SESSION["basic_id"]        = $value["basic_id"];
@@ -34,13 +34,12 @@ class model_login_basis {
 				// send_support_infoに対してポストする
 				model_login_basis::send_support_info_post();
 				// 移動
-				header('Location: '.HTTP.'login/admin/');
+				header('Location: ' . HTTP . 'login/admin/');
 				exit;
+			} else {
+				// ログイン出来ない場合
+				$lohin_message = 'ユーザー名かパスワードが間違っています。';
 			}
-				else {
-					// ログイン出来ない場合
-					$lohin_message = 'ユーザー名かパスワードが間違っています。';
-				}
 		}
 		// ログイン出来ない場合
 		$lohin_message = 'ユーザー名かパスワードが間違っています。';
@@ -53,9 +52,9 @@ class model_login_basis {
 		$query = model_db::query("
 			SELECT *
 			FROM user
-			WHERE basic_id  = '".$_COOKIE["basic_id"]."'");
-		foreach($query as $key => $value) {
-			if($_COOKIE['basic_login_key'] ===  $value['password']) {
+			WHERE basic_id  = '" . $_COOKIE["basic_id"] . "'");
+		foreach ($query as $key => $value) {
+			if ($_COOKIE['basic_login_key'] ===  $value['password']) {
 				// セッション生成
 				$_SESSION["primary_id"]    = $value["primary_id"];
 				$_SESSION["basic_id"]        = $value["basic_id"];
@@ -74,8 +73,8 @@ class model_login_basis {
 				model_login_basis::login_history_record($_SESSION["basic_id"]);
 				$retrun_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 				// 移動
-				header('Location: '.$retrun_url);
-				exit;	
+				header('Location: ' . $retrun_url);
+				exit;
 			}
 		}
 	}
@@ -89,18 +88,18 @@ class model_login_basis {
 
 		$login_check = '';
 		// セッションがある場合
-		if($_SESSION["basic_id"]) {
+		if ($_SESSION["basic_id"]) {
 			$login_check = true;
 		}
-			// セッションがない場合
-			else {
-				$login_check = false;
-				// クッキーがある場合
-				if($_COOKIE['basic_id']) {
-					// クッキーでログイン
-					$login_check  = Model_Login_Basis::cookie_login();
-				}
+		// セッションがない場合
+		else {
+			$login_check = false;
+			// クッキーがある場合
+			if ($_COOKIE['basic_id']) {
+				// クッキーでログイン
+				$login_check  = Model_Login_Basis::cookie_login();
 			}
+		}
 		return $login_check;
 	}
 	//----------
@@ -111,35 +110,49 @@ class model_login_basis {
 		$_SESSION = array();
 		session_destroy();
 		// クッキー削除
-		setcookie('basic_id', '', time()-10000, '/');
-		setcookie('basic_login_key', '',time()-10000, '/');
-		header('location: '.HTTP.'');
+		setcookie('basic_id', '', time() - 10000, '/');
+		setcookie('basic_login_key', '', time() - 10000, '/');
+		header('location: ' . HTTP . '');
 		exit;
 	}
 	//----------------------
 	//ログイン履歴を記録する
 	//----------------------
 	public static function login_history_record($basic_id) {
+		/*
 		model_db::query("
 			INSERT INTO login_history (
 				basic_id
 			)
 			VALUES (
-				'".$basic_id."'
+				'" . $basic_id . "'
 			)
 		");
+			*/
 	}
 	//-----------------------------------------
 	// send_support_infoに対してポストする
 	//-----------------------------------------
 	public static function send_support_info_post() {
 		// 定義されていない変数を空定義
-		if(empty($_SERVER['HTTP_HOST'])) { $_SERVER['HTTP_HOST'] = ''; }
-		if(empty($_SERVER['HTTP_USER_AGENT'])) { $_SERVER['HTTP_USER_AGENT'] = ''; }
-		if(empty($_SERVER['SERVER_SOFTWARE'])) { $_SERVER['SERVER_SOFTWARE'] = ''; }
-		if(empty($_SERVER['SERVER_PORT'])) { $_SERVER['SERVER_PORT'] = ''; }
-		if(empty($_SERVER['DOCUMENT_ROOT'])) { $_SERVER['DOCUMENT_ROOT'] = ''; }
-		if(empty($_SERVER['REQUEST_SCHEME'])) { $_SERVER['REQUEST_SCHEME'] = ''; }
+		if (empty($_SERVER['HTTP_HOST'])) {
+			$_SERVER['HTTP_HOST'] = '';
+		}
+		if (empty($_SERVER['HTTP_USER_AGENT'])) {
+			$_SERVER['HTTP_USER_AGENT'] = '';
+		}
+		if (empty($_SERVER['SERVER_SOFTWARE'])) {
+			$_SERVER['SERVER_SOFTWARE'] = '';
+		}
+		if (empty($_SERVER['SERVER_PORT'])) {
+			$_SERVER['SERVER_PORT'] = '';
+		}
+		if (empty($_SERVER['DOCUMENT_ROOT'])) {
+			$_SERVER['DOCUMENT_ROOT'] = '';
+		}
+		if (empty($_SERVER['REQUEST_SCHEME'])) {
+			$_SERVER['REQUEST_SCHEME'] = '';
+		}
 
 		$api_url = 'https://basic.dance/api/?send_support_info';
 
@@ -153,10 +166,6 @@ class model_login_basis {
 			'REQUEST_SCHEME'  => $_SERVER['REQUEST_SCHEME'],
 		);
 		// send_support_info API POSTで送信する
-		 basic::api_post($api_url, $data);
+		basic::api_post($api_url, $data);
 	}
-
-
-
-
 }

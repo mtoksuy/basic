@@ -1,0 +1,33 @@
+
+version: '3.8'
+services:
+  app:
+    container_name: app
+    build: ./docker
+    ports:
+      - "8000:80"  # 外部ポート8000をコンテナの80にマッピング
+    volumes:
+      - .:/var/www/html/
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_DATABASE: basic
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+volumes:
+  dbdata:

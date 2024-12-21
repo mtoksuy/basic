@@ -13,19 +13,19 @@ $image_http = '';
 // ポストの中身をエンティティ化する
 $post = basic::post_security();
 // ログインしている場合
-if($_SESSION) {
+if ($_SESSION) {
 	// ファイルが送られてきた場合
-	if($_FILES) {
+	if ($_FILES) {
 		$files = $_FILES;
 		// file_array生成
 		$flle_array = model_login_admin_fileupload_basis::single_flle_array_create($files);
 		// 画像アップロード&DB登録
 		$flle_array = model_login_admin_fileupload_basis::file_upload($flle_array);
 		// マスターディレクトリパス
-		$file_upload_directry_http = HTTP.'app/assets/fileupload';
+		$file_upload_directry_http = HTTP . 'app/assets/fileupload';
 		$now_year    = date('Y');
 		$now_month = date('m');
-		$image_http = $file_upload_directry_http.'/'.$now_year.'/'.$now_month.'/'.$flle_array[0]['full_name'];
+		$image_http = $file_upload_directry_http . '/' . $now_year . '/' . $now_month . '/' . $flle_array[0]['full_name'];
 	}
 }
 // データセット
@@ -36,5 +36,3 @@ $json_data = array(
 	'image_http' => $image_http,
 );
 echo json_encode($json_data);
-
-?>

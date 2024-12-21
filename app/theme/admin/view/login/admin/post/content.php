@@ -1,27 +1,25 @@
-
 <div class="markdown_editor">
 	<div class="markdown_editor_inner">
-		<form method="post" action="" class="post_form" style="<?php /*$is_mac = basic::is_mac();if(!$is_mac) {echo 'width: 75%;';} なぜmac時に75に指定したか後で考える*/?>">
+		<form method="post" action="" class="post_form" style="<?php /*$is_mac = basic::is_mac();if(!$is_mac) {echo 'width: 75%;';} なぜmac時に75に指定したか後で考える*/ ?>">
 			<input type="text" placeholder="タイトルを記入" value="<?php echo $preview_array['title']; ?>" name="title" id="title">
 			<textarea placeholder="投稿内容を記入" name="content" id="content"><?php echo $preview_array['content']; ?></textarea>
 			<!--  記事・basic_id情報 -->
-			<input  type="hidden" value="<?php echo $preview_array['draft_id']; ?>" name="draft_id" id="draft_id">
-			<input  type="hidden" value="<?php echo $preview_array['article_id']; ?>" name="article_id" id="article_id">
-			<input  type="hidden" value="<?php echo $preview_array['basic_id']; ?>" name="basic_id" id="basic_id">
+			<input type="hidden" value="<?php echo $preview_array['draft_id']; ?>" name="draft_id" id="draft_id">
+			<input type="hidden" value="<?php echo $preview_array['article_id']; ?>" name="article_id" id="article_id">
+			<input type="hidden" value="<?php echo $preview_array['basic_id']; ?>" name="basic_id" id="basic_id">
 			<!-- 保存機能 -->
 			<div class="save_button_list">
-			<?php 
-					if($_GET['article_id']) {
-							$save_html = '	<a class="check" href="'.HTTP.'article/'.$_GET['article_id'].'/" target="_blank">確認</a>
+				<?php
+				if ($_GET['article_id']) {
+					$save_html = '	<a class="check" href="' . HTTP . 'article/' . $_GET['article_id'] . '/" target="_blank">確認</a>
 							<input class="edit" type="submit" value="編集" name="draft">';
-					}
-				else {
+				} else {
 					$save_html = '<input class="preview" type="submit" value="プレビュー" name="preview">
 					<input class="draft" type="submit" value="下書きとして保存" name="draft">
 					<input class="submit" type="submit" value="投稿" name="submit">';
 				}
 				echo $save_html;
-			?>
+				?>
 			</div>
 		</form>
 		<!-- 文字数チェック機能 -->

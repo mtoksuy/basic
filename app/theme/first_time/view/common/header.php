@@ -1,9 +1,8 @@
-
-	<!-- header -->
-	<header class="header clearfix">
-		<div class="header_inner clearfix">
-			<!-- logo -->
-			<div class="logo">
+<!-- header -->
+<header class="header clearfix">
+	<div class="header_inner clearfix">
+		<!-- logo -->
+		<div class="logo">
 			<!--
 				logo画像タグ テンプレート
 				<h1>
@@ -12,10 +11,10 @@
 					</a>
 				</h1>
 			-->
-				<a href="<?php echo HTTP; ?>">
-					<h1><?php echo $site_data_array['title']; ?></h1>
-				</a>
-			</div> <!-- logo -->
-			<?php require_once(PATH.'app/theme/'.$site_data_array['theme'].'/view/common/drawer.php'); /* drawer読み込み*/ ?>
-		</div>
-	</header>
+			<a href="<?php echo HTTP; ?>">
+				<h1><?php echo $site_data_array['title']; ?></h1>
+			</a>
+		</div> <!-- logo -->
+		<?php require_once(PATH . 'app/theme/' . $site_data_array['theme'] . '/view/common/drawer.php'); /* drawer読み込み*/ ?>
+	</div>
+</header>

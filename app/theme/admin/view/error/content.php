@@ -1,4 +1,3 @@
-
 <div class="error">
 	<div class="error_inner">
 		<h1 class="error_title">404</h1>
